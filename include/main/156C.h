@@ -271,4 +271,21 @@ typedef struct {
     /* 0x02 */ s16 field_2;
 } Pt8228C;
 
+/* Integer stack: [0] is the count, entries follow. func_8001A8F4 pushes,
+   func_8001A920 pops. */
+typedef struct {
+    /* 0x00 */ s32 count;
+    /* 0x04 */ s32 data[1];
+} Stack54CD0;
+
+/* Argument to func_80025FBC (byte/half fields deep in a large record). */
+typedef struct {
+    u8 _pad0[0xE3];
+    /* 0xE3 */ u8 field_E3;
+    u8 _pad1[0x5];
+    /* 0xE9 */ u8 field_E9;
+    u8 _pad2[0x2];
+    /* 0xEC */ u16 field_EC;
+} Obj25FBC;
+
 #endif /* MAIN_156C_H */
