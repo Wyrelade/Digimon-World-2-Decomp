@@ -74,9 +74,18 @@ typedef struct {
     /* 0x0C */ s32 field_C;
 } Blk50938;
 
-/* Element of the D_8005CD60 array (stride 0x20), indexed by func_8001CA28. */
+/* Element of the D_8005CD60 array (stride 0x20), indexed by func_8001CA28 and
+   initialized by func_8001CA3C. */
 typedef struct {
-    u8 data[0x20];
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s16 field_10;
+    u8 _pad12[2];
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ s32 field_1C;
 } Elem20;
 
 /* A 0x1C-byte (7 word) block copied wholesale into ActorWork by func_80024310. */

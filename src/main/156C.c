@@ -600,7 +600,19 @@ Elem20 *func_8001CA28(s32 arg0) {
     return &D_8005CD60[arg0];
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CA3C);
+void func_8001CA3C(void) {
+    s32 i;
+    for (i = 0; i < 0x40; i++) {
+        D_8005CD60[i].field_18 = 0x3E0 - (i / 2) * 32;
+        D_8005CD60[i].field_14 = i;
+        D_8005CD60[i].field_1C = (i & 1) << 8;
+        D_8005CD60[i].field_0 = 0;
+        D_8005CD60[i].field_4 = 0;
+        D_8005CD60[i].field_8 = 0;
+        D_8005CD60[i].field_C = 0;
+        D_8005CD60[i].field_10 = 0;
+    }
+}
 
 s32 func_8001CAA0(void) {
     return func_800239A0()->field_4 & 7;
