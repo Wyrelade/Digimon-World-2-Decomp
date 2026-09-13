@@ -1,5 +1,7 @@
 #include "common.h"
 
+extern s32 D_8005F774;
+
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
 void func_80010D74(void) {
@@ -682,7 +684,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023944);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023964);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023970);
+void func_80023970(void) {
+    D_8005F774 = 2;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023980);
 
