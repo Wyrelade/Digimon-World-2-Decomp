@@ -150,9 +150,30 @@ typedef struct {
     /* 0x20 */ u32 field_20;
 } EntED40;
 
+/* Record returned by the func_8001DFF4 lookup; two 32-bit words read at both
+ * word and byte widths. */
+typedef struct {
+    union {
+        /* 0x00 */ u32 field_0;
+        struct {
+            u8 _b0[2];
+            /* 0x02 */ u8 field_2;
+            /* 0x03 */ u8 field_3;
+        } b0;
+    } u0;
+    union {
+        /* 0x04 */ u32 field_4;
+        struct {
+            u8 _b4[3];
+            /* 0x07 */ u8 field_7;
+        } b4;
+    } u4;
+} EntDFF4;
+
 EntD8C4 *func_8001D8C4();
 EntE4CC *func_8001E4CC();
 EntE6A8 *func_8001E6A8();
 EntED40 *func_8001ED40();
+EntDFF4 *func_8001DFF4();
 
 #endif /* MAIN_156C_H */
