@@ -847,7 +847,9 @@ u16 func_80023F90(s32 arg0) {
     return D_80047100[arg0];
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023FAC);
+s32 func_80023FAC(s32 arg0) {
+    return D_80043794[arg0];
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023FC8);
 
