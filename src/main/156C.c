@@ -806,7 +806,20 @@ u8 func_8001E1AC(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E1D0);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E22C);
+s32 func_8001E22C(s32 a0) {
+    s16 *p = (s16 *)func_800239A0(0x45E0000);
+    s32 i;
+    s32 r;
+    for (i = 0; i < a0; i++) {
+        if (*p == 0) break;
+        p = (s16 *)((u8 *)p + 0x10);
+    }
+    r = 0;
+    if (i == a0) {
+        r = *p;
+    }
+    return r;
+}
 
 void func_8001E28C(s32 arg0) {
     D_8005D560.field_0 = arg0;
