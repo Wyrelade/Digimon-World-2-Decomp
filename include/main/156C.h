@@ -22,7 +22,11 @@ typedef struct {
 /* arg0 of the 0x2C accessor family: a container holding a pointer to its
  * ActorWork at offset 0x2C. */
 typedef struct {
-    u8 _pad00[0x24];
+    u8 _pad00[0x08];
+    /* 0x08 */ s32 field_8;
+    u8 _pad0C[0x10];
+    /* 0x1C */ s32 field_1C;
+    /* 0x20 */ s32 field_20;
     /* 0x24 */ u8 field_24;
     u8 _pad25[0x07];
     /* 0x2C */ ActorWork *work;

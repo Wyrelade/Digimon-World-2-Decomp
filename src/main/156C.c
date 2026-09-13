@@ -66,9 +66,14 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800115F4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011614);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011628);
+void func_80011628(Actor *arg0, u32 arg1) {
+    arg0->field_1C = arg1 & 0xFF;
+    arg0->field_20 = 0;
+}
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011638);
+void func_80011638(Actor *arg0, u32 arg1) {
+    arg0->field_20 = arg1 & 0xFF;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011644);
 
@@ -275,7 +280,9 @@ void func_80019E40(Actor *arg0, s32 *arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019E50);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019EE0);
+void func_80019EE0(Actor *arg0, s32 arg1) {
+    arg0->field_8 = arg1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019EE8);
 
