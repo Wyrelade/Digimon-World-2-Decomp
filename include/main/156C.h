@@ -246,4 +246,14 @@ typedef struct {
 EntA0 *func_800239A0();
 s32 func_80023A08();
 
+/* Record returned by the func_80023A78 lookup. */
+typedef struct {
+    /* 0x00 */ s16 field_0;
+    /* 0x02 */ s16 field_2;
+    u8 _pad04[0x04];
+    /* 0x08 */ s32 field_8;
+} Ent23A78;
+
+Ent23A78 *func_80023A78();
+
 #endif /* MAIN_156C_H */

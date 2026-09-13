@@ -1067,9 +1067,23 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023DB0);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023E20);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023E78);
+void func_80023E78(void) {
+    Ent23A78 *p = func_80023A78();
+    if (p != 0) {
+        if (p->field_0 == 3) {
+            p->field_2 = 1;
+        }
+    }
+}
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023EB8);
+void func_80023EB8(void) {
+    Ent23A78 *p = func_80023A78();
+    if (p != 0) {
+        if (p->field_0 == 3) {
+            p->field_2 = 0;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023EF8);
 
