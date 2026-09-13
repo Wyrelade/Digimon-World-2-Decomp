@@ -1043,7 +1043,16 @@ void func_80023990(void) {
     D_8005F774 = 4;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800239A0);
+EntA0 *func_800239A0(u32 arg0) {
+    u32 index;
+    u8 *base;
+    if (arg0 == 0) {
+        return 0;
+    }
+    index = arg0 & 0xFFFF;
+    base = (u8 *)func_80023DB0(arg0 >> 16);
+    return (EntA0 *)(((u32 *)base)[index] + (u32)base);
+}
 
 s32 func_800239E4(s32 arg0, s32 *arg1) {
     if (arg0 == 0) {
