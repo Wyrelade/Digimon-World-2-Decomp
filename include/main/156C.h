@@ -26,7 +26,7 @@ typedef struct {
 /* Global struct D_80041564; only field_0 and field_8 are known so far. */
 typedef struct {
     /* 0x00 */ s32 field_0;
-    u8 _pad04[0x04];
+    /* 0x04 */ s32 field_4;
     /* 0x08 */ s32 field_8;
 } Obj80041564;
 

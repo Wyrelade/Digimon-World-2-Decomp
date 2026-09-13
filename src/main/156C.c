@@ -12,6 +12,9 @@ extern Actor D_8005F770;
 extern ActorWork *D_80041670[];
 extern Elem20 D_8005CD60[];
 extern Obj80041564 D_80041564;
+extern u16 D_80041704[];
+extern s32 D_80043794[];
+extern u16 D_80047100[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -394,18 +397,29 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C1E0);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C4C8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C4F0);
+void func_8001C4F0(s32 arg0) {
+    D_80041564.field_8 = 0;
+    D_80041564.field_0 = 3;
+    D_80041564.field_4 = arg0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C50C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C538);
+void func_8001C538(s32 arg0) {
+    D_80041564.field_8 = 1;
+    D_80041564.field_0 = 3;
+    D_80041564.field_4 = arg0;
+}
 
 void func_8001C558(void) {
     D_80041564.field_8 = 0;
     D_80041564.field_0 = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C56C);
+void func_8001C56C(void) {
+    D_80041564.field_8 = 0;
+    D_80041564.field_0 = 1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C584);
 
@@ -771,7 +785,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800238F4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023910);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023944);
+u16 func_80023944(u32 arg0) {
+    return D_80041704[arg0 & 0xFFF];
+}
 
 void func_80023964(void) {
     D_8005F774 = 0;
@@ -823,9 +839,13 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023EB8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023EF8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023F74);
+s32 func_80023F74(s32 arg0) {
+    return D_80043794[arg0] != 0;
+}
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023F90);
+u16 func_80023F90(s32 arg0) {
+    return D_80047100[arg0];
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023FAC);
 
