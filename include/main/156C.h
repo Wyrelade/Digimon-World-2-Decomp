@@ -285,6 +285,13 @@ typedef struct {
 
 Ent23A78 *func_80023A78();
 
+/* 3-entry table at D_80054C48, stride 0x2C, searched by func_8001A300. */
+typedef struct {
+    u8 _pad0[4];
+    /* 0x04 */ s32 field_4;
+    u8 _pad8[0x24];
+} Ent54C48; /* 0x2C */
+
 /* Args to func_8002828C: a record it stamps (field_3/field_4/field_8) and a
    two-halfword source read for the func_80028884 call. */
 typedef struct {

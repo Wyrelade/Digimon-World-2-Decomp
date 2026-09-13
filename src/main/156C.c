@@ -1,6 +1,8 @@
 #include "common.h"
 #include "main/156C.h"
 
+extern Ent23A78 D_8005F8C8[0x50];
+extern Ent54C48 D_80054C48[3];
 extern s32 D_8005F774;
 extern u8 D_80048F12;
 extern u8 D_8004E6E5;
@@ -535,7 +537,16 @@ void func_80019FB4(Actor *arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A01C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A300);
+s32 func_8001A300(void) {
+    s32 found = 0;
+    s32 i = 0;
+    Ent54C48 *p = D_80054C48;
+    for (; i < 3; i++, p++) {
+        if (p->field_4 != 0) found = 1;
+        if (found) break;
+    }
+    return found;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A340);
 
@@ -1396,9 +1407,25 @@ s32 func_80023A08(s32 arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023A38);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023A78);
+Ent23A78 *func_80023A78(arg0)
+s32 arg0;
+{
+    s32 i;
+    Ent23A78 *p = D_8005F8C8;
+    for (i = 0; i < 0x50; i++, p++) {
+        if (p->field_4 == arg0) return p;
+    }
+    return NULL;
+}
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023AB0);
+Ent23A78 *func_80023AB0(void) {
+    s32 i;
+    Ent23A78 *p = D_8005F8C8;
+    for (i = 0; i < 0x50; i++, p++) {
+        if (p->field_4 == 0) return p;
+    }
+    return NULL;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023AE8);
 
