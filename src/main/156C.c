@@ -1792,7 +1792,15 @@ u32 func_800281DC(void) {
     return (u32)D_80048F08->fn() >> 31;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002820C);
+extern s32 func_80028754(s16, s16);
+extern s32 func_800287EC(s16, s16);
+
+void func_8002820C(Obj8228C *a0, Pt8228C *a1) {
+    a0->field_3 = 2;
+    a0->field_4 = func_80028754(a1->field_0, a1->field_2);
+    a0->field_8 = func_800287EC((s16)(a1->field_0 + a1->field_4 - 1),
+                                (s16)(a1->field_2 + a1->field_6 - 1));
+}
 
 void func_8002828C(Obj8228C *arg0, Pt8228C *arg1) {
     arg0->field_3 = 2;

@@ -302,6 +302,8 @@ typedef struct {
 typedef struct {
     /* 0x00 */ s16 field_0;
     /* 0x02 */ s16 field_2;
+    /* 0x04 */ u16 field_4;
+    /* 0x06 */ u16 field_6;
 } Pt8228C;
 
 /* Integer stack: [0] is the count, entries follow. func_8001A8F4 pushes,
