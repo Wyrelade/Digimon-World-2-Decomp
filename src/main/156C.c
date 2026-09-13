@@ -845,7 +845,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800260C8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026170);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026568);
+void func_80026568(Actor *arg0, u8 arg1) {
+    arg0->field_37 = 0x43;
+    arg0->work = (ActorWork *)&arg0->field_24;
+    arg0->field_24 = arg1;
+    arg0->field_36 = 1;
+}
 
 void func_80026588(Actor *arg0) {
     arg0->field_37 = 0x45;
@@ -853,11 +858,26 @@ void func_80026588(Actor *arg0) {
     arg0->field_36 = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002659C);
+void func_8002659C(Actor *arg0, u8 arg1) {
+    arg0->field_37 = 0x4C;
+    arg0->work = (ActorWork *)&arg0->field_24;
+    arg0->field_24 = arg1;
+    arg0->field_36 = 1;
+}
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800265BC);
+void func_800265BC(Actor *arg0, u8 arg1) {
+    arg0->field_37 = 0x46;
+    arg0->work = (ActorWork *)&arg0->field_24;
+    arg0->field_24 = arg1;
+    arg0->field_36 = 1;
+}
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800265DC);
+void func_800265DC(Actor *arg0, u8 arg1) {
+    arg0->field_37 = 0x47;
+    arg0->work = (ActorWork *)&arg0->field_24;
+    arg0->field_24 = arg1;
+    arg0->field_36 = 1;
+}
 
 void func_800265FC(Actor *arg0) {
     arg0->field_37 = 0x4B;
