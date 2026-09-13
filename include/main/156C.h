@@ -8,7 +8,8 @@
  * Extend as more accessors are matched. */
 typedef struct {
     /* 0x00 */ s32 field_0;
-    u8 _pad04[0x2C];
+    /* 0x04 */ s32 field_4;
+    u8 _pad08[0x28];
     /* 0x30 */ s16 field_30;
     u8 _pad32[0x32];
     /* 0x64 */ s16 field_64;

@@ -75,7 +75,11 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011644);
 void func_800116A8(void) {
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800116B0);
+void func_800116B0(Actor *arg0, s32 *arg1) {
+    ActorWork *w = arg0->work;
+    w->field_0 = arg1[0];
+    w->field_4 = arg1[1];
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800116CC);
 
