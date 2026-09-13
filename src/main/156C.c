@@ -10,6 +10,7 @@ extern S5D560 D_8005D560;
 extern s32 D_8005F780;
 extern s32 D_80062F80;
 extern u8 D_8005F6A8[];
+extern Obj48F08 *D_80048F08;
 extern u8 D_80048F20[];
 extern u8 D_80048F7C[];
 extern Blk50938 D_80050938;
@@ -605,7 +606,9 @@ s32 func_8001E0E4(void) {
     return func_8001DFF4()->u0.b0.field_3 & 0xF;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E108);
+s32 func_8001E108(void) {
+    return func_8001DFF4() != 0 ? 0 : -1;
+}
 
 s32 func_8001E134(void) {
     return func_8001DFF4()->u0.field_0 >> 30;
@@ -1276,7 +1279,9 @@ s32 func_800281A8(s32 arg0) {
     return arg0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800281DC);
+u32 func_800281DC(void) {
+    return (u32)D_80048F08->fn() >> 31;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002820C);
 

@@ -30,6 +30,12 @@ typedef struct {
     /* 0x08 */ s32 field_8;
 } Obj80041564;
 
+/* Global object pointer D_80048F08 with a method pointer at 0x38. */
+typedef struct {
+    u8 _pad00[0x38];
+    /* 0x38 */ s32 (*fn)(void);
+} Obj48F08;
+
 /* Record returned by the func_80023AE8 lookup; cleared by func_80023BB0. */
 typedef struct {
     /* 0x00 */ u16 field_0;
