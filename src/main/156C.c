@@ -70,7 +70,9 @@ void func_80011598(Actor *arg0) {
     arg0->field_1C++;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800115AC);
+void func_800115AC(Actor *arg0) {
+    arg0->field_20++;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800115C0);
 
