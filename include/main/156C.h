@@ -164,6 +164,7 @@ typedef struct {
 typedef struct {
     /* 0x00 */ s16 field_0;
     /* 0x02 */ s16 field_2;
+    /* 0x04 */ u8 field_4;
 } EntE4CC;
 
 /* Entry returned by the func_8001E6A8 table lookup (0x28 stride). */
@@ -277,6 +278,20 @@ typedef struct {
     /* 0x00 */ s32 count;
     /* 0x04 */ s32 data[1];
 } Stack54CD0;
+
+/* Global struct D_80048DB8: field_0 is a small state (func_80024220), field_1C a
+   counter compared/bumped by func_80023FFC. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    u8 _pad4[0x18];
+    /* 0x1C */ s32 field_1C;
+} Obj48DB8;
+
+/* 0xC-stride record returned by the func_8001E5E8 getter (base is the
+   func_800239A0((D_8005D560.field_0<<16)|1) lookup, index is EntE4CC.field_4). */
+typedef struct {
+    u8 data[0xC];
+} Blk12;
 
 /* 0x18-stride record; the func_8001E298 getter family returns &base[index] where
    base is the func_800239A0((D_8005D560.field_0<<16)|2) lookup result. */

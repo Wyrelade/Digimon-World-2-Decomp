@@ -49,6 +49,10 @@ extern void func_8001FDBC(Actor *, s32);
 extern void func_80020920(Actor *);
 extern void func_800200D0(Actor *);
 extern void func_80020510(Actor *, s32);
+extern Obj48DB8 D_80048DB8;
+extern u8 D_8005FDC8[];
+extern s32 func_8002DD64(void *);
+extern s32 func_80030914(void *, s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -749,7 +753,11 @@ s32 func_8001E5C0(void) {
     return func_80023A08(D_8005D560.field_0);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E5E8);
+Blk12 *func_8001E5E8(void) {
+    EntE4CC *e = func_8001E4CC();
+    Blk12 *base = (Blk12 *)func_800239A0((D_8005D560.field_0 << 16) | 1);
+    return &base[e->field_4];
+}
 
 s16 func_8001E634(void) {
     return func_8001E4CC()->field_0;
@@ -1251,7 +1259,16 @@ void func_80023FC8(s32 arg0) {
     func_80030394(D_80043794[arg0]);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023FFC);
+s32 func_80023FFC(void) {
+    s32 x;
+    func_80030914(D_8005FDC8, 3);
+    x = func_8002DD64(D_8005FDC8);
+    if (x == D_80048DB8.field_1C) {
+        D_80048DB8.field_1C = x + 1;
+        return 0;
+    }
+    return -1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002405C);
 
@@ -1789,7 +1806,7 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030690);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800307C4);
 
-s32 func_80030914(void) {
+s32 func_80030914(void *arg0, s32 arg1) {
     return func_80030934() == 0;
 }
 
