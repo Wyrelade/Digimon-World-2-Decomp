@@ -38,7 +38,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010F24);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001107C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011140);
+void func_80011140(void) {
+    func_80011544();
+}
 
 void func_80011160(void) {
 }
@@ -46,7 +48,9 @@ void func_80011160(void) {
 void func_80011168(void) {
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011170);
+void func_80011170(void) {
+    func_8001125C();
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011190);
 
@@ -183,7 +187,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013378);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013384);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013450);
+void func_80013450(void) {
+    func_8001125C();
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013470);
 
