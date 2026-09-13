@@ -391,6 +391,14 @@ typedef struct {
     /* 0x04 */ s32 entries[100];
 } List50798;
 
+/* Accumulate-and-clamp record used by func_80020CE8: field_0 += field_4, then
+ * clamped against field_8. */
+typedef struct {
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ s32 field_4;
+    /* 0x8 */ s32 field_8;
+} Obj20CE8;
+
 /* Argument to func_80025FBC (byte/half fields deep in a large record). */
 typedef struct {
     u8 _pad0[0xE3];

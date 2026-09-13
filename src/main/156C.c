@@ -1072,7 +1072,23 @@ void func_80020C14(s32 arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020C40);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020CE8);
+void func_80020CE8(Obj20CE8 *a0, s32 a1) {
+    s32 v = a0->field_0 + a0->field_4;
+    a0->field_0 = v;
+    if (v > 0) {
+        if (v >= a0->field_8) {
+            a0->field_0 = a0->field_8;
+        }
+    } else if (a1 == 0) {
+        a0->field_8 = 0;
+        a0->field_4 = 0;
+        a0->field_0 = 0;
+    } else {
+        if (v >= a0->field_8) {
+            a0->field_0 = -a0->field_8;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020D54);
 
