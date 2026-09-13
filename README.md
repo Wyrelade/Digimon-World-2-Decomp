@@ -43,28 +43,20 @@ match alone is never enough.
 <!-- /PROGRESS:TABLE -->
 
 DW2 is a single main executable with no overlays, so the main exe is the whole target for
-now. As the text unit is split into per-file units, this table grows a row per unit. Live
-per-unit counts live in [`PROGRESS.md`](PROGRESS.md); the running roadmap in
-[`PLAN.md`](PLAN.md).
+now. As the text unit is split into per-file units, this table grows a row per unit.
 
-Functions the current toolchain cannot yet reproduce byte-for-byte (gp-relative accesses
-under `-G0`, `$at` high-scratch stores, BIOS syscall thunks, and a handful of GCC
-reassociation / delay-slot codegen choices) are parked in
-[`tools/difficult_functions`](tools/difficult_functions) with the reason, and every general
-codegen finding is logged in [`DECOMPILATION_LEARNINGS.md`](DECOMPILATION_LEARNINGS.md).
+Some functions cannot yet be reproduced byte-for-byte by the current toolchain (gp-relative
+accesses under `-G0`, `$at` high-scratch stores, BIOS syscall thunks, and a handful of GCC
+reassociation / delay-slot codegen choices); those keep their `INCLUDE_ASM` stub until the
+toolchain covers them.
 
 ## Layout
 
 | Path | What |
 |------|------|
 | `src/` / `include/` | decompiled C and headers |
-| `CLAUDE.md` | workflow and code standards for contributors |
-| `PLAN.md` / `PROGRESS.md` | roadmap and per-unit tracker |
-| `DW2_NOTES.md` | disc facts, boot exe, compiler notes, external references |
-| `DECOMPILATION_LEARNINGS.md` | project journal, GCC 2.x codegen findings (grows per match) |
-| `CODEGEN_MODEL.md` / `COMPILER_ANALYSIS.md` | compiler model and how it was pinned |
-| `tools/` | gcc-psx, maspsx, m2c, decomp-permuter, asm-differ, mkpsxiso, match scripts |
 | `configs/` | splat config + symbol maps |
+| `tools/` | gcc-psx, maspsx, m2c, decomp-permuter, asm-differ, mkpsxiso, build scripts |
 
 ## Quick start
 
@@ -87,13 +79,13 @@ auto-detected hardware and kernel symbols, then checks the SHA-1 against your di
 
 1. `python3 tools/score_functions.py --exhaustive asm/USA/main/nonmatchings` ranks the
    easiest unmatched functions.
-2. Replace a function's `INCLUDE_ASM` in `src/main/156C.c` with C. No pointer arithmetic
-   with manual offsets - define structs (`field_[offset]` names are fine) in the module
-   header (see `include/main/156C.h`).
+2. Replace a function's `INCLUDE_ASM` in `src/main/156C.c` with C. Prefer proper structs
+   over pointer arithmetic (`field_[offset]` names are fine) defined in the module header
+   (see `include/main/156C.h`).
 3. Verify with `python3 tools/build_dw2.py`. Only `SLUS_011.93: OK` counts as done.
-4. One matched function = one commit; bump the count in `PROGRESS.md` in the same commit.
+4. One matched function is one commit.
 
 ## Credits
 
-Workflow, toolchain, and codegen knowledge base derived from the Parasite Eve 2 decomp.
-DW2 file-format documentation by RmBeastbow (see `DW2_NOTES.md`).
+Workflow and toolchain derived from the Parasite Eve 2 decomp. DW2 file-format
+documentation by RmBeastbow.

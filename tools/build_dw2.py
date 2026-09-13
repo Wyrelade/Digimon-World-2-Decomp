@@ -44,10 +44,9 @@ AS_FLAGS = [
     "-no-pad-sections", "-O0", "-G0",
 ]
 
-# Flags for the C pipeline. Mirrors tools/claude-decomp-env/build.sh (the
-# matching env), minus the scratch-only -DNON_MATCHING / -DSKIP_ASM (we want the
-# INCLUDE_ASM stubs to actually pull their nonmatchings in) and the scoring-only
-# -fverbose-asm / -dp comment annotations.
+# Flags for the C pipeline, minus the scratch-only -DNON_MATCHING / -DSKIP_ASM
+# (we want the INCLUDE_ASM stubs to actually pull their nonmatchings in) and the
+# scoring-only -fverbose-asm / -dp comment annotations.
 CPP_FLAGS = [
     "-E", "-P", "-undef", "-nostdinc",
     "-D_LANGUAGE_C", "-DVER_USA",
