@@ -104,4 +104,29 @@ typedef struct {
     /* 0xA4 */ u8 field_A4;
 } Actor;
 
+/* Entry returned by the func_8001D8C4 table lookup (0x12 stride); accessed
+ * fields only. */
+typedef struct {
+    u8 _pad00[0x02];
+    /* 0x02 */ u8 field_2;
+    /* 0x03 */ u8 field_3;
+    /* 0x04 */ u8 field_4;
+} EntD8C4;
+
+/* Entry returned by the func_8001E4CC table lookup (0x2C stride). */
+typedef struct {
+    /* 0x00 */ s16 field_0;
+    /* 0x02 */ s16 field_2;
+} EntE4CC;
+
+/* Entry returned by the func_8001E6A8 table lookup (0x28 stride). */
+typedef struct {
+    u8 _pad00[0x06];
+    /* 0x06 */ s16 field_6;
+} EntE6A8;
+
+EntD8C4 *func_8001D8C4();
+EntE4CC *func_8001E4CC();
+EntE6A8 *func_8001E6A8();
+
 #endif /* MAIN_156C_H */
