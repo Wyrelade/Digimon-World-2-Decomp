@@ -23,6 +23,18 @@ typedef struct {
     /* 0xA4 */ s16 field_A4;
 } ActorWork;
 
+/* Global struct D_80041564; only field_0 and field_8 are known so far. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    u8 _pad04[0x04];
+    /* 0x08 */ s32 field_8;
+} Obj80041564;
+
+/* Element of the D_8005CD60 array (stride 0x20), indexed by func_8001CA28. */
+typedef struct {
+    u8 data[0x20];
+} Elem20;
+
 /* A 0x1C-byte (7 word) block copied wholesale into ActorWork by func_80024310. */
 typedef struct {
     s32 words[7];
@@ -47,6 +59,10 @@ typedef struct {
     /* 0x36 */ u8 field_36;
     /* 0x37 */ u8 field_37;
     /* 0x38 */ u8 field_38;
+    u8 _pad39[0x0F];
+    /* 0x48 */ u8 field_48;
+    u8 _pad49[0x5B];
+    /* 0xA4 */ u8 field_A4;
 } Actor;
 
 #endif /* MAIN_156C_H */
