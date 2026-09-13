@@ -667,7 +667,10 @@ s32 func_8001E8D0(void) {
     return func_8001E6A8()->u4.field_4 & 1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E8F4);
+u16 func_8001E8F4(s32 idx) {
+    EntA0 *p = func_800239A0(0x1F80000) + idx;
+    return (p->field_4 >> 1) & 0x7FFF;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E938);
 
@@ -1468,7 +1471,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002E2A4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002E2C4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002EBE0);
+void func_8002EBE0(s32 *dst, s32 *src, u32 count) {
+    u32 i;
+    for (i = 0; i < count; i++) {
+        *dst++ = *src++;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002EC0C);
 
