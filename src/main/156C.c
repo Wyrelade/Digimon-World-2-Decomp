@@ -10,6 +10,8 @@ extern s32 D_8005D560;
 extern s32 D_8005F780;
 extern s32 D_80062F80;
 extern u8 D_8005F6A8[];
+extern Blk50938 D_80050938;
+extern s32 D_80043794[];
 extern Actor D_8005F770;
 extern ActorWork *D_80041670[];
 extern Elem20 D_8005CD60[];
@@ -49,7 +51,7 @@ void func_80011160(void) {
 void func_80011168(void) {
 }
 
-void func_80011170(void) {
+void func_80011170(Actor *arg0) {
     func_8001125C();
 }
 
@@ -63,7 +65,13 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800113B8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011440);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011510);
+void func_80011510(s32 arg0, s32 arg1, s32 arg2) {
+    D_80050938.field_0 = arg0;
+    D_80050938.field_4 = arg1;
+    D_80050938.field_8 = arg2;
+    D_80050938.field_C = 0;
+    func_80011440();
+}
 
 void func_80011544(Actor *arg0) {
     arg0->field_20 = 0;
@@ -154,7 +162,10 @@ void func_80011B58(Actor *arg0, s32 arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011B64);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011BB0);
+void func_80011BB0(Actor *arg0) {
+    func_8001CE80(arg0->work->field_0);
+    func_80011170(arg0);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011BEC);
 
@@ -574,7 +585,10 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DDA8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DFF4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E048);
+s32 func_8001E048(s32 arg0) {
+    s32 base = func_80023A08(0x45E);
+    return func_8001DFF4(arg0)->field_8 + base;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E084);
 
@@ -699,7 +713,10 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001ED40);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001ED84);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001EDD4);
+s32 func_8001EDD4(s32 arg0) {
+    s32 base = func_80023A08(0x25B);
+    return func_8001ED40(arg0)->field_28 + base;
+}
 
 s32 func_8001EE10(void) {
     return func_8001ED40()->u0.h0.field_2 & 3;
@@ -1024,7 +1041,9 @@ s32 func_80023FAC(s32 arg0) {
     return D_80043794[arg0];
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023FC8);
+void func_80023FC8(s32 arg0) {
+    func_80030394(D_80043794[arg0]);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023FFC);
 

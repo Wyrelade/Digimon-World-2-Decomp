@@ -30,6 +30,14 @@ typedef struct {
     /* 0x08 */ s32 field_8;
 } Obj80041564;
 
+/* Global struct D_80050938 populated by func_80011510. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+} Blk50938;
+
 /* Element of the D_8005CD60 array (stride 0x20), indexed by func_8001CA28. */
 typedef struct {
     u8 data[0x20];
@@ -160,6 +168,8 @@ typedef struct {
     /* 0x18 */ u32 field_18;
     /* 0x1C */ u32 field_1C;
     /* 0x20 */ u32 field_20;
+    /* 0x24 */ u32 field_24;
+    /* 0x28 */ u32 field_28;
 } EntED40;
 
 /* Record returned by the func_8001DFF4 lookup; two 32-bit words read at both
@@ -180,6 +190,7 @@ typedef struct {
             /* 0x07 */ u8 field_7;
         } b4;
     } u4;
+    /* 0x08 */ s32 field_8;
 } EntDFF4;
 
 EntD8C4 *func_8001D8C4();
