@@ -1,6 +1,7 @@
 #include "common.h"
 
 extern s32 D_8005F774;
+extern u8 D_80048F12;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -868,7 +869,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027278);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800272D4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027378);
+u8 func_80027378(void) {
+    return D_80048F12;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027388);
 
