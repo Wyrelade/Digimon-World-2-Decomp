@@ -1,4 +1,5 @@
 #include "common.h"
+#include "main/156C.h"
 
 extern s32 D_8005F774;
 extern u8 D_80048F12;
@@ -156,7 +157,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013AB0);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013AFC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013BF8);
+void func_80013BF8(Actor *arg0, s16 arg1) {
+    arg0->work->field_30 = arg1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013C04);
 
