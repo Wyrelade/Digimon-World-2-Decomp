@@ -40,6 +40,27 @@ typedef struct {
     s32 words[7];
 } Block1C;
 
+/* A 12-byte element in the array at offset 0x6C of the buffer that Ctx38.buf
+ * points to; func_80020EE8 zeroes one. */
+typedef struct {
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ s32 field_4;
+    /* 0x8 */ s32 field_8;
+} Elem12;
+
+/* The buffer reached through Ctx38.buf (offset 0x38): an Elem12 array at 0x6C. */
+typedef struct {
+    u8 _pad00[0x6C];
+    /* 0x6C */ Elem12 elems[1];
+} Buf38;
+
+/* Container whose field at 0x38 points to a Buf38. Distinct from Actor (whose
+ * 0x38 is a byte), so kept as its own type. */
+typedef struct {
+    u8 _pad00[0x38];
+    /* 0x38 */ Buf38 *buf;
+} Ctx38;
+
 /* The struct reached through Actor at offset 0x3C. Only the fields written by
  * func_8001F24C are known so far. */
 typedef struct {

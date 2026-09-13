@@ -701,7 +701,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020E00);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020EB0);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020EE8);
+void func_80020EE8(Ctx38 *arg0, s32 arg1) {
+    Elem12 *e = &arg0->buf->elems[arg1];
+    e->field_8 = 0;
+    e->field_4 = 0;
+    e->field_0 = 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020F10);
 
