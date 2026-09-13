@@ -350,7 +350,14 @@ void func_800134F8(void *arg0, s32 arg1, u32 arg2, Halves arg3) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013558);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001361C);
+void func_8001361C(s32 *a0, Halves *a1, s32 *a2, u32 a3) {
+    while (*a2 != 0) {
+        func_800134F8(a0, *a2, a3, *a1);
+        a2++;
+        a1++;
+        a0++;
+    }
+}
 
 s32 func_800136A4(void) {
     s32 result = func_8001BE08();
