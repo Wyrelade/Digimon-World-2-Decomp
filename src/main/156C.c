@@ -935,7 +935,26 @@ s32 arg0;
     return &base[arg0];
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E514);
+extern s32 func_80022038();
+extern void func_80022388();
+
+s32 func_8001E514(s32 arg0) {
+    EntE4CC *base;
+    s32 r;
+    s32 i;
+    r = func_80023A08(D_8005D560.field_0);
+    base = func_8001E4CC(arg0);
+    for (i = 0; i < 6; i++) {
+        if (func_80022038(func_8001E2E0((ArgE298 *)base, i)) != 0) {
+            break;
+        }
+    }
+    if (i == 6) {
+        i = 0;
+    }
+    func_80022388(func_8001E338((ArgE298 *)base, i));
+    return base->field_14[i] + r;
+}
 
 s32 func_8001E5C0(void) {
     return func_80023A08(D_8005D560.field_0);
