@@ -1417,7 +1417,17 @@ s32 func_80023A08(s32 arg0) {
     return func_80023DB0(arg0);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023A38);
+void func_80023A38(void) {
+    s32 i;
+    Ent23A78 *p = D_8005F8C8;
+    for (i = 0; i < 0x50; i++, p++) {
+        p->field_4 = 0;
+        p->field_C = 0;
+        p->field_0 = 0;
+        p->field_2 = 0;
+        p->field_8 = 0;
+    }
+}
 
 Ent23A78 *func_80023A78(arg0)
 s32 arg0;
