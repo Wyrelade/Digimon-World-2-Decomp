@@ -10,6 +10,8 @@ extern s32 D_8005D560;
 extern s32 D_8005F780;
 extern s32 D_80062F80;
 extern u8 D_8005F6A8[];
+extern u8 D_80048F20[];
+extern u8 D_80048F7C[];
 extern Blk50938 D_80050938;
 extern s32 D_80043794[];
 extern Actor D_8005F770;
@@ -590,7 +592,10 @@ s32 func_8001E048(s32 arg0) {
     return func_8001DFF4(arg0)->field_8 + base;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E084);
+s32 func_8001E084(s32 arg0) {
+    s32 base = func_80023A08(0x45E);
+    return func_8001DFF4(arg0)->field_C + base;
+}
 
 u8 func_8001E0C0(void) {
     return func_8001DFF4()->u0.b0.field_2;
@@ -1011,7 +1016,15 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023AE8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023B70);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023BB0);
+void func_80023BB0(void) {
+    Ent23AE8 *p = func_80023AE8();
+    func_80022D84(p->field_C);
+    p->field_4 = 0;
+    p->field_C = 0;
+    p->field_8 = 0;
+    p->field_0 = 0;
+    p->field_2 = 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023BF4);
 
@@ -1246,11 +1259,17 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027AE4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027BA4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027C7C);
+s32 func_80027C7C(s32 arg0) {
+    func_80027044(arg0, D_80048F20, 0x5C);
+    return arg0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027CB0);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800281A8);
+s32 func_800281A8(s32 arg0) {
+    func_80027044(arg0, D_80048F7C, 0x14);
+    return arg0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800281DC);
 

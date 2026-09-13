@@ -30,6 +30,17 @@ typedef struct {
     /* 0x08 */ s32 field_8;
 } Obj80041564;
 
+/* Record returned by the func_80023AE8 lookup; cleared by func_80023BB0. */
+typedef struct {
+    /* 0x00 */ u16 field_0;
+    /* 0x02 */ u16 field_2;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+} Ent23AE8;
+
+Ent23AE8 *func_80023AE8();
+
 /* Global struct D_80050938 populated by func_80011510. */
 typedef struct {
     /* 0x00 */ s32 field_0;
@@ -191,6 +202,7 @@ typedef struct {
         } b4;
     } u4;
     /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
 } EntDFF4;
 
 EntD8C4 *func_8001D8C4();
