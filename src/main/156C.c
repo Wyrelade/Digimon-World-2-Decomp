@@ -647,7 +647,9 @@ s16 func_8001E704(void) {
     return func_8001E6A8()->u4.h4.field_6;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E728);
+s16 func_8001E728(s32 arg0, s32 arg1) {
+    return func_8001E6A8(arg0)->field8[arg1];
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E758);
 

@@ -132,7 +132,7 @@ typedef struct {
             /* 0x06 */ s16 field_6;
         } h4;
     } u4;
-    u8 _pad08[0x16];
+    /* 0x08 */ s16 field8[11];
     /* 0x1E */ s16 field_1E;
     /* 0x20 */ s16 field_20;
 } EntE6A8;
