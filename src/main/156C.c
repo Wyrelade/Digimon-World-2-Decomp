@@ -480,7 +480,11 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CD2C);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CDA8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CE80);
+void func_8001CE80(s32 *arg0) {
+    if (*arg0 == -2) {
+        *arg0 = 0;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CE9C);
 
