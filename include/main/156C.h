@@ -188,4 +188,13 @@ EntE6A8 *func_8001E6A8();
 EntED40 *func_8001ED40();
 EntDFF4 *func_8001DFF4();
 
+/* Base record returned by the func_800239A0 lookup. */
+typedef struct {
+    u8 _pad00[0x04];
+    /* 0x04 */ s32 field_4;
+} EntA0;
+
+EntA0 *func_800239A0();
+s32 func_80023A08();
+
 #endif /* MAIN_156C_H */

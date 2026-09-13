@@ -470,7 +470,9 @@ Elem20 *func_8001CA28(s32 arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CA3C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CAA0);
+s32 func_8001CAA0(void) {
+    return func_800239A0()->field_4 & 7;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CAC4);
 
@@ -594,7 +596,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E4CC);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E514);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E5C0);
+s32 func_8001E5C0(void) {
+    return func_80023A08(D_8005D560);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E5E8);
 
