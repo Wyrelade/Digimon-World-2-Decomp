@@ -1,9 +1,18 @@
 #!/usr/bin/env python3
 """Build and verify the DW2 USA executable (SLUS_011.93).
 
-Single-exe relink: assemble every asm/USA/**/*.s, link with the splat linker
-script plus the auto symbol file, objcopy to a raw image, and check the SHA-1
-against the retail target. Prints "build/USA/out/SLUS_011.93: OK" on success.
+Single-exe relink. Two kinds of translation unit:
+
+  * asm data/rodata/header (asm/USA/**/*.s outside nonmatchings/) -> assembled
+    straight with mips-linux-gnu-as.
+  * C source (src/**/*.c) -> preprocess (mingw gcc -E) -> PSY-Q cc1 -> maspsx ->
+    mips-linux-gnu-as. A c file's INCLUDE_ASM stubs pull the per-function
+    nonmatchings .s in through the assembler, so nonmatchings/ is never
+    assembled on its own.
+
+Then link with the splat linker script plus the auto symbol file, objcopy to a
+raw image, and check the SHA-1 against the retail target. Prints
+"build/USA/out/SLUS_011.93: OK" on success.
 
 DW2 has no overlay model, so this replaces the PE2 ninja pipeline for now.
 """
@@ -19,6 +28,7 @@ CONFIG = {
     "target": "dumps/disc/SLUS_011.93",
     "target_sha1": "e55ed5bf354def07f0cbf4e1fb7fb5f99204f220",
     "asm_dir": "asm/USA",
+    "src_dir": "src",
     "ld_script": "linkers/USA/main.ld",
     "sym_script": "linkers/USA/undefined_syms_auto.main.txt",
     "build_dir": "build/USA",
@@ -27,16 +37,38 @@ CONFIG = {
     "include": "include",
 }
 
+# Flags for hand-written asm TUs (data/rodata/header). These are already final
+# machine asm; -O0 keeps as from reordering.
 AS_FLAGS = [
     "-EL", "-march=r3000", "-mtune=r3000",
     "-no-pad-sections", "-O0", "-G0",
 ]
 
+# Flags for the C pipeline. Mirrors tools/claude-decomp-env/build.sh (the
+# matching env), minus the scratch-only -DNON_MATCHING / -DSKIP_ASM (we want the
+# INCLUDE_ASM stubs to actually pull their nonmatchings in) and the scoring-only
+# -fverbose-asm / -dp comment annotations.
+CPP_FLAGS = [
+    "-E", "-P", "-undef", "-nostdinc",
+    "-D_LANGUAGE_C", "-DVER_USA",
+    "-I", "include", "-I", "build/USA",
+]
+CC1_FLAGS = [
+    "-O2", "-mips1", "-mcpu=3000", "-w",
+    "-funsigned-char", "-fpeephole", "-ffunction-cse",
+    "-fpcc-struct-return", "-fcommon",
+    "-msoft-float", "-mgas", "-fgnu-linker",
+    "-gcoff", "-G0", "-quiet",
+]
+MASPSX_FLAGS = ["--aspsx-version=2.77", "--run-assembler", "--expand-div"]
+# as flags maspsx forwards to the assembler when it runs it.
+MASPSX_AS_FLAGS = [
+    "-EL", "-march=r3000", "-mtune=r3000",
+    "-no-pad-sections", "-G0", "-I", "include",
+]
+
 
 def binutils_dir():
-    # Explicit override wins (set DW2_BINUTILS to a dir holding
-    # mips-linux-gnu-as/ld/objcopy). Otherwise fall back to the per-platform
-    # vendored dir used by the local dev tree.
     env = os.environ.get("DW2_BINUTILS")
     if env:
         return env
@@ -56,8 +88,33 @@ def tool(name):
     return exe
 
 
-def run(cmd):
-    r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
+def cpp_bin():
+    env = os.environ.get("DW2_CPP")
+    if env:
+        return env
+    if platform.system() == "Windows":
+        return os.path.join(ROOT, "tools", "windows", "gcc-win", "bin", "gcc.exe")
+    return "cpp"
+
+
+def cc1_bin():
+    env = os.environ.get("DW2_CC1")
+    if env:
+        return env
+    if platform.system() == "Windows":
+        return os.path.join(ROOT, "tools", "windows", "gcc-psx", "CC1PSX.EXE")
+    return os.path.join(ROOT, "tools", "linux", "gcc-2.8.1-psx", "cc1")
+
+
+def maspsx_py():
+    return os.path.join(ROOT, "tools", "maspsx", "maspsx.py")
+
+
+def run(cmd, stdin_devnull=False):
+    kwargs = dict(cwd=ROOT, capture_output=True, text=True)
+    if stdin_devnull:
+        kwargs["stdin"] = subprocess.DEVNULL
+    r = subprocess.run(cmd, **kwargs)
     if r.returncode != 0:
         sys.stderr.write(" ".join(cmd) + "\n")
         sys.stderr.write(r.stdout)
@@ -73,6 +130,67 @@ def sha1(path):
     return h.hexdigest()
 
 
+def obj_for(src):
+    """build/USA/<relpath of src under ROOT>.o"""
+    rel = os.path.relpath(src, ROOT)
+    obj = os.path.join(ROOT, CONFIG["build_dir"], rel + ".o")
+    os.makedirs(os.path.dirname(obj), exist_ok=True)
+    return obj
+
+
+def assemble_asm(as_bin):
+    """Assemble every .s under asm/USA except the per-function nonmatchings/
+    (those are pulled in by the C files' INCLUDE_ASM stubs)."""
+    asm_root = os.path.join(ROOT, CONFIG["asm_dir"])
+    count = 0
+    for dirpath, _dirs, files in os.walk(asm_root):
+        if "nonmatchings" in dirpath.replace("\\", "/").split("/"):
+            continue
+        for name in files:
+            if not name.endswith(".s"):
+                continue
+            src = os.path.join(dirpath, name)
+            obj = obj_for(src)
+            cmd = [as_bin] + AS_FLAGS + ["-I", CONFIG["include"], "-o", obj, src]
+            if run(cmd) != 0:
+                print("BUILD FAILED: assembling %s" % os.path.relpath(src, ROOT))
+                return -1
+            count += 1
+    return count
+
+
+def compile_c(cpp, cc1, as_bin):
+    """Preprocess + cc1 + maspsx(->as) every .c under src/."""
+    src_root = os.path.join(ROOT, CONFIG["src_dir"])
+    if not os.path.isdir(src_root):
+        return 0
+    count = 0
+    for dirpath, _dirs, files in os.walk(src_root):
+        for name in files:
+            if not name.endswith(".c"):
+                continue
+            src = os.path.join(dirpath, name)
+            obj = obj_for(src)
+            stem = obj[:-2]  # drop trailing ".o"
+            i_file = stem + ".i"
+            s_file = stem + ".s"
+
+            if run([cpp] + CPP_FLAGS + ["-o", i_file, src]) != 0:
+                print("BUILD FAILED: preprocessing %s" % os.path.relpath(src, ROOT))
+                return -1
+            if run([cc1] + CC1_FLAGS + ["-o", s_file, i_file]) != 0:
+                print("BUILD FAILED: cc1 %s" % os.path.relpath(src, ROOT))
+                return -1
+            cmd = [sys.executable, maspsx_py()] + MASPSX_FLAGS + [
+                "--gnu-as-path=%s" % as_bin,
+            ] + MASPSX_AS_FLAGS + ["-o", obj, s_file]
+            if run(cmd, stdin_devnull=True) != 0:
+                print("BUILD FAILED: maspsx/as %s" % os.path.relpath(src, ROOT))
+                return -1
+            count += 1
+    return count
+
+
 def main():
     as_bin = tool("as")
     ld_bin = tool("ld")
@@ -84,24 +202,25 @@ def main():
             print("Set DW2_BINUTILS to a directory holding the mips binutils.")
             return 1
 
-    # Assemble every .s under asm/USA to build/USA/<relpath>.s.o.
-    asm_root = os.path.join(ROOT, CONFIG["asm_dir"])
-    count = 0
-    for dirpath, _dirs, files in os.walk(asm_root):
-        for name in files:
-            if not name.endswith(".s"):
-                continue
-            src = os.path.join(dirpath, name)
-            rel = os.path.relpath(src, ROOT)
-            obj = os.path.join(ROOT, CONFIG["build_dir"], rel + ".o")
-            os.makedirs(os.path.dirname(obj), exist_ok=True)
-            cmd = [as_bin] + AS_FLAGS + ["-I", CONFIG["include"], "-o", obj, src]
-            if run(cmd) != 0:
-                print("BUILD FAILED: assembling %s" % rel)
-                return 1
-            count += 1
-    if count == 0:
-        print("BUILD FAILED: no .s files found under %s" % CONFIG["asm_dir"])
+    cpp, cc1 = cpp_bin(), cc1_bin()
+    for name, path in (("cpp", cpp), ("cc1", cc1)):
+        if os.path.sep in path and not os.path.exists(path):
+            print("BUILD FAILED: %s not found at %s" % (name, path))
+            print("Set DW2_CPP / DW2_CC1 to override.")
+            return 1
+
+    # maspsx passes an absolute --gnu-as-path to subprocess.Popen; a relative
+    # one fails to launch under Windows CreateProcess.
+    as_abs = os.path.abspath(as_bin)
+
+    n_asm = assemble_asm(as_bin)
+    if n_asm < 0:
+        return 1
+    n_c = compile_c(cpp, cc1, as_abs)
+    if n_c < 0:
+        return 1
+    if n_asm == 0 and n_c == 0:
+        print("BUILD FAILED: no .s or .c sources found")
         return 1
 
     # Link: symbol script first so the auto hardware/kernel syms resolve.

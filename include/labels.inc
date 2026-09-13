@@ -32,8 +32,11 @@
 .endm
 
 
-# A label referenced by a jumptable.
-.macro jlabel label, visibility=local
+# A label referenced by a jumptable. Global so a jumptable that splat kept in a
+# separate rodata object (c-type split does not migrate low .rodata into the
+# function's TU) can still resolve the target. The label carries no bytes, so
+# global vs local does not change the linked image.
+.macro jlabel label, visibility=global
     .\visibility \label
     \label:
 .endm
