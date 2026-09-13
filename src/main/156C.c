@@ -566,7 +566,21 @@ s32 func_8001A920(void) {
     return D_80054CD0.data[D_80054CD0.count];
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A958);
+extern void func_8001CB80(s32);
+extern void func_8001107C(s32, s32, s32);
+extern s32 D_8005F788;
+
+void func_8001A958(Actor *a0) {
+    if (a0->field_10 != 0) {
+        return;
+    }
+    func_8001CB80(0x13A0000);
+    if ((D_8005F788 & 0xF00) != 0x500) {
+        func_8001CB80(0x1100000);
+        func_8001107C(0xA, a0->u34.field_34, 0);
+    }
+    func_80011544(a0);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A9C8);
 
@@ -1508,8 +1522,8 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800247F4);
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002485C);
 
 s32 func_80024950(Actor *arg0) {
-    s32 tmp = arg0->field_37;
-    arg0->field_37 = 0;
+    s32 tmp = arg0->u34.b.field_37;
+    arg0->u34.b.field_37 = 0;
     arg0->field_38 = tmp;
     return tmp;
 }
@@ -1545,9 +1559,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025C00);
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025C90);
 
 void func_80025CB8(Actor *arg0, u8 arg1, ActorWork *arg2, u8 arg3) {
-    arg0->field_37 = arg1;
+    arg0->u34.b.field_37 = arg1;
     arg0->work = arg2;
-    arg0->field_36 = arg3;
+    arg0->u34.b.field_36 = arg3;
 }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025CC8);
@@ -1567,43 +1581,43 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800260C8);
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026170);
 
 void func_80026568(Actor *arg0, u8 arg1) {
-    arg0->field_37 = 0x43;
+    arg0->u34.b.field_37 = 0x43;
     arg0->work = (ActorWork *)&arg0->field_24;
     arg0->field_24 = arg1;
-    arg0->field_36 = 1;
+    arg0->u34.b.field_36 = 1;
 }
 
 void func_80026588(Actor *arg0) {
-    arg0->field_37 = 0x45;
+    arg0->u34.b.field_37 = 0x45;
     arg0->work = NULL;
-    arg0->field_36 = 0;
+    arg0->u34.b.field_36 = 0;
 }
 
 void func_8002659C(Actor *arg0, u8 arg1) {
-    arg0->field_37 = 0x4C;
+    arg0->u34.b.field_37 = 0x4C;
     arg0->work = (ActorWork *)&arg0->field_24;
     arg0->field_24 = arg1;
-    arg0->field_36 = 1;
+    arg0->u34.b.field_36 = 1;
 }
 
 void func_800265BC(Actor *arg0, u8 arg1) {
-    arg0->field_37 = 0x46;
+    arg0->u34.b.field_37 = 0x46;
     arg0->work = (ActorWork *)&arg0->field_24;
     arg0->field_24 = arg1;
-    arg0->field_36 = 1;
+    arg0->u34.b.field_36 = 1;
 }
 
 void func_800265DC(Actor *arg0, u8 arg1) {
-    arg0->field_37 = 0x47;
+    arg0->u34.b.field_37 = 0x47;
     arg0->work = (ActorWork *)&arg0->field_24;
     arg0->field_24 = arg1;
-    arg0->field_36 = 1;
+    arg0->u34.b.field_36 = 1;
 }
 
 void func_800265FC(Actor *arg0) {
-    arg0->field_37 = 0x4B;
+    arg0->u34.b.field_37 = 0x4B;
     arg0->work = NULL;
-    arg0->field_36 = 0;
+    arg0->u34.b.field_36 = 0;
 }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026610);

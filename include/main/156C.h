@@ -157,9 +157,16 @@ typedef struct {
     u8 _pad25[0x03];
     /* 0x28 */ s32 field_28;
     /* 0x2C */ ActorWork *work;
-    u8 _pad30[0x06];
-    /* 0x36 */ u8 field_36;
-    /* 0x37 */ u8 field_37;
+    u8 _pad30[0x04];
+    /* 0x34 read as a word by func_8001A958, or as the two bytes 0x36/0x37 elsewhere. */
+    union {
+        /* 0x34 */ s32 field_34;
+        struct {
+            u8 _b34[0x02];
+            /* 0x36 */ u8 field_36;
+            /* 0x37 */ u8 field_37;
+        } b;
+    } u34;
     /* 0x38 */ u8 field_38;
     u8 _pad39[0x03];
     /* 0x3C */ Sub3C *field_3C;
