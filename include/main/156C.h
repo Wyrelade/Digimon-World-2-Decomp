@@ -55,6 +55,17 @@ typedef struct {
     /* 0x0C */ s32 field_C;
 } S5D560;
 
+/* Record cleared by func_800230DC. */
+typedef struct {
+    u8 _pad00[0x04];
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ u8 field_14;
+    /* 0x15 */ u8 field_15;
+} Rec230DC;
+
 /* Global struct D_80050938 populated by func_80011510. */
 typedef struct {
     /* 0x00 */ s32 field_0;

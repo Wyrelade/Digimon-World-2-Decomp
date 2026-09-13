@@ -960,7 +960,15 @@ void func_800230AC(void) {
     func_80024544();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800230DC);
+void func_800230DC(Rec230DC *arg0) {
+    arg0->field_C = 0;
+    arg0->field_15 = 0;
+    arg0->field_14 = 0;
+    arg0->field_10 = 0;
+    arg0->field_8 = 0;
+    arg0->field_4 = 0;
+    arg0->field_8 = 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800230FC);
 
