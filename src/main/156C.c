@@ -63,6 +63,8 @@ extern u8 *func_80011F5C(void *);
 extern s32 D_80040FD0[];
 extern void func_8001D550(void *, s32, s32);
 extern void func_8001D884(s32);
+extern void func_8001BC24(void *, Arg1BC24 *);
+extern void func_800221C4(s32, s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -528,7 +530,19 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BF58);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BFC8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C038);
+void func_8001C038(void *arg0, s32 arg1) {
+    Arg1BC24 local;
+    local.field_0 = 1;
+    local.field_4 = 0;
+    local.field_8 = 0;
+    local.field_A = 0;
+    local.field_C = 0;
+    local.field_10 = 0;
+    local.field_14 = arg1;
+    local.field_18 = 1;
+    func_8001BC24(arg0, &local);
+    func_800221C4(0x10, 0);
+}
 
 void func_8001C088(s32 *arg0, s32 arg1) {
     s32 i;

@@ -297,6 +297,20 @@ typedef struct {
     /* 0x1C */ s32 field_1C;
 } Obj48DB8;
 
+/* 0x2C-byte parameter block built on the stack and passed to func_8001BC24
+   (only the leading fields are written; the tail is left uninitialized). */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s16 field_8;
+    /* 0x0A */ s16 field_A;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    u8 _pad1C[0x10];
+} Arg1BC24;
+
 /* 0x10-stride record; D_800416CC array, per-slot init by func_8001F90C. */
 typedef struct {
     u8 data[0x10];
