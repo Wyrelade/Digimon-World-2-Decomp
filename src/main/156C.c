@@ -16,6 +16,8 @@ extern u16 D_80041704[];
 extern s32 D_80043794[];
 extern u16 D_80047100[];
 extern s32 *D_80049018;
+extern u16 *D_8004FB88;
+extern s32 D_80062FC4;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -1404,7 +1406,9 @@ u16 func_80030E28(void) {
     return D_8004EAFA;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030E38);
+u16 func_80030E38(void) {
+    return *D_8004FB88;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030E50);
 
