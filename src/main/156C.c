@@ -688,7 +688,9 @@ void func_80023970(void) {
     D_8005F774 = 2;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023980);
+void func_80023980(void) {
+    D_8005F774 = 3;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023990);
 
