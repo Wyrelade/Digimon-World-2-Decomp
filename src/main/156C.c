@@ -1867,7 +1867,17 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002BD94);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002C064);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002C0E4);
+extern void func_8002CF74(ObjC0E4 *, s32 *, s32 *);
+extern void func_8002D224(ObjC0E4 *, ArgC0E4 *);
+
+void func_8002C0E4(ObjC0E4 *a0, ArgC0E4 *a1) {
+    s32 tmp[3];
+    func_8002CF74(a0, &a1->field_14, tmp);
+    func_8002D224(a0, a1);
+    a0->field_14 = tmp[0] + a0->field_14;
+    a0->field_18 = tmp[1] + a0->field_18;
+    a0->field_1C = tmp[2] + a0->field_1C;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002C164);
 

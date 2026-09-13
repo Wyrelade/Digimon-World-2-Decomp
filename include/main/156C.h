@@ -398,6 +398,20 @@ typedef struct {
     /* 0x04 */ s32 entries[100];
 } List50798;
 
+/* arg0 of func_8002C0E4: three s32 accumulators at 0x14/0x18/0x1C. */
+typedef struct {
+    u8 _pad00[0x14];
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ s32 field_1C;
+} ObjC0E4;
+
+/* arg1 of func_8002C0E4: &field_14 is handed to func_8002CF74. */
+typedef struct {
+    u8 _pad00[0x14];
+    /* 0x14 */ s32 field_14;
+} ArgC0E4;
+
 /* Buffer allocated into a container's field_38 by func_80020C40 (0x90 bytes via
  * func_80022F3C); only the fields it stamps are known. */
 typedef struct {
