@@ -41,6 +41,14 @@ typedef struct {
 
 Ent23AE8 *func_80023AE8();
 
+/* Global struct D_8005D560; field_0 is an id, 4/8/C hold results (func_8001E480). */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+} S5D560;
+
 /* Global struct D_80050938 populated by func_80011510. */
 typedef struct {
     /* 0x00 */ s32 field_0;
