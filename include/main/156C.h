@@ -125,8 +125,34 @@ typedef struct {
     /* 0x06 */ s16 field_6;
 } EntE6A8;
 
+/* Packed record returned by the func_8001ED40 lookup. Several 32-bit words hold
+ * bitfields read at multiple widths, so overlapping offsets use unions. */
+typedef struct {
+    union {
+        /* 0x00 */ u32 field_0;
+        struct {
+            u8 _b0[2];
+            /* 0x02 */ u16 field_2;
+        } h0;
+    } u0;
+    /* 0x04 */ u8 field_4;
+    u8 _pad05[0x03];
+    /* 0x08 */ s16 field_8;
+    u8 _pad0A[0x02];
+    /* 0x0C */ s32 field_C;
+    union {
+        /* 0x10 */ u32 field_10;
+        /* 0x10 */ u8 field_10b;
+    } u10;
+    /* 0x14 */ u32 field_14;
+    /* 0x18 */ u32 field_18;
+    /* 0x1C */ u32 field_1C;
+    /* 0x20 */ u32 field_20;
+} EntED40;
+
 EntD8C4 *func_8001D8C4();
 EntE4CC *func_8001E4CC();
 EntE6A8 *func_8001E6A8();
+EntED40 *func_8001ED40();
 
 #endif /* MAIN_156C_H */
