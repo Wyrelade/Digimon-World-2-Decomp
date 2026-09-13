@@ -7,6 +7,7 @@ extern u8 D_8004E6E5;
 extern u16 D_8004EAFA;
 extern s32 D_800506B8;
 extern s32 D_8005D560;
+extern s32 D_8005F780;
 extern s32 D_80062F80;
 extern Actor D_8005F770;
 extern ActorWork *D_80041670[];
@@ -403,7 +404,12 @@ void func_8001C1CC(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C1E0);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C4C8);
+void func_8001C4C8(s32 arg0) {
+    D_80041564.field_8 = 0;
+    D_80041564.field_0 = 2;
+    D_80041564.field_4 = arg0;
+    D_8005F780 = arg0 + 0xFF;
+}
 
 void func_8001C4F0(s32 arg0) {
     D_80041564.field_8 = 0;
@@ -411,7 +417,12 @@ void func_8001C4F0(s32 arg0) {
     D_80041564.field_4 = arg0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C50C);
+void func_8001C50C(s32 arg0) {
+    D_80041564.field_8 = 1;
+    D_80041564.field_0 = 2;
+    D_80041564.field_4 = arg0;
+    D_8005F780 = arg0 + 0xFF;
+}
 
 void func_8001C538(s32 arg0) {
     D_80041564.field_8 = 1;
