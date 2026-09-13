@@ -1065,7 +1065,18 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023D68);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023DB0);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023E20);
+void func_80023E20(void) {
+    Ent23A78 *p = func_80023A78();
+    if (p != 0) {
+        if (p->field_0 == 3) {
+            func_80022D84(p->field_C);
+            p->field_4 = 0;
+            p->field_C = 0;
+            p->field_8 = 0;
+            p->field_0 = 0;
+        }
+    }
+}
 
 void func_80023E78(void) {
     Ent23A78 *p = func_80023A78();

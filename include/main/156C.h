@@ -250,8 +250,9 @@ s32 func_80023A08();
 typedef struct {
     /* 0x00 */ s16 field_0;
     /* 0x02 */ s16 field_2;
-    u8 _pad04[0x04];
+    /* 0x04 */ s32 field_4;
     /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
 } Ent23A78;
 
 Ent23A78 *func_80023A78();
