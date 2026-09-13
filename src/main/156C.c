@@ -652,7 +652,16 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F180);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F1A8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F24C);
+void func_8001F24C(Actor *arg0, s32 arg1, s32 arg2) {
+    Sub3C *p = arg0->field_3C;
+    p->field_54 = arg1;
+    p->field_58 = 0;
+    p->field_50 = 0;
+    p->field_48 = arg2;
+    p->field_4C = 0;
+    p->field_5C = 1;
+    p->field_60 = 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F274);
 
