@@ -278,6 +278,19 @@ typedef struct {
     /* 0x04 */ s32 data[1];
 } Stack54CD0;
 
+/* Destination record for func_80033B24's bitfield unpack (all s16 fields). */
+typedef struct {
+    /* 0x00 */ s16 field_0;
+    /* 0x02 */ s16 field_2;
+    /* 0x04 */ s16 field_4;
+    /* 0x06 */ s16 field_6;
+    /* 0x08 */ s16 field_8;
+    /* 0x0A */ s16 field_A;
+    /* 0x0C */ s16 field_C;
+    /* 0x0E */ s16 field_E;
+    /* 0x10 */ s16 field_10;
+} Out33B24;
+
 /* Fixed-stride block indexed by func_8001C818 (element size 0x4030). */
 typedef struct {
     u8 data[0x4030];

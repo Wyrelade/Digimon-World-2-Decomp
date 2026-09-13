@@ -1925,7 +1925,17 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800339E4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033A74);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033B24);
+void func_80033B24(u32 arg0, u32 arg1, Out33B24 *arg2) {
+    arg2->field_A = arg0 & 0x8000;
+    arg2->field_C = arg1 & 0x8000;
+    arg2->field_10 = arg1 & 0x4000;
+    arg2->field_E = arg1 & 0x20;
+    arg2->field_0 = ((arg0 & 0xFFFF) >> 8) & 0x7F;
+    arg2->field_2 = ((arg0 & 0xFFFF) >> 4) & 0xF;
+    arg2->field_4 = arg0 & 0xF;
+    arg2->field_6 = (arg1 >> 6) & 0x7F;
+    arg2->field_8 = arg1 & 0x1F;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033B80);
 
