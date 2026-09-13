@@ -786,7 +786,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024220);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024260);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024310);
+void func_80024310(Actor *arg0, Block1C *arg1) {
+    *(Block1C *)arg0->work = *arg1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024350);
 

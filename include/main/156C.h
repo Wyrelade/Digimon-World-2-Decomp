@@ -19,6 +19,11 @@ typedef struct {
     /* 0xA4 */ s16 field_A4;
 } ActorWork;
 
+/* A 0x1C-byte (7 word) block copied wholesale into ActorWork by func_80024310. */
+typedef struct {
+    s32 words[7];
+} Block1C;
+
 /* arg0 of the 0x2C accessor family: a container holding a pointer to its
  * ActorWork at offset 0x2C. */
 typedef struct {
