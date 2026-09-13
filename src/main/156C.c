@@ -616,7 +616,18 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BEE8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BF58);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BFC8);
+void func_8001BFC8(void *a0, s32 a1, s32 a2, Halves a3) {
+    Arg1BC24 local;
+    local.field_14 = (s32)func_800239A0(a1 + 0x1FD0000);
+    local.field_0 = 0;
+    local.field_4 = a2;
+    local.field_8 = a3.lo;
+    local.field_A = a3.hi;
+    local.field_C = 0;
+    local.field_10 = 0;
+    local.field_18 = 0;
+    func_8001BC24(a0, &local);
+}
 
 void func_8001C038(void *arg0, s32 arg1) {
     Arg1BC24 local;
