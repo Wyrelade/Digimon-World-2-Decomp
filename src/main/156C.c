@@ -12,6 +12,8 @@ extern s32 D_80062F80;
 extern u8 D_8005F6A8[];
 extern u8 D_800416FC[];
 extern Obj48F08 *D_80048F08;
+extern void (*D_80048F0C)(void *, void *);
+extern u8 D_800102C0;
 extern u8 D_80048F20[];
 extern u8 D_80048F7C[];
 extern Blk50938 D_80050938;
@@ -1191,7 +1193,17 @@ void func_80022F3C(s32 arg0, s32 arg1) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022F8C);
+void func_80022F8C(void *a0, s32 a1) {
+    s32 i;
+    if (a1 & 3) {
+        u8 *b = (u8 *)a0;
+        for (i = 0; i < a1; i++) b[i] = 0;
+    } else {
+        s32 *w = (s32 *)a0;
+        a1 >>= 2;
+        for (i = 0; i < a1; i++) *w++ = 0;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022FE8);
 
@@ -1557,7 +1569,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027388);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800273E8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027480);
+void func_80027480(void *a0) {
+    if (D_80048F12 >= 2) {
+        D_80048F0C(&D_800102C0, a0);
+    }
+    D_80048F08->fn_3C(a0);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800274E8);
 
