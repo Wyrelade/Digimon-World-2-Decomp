@@ -33,7 +33,9 @@ typedef struct {
 typedef struct {
     u8 _pad00[0x08];
     /* 0x08 */ s32 field_8;
-    u8 _pad0C[0x10];
+    u8 _pad0C[0x08];
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
     /* 0x1C */ s32 field_1C;
     /* 0x20 */ s32 field_20;
     /* 0x24 */ u8 field_24;
