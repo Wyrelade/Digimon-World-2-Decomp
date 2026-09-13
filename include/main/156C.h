@@ -278,6 +278,11 @@ typedef struct {
     /* 0x04 */ s32 data[1];
 } Stack54CD0;
 
+/* Fixed-stride block indexed by func_8001C818 (element size 0x4030). */
+typedef struct {
+    u8 data[0x4030];
+} Blk54CF8;
+
 /* Table cleared by func_80011190: a count word followed by 100 entries. */
 typedef struct {
     /* 0x00 */ s32 count;

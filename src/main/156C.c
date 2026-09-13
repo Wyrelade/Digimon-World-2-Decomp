@@ -33,6 +33,13 @@ extern s32 D_8004FE5C;
 extern s32 D_8004FBA0[];
 extern Stack54CD0 D_80054CD0;
 extern List50798 D_80050798;
+extern Blk54CF8 D_80054CF8[];
+extern void func_8002796C(Blk54CF8 *, s32);
+extern s32 func_80026FC4(void);
+extern void func_80026FD4(void);
+extern s32 func_8003D9E4(void);
+extern void func_80030CC4(s32);
+extern s32 func_8001CDA8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -189,7 +196,13 @@ void func_80011B58(Actor *arg0, s32 arg1) {
     arg0->work->field_0 = arg1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011B64);
+void func_80011B64(Actor *arg0) {
+    ActorWork *w = arg0->work;
+    if (arg0->field_10 == 0) {
+        w->field_0 = func_8001CDA8();
+        func_80011544(arg0);
+    }
+}
 
 void func_80011BB0(Actor *arg0) {
     func_8001CE80(arg0->work->field_0);
@@ -292,7 +305,11 @@ s32 func_80013A90(s16 *arg0, s16 *arg1) {
     return arg1[0] * arg0[1] + arg0[0];
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013AB0);
+s32 func_80013AB0(s32 arg0, s32 arg1) {
+    s32 *p = (s32 *)func_800239A0(arg0);
+    s32 r = func_80023A08(arg0 >> 16);
+    return p[arg1] + r;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013AFC);
 
@@ -531,7 +548,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C760);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C800);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C818);
+void func_8001C818(s32 arg0) {
+    func_8002796C(&D_80054CF8[arg0], 0x100C);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C858);
 
@@ -2181,7 +2200,16 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D4F4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D504);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D594);
+s32 func_8003D594(void) {
+    s32 s = func_80026FC4();
+    func_8003D9E4();
+    func_80030CC4(0);
+    if (s == 1) {
+        func_80026FD4();
+        return 0;
+    }
+    return 0;
+}
 
 s32 func_8003D5DC(void) {
     func_8003D9F4();
