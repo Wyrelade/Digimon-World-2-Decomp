@@ -257,4 +257,18 @@ typedef struct {
 
 Ent23A78 *func_80023A78();
 
+/* Args to func_8002828C: a record it stamps (field_3/field_4/field_8) and a
+   two-halfword source read for the func_80028884 call. */
+typedef struct {
+    u8 _pad0[3];
+    /* 0x03 */ u8 field_3;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+} Obj8228C;
+
+typedef struct {
+    /* 0x00 */ s16 field_0;
+    /* 0x02 */ s16 field_2;
+} Pt8228C;
+
 #endif /* MAIN_156C_H */

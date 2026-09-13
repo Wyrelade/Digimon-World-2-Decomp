@@ -1355,7 +1355,11 @@ u32 func_800281DC(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002820C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002828C);
+void func_8002828C(Obj8228C *arg0, Pt8228C *arg1) {
+    arg0->field_3 = 2;
+    arg0->field_4 = func_80028884(arg1->field_0, arg1->field_2);
+    arg0->field_8 = 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800282CC);
 
