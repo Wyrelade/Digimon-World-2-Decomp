@@ -29,6 +29,7 @@ typedef struct {
     u8 _pad30[0x06];
     /* 0x36 */ u8 field_36;
     /* 0x37 */ u8 field_37;
+    /* 0x38 */ u8 field_38;
 } Actor;
 
 #endif /* MAIN_156C_H */
