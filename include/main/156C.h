@@ -33,7 +33,8 @@ typedef struct {
     /* 0x1C */ s32 field_1C;
     /* 0x20 */ s32 field_20;
     /* 0x24 */ u8 field_24;
-    u8 _pad25[0x07];
+    u8 _pad25[0x03];
+    /* 0x28 */ s32 field_28;
     /* 0x2C */ ActorWork *work;
     u8 _pad30[0x06];
     /* 0x36 */ u8 field_36;
