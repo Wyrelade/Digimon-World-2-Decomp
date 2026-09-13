@@ -297,6 +297,23 @@ typedef struct {
     /* 0x1C */ s32 field_1C;
 } Obj48DB8;
 
+/* Source record read by func_80013470 to fill an Arg1BC24. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ u16 field_C;
+    /* 0x0E */ u16 field_E;
+    /* 0x10 */ u8 field_10;
+    /* 0x11 */ u8 field_11;
+} Src13470;
+
+/* A pair of 16-bit values passed by value in one register (func_800134F8). */
+typedef struct {
+    /* 0x0 */ u16 lo;
+    /* 0x2 */ u16 hi;
+} Halves;
+
 /* 0x2C-byte parameter block built on the stack and passed to func_8001BC24
    (only the leading fields are written; the tail is left uninitialized). */
 typedef struct {
@@ -308,7 +325,9 @@ typedef struct {
     /* 0x10 */ s32 field_10;
     /* 0x14 */ s32 field_14;
     /* 0x18 */ s32 field_18;
-    u8 _pad1C[0x10];
+    /* 0x1C */ s32 field_1C;
+    /* 0x20 */ s32 field_20;
+    u8 _pad24[0x8];
 } Arg1BC24;
 
 /* 0x10-stride record; D_800416CC array, per-slot init by func_8001F90C. */

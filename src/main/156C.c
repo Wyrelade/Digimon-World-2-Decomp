@@ -286,9 +286,33 @@ void func_80013450(void) {
     func_8001125C();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013470);
+void func_80013470(void *arg0, Src13470 *arg1) {
+    Arg1BC24 local;
+    local.field_14 = arg1->field_0;
+    local.field_0 = arg1->field_10 >> 7;
+    local.field_4 = arg1->field_11;
+    local.field_8 = arg1->field_C;
+    local.field_A = arg1->field_E;
+    local.field_C = 0;
+    local.field_10 = 0;
+    local.field_18 = arg1->field_10 & 0x7F;
+    local.field_1C = arg1->field_4;
+    local.field_20 = arg1->field_8;
+    func_8001BC24(arg0, &local);
+}
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800134F8);
+void func_800134F8(void *arg0, s32 arg1, u32 arg2, Halves arg3) {
+    Arg1BC24 local;
+    local.field_0 = (arg2 >> 7) & 1;
+    local.field_14 = arg1;
+    local.field_4 = (arg2 >> 2) & 0xF;
+    local.field_8 = arg3.lo;
+    local.field_A = arg3.hi;
+    local.field_C = 0;
+    local.field_10 = 0;
+    local.field_18 = arg2 & 3;
+    func_8001BC24(arg0, &local);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013558);
 
