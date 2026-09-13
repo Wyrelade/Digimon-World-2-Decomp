@@ -788,7 +788,12 @@ void func_8001E480(void) {
     func_8001E390();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E4CC);
+EntE4CC *func_8001E4CC(arg0)
+s32 arg0;
+{
+    EntE4CC *base = (EntE4CC *)func_800239A0(D_8005D560.field_0 << 16);
+    return &base[arg0];
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E514);
 

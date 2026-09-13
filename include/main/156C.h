@@ -174,6 +174,7 @@ typedef struct {
     /* 0x00 */ s16 field_0;
     /* 0x02 */ s16 field_2;
     /* 0x04 */ u8 field_4;
+    u8 _pad05[0x27];
 } EntE4CC;
 
 /* Entry returned by the func_8001E6A8 table lookup (0x28 stride). */
