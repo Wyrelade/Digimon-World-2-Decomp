@@ -585,11 +585,19 @@ void func_8001C0B0(s32 *arg0, s32 arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C104);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C194);
+void func_8001C194(s32 a0, s32 a1, s32 a2) {
+    s32 i;
+    for (i = 0; i < 2; i++) {
+        D_8005F770.field_48[i].field_0 = 1;
+        D_8005F770.field_48[i].field_1 = a0;
+        D_8005F770.field_48[i].field_2 = a1;
+        D_8005F770.field_48[i].field_3 = a2;
+    }
+}
 
 void func_8001C1CC(void) {
-    D_8005F770.field_48 = 0;
-    D_8005F770.field_A4 = 0;
+    D_8005F770.field_48[0].field_0 = 0;
+    D_8005F770.field_48[1].field_0 = 0;
 }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C1E0);

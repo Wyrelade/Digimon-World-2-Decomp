@@ -127,6 +127,17 @@ typedef struct {
     /* 0x60 */ s32 field_60;
 } Sub3C;
 
+/* Two of these live in Actor at 0x48 (stride 0x5C). func_8001C194 stamps the
+ * four-byte header of each; field_0 is the pair earlier read as Actor.field_48
+ * (element 0) and Actor.field_A4 (element 1). */
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    /* 0x1 */ u8 field_1;
+    /* 0x2 */ u8 field_2;
+    /* 0x3 */ u8 field_3;
+    u8 _pad04[0x58];
+} ActorSub5C; /* size 0x5C */
+
 /* arg0 of the 0x2C accessor family: a container holding a pointer to its
  * ActorWork at offset 0x2C. */
 typedef struct {
@@ -152,9 +163,7 @@ typedef struct {
     u8 _pad39[0x03];
     /* 0x3C */ Sub3C *field_3C;
     u8 _pad40[0x08];
-    /* 0x48 */ u8 field_48;
-    u8 _pad49[0x5B];
-    /* 0xA4 */ u8 field_A4;
+    /* 0x48 */ ActorSub5C field_48[2];
 } Actor;
 
 /* Entry returned by the func_8001D8C4 table lookup (0x12 stride); accessed
