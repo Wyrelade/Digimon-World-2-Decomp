@@ -700,7 +700,14 @@ void func_8001C988(void) {
     D_8005F770.work = D_80041670[D_8005F770.field_28];
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C9B0);
+extern s32 func_80022F3C(s32, s32);
+
+void func_8001C9B0(s32 a0) {
+    D_80041670[2] = (ActorWork *)a0;
+    D_80041670[0] = (ActorWork *)func_80022F3C(a0, 2);
+    D_80041670[1] = (ActorWork *)func_80022F3C(a0, 2);
+    D_8005F770.work = D_80041670[D_8005F770.field_28];
+}
 
 Elem20 *func_8001CA28(s32 arg0) {
     return &D_8005CD60[arg0];
@@ -1111,7 +1118,6 @@ void func_80020C14(s32 arg0) {
     func_800209F8(arg0);
 }
 
-extern s32 func_80022F3C(s32, s32);
 extern void func_80022F8C(void *, s32);
 
 void func_80020C40(ContC40 *a0, s32 *a1, s16 a2) {
