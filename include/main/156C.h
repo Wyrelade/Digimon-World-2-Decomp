@@ -11,7 +11,11 @@ typedef struct {
     /* 0x04 */ s32 field_4;
     u8 _pad08[0x28];
     /* 0x30 */ s16 field_30;
-    u8 _pad32[0x32];
+    u8 _pad32[0x06];
+    /* 0x38 */ s16 field_38;
+    u8 _pad3A[0x02];
+    /* 0x3C */ s16 field_3C;
+    u8 _pad3E[0x26];
     /* 0x64 */ s16 field_64;
     u8 _pad66[0x06];
     /* 0x6C */ s16 field_6C;
