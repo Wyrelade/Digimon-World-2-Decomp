@@ -1111,7 +1111,27 @@ void func_80020C14(s32 arg0) {
     func_800209F8(arg0);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020C40);
+extern s32 func_80022F3C(s32, s32);
+extern void func_80022F8C(void *, s32);
+
+void func_80020C40(ContC40 *a0, s32 *a1, s16 a2) {
+    AllocC40 *p;
+    if (a0->field_38 == 0) {
+        a0->field_38 = (AllocC40 *)func_80022F3C(0x90, 2);
+    }
+    func_80022F8C(a0->field_38, 0x90);
+    p = a0->field_38;
+    p->field_60 = 0x1000;
+    p->field_5C = 0x1000;
+    p->field_58 = 0x1000;
+    if (a1 != 0) {
+        p->field_30 = a1[0];
+        p->field_34 = a1[1];
+        p->field_38 = a1[2];
+    }
+    p->field_42 = a2;
+    func_80020C14((s32)a0);
+}
 
 void func_80020CE8(Obj20CE8 *a0, s32 a1) {
     s32 v = a0->field_0 + a0->field_4;

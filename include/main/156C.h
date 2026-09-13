@@ -391,6 +391,27 @@ typedef struct {
     /* 0x04 */ s32 entries[100];
 } List50798;
 
+/* Buffer allocated into a container's field_38 by func_80020C40 (0x90 bytes via
+ * func_80022F3C); only the fields it stamps are known. */
+typedef struct {
+    u8 _pad00[0x30];
+    /* 0x30 */ s32 field_30;
+    /* 0x34 */ s32 field_34;
+    /* 0x38 */ s32 field_38;
+    u8 _pad3C[0x06];
+    /* 0x42 */ s16 field_42;
+    u8 _pad44[0x14];
+    /* 0x58 */ s32 field_58;
+    /* 0x5C */ s32 field_5C;
+    /* 0x60 */ s32 field_60;
+} AllocC40;
+
+/* Container whose field_38 holds an AllocC40* (func_80020C40's arg0). */
+typedef struct {
+    u8 _pad00[0x38];
+    /* 0x38 */ AllocC40 *field_38;
+} ContC40;
+
 /* Buffer allocated + registered by func_800111D4 (in the D_80050798 list) and
  * populated by func_800113B8; only the pointer/count fields it writes are known. */
 typedef struct {
