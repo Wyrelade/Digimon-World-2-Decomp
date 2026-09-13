@@ -45,6 +45,10 @@ extern void func_80023BB0(void);
 extern void func_8001BB88(s32 *);
 extern void func_80022D84(ActorWork *);
 extern s32 D_8005F79C;
+extern void func_8001FDBC(Actor *, s32);
+extern void func_80020920(Actor *);
+extern void func_800200D0(Actor *);
+extern void func_80020510(Actor *, s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -799,11 +803,25 @@ void func_8001EC00(Actor *arg0, s32 *arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001EC10);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001ECE4);
+void func_8001ECE4(Actor *arg0) {
+    if (arg0->work->field_4 != 0) {
+        func_8001FDBC(arg0, 0x5B);
+        func_80020920(arg0);
+        func_800200D0(arg0);
+        func_80020510(arg0, 1);
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001ED40);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001ED84);
+s32 func_8001ED84(s32 arg0) {
+    s32 base = func_80023A08(0x25B);
+    EntED40 *p = func_8001ED40(arg0);
+    if (p != 0) {
+        return p->field_24 + base;
+    }
+    return 0;
+}
 
 s32 func_8001EDD4(s32 arg0) {
     s32 base = func_80023A08(0x25B);
