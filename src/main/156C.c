@@ -1010,7 +1010,12 @@ void func_80023990(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800239A0);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800239E4);
+s32 func_800239E4(s32 arg0, s32 *arg1) {
+    if (arg0 == 0) {
+        return 0;
+    }
+    return arg1[(u16)arg0] + (s32)arg1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023A08);
 
