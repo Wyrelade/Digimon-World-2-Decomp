@@ -278,6 +278,22 @@ typedef struct {
     /* 0x04 */ s32 data[1];
 } Stack54CD0;
 
+/* 0x18-stride record; the func_8001E298 getter family returns &base[index] where
+   base is the func_800239A0((D_8005D560.field_0<<16)|2) lookup result. */
+typedef struct {
+    u8 data[0x18];
+} Blk18;
+
+/* Argument to the func_8001E298 getter family: a byte index lives at one of several
+   offsets (0x5/0x6/0xC) and selects a Blk18. */
+typedef struct {
+    u8 _pad0[5];
+    /* 0x5 */ u8 field_5;
+    /* 0x6 */ u8 field_6;
+    u8 _pad7[5];
+    /* 0xC */ u8 field_C;
+} ArgE298;
+
 /* Destination record for func_80033B24's bitfield unpack (all s16 fields). */
 typedef struct {
     /* 0x00 */ s16 field_0;

@@ -717,11 +717,20 @@ void func_8001E28C(s32 arg0) {
     D_8005D560.field_0 = arg0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E298);
+Blk18 *func_8001E298(ArgE298 *arg0) {
+    Blk18 *base = (Blk18 *)func_800239A0((D_8005D560.field_0 << 16) | 2);
+    return &base[arg0->field_5];
+}
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E2E0);
+Blk18 *func_8001E2E0(ArgE298 *arg0, s32 arg1) {
+    Blk18 *base = (Blk18 *)func_800239A0((D_8005D560.field_0 << 16) | 2);
+    return &base[((ArgE298 *)((u8 *)arg0 + arg1))->field_6];
+}
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E338);
+Blk18 *func_8001E338(ArgE298 *arg0, s32 arg1) {
+    Blk18 *base = (Blk18 *)func_800239A0((D_8005D560.field_0 << 16) | 2);
+    return &base[((ArgE298 *)((u8 *)arg0 + arg1))->field_C];
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E390);
 
