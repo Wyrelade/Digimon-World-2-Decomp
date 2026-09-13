@@ -15,6 +15,7 @@ extern Obj80041564 D_80041564;
 extern u16 D_80041704[];
 extern s32 D_80043794[];
 extern u16 D_80047100[];
+extern s32 *D_80049018;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -208,9 +209,13 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013A10);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013A30);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013A70);
+s32 func_80013A70(s16 *arg0, s16 *arg1) {
+    return arg1[1] * arg0[0] + arg0[1];
+}
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013A90);
+s32 func_80013A90(s16 *arg0, s16 *arg1) {
+    return arg1[0] * arg0[1] + arg0[0];
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013AB0);
 
@@ -1080,7 +1085,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028884);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800288A0);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028920);
+s32 func_80028920(void) {
+    return *D_80049018;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028938);
 
