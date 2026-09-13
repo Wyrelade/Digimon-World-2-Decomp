@@ -296,6 +296,11 @@ typedef struct {
     /* 0x1C */ s32 field_1C;
 } Obj48DB8;
 
+/* 0x10-stride record; D_800416CC array, per-slot init by func_8001F90C. */
+typedef struct {
+    u8 data[0x10];
+} Blk16;
+
 /* 0xC-stride record returned by the func_8001E5E8 getter (base is the
    func_800239A0((D_8005D560.field_0<<16)|1) lookup, index is EntE4CC.field_4). */
 typedef struct {

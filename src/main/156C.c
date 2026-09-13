@@ -54,6 +54,15 @@ extern u8 D_8005FDC8[];
 extern s32 func_8002DD64(void *);
 extern s32 func_80030914(void *, s32);
 extern void func_8001F320(Actor *);
+extern Blk16 D_800416CC[];
+extern void func_8002B564(s32, Blk16 *);
+extern void func_8002BB54(s32, s32, s32);
+extern void func_8002BAD4(s32);
+extern s32 func_8001E134(void);
+extern u8 *func_80011F5C(void *);
+extern s32 D_80040FD0[];
+extern void func_8001D550(void *, s32, s32);
+extern void func_8001D884(s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -229,7 +238,23 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011F04);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011F5C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011FE4);
+s32 func_80011FE4(void *arg0) {
+    s32 r = 0;
+    if (func_8001E134() != 0) {
+        u8 *p = func_80011F5C(arg0);
+        if (p != 0) {
+            u8 b = *p;
+            if (b != 0) {
+                if (b < 5) {
+                    r = 1;
+                } else {
+                    r = 2;
+                }
+            }
+        }
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001204C);
 
@@ -445,7 +470,12 @@ void func_80019EE0(Actor *arg0, s32 arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019EE8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019FB4);
+void func_80019FB4(Actor *arg0) {
+    ActorWork *w = arg0->work;
+    void *e = func_800239A0(D_80040FD0[arg0->field_8]);
+    func_8001D550(e, 0x1000, *(s16 *)w);
+    func_8001D884((s32)e);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A01C);
 
@@ -949,7 +979,14 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F5E8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F668);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F90C);
+void func_8001F90C(void) {
+    s32 i;
+    for (i = 0; i < 3; i++) {
+        func_8002B564(i, &D_800416CC[i]);
+    }
+    func_8002BB54(0x4CC, 0x4CC, 0x4CC);
+    func_8002BAD4(0);
+}
 
 s32 func_8001F970(s32 arg0) {
     if (arg0 == 0x64 || arg0 == 0xA || arg0 == 0x14) {
