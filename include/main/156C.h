@@ -391,6 +391,15 @@ typedef struct {
     /* 0x04 */ s32 entries[100];
 } List50798;
 
+/* Buffer allocated + registered by func_800111D4 (in the D_80050798 list) and
+ * populated by func_800113B8; only the pointer/count fields it writes are known. */
+typedef struct {
+    u8 _pad00[0x2C];
+    /* 0x2C */ s32 field_2C;
+    /* 0x30 */ s32 field_30;
+    /* 0x34 */ s32 field_34;
+} Buf111D4;
+
 /* Accumulate-and-clamp record used by func_80020CE8: field_0 += field_4, then
  * clamped against field_8. */
 typedef struct {

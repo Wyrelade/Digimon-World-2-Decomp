@@ -120,11 +120,39 @@ void func_80011190(void) {
     D_80050798.count = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800111D4);
+Buf111D4 *func_800111D4(void) {
+    Buf111D4 *s0 = (Buf111D4 *)func_80022F3C(0x40, 2);
+    s32 i;
+    func_80022F8C(s0, 0x40);
+    for (i = 0; i < 0x64; i++) {
+        if (D_80050798.entries[i] == 0) {
+            D_80050798.entries[i] = (s32)s0;
+            break;
+        }
+    }
+    if (D_80050798.count < i + 1) {
+        D_80050798.count = i + 1;
+    }
+    return s0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001125C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800113B8);
+Buf111D4 *func_800113B8(s32 a0, s32 a1) {
+    Buf111D4 *s0 = func_800111D4();
+    if (a0 != 0) {
+        s32 x = func_80022F3C(a0, 2);
+        s0->field_2C = x;
+        func_80022F8C((void *)x, a0);
+    }
+    if (a1 != 0) {
+        s32 y = func_80022F3C(a1, 2);
+        s0->field_34 = y;
+        func_80022F8C((void *)y, a1);
+        s0->field_30 = a1 >> 2;
+    }
+    return s0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011440);
 
@@ -1216,10 +1244,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022E60);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022E90);
 
-void func_80022F3C(s32 arg0, s32 arg1) {
-    while (func_80022E90(arg0, arg1) == 0) {
+s32 func_80022F3C(s32 arg0, s32 arg1) {
+    s32 r;
+    while ((r = func_80022E90(arg0, arg1)) == 0) {
         func_80023BB0();
     }
+    return r;
 }
 
 void func_80022F8C(void *a0, s32 a1) {
