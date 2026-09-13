@@ -278,6 +278,12 @@ typedef struct {
     /* 0x04 */ s32 data[1];
 } Stack54CD0;
 
+/* Table cleared by func_80011190: a count word followed by 100 entries. */
+typedef struct {
+    /* 0x00 */ s32 count;
+    /* 0x04 */ s32 entries[100];
+} List50798;
+
 /* Argument to func_80025FBC (byte/half fields deep in a large record). */
 typedef struct {
     u8 _pad0[0xE3];

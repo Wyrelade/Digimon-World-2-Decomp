@@ -29,6 +29,7 @@ extern s32 D_80062FC4;
 extern s32 D_8004FE5C;
 extern s32 D_8004FBA0[];
 extern Stack54CD0 D_80054CD0;
+extern List50798 D_80050798;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -74,7 +75,13 @@ void func_80011170(Actor *arg0) {
     func_8001125C();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011190);
+void func_80011190(void) {
+    s16 i;
+    for (i = 0; i < 100; i++) {
+        D_80050798.entries[i] = 0;
+    }
+    D_80050798.count = 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800111D4);
 
@@ -855,7 +862,15 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F668);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F90C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F970);
+s32 func_8001F970(s32 arg0) {
+    if (arg0 == 0x64 || arg0 == 0xA || arg0 == 0x14) {
+        return 0;
+    }
+    if (arg0 == 0x15) {
+        return 0;
+    }
+    return arg0 != 0x16;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F9AC);
 
