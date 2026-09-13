@@ -53,6 +53,7 @@ extern Obj48DB8 D_80048DB8;
 extern u8 D_8005FDC8[];
 extern s32 func_8002DD64(void *);
 extern s32 func_80030914(void *, s32);
+extern void func_8001F320(Actor *);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -1284,7 +1285,16 @@ void func_80024310(Actor *arg0, Block1C *arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024350);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024410);
+void func_80024410(Actor *arg0) {
+    ActorWork *w = arg0->work;
+    if (arg0->field_10 == 1) {
+        func_8001FDBC(arg0, w->field_0);
+        func_8001F320(arg0);
+        func_80020920(arg0);
+        func_800200D0(arg0);
+        func_80020510(arg0, 0);
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024474);
 
