@@ -415,6 +415,8 @@ typedef struct {
 typedef struct {
     u8 _pad00[0x14];
     /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ s32 field_1C;
 } ArgC0E4;
 
 /* Buffer allocated into a container's field_38 by func_80020C40 (0x90 bytes via
