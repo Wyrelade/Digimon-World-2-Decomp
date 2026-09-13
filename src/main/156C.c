@@ -847,7 +847,11 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026170);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026568);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026588);
+void func_80026588(Actor *arg0) {
+    arg0->field_37 = 0x45;
+    arg0->work = NULL;
+    arg0->field_36 = 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002659C);
 
@@ -855,7 +859,11 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800265BC);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800265DC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800265FC);
+void func_800265FC(Actor *arg0) {
+    arg0->field_37 = 0x4B;
+    arg0->work = NULL;
+    arg0->field_36 = 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026610);
 
