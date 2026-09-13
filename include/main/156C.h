@@ -110,7 +110,10 @@ typedef struct {
     u8 _pad00[0x02];
     /* 0x02 */ u8 field_2;
     /* 0x03 */ u8 field_3;
-    /* 0x04 */ u8 field_4;
+    union {
+        /* 0x04 */ u8 field_4;
+        /* 0x04 */ u16 field_4h;
+    } u4;
 } EntD8C4;
 
 /* Entry returned by the func_8001E4CC table lookup (0x2C stride). */
@@ -121,8 +124,17 @@ typedef struct {
 
 /* Entry returned by the func_8001E6A8 table lookup (0x28 stride). */
 typedef struct {
-    u8 _pad00[0x06];
-    /* 0x06 */ s16 field_6;
+    u8 _pad00[0x04];
+    union {
+        /* 0x04 */ u32 field_4;
+        struct {
+            u8 _b4[2];
+            /* 0x06 */ s16 field_6;
+        } h4;
+    } u4;
+    u8 _pad08[0x16];
+    /* 0x1E */ s16 field_1E;
+    /* 0x20 */ s16 field_20;
 } EntE6A8;
 
 /* Packed record returned by the func_8001ED40 lookup. Several 32-bit words hold
