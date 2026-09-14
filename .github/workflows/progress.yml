@@ -1,0 +1,61 @@
+# Builds the DW2 objdiff progress report for decomp.dev. No ROM required: the
+# report is derived from the committed disassembly (asm/) + source (src/).
+#   TARGET object = full build (INCLUDE_ASM pulls the retail asm) = every function.
+#   BASE   object = built with --skip-asm = only the hand-decompiled C functions.
+# objdiff-cli diffs them; decomp.dev ingests the uploaded "<game_id>_report".
+name: Progress
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["**.md"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    if: github.repository == 'Wyrelade/Digimon-World-2-Decomp'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        game_id: [SLUS-01193]
+    env:
+      DW2_BINUTILS: /usr/bin
+      DW2_CPP: cpp
+      DW2_CC1: tools/linux/gcc-2.8.1-psx/cc1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install -y binutils-mips-linux-gnu build-essential python3 libc6:i386
+
+      - name: Build TARGET objects (full, all functions)
+        run: python3 tools/build_dw2.py --objects-only --skip-verify
+
+      - name: Stage target objects into expected/
+        run: |
+          mkdir -p expected/USA
+          cp -r build/USA/src expected/USA/src
+
+      - name: Build BASE objects (--skip-asm, decompiled functions only)
+        run: python3 tools/build_dw2.py --objects-only --skip-verify --skip-asm
+
+      - name: Generate objdiff.json
+        run: python3 tools/objdiff/gen_objdiff_json.py
+
+      - name: Generate progress report
+        run: |
+          chmod +x tools/objdiff/objdiff-cli
+          ./tools/objdiff/objdiff-cli report generate -o build/USA/progress.json
+          echo "--- report head ---"; head -c 600 build/USA/progress.json; echo
+
+      - name: Upload progress report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.game_id }}_report
+          path: build/USA/progress.json

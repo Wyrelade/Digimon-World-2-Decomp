@@ -16,6 +16,7 @@ raw image, and check the SHA-1 against the retail target. Prints
 
 DW2 has no overlay model, so this replaces the PE2 ninja pipeline for now.
 """
+import argparse
 import hashlib
 import os
 import platform
@@ -158,8 +159,14 @@ def assemble_asm(as_bin):
     return count
 
 
-def compile_c(cpp, cc1, as_bin):
-    """Preprocess + cc1 + maspsx(->as) every .c under src/."""
+def compile_c(cpp, cc1, as_bin, skip_asm=False):
+    """Preprocess + cc1 + maspsx(->as) every .c under src/.
+
+    skip_asm defines SKIP_ASM so INCLUDE_ASM stubs expand to nothing (see
+    include/include_asm.h): the object then holds only the hand-decompiled C
+    functions -- this is the objdiff "current" object, whose matched functions
+    are all that differ from the full "target" object built without it."""
+    cpp_flags = CPP_FLAGS + (["-DSKIP_ASM"] if skip_asm else [])
     src_root = os.path.join(ROOT, CONFIG["src_dir"])
     if not os.path.isdir(src_root):
         return 0
@@ -174,7 +181,7 @@ def compile_c(cpp, cc1, as_bin):
             i_file = stem + ".i"
             s_file = stem + ".s"
 
-            if run([cpp] + CPP_FLAGS + ["-o", i_file, src]) != 0:
+            if run([cpp] + cpp_flags + ["-o", i_file, src]) != 0:
                 print("BUILD FAILED: preprocessing %s" % os.path.relpath(src, ROOT))
                 return -1
             if run([cc1] + CC1_FLAGS + ["-o", s_file, i_file]) != 0:
@@ -191,11 +198,24 @@ def compile_c(cpp, cc1, as_bin):
 
 
 def main():
+    ap = argparse.ArgumentParser(description="Build/verify DW2 SLUS_011.93.")
+    ap.add_argument("--skip-asm", action="store_true",
+                    help="define SKIP_ASM: drop INCLUDE_ASM stubs (objdiff base object)")
+    ap.add_argument("--objects-only", action="store_true",
+                    help="assemble/compile objects but do not link/objcopy/verify")
+    ap.add_argument("--skip-verify", action="store_true",
+                    help="link + objcopy but do not SHA-1 check against the retail exe "
+                         "(the retail exe is not present in CI)")
+    args = ap.parse_args()
+
     as_bin = tool("as")
     ld_bin = tool("ld")
     objcopy_bin = tool("objcopy")
 
-    for name, path in (("as", as_bin), ("ld", ld_bin), ("objcopy", objcopy_bin)):
+    needed = [("as", as_bin)]
+    if not args.objects_only:
+        needed += [("ld", ld_bin), ("objcopy", objcopy_bin)]
+    for name, path in needed:
         if not os.path.exists(path):
             print("BUILD FAILED: mips-linux-gnu-%s not found at %s" % (name, path))
             print("Set DW2_BINUTILS to a directory holding the mips binutils.")
@@ -215,12 +235,16 @@ def main():
     n_asm = assemble_asm(as_bin)
     if n_asm < 0:
         return 1
-    n_c = compile_c(cpp, cc1, as_abs)
+    n_c = compile_c(cpp, cc1, as_abs, skip_asm=args.skip_asm)
     if n_c < 0:
         return 1
     if n_asm == 0 and n_c == 0:
         print("BUILD FAILED: no .s or .c sources found")
         return 1
+
+    if args.objects_only:
+        print("objects built (asm=%d, c=%d)" % (n_asm, n_c))
+        return 0
 
     # Link: symbol script first so the auto hardware/kernel syms resolve.
     os.makedirs(os.path.join(ROOT, CONFIG["build_dir"]), exist_ok=True)
@@ -241,6 +265,10 @@ def main():
     if run([objcopy_bin, "-O", "binary", CONFIG["elf"], CONFIG["out"]]) != 0:
         print("BUILD FAILED: objcopy")
         return 1
+
+    if args.skip_verify:
+        print("%s: built (verify skipped)" % CONFIG["out"])
+        return 0
 
     # Verify against the retail target.
     got = sha1(os.path.join(ROOT, CONFIG["out"]))

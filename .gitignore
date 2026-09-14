@@ -1,13 +1,10 @@
-asm/
 assets/
 build/
 dumps/
 rom/
-linkers/
 local/
 __pycache__/
 permuter/
-nonmatchings/
 tools/giveups/
 tools/permuter_findings/
 expected/
