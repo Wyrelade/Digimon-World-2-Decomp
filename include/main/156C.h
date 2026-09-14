@@ -478,4 +478,16 @@ typedef struct {
     /* 0xEC */ u16 field_EC;
 } Obj25FBC;
 
+/* Stride-0x28 array element written by func_8001D550: a flag byte at 0xE plus
+ * two words at 0x10/0x14; field_0 is the loop guard (zero terminates). */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    u8 _pad04[0xE - 0x4];
+    /* 0x0E */ s8 field_E;
+    u8 _pad0F[0x1];
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    u8 _pad18[0x28 - 0x18];
+} Ent1D550;
+
 #endif /* MAIN_156C_H */

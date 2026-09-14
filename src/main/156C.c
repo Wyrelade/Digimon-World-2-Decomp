@@ -69,7 +69,7 @@ extern void func_8002BAD4(s32);
 extern s32 func_8001E134(void);
 extern u8 *func_80011F5C(void *);
 extern s32 D_80040FD0[];
-extern void func_8001D550(void *, s32, s32);
+extern void func_8001D550(Ent1D550 *, s32, s32);
 extern void func_8001D884(s32);
 extern void func_8001BC24(void *, Arg1BC24 *);
 extern void func_800221C4(s32, s32);
@@ -811,7 +811,26 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D104);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D504);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D550);
+void func_8001D550(Ent1D550 *p, s32 a1, s32 a2) {
+    if (p->field_0 == 0) {
+        return;
+    }
+    do {
+        if (a1 != 0x1000) {
+            p->field_E = 0;
+        } else {
+            p->field_E = 1;
+        }
+        p->field_10 = a1;
+        if (a2 != 0x1000) {
+            p->field_E = 0;
+        } else {
+            p->field_E = 1;
+        }
+        p->field_14 = a2;
+        p++;
+    } while (p->field_0 != 0);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D5B4);
 
