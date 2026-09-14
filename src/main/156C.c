@@ -58,6 +58,8 @@ extern void func_8001BB88(s32 *);
 extern void func_80022D84(ActorWork *);
 extern s32 D_8005F79C;
 extern Sub3C *func_8001FDBC(Actor *, s32);
+extern void func_8001F5E8(Actor *);
+extern s32 D_80043704[];
 extern void func_80020920(Actor *);
 extern void func_800200D0(Actor *);
 extern void func_80020510(Actor *, s32);
@@ -1147,7 +1149,38 @@ void func_8001EC00(Actor *arg0, s32 *arg1) {
     arg0->work->field_0 = *arg1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001EC10);
+void func_8001EC10(Actor *arg0) {
+    s32 state = arg0->field_10;
+
+    switch (state) {
+    case 0:
+        func_80020C40((ContC40 *)arg0, D_80043704, 0);
+        func_8001FDBC(arg0, 0x5B)->field_3C = 4;
+        func_8001F5E8(arg0);
+        func_80011544(arg0);
+        break;
+    case 1: {
+        ActorWork *w = arg0->work;
+        Actor *v1 = (Actor *)w->field_0;
+        w->field_4 = 0;
+        if (v1 != 0) {
+            s32 st = v1->field_10;
+            if (st != 0 && st != 3) {
+                DstElem *de = v1->field_3C->field_78;
+                ObjEC10 *dst = arg0->u38.ptr38;
+                s32 t = de->field_34;
+                dst->field_34 = 0;
+                dst->field_30 = t;
+                dst->field_38 = de->field_3C;
+                w->field_4 = state;
+            }
+        }
+        break;
+    }
+    case 2:
+        break;
+    }
+}
 
 void func_8001ECE4(Actor *arg0) {
     if (arg0->work->field_4 != 0) {
@@ -1826,7 +1859,7 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002485C);
 s32 func_80024950(Actor *arg0) {
     s32 tmp = arg0->u34.b.field_37;
     arg0->u34.b.field_37 = 0;
-    arg0->field_38 = tmp;
+    arg0->u38.field_38 = tmp;
     return tmp;
 }
 

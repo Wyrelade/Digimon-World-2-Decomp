@@ -142,10 +142,23 @@ typedef struct {
 /* Stride-0x84 destination element func_8001F5E8 fills; the copied block lands
  * at offset 0x60. */
 typedef struct {
-    u8 _pad00[0x60];
+    u8 _pad00[0x34];
+    /* 0x34 */ s32 field_34;
+    u8 _pad38[0x04];
+    /* 0x3C */ s32 field_3C;
+    u8 _pad40[0x20];
     /* 0x60 */ Blk20 field_60;
     u8 _pad80[0x04];
 } DstElem; /* size 0x84 */
+
+/* Object reached through Actor at 0x38 (overlaps the u8 field_38); func_8001EC10
+ * writes three words at 0x30/0x34/0x38. */
+typedef struct {
+    u8 _pad00[0x30];
+    /* 0x30 */ s32 field_30;
+    /* 0x34 */ s32 field_34;
+    /* 0x38 */ s32 field_38;
+} ObjEC10;
 
 /* The struct reached through Actor at offset 0x3C. Only the fields written by
  * func_8001F24C / func_8001F5E8 are known so far: field_8 is a signed count and
@@ -204,8 +217,11 @@ typedef struct {
             /* 0x37 */ u8 field_37;
         } b;
     } u34;
-    /* 0x38 */ u8 field_38;
-    u8 _pad39[0x03];
+    /* 0x38 read as a byte (field_38) or as an ObjEC10* (ptr38) by func_8001EC10. */
+    union {
+        /* 0x38 */ u8 field_38;
+        ObjEC10 *ptr38;
+    } u38;
     /* 0x3C */ Sub3C *field_3C;
     u8 _pad40[0x08];
     /* 0x48 */ ActorSub5C field_48[2];
