@@ -1349,7 +1349,20 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800229F4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022AE4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022D84);
+void func_80022D84(ActorWork *arg0) {
+    Node22D84 *n = (Node22D84 *)((u8 *)arg0 - 0xC);
+    Node22D84 *m = n->field_0;
+    Node22D84 *nx = n->field_4;
+    n->field_8 = 0;
+    if (nx->field_8 == 0) {
+        n->field_4 = nx->field_4;
+        nx->field_4->field_0 = n;
+    }
+    if (m->field_8 == 0) {
+        m->field_4 = n->field_4;
+        n->field_4->field_0 = m;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022DEC);
 

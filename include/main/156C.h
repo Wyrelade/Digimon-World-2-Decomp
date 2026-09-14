@@ -406,6 +406,14 @@ typedef struct {
     /* 0x04 */ s32 entries[100];
 } List50798;
 
+/* Doubly-linked node reached at (arg0 - 0xC) by func_80022D84; field_0 is the
+   sibling pointer, field_4 links to a neighbour whose field_0 points back. */
+typedef struct Node22D84 {
+    /* 0x00 */ struct Node22D84 *field_0;
+    /* 0x04 */ struct Node22D84 *field_4;
+    /* 0x08 */ s32 field_8;
+} Node22D84;
+
 /* arg0 of func_8002C0E4: three s32 accumulators at 0x14/0x18/0x1C. */
 typedef struct {
     u8 _pad00[0x14];
