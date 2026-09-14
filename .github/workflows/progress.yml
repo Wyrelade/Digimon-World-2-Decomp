@@ -34,6 +34,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y binutils-mips-linux-gnu build-essential python3 libc6:i386
 
+      - name: Make PSY-Q cc1 executable
+        run: chmod +x tools/linux/gcc-2.8.1-psx/cc1
+
       - name: Build TARGET objects (full, all functions)
         run: python3 tools/build_dw2.py --objects-only --skip-verify
 
