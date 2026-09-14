@@ -453,7 +453,37 @@ s32 func_80013AB0(s32 arg0, s32 arg1) {
     return p[arg1] + r;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013AFC);
+void func_80013AFC(u8 *out, s32 val, s32 width) {
+    u8 buf[8];
+    s32 sign = 0;
+    s32 done = 0;
+    s32 i;
+
+    if (width < 0) {
+        width = -width;
+        sign = 1;
+    }
+    if (val > 99999999) {
+        val = 99999999;
+    }
+    for (i = 0; i < width; i++) {
+        u8 *p = &buf[i];
+        if (!done) {
+            *p = val % 10;
+        } else {
+            *p = 0xFD;
+        }
+        val = val / 10;
+        done = (val == 0);
+    }
+    for (i = width - 1; i >= 0; i--) {
+        if (sign && buf[i] == 0xFD) {
+            continue;
+        }
+        *out++ = buf[i];
+    }
+    *out = 0xFF;
+}
 
 void func_80013BF8(Actor *arg0, s16 arg1) {
     arg0->work->field_30 = arg1;
