@@ -314,11 +314,15 @@ typedef struct {
     /* 0x04 */ s32 data[1];
 } Stack54CD0;
 
-/* Global struct D_80048DB8: field_0 is a small state (func_80024220), field_1C a
-   counter compared/bumped by func_80023FFC. */
+/* Global struct D_80048DB8: field_0 is a small state (func_80024220), field_4 a
+   countdown and field_8 an advancing buffer pointer (func_8002405C; note the
+   symbol D_80048DBC aliases field_4), field_1C a counter compared/bumped by
+   func_80023FFC. */
 typedef struct {
     /* 0x00 */ s32 field_0;
-    u8 _pad4[0x18];
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    u8 _padC[0x1C - 0xC];
     /* 0x1C */ s32 field_1C;
 } Obj48DB8;
 
