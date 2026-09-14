@@ -481,6 +481,20 @@ typedef struct {
     u8 data[0x4030];
 } Blk54CF8;
 
+/* Element of the D_8005E620.elems[] array (stride 0x5C); only the leading
+   status byte is touched by func_80022118. */
+typedef struct {
+    /* 0x00 */ u8 field_0;
+    u8 _pad01[0x5B];
+} ElmE620; /* size 0x5C */
+
+/* Global at D_8005E620: a 0xE4-byte header followed by an array of 0x24
+   ElmE620 slots (func_80022118 scans and updates their status bytes). */
+typedef struct {
+    u8 _pad00[0xE4];
+    /* 0xE4 */ ElmE620 elems[0x24];
+} EntE620;
+
 /* Table cleared by func_80011190: a count word followed by 100 entries. */
 typedef struct {
     /* 0x00 */ s32 count;
