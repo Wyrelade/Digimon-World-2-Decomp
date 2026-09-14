@@ -859,7 +859,18 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DC24);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DDA8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DFF4);
+EntDFF4 *func_8001DFF4(arg0)
+s32 arg0;
+{
+    s16 *p = (s16 *)func_800239A0(0x45E0000);
+    while (*p != 0) {
+        if (*p == arg0) {
+            return (EntDFF4 *)p;
+        }
+        p = (s16 *)((u8 *)p + 0x10);
+    }
+    return 0;
+}
 
 s32 func_8001E048(s32 arg0) {
     s32 base = func_80023A08(0x45E);
