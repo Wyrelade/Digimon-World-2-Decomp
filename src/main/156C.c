@@ -57,7 +57,7 @@ extern void func_80023BB0(void);
 extern void func_8001BB88(s32 *);
 extern void func_80022D84(ActorWork *);
 extern s32 D_8005F79C;
-extern void func_8001FDBC(Actor *, s32);
+extern Sub3C *func_8001FDBC(Actor *, s32);
 extern void func_80020920(Actor *);
 extern void func_800200D0(Actor *);
 extern void func_80020510(Actor *, s32);
@@ -1316,7 +1316,7 @@ void func_80020C14(s32 arg0) {
 
 extern void func_80022F8C(void *, s32);
 
-void func_80020C40(ContC40 *a0, s32 *a1, s16 a2) {
+void func_80020C40(ContC40 *a0, s32 *a1, u16 a2) {
     AllocC40 *p;
     if (a0->field_38 == 0) {
         a0->field_38 = (AllocC40 *)func_80022F3C(0x90, 2);
@@ -1776,7 +1776,27 @@ void func_80024310(Actor *arg0, Block1C *arg1) {
     *(Block1C *)arg0->work = *arg1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024350);
+void func_80024350(Actor *arg0) {
+    ActorWork *work = arg0->work;
+
+    switch (arg0->field_10) {
+    case 0:
+        func_80020C40((ContC40 *)arg0, &work->field_8, work->field_14);
+        func_8001FDBC(arg0, work->field_0)->field_3C = 3;
+        func_8001F24C(arg0, 0, work->field_4);
+        func_80011544(arg0);
+        break;
+    case 1: {
+        Sub3C *s = arg0->field_3C;
+        if (arg0->field_28 < work->field_18 && s->field_60 >= 0)
+            break;
+        func_800115C0(arg0, 3);
+        break;
+    }
+    case 2:
+        break;
+    }
+}
 
 void func_80024410(Actor *arg0) {
     ActorWork *w = arg0->work;

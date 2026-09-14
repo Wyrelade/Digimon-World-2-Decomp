@@ -9,7 +9,12 @@
 typedef struct {
     /* 0x00 */ s32 field_0;
     /* 0x04 */ s32 field_4;
-    u8 _pad08[0x28];
+    /* 0x08 */ s32 field_8;
+    u8 _pad0C[0x08];
+    /* 0x14 */ u16 field_14;
+    u8 _pad16[0x02];
+    /* 0x18 */ s32 field_18;
+    u8 _pad1C[0x14];
     /* 0x30 */ s16 field_30;
     u8 _pad32[0x06];
     /* 0x38 */ s16 field_38;
@@ -148,7 +153,9 @@ typedef struct {
 typedef struct {
     u8 _pad00[0x8];
     /* 0x08 */ s32 field_8;
-    u8 _pad0C[0x3C];
+    u8 _pad0C[0x30];
+    /* 0x3C */ s32 field_3C;
+    u8 _pad40[0x08];
     /* 0x48 */ s32 field_48;
     /* 0x4C */ s32 field_4C;
     /* 0x50 */ s32 field_50;
