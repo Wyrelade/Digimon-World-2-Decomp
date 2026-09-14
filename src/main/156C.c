@@ -324,7 +324,33 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013308);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013378);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013384);
+extern s32 func_80013308();
+extern void func_8001107C(s32, s32, s32);
+extern s32 func_8001A300(void);
+extern s32 D_8005F78C;
+
+void func_80013384(Actor *a0) {
+    s32 st = a0->field_10;
+    s32 t = a0->u34.field_34;
+    switch (st) {
+    case 0:
+    default:
+        func_80013308((D_8005F770.field_18 >> 8) - 1);
+        func_8001107C(D_8005F770.field_18 & 0xFF00, t, 0);
+        func_80011544(a0);
+        break;
+    case 1:
+        if (D_8005F78C != 0) {
+            func_800115C0(a0, 2);
+        }
+        break;
+    case 2:
+        if (func_8001A300() == 0) {
+            func_800115C0(a0, 3);
+        }
+        break;
+    }
+}
 
 void func_80013450(void) {
     func_8001125C();
