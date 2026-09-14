@@ -559,7 +559,34 @@ void func_80019EE0(Actor *arg0, s32 arg1) {
     arg0->field_8 = arg1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019EE8);
+void func_80019EE8(Actor *a0) {
+    s32 v1 = a0->field_10;
+    u16 *a1 = (u16 *)&a0->work->field_0;
+    switch (v1) {
+    case 1:
+        if (a0->field_14 == 0 || a0->field_14 != v1) {
+            u16 nv = *a1 + 0x555;
+            *a1 = nv;
+            if ((s16)nv >= 0x1000) {
+                *a1 = 0x1000;
+                func_80011564(a0);
+            }
+        }
+        break;
+    case 0:
+        func_80011544(a0);
+        break;
+    case 2: {
+        s16 nv = *a1 - 0x555;
+        *a1 = nv;
+        if (nv <= 0) {
+            *a1 = 0;
+            func_80011544(a0);
+        }
+        break;
+    }
+    }
+}
 
 void func_80019FB4(Actor *arg0) {
     ActorWork *w = arg0->work;
