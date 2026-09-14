@@ -874,7 +874,26 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DA80);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DB18);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DB68);
+void func_8001DB68(void *a0, Out1DB68 *out) {
+    Ent1DB18 *src = func_8001DB18(a0);
+    Ent1DB18 *p;
+    s32 i;
+    out->field_0 = src->u0.h.field_2;
+    out->field_4 = ((s32)src->u0.field_0 << 20) >> 28;
+    out->field_8 = ((s32)src->u0.field_0 << 16) >> 28;
+    out->field_C = src->u4.field_4b;
+    out->field_10 = (src->u4.field_4 >> 8) & 0xF;
+    out->field_14 = (src->u4.field_4 >> 12) & 0xF;
+    p = src;
+    out->field_18 = p->u4.h.field_6;
+    {
+        Row1DB18 *row = (Row1DB18 *)p;
+        for (i = 0; i < 3; i++) {
+            out->field_1C[i] = row[i].field_8;
+            out->field_22[i] = row[i].field_12;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DC24);
 

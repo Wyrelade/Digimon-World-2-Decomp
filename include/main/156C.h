@@ -184,6 +184,51 @@ typedef struct {
     } u4;
 } EntD8C4;
 
+/* Record returned by func_8001DB18; func_8001DB68 unpacks it. field_0 is read as
+   a word (nibble fields at bits 8-11 / 12-15) and as an s16 at 0x2; field_4 as a
+   byte at 0x4, an s16 at 0x6, and a word (nibbles at bits 8-11 / 12-15). */
+typedef struct {
+    union {
+        /* 0x00 */ s32 field_0;
+        struct { u8 _b[2]; s16 field_2; } h;
+    } u0;
+    union {
+        /* 0x04 */ u32 field_4;
+        u8 field_4b;
+        struct { u8 _b[2]; s16 field_6; } h;
+    } u4;
+    /* 0x08 */ u16 field_8;
+    u8 _pad0A[0x8];
+    /* 0x12 */ u8 field_12;
+    u8 _pad13[0xB];
+} Ent1DB18;
+
+/* Stride-0x1E view of the Ent1DB18 array that func_8001DB68 walks (the record's
+   s32 unions force C to size Ent1DB18 as 0x20, but the on-disc stride is 0x1E, so
+   the copy loop indexes this 2-aligned row instead). */
+typedef struct {
+    u8 _pad00[0x08];
+    /* 0x08 */ u16 field_8;
+    u8 _pad0A[0x8];
+    /* 0x12 */ u8 field_12;
+    u8 _pad13[0xB];
+} Row1DB18; /* 0x1E */
+
+/* Record func_8001DB68 fills from an Ent1DB18. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ u16 field_1C[3];
+    /* 0x22 */ u16 field_22[3];
+} Out1DB68;
+
+Ent1DB18 *func_8001DB18();
+
 /* Entry returned by the func_8001E4CC table lookup (0x2C stride). */
 typedef struct {
     /* 0x00 */ s16 field_0;
