@@ -48,10 +48,15 @@ jobs:
       - name: Generate objdiff.json
         run: python3 tools/objdiff/gen_objdiff_json.py
 
+      - name: Fetch objdiff-cli
+        run: |
+          curl -sSfL -o objdiff-cli \
+            https://github.com/encounter/objdiff/releases/latest/download/objdiff-cli-linux-x86_64
+          chmod +x objdiff-cli
+
       - name: Generate progress report
         run: |
-          chmod +x tools/objdiff/objdiff-cli
-          ./tools/objdiff/objdiff-cli report generate -o build/USA/progress.json
+          ./objdiff-cli report generate -o build/USA/progress.json
           echo "--- report head ---"; head -c 600 build/USA/progress.json; echo
 
       - name: Upload progress report
