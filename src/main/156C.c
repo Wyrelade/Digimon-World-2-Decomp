@@ -1544,7 +1544,21 @@ Ent23A78 *func_80023AB0(void) {
     return NULL;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023AE8);
+Ent23AE8 *func_80023AE8(void) {
+    s32 min = D_8005F770.field_0;
+    Ent23A78 *p = D_8005F8C8;
+    Ent23A78 *best = 0;
+    s32 i;
+    for (i = 0; i < 0x50; i++, p++) {
+        if (p->field_4 == 0) continue;
+        if (p->field_2 != 0) continue;
+        if (p->field_0 != 3) continue;
+        if (min < p->field_8) continue;
+        min = p->field_8;
+        best = p;
+    }
+    return (Ent23AE8 *)best;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023B70);
 
