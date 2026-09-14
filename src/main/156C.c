@@ -1214,7 +1214,18 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F274);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F320);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F5E8);
+extern Blk20 D_80043714;
+
+void func_8001F5E8(Actor *a0) {
+    Sub3C *sub = a0->field_3C;
+    DstElem *p = sub->field_78;
+    s32 i = 0;
+    while (i < sub->field_8) {
+        i++;
+        p->field_60 = D_80043714;
+        p++;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F668);
 

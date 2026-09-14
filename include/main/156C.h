@@ -115,10 +115,26 @@ typedef struct {
     /* 0x38 */ Buf38 *buf;
 } Ctx38;
 
-/* The struct reached through Actor at offset 0x3C. Only the fields written by
- * func_8001F24C are known so far. */
+/* A 0x20 block copied verbatim from the const table D_80043714. */
 typedef struct {
-    u8 _pad00[0x48];
+    s32 w[8];
+} Blk20; /* size 0x20 */
+
+/* Stride-0x84 destination element func_8001F5E8 fills; the copied block lands
+ * at offset 0x60. */
+typedef struct {
+    u8 _pad00[0x60];
+    /* 0x60 */ Blk20 field_60;
+    u8 _pad80[0x04];
+} DstElem; /* size 0x84 */
+
+/* The struct reached through Actor at offset 0x3C. Only the fields written by
+ * func_8001F24C / func_8001F5E8 are known so far: field_8 is a signed count and
+ * field_78 an array of DstElem. */
+typedef struct {
+    u8 _pad00[0x8];
+    /* 0x08 */ s32 field_8;
+    u8 _pad0C[0x3C];
     /* 0x48 */ s32 field_48;
     /* 0x4C */ s32 field_4C;
     /* 0x50 */ s32 field_50;
@@ -126,6 +142,8 @@ typedef struct {
     /* 0x58 */ s32 field_58;
     /* 0x5C */ s32 field_5C;
     /* 0x60 */ s32 field_60;
+    u8 _pad64[0x14];
+    /* 0x78 */ DstElem *field_78;
 } Sub3C;
 
 /* Two of these live in Actor at 0x48 (stride 0x5C). func_8001C194 stamps the
