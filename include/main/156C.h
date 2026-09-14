@@ -306,6 +306,9 @@ typedef struct {
     /* 0x08 */ s16 field8[11];
     /* 0x1E */ s16 field_1E;
     /* 0x20 */ s16 field_20;
+    /* 0x22 */ s16 field_22;
+    /* 0x24 */ s16 field_24;
+    /* 0x26 */ s16 field_26;
 } EntE6A8;
 
 /* Packed record returned by the func_8001ED40 lookup. Several 32-bit words hold
@@ -360,6 +363,13 @@ typedef struct {
 EntD8C4 *func_8001D8C4();
 EntE4CC *func_8001E4CC();
 EntE6A8 *func_8001E6A8();
+
+/* 6-byte record copied wholesale by func_8001E7E4 from a stride-6 table (base is
+ * the func_800239A0 lookup, index is EntE6A8.field_22/24/26). 2-byte alignment
+ * makes the copy an unaligned lwl/lwr word plus an lh half. */
+typedef struct {
+    /* 0x0 */ s16 data[3];
+} Row6;
 EntED40 *func_8001ED40();
 EntDFF4 *func_8001DFF4();
 

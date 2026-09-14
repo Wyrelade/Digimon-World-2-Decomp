@@ -1146,7 +1146,17 @@ s16 func_8001E7C0(void) {
     return func_8001E6A8()->field_20;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E7E4);
+void func_8001E7E4(s32 a0, void *a1) {
+    u8 *base;
+    EntE6A8 *e;
+    base = (u8 *)func_800239A0((func_8001E67C(a0) << 16) | 1);
+    e = func_8001E6A8(a0);
+    *(Row6 *)((u8 *)a1 + 0) = *(Row6 *)(base + e->field_22 * 6);
+    e = func_8001E6A8(a0);
+    *(Row6 *)((u8 *)a1 + 6) = *(Row6 *)(base + e->field_24 * 6);
+    e = func_8001E6A8(a0);
+    *(Row6 *)((u8 *)a1 + 12) = *(Row6 *)(base + e->field_26 * 6);
+}
 
 s32 func_8001E8D0(void) {
     return func_8001E6A8()->u4.field_4 & 1;
