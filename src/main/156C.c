@@ -42,6 +42,7 @@ extern List50798 D_80050798;
 extern Blk54CF8 D_80054CF8[];
 extern Blk54CF8 D_80058D28[];
 extern void func_8002796C(Blk54CF8 *, s32);
+extern void func_8001A68C(s32, s32);
 extern s32 func_80027A74(void *);
 extern s32 func_80026FC4(void);
 extern void func_80026FD4(void);
@@ -493,7 +494,23 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800174F8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017594);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800176D8);
+void func_800176D8(Actor *s0) {
+    Work176D8 *w = (Work176D8 *)s0->work;
+    s16 c = w->field_19E;
+    if (c == 0) {
+        func_8001A68C(0xB, 0);
+        func_800115C0(s0, 2);
+    } else {
+        s16 idx = (u16)c - 1;
+        s16 v;
+        w->field_19E = idx;
+        v = w->field_1A0[idx];
+        ((WorkElem8 *)((u8 *)w + 0x6C))[v].field_2 = 2;
+        w->field_1A0[w->field_19E] = 0;
+        func_8001A68C(0xB, 0);
+        func_800115DC(s0, 1);
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001777C);
 

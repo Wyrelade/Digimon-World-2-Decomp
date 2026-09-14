@@ -115,6 +115,20 @@ typedef struct {
     /* 0x38 */ Buf38 *buf;
 } Ctx38;
 
+/* View of Actor.work used by func_800176D8: a s16 counter at 0x19E indexing a
+ * s16 array at 0x1A0, plus a stride-8 element array reached at offset 0x6C. */
+typedef struct {
+    u8 _pad0[0x02];
+    /* 0x2 */ u8 field_2;
+    u8 _pad3[0x05];
+} WorkElem8; /* size 0x8 */
+
+typedef struct {
+    u8 _pad00[0x19E];
+    /* 0x19E */ s16 field_19E;
+    /* 0x1A0 */ s16 field_1A0[16];
+} Work176D8;
+
 /* A 0x20 block copied verbatim from the const table D_80043714. */
 typedef struct {
     s32 w[8];
