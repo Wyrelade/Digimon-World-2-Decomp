@@ -1031,7 +1031,15 @@ u16 func_8001E8F4(s32 idx) {
     return (p->field_4 >> 1) & 0x7FFF;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E938);
+s32 func_8001E938(void) {
+    EntA0 *p = func_800239A0(0x1F80000);
+    s32 i = 0;
+    while ((p->field_4 >> 1) & 0x7FFF) {
+        p++;
+        i++;
+    }
+    return i;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E984);
 
