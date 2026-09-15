@@ -495,6 +495,66 @@ typedef struct {
     u8 _pad24[0x8];
 } Arg1BC24;
 
+/* Read view of the Arg1BC24 block used by func_8001BC24: same layout, but the
+   0x8/0xA halfwords are read unsigned and 0x24/0x28 are read as words. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ u16 field_8;
+    /* 0x0A */ u16 field_A;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ s32 field_1C;
+    /* 0x20 */ s32 field_20;
+    /* 0x24 */ s32 field_24;
+    /* 0x28 */ s32 field_28;
+} SrcBC24;
+
+/* Stride-0x34 record built by func_8001BC24 into the func_80011510 array. */
+typedef struct {
+    /* 0x00 */ u8 field_0;
+    /* 0x01 */ u8 field_1;
+    /* 0x02 */ u8 field_2;
+    /* 0x03 */ u8 field_3;
+    /* 0x04 */ u8 field_4;
+    u8 _pad5;
+    /* 0x06 */ s16 field_6;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ s16 field_1C;
+    /* 0x1E */ s16 field_1E;
+    /* 0x20 */ u8 field_20;
+    /* 0x21 */ u8 field_21;
+    /* 0x22 */ u8 field_22;
+    /* 0x23 */ u8 field_23;
+    /* 0x24 */ u8 field_24;
+    /* 0x25 */ u8 field_25;
+    /* 0x26 */ u8 field_26;
+    /* 0x27 */ u8 field_27;
+    /* 0x28 */ u8 field_28;
+    /* 0x29 */ u8 field_29;
+    /* 0x2A */ u8 field_2A;
+    /* 0x2B */ u8 field_2B;
+    /* 0x2C */ u8 field_2C;
+    /* 0x2D */ u8 field_2D;
+    /* 0x2E */ u8 field_2E;
+    /* 0x2F */ u8 field_2F;
+    /* 0x30 */ u8 field_30;
+    /* 0x31 */ u8 field_31;
+    u8 _pad32[2];
+} Rec34;
+
+/* Returned by func_80011440/func_80011510: the stride-0x34 record array at 0x2C. */
+typedef struct {
+    u8 _pad00[0x2C];
+    /* 0x2C */ Rec34 *field_2C;
+} Ent11440;
+
 /* 0x10-stride record; D_800416CC array, per-slot init by func_8001F90C. */
 typedef struct {
     u8 data[0x10];

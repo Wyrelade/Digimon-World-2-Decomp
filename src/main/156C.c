@@ -225,12 +225,14 @@ Buf111D4 *func_800113B8(s32 a0, s32 a1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011440);
 
-void func_80011510(s32 arg0, s32 arg1, s32 arg2) {
+extern Ent11440 *func_80011440(void);
+
+Ent11440 *func_80011510(s32 arg0, s32 arg1, s32 arg2) {
     D_80050938.field_0 = arg0;
     D_80050938.field_4 = arg1;
     D_80050938.field_8 = arg2;
     D_80050938.field_C = 0;
-    func_80011440();
+    return func_80011440();
 }
 
 void func_80011544(Actor *arg0) {
@@ -801,7 +803,78 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A9C8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BB88);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BC24);
+void func_8001BC24(void *arg0, Arg1BC24 *arg1) {
+    SrcBC24 *src = (SrcBC24 *)arg1;
+    Ent11440 *r;
+    Rec34 *base;
+    Rec34 *p;
+    Rec34 *rec;
+    s32 i;
+
+    r = func_80011510(9, -1, -1);
+    if (r == 0) {
+        return;
+    }
+    i = 0;
+    base = r->field_2C;
+    func_8001BB88(arg0);
+
+    for (p = base; i < 0x32; i++, p++) {
+        if (p->field_0 == 0) {
+            break;
+        }
+    }
+
+    if (src->field_C == 0) {
+        if (src->field_0 != 0) {
+            src->field_C = 9;
+        } else {
+            src->field_C = 7;
+        }
+    }
+    if (src->field_10 == 0) {
+        if (src->field_0 != 0) {
+            src->field_10 = 0xF;
+        } else {
+            src->field_10 = 0xA;
+        }
+    }
+
+    rec = &base[i];
+    rec->field_0 = 1;
+    rec->field_1 = *(u8 *)&src->field_0;
+    rec->field_2 = *(u8 *)&src->field_4;
+    rec->field_8 = src->field_14;
+    rec->field_1C = src->field_8 - 0xA0;
+    rec->field_1E = src->field_A - 0x78;
+    rec->field_3 = *(u8 *)&src->field_C;
+    rec->field_4 = *(u8 *)&src->field_10;
+    rec->field_6 = *(u16 *)&src->field_18;
+    rec->field_C = src->field_1C;
+    rec->field_10 = src->field_20;
+    rec->field_14 = src->field_24;
+    rec->field_18 = src->field_28;
+    rec->field_20 = *(u8 *)&src->field_4;
+    rec->field_21 = *(u8 *)&src->field_18;
+    rec->field_22 = 0;
+    rec->field_23 = 0;
+    rec->field_24 = 0;
+    rec->field_25 = 0;
+    rec->field_27 = 0;
+    rec->field_26 = 0;
+    rec->field_28 = 0;
+    rec->field_29 = 0;
+    rec->field_2A = 0;
+    rec->field_2B = 0;
+    rec->field_2C = 0;
+    rec->field_2D = 0;
+    rec->field_2E = 0;
+    rec->field_2F = 0;
+    rec->field_30 = 0;
+    rec->field_31 = 0;
+
+    *(s32 *)arg0 = i;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BE08);
 
