@@ -497,7 +497,38 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800143CC);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80014400);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80014870);
+extern void func_8001373C(void *, s32, s32 *, s16 *);
+extern void func_800137B8(void *, s32, s32);
+extern void func_8001D504(void *, s32);
+
+void func_80014870(Actor *actor) {
+    ActorWork *w = actor->work;
+    s32 *p;
+    s32 *list;
+    void *obj;
+
+    if (w->field_40 == 0) {
+        return;
+    }
+    p = (s32 *)func_800239A0(0x5130009);
+    if (*p == 0) {
+        return;
+    }
+    list = p;
+    do {
+        obj = func_800239A0(*list);
+        if (w->field_2C != 0 && w->field_3C == 0) {
+            func_8001373C(obj, 2, &w->field_28, &w->field_2C);
+            func_800137B8(obj, 2, (actor->field_28 >> 2) & 3);
+            func_8001D504(obj, 0);
+        } else {
+            func_8001D504(obj, 2);
+        }
+        list++;
+        func_8001D550(obj, 0x1000, w->field_40);
+        func_8001D884((s32)obj);
+    } while (*list != 0);
+}
 
 void func_80014978(Actor *arg0, s16 arg1) {
     arg0->work->field_6C = arg1;
