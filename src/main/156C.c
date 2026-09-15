@@ -150,7 +150,62 @@ Buf111D4 *func_800111D4(void) {
     return s0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001125C);
+void func_8001125C(arg0)
+Act125C *arg0;
+{
+    Obj125C *sub;
+    s32 i;
+    s32 *p;
+    s32 j;
+
+    if (arg0->field_30 != 0) {
+        s32 *fp = arg0->field_34;
+        i = 0;
+        if (arg0->field_30 > 0) {
+            p = fp;
+            do {
+                func_80010ED4(p);
+                p++;
+            } while (++i < arg0->field_30);
+            fp = arg0->field_34;
+        }
+        func_80022D84((ActorWork *)fp);
+    }
+
+    if (arg0->field_2C != 0) {
+        func_80022D84(arg0->field_2C);
+    }
+    if (arg0->field_38 != 0) {
+        func_80022D84(arg0->field_38);
+    }
+
+    sub = arg0->field_3C;
+    if (sub != 0) {
+        if (sub->field_6C != 0) {
+            func_80022D84(sub->field_6C);
+        }
+        if (sub->field_70 != 0) {
+            func_80022D84(sub->field_70);
+        }
+        i = sub->field_74 != 0;
+        if (i) {
+            func_80022D84(sub->field_74);
+        }
+        if (sub->field_78 != 0) {
+            func_80022D84(sub->field_78);
+        }
+        func_80022D84((ActorWork *)arg0->field_3C);
+    }
+
+    for (j = 0; j < 100; j++) {
+        if (D_80050798.entries[j] == (s32)arg0) {
+            D_80050798.entries[j] = 0;
+            break;
+        }
+    }
+
+    func_80022D84((ActorWork *)arg0);
+}
 
 Buf111D4 *func_800113B8(s32 a0, s32 a1) {
     Buf111D4 *s0 = func_800111D4();

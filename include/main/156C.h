@@ -185,6 +185,27 @@ typedef struct {
     /* 0x78 */ DstElem *field_78;
 } Sub3C;
 
+/* Sub-object reached through the Act125C container at 0x3C; func_8001125C frees
+   the four owned pointers at 0x6C..0x78. */
+typedef struct {
+    u8 _pad00[0x6C];
+    /* 0x6C */ ActorWork *field_6C;
+    /* 0x70 */ ActorWork *field_70;
+    /* 0x74 */ ActorWork *field_74;
+    /* 0x78 */ ActorWork *field_78;
+} Obj125C;
+
+/* Container torn down by func_8001125C: a func_80010ED4 array at 0x34 with count
+   at 0x30, plus owned pointers freed via func_80022D84. */
+typedef struct {
+    u8 _pad00[0x2C];
+    /* 0x2C */ ActorWork *field_2C;
+    /* 0x30 */ s32 field_30;
+    /* 0x34 */ s32 *field_34;
+    /* 0x38 */ ActorWork *field_38;
+    /* 0x3C */ Obj125C *field_3C;
+} Act125C;
+
 /* Two of these live in Actor at 0x48 (stride 0x5C). func_8001C194 stamps the
  * four-byte header of each; field_0 is the pair earlier read as Actor.field_48
  * (element 0) and Actor.field_A4 (element 1). */
