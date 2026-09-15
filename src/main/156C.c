@@ -683,7 +683,38 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80018D78);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019214);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800194C8);
+void func_800194C8(a)
+Actor194C8 *a;
+{
+    u8 *tbl;
+    s32 i;
+    s32 r, c;
+    u8 *q;
+    void *base;
+
+    tbl = a->field_118;
+
+    for (i = 3; i >= 0; i--) {
+        a->records[i].count = 0;
+    }
+
+    for (i = 0; i < 0xC; i++) {
+        q = tbl + i;
+        if (q[0x22] == 0) continue;
+        r = func_8001EE34(q[0x22]);
+        c = a->records[r].count;
+        a->records[r].arr[c] = q[0x22];
+        a->records[r].count = (u16)a->records[r].count + 1;
+    }
+
+    for (i = 0; i < 4; i++) {
+        base = func_800239A0(0x5130022);
+        a->block64[i] = *(Blk12 *)((u8 *)base + i * 0xC);
+        a->field_94[i] = 0;
+        a->slot54[i].v = 0;
+        *(s16 *)((u8 *)&a->block64[i] + 2) = a->records[i].count;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019614);
 
@@ -1436,7 +1467,7 @@ s32 func_8001EE10(void) {
     return func_8001ED40()->u0.h0.field_2 & 3;
 }
 
-s32 func_8001EE34(void) {
+s32 func_8001EE34() {
     return (func_8001ED40()->u0.field_0 >> 18) & 3;
 }
 

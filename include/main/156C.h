@@ -408,6 +408,7 @@ typedef struct {
 
 EntA0 *func_800239A0();
 s32 func_80023A08();
+s32 func_8001EE34();
 
 /* Record returned by the func_80023A78 lookup. */
 typedef struct {
@@ -581,6 +582,31 @@ typedef struct {
     u8 _pad7[5];
     /* 0xC */ u8 field_C;
 } ArgE298;
+
+/* Per-channel bucket built by func_800194C8: a count at +0, then a count-indexed
+   array of s16 slots. Stride 0x1A; four channels live at Actor194C8.records. */
+typedef struct {
+    /* 0x00 */ s16 count;
+    /* 0x02 */ s16 arr[12];
+} Rec1A;
+
+/* s16 held in a 4-byte stride slot (Actor194C8.slot54). */
+typedef struct {
+    /* 0x00 */ s16 v;
+    /* 0x02 */ s16 pad;
+} Slot4;
+
+/* View of the Actor block touched by func_800194C8. */
+typedef struct {
+    u8 _pad00[0x54];
+    /* 0x54 */ Slot4 slot54[4];
+    /* 0x64 */ Blk12 block64[4]; /* the channel count is re-stored at +2 */
+    /* 0x94 */ s32 field_94[4];
+    u8 _padA4[0xAC - 0xA4];
+    /* 0xAC */ Rec1A records[4];
+    u8 _pad114[0x118 - 0x114];
+    /* 0x118 */ u8 *field_118;
+} Actor194C8;
 
 /* Destination record for func_80033B24's bitfield unpack (all s16 fields). */
 typedef struct {
