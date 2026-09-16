@@ -1594,7 +1594,28 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020510);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020768);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020920);
+extern void func_8002D744(void *, Obj209 *);
+extern void func_8002D4A4(Obj209 *, s32 *);
+
+void func_80020920(Actor *arg0) {
+    Obj209 *obj = (Obj209 *)arg0->u38.ptr38;
+    s32 local[3];
+
+    obj->field_20 = obj->field_30;
+    func_8002D744(&obj->field_40, obj);
+    func_8002CF74((ObjC0E4 *)obj, &obj->field_48, local);
+    obj->field_30.x += local[0];
+    obj->field_30.y += local[1];
+    obj->field_30.z += local[2];
+    if (obj->field_58 == 0x1000 && obj->field_5C == obj->field_58 &&
+        obj->field_60 == obj->field_5C) {
+    } else {
+        func_8002D4A4(obj, &obj->field_58);
+    }
+    obj->field_50 = 0;
+    obj->field_4C = 0;
+    obj->field_48 = 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800209F8);
 

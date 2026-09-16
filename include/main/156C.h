@@ -165,6 +165,32 @@ typedef struct {
     /* 0x38 */ s32 field_38;
 } ObjEC10;
 
+/* Three-word vector copied field-to-field by value in func_80020920. */
+typedef struct {
+    /* 0x0 */ s32 x;
+    /* 0x4 */ s32 y;
+    /* 0x8 */ s32 z;
+} Vec3;
+
+/* Larger object reached through Actor at 0x38 (same slot as ObjEC10, used by
+ * func_80020920): two Vec3s at 0x20/0x30 plus scalar state at 0x40..0x60. */
+typedef struct {
+    u8 _pad00[0x20];
+    /* 0x20 */ Vec3 field_20;
+    u8 _pad2C[0x04];
+    /* 0x30 */ Vec3 field_30;
+    u8 _pad3C[0x04];
+    /* 0x40 */ s32 field_40;
+    u8 _pad44[0x04];
+    /* 0x48 */ s32 field_48;
+    /* 0x4C */ s32 field_4C;
+    /* 0x50 */ s32 field_50;
+    u8 _pad54[0x04];
+    /* 0x58 */ s32 field_58;
+    /* 0x5C */ s32 field_5C;
+    /* 0x60 */ s32 field_60;
+} Obj209;
+
 /* The struct reached through Actor at offset 0x3C. Only the fields written by
  * func_8001F24C / func_8001F5E8 are known so far: field_8 is a signed count and
  * field_78 an array of DstElem. */
