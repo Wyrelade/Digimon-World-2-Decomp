@@ -14,6 +14,8 @@ extern S5D560 D_8005D560;
 extern s32 D_8005F780;
 extern s32 D_80062F80;
 extern u8 D_8005F6A8[];
+extern Elm678 D_8005F678[];
+extern Elm6F0 D_8005F6F0[];
 extern u8 D_800416FC[];
 extern Obj48F08 *D_80048F08;
 extern void (*D_80048F0C)(void *, void *);
@@ -1855,7 +1857,45 @@ s32 func_80023270(s32 arg0, s32 arg1, s32 arg2) {
     return r;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002329C);
+void func_8002329C(void) {
+    s32 i;
+    Elm6A8 *a8 = (Elm6A8 *)D_8005F6A8;
+
+    for (i = 0; i < 2; i++) {
+        if (a8[i].field_0 != 0) {
+            D_8005F678[i].field_C = 0;
+            D_8005F678[i].field_4 = 0;
+            D_8005F678[i].field_0 = 0;
+            D_8005F678[i].field_10 = 0;
+            D_8005F6F0[i].field_3E = 0;
+        } else if ((a8[i].field_1 >> 4) == 4) {
+            func_800231AC(&a8[i], i);
+            D_8005F6F0[i].field_3E = 1;
+        } else {
+            D_8005F678[i].field_4 = 0;
+            D_8005F678[i].field_0 = 0;
+            D_8005F678[i].field_10 = 0;
+            D_8005F6F0[i].field_3E = 0;
+        }
+        D_8005F6F0[i].field_8 = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x1000);
+        D_8005F6F0[i].field_C = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x4000);
+        D_8005F6F0[i].field_0 = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x2000);
+        D_8005F6F0[i].field_4 = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x8000);
+        D_8005F6F0[i].field_10 = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x20);
+        D_8005F6F0[i].field_14 = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x40);
+        D_8005F6F0[i].field_1C = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x10);
+        D_8005F6F0[i].field_18 = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x80);
+        D_8005F6F0[i].field_28 = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x4);
+        D_8005F6F0[i].field_2C = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x1);
+        D_8005F6F0[i].field_20 = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x8);
+        D_8005F6F0[i].field_24 = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x2);
+        D_8005F6F0[i].field_30 = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x100);
+        D_8005F6F0[i].field_34 = func_80023270(D_8005F678[i].field_0, D_8005F678[i].field_4, 0x800);
+        D_8005F6F0[i].field_38 = D_8005F678[i].field_4;
+        D_8005F6F0[i].field_3A = D_8005F678[i].field_0;
+        D_8005F6F0[i].field_3C = D_8005F678[i].field_10;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023484);
 

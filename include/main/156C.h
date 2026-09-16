@@ -756,4 +756,46 @@ typedef struct {
     u8 _pad18[0x28 - 0x18];
 } Ent1D550;
 
+/* func_8002329C source record (stride 0x18): field_0/field_4 feed func_80023270
+ * bit tests, field_10 is copied out, field_C is cleared on the disabled path. */
+typedef struct {
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ s32 field_4;
+    u8 _pad8[0x4];
+    /* 0xC */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    u8 _pad14[0x4];
+} Elm678; /* size 0x18 */
+
+/* func_8002329C destination record (stride 0x40): 14 word slots filled from
+ * func_80023270, three s16 copies at 0x38/0x3A/0x3C, and a flag at 0x3E. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ s32 field_1C;
+    /* 0x20 */ s32 field_20;
+    /* 0x24 */ s32 field_24;
+    /* 0x28 */ s32 field_28;
+    /* 0x2C */ s32 field_2C;
+    /* 0x30 */ s32 field_30;
+    /* 0x34 */ s32 field_34;
+    /* 0x38 */ s16 field_38;
+    /* 0x3A */ s16 field_3A;
+    /* 0x3C */ s16 field_3C;
+    /* 0x3E */ s16 field_3E;
+} Elm6F0; /* size 0x40 */
+
+/* func_8002329C control record (stride 0x22): field_0 is an enable flag, the
+ * high nibble of field_1 selects the active mode. */
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    /* 0x1 */ u8 field_1;
+    u8 _pad2[0x20];
+} Elm6A8; /* size 0x22 */
+
 #endif /* MAIN_156C_H */
