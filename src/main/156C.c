@@ -83,6 +83,11 @@ extern void func_8001D550(Ent1D550 *, s32, s32);
 extern void func_8001D884(s32);
 extern void func_8001BC24(void *, Arg1BC24 *);
 extern void func_800221C4(s32, s32);
+extern void func_8001D5B4(void *, s32, s32, s32);
+extern s32 func_8001E984(s32, s32, s32);
+extern void func_8002D744(void *, Obj209 *);
+extern void func_8002B544(s32);
+extern void func_8001F1A8(Actor *, s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -683,7 +688,150 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80018BF8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80018D78);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019214);
+/* View of Actor.work used by func_80019214 (fields 0x80..0x14C). */
+typedef struct {
+    u8 _pad00[0x80];
+    /* 0x80 */ s32 field_80;
+    /* 0x84 */ s32 *field_84;
+    u8 _pad88[0xB0 - 0x88];
+    /* 0xB0 */ s32 field_B0;
+    /* 0xB4 */ s32 field_B4;
+    /* 0xB8 */ s32 field_B8;
+    u8 _padBC[0xC0 - 0xBC];
+    /* 0xC0 */ s32 field_C0;
+    u8 _padC4[0xC8 - 0xC4];
+    /* 0xC8 */ s32 field_C8;
+    /* 0xCC */ s32 field_CC;
+    /* 0xD0 */ s32 field_D0;
+    /* 0xD4 */ s32 field_D4;
+    /* 0xD8 */ s32 field_D8;
+    /* 0xDC */ s32 field_DC;
+    /* 0xE0 */ s32 field_E0;
+    /* 0xE4 */ s32 field_E4;
+    /* 0xE8 */ s32 field_E8;
+    /* 0xEC */ s32 field_EC;
+    u8 _padF0[0x100 - 0xF0];
+    /* 0x100 */ s32 field_100;
+    /* 0x104 */ s32 field_104;
+    /* 0x108 */ s32 field_108;
+    u8 _pad10C[0x138 - 0x10C];
+    /* 0x138 */ s32 field_138;
+    u8 _pad13C[0x148 - 0x13C];
+    /* 0x148 */ s32 field_148;
+    /* 0x14C */ s32 field_14C;
+} Wk19214;
+
+/* Record reached through Wk19214.field_84. */
+typedef struct {
+    u8 _pad00[0x0D];
+    /* 0x0D */ u8 field_D;
+    u8 _padE;
+    /* 0x0F */ u8 field_F;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s16 field_14;
+    /* 0x16 */ s16 field_16;
+    /* 0x18 */ s16 field_18;
+    /* 0x1A */ s16 field_1A;
+    /* 0x1C */ s16 field_1C;
+    /* 0x1E */ s16 field_1E;
+    /* 0x20 */ s16 field_20;
+} Rec19214;
+
+/* Node reached through Actor.u38.ptr38. */
+typedef struct {
+    u8 _pad00[0x58];
+    /* 0x58 */ s32 field_58;
+    /* 0x5C */ s32 field_5C;
+    /* 0x60 */ s32 field_60;
+} Nd19214;
+
+/* Stack context passed to func_8002C164. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ s32 *field_1C;
+} Ctx19214;
+
+extern void func_8002C164(Ctx19214 *);
+
+void func_80019214(Actor *actor) {
+    Wk19214 *work;
+    Rec19214 *rec;
+    s32 *list;
+    s32 *p;
+    void *obj;
+    Nd19214 *node;
+    Ctx19214 ls;
+
+    work = (Wk19214 *)actor->work;
+    if (work->field_80 == 0) {
+        goto Ltail;
+    }
+    p = (s32 *)func_800239A0(0x5130021);
+    rec = (Rec19214 *)work->field_84;
+    if (*p == 0) {
+        goto Ltail;
+    }
+    list = p;
+    do {
+        obj = func_800239A0(*list);
+        list++;
+        func_8001D5B4(obj, 0x2, 3, rec->field_14);
+        func_8001D5B4(obj, 0x4, 3, rec->field_16);
+        func_8001D5B4(obj, 0x8, 3, rec->field_18);
+        func_8001D5B4(obj, 0x10, 3, rec->field_1A);
+        func_8001D5B4(obj, 0x20, 2, rec->field_D);
+        func_8001D5B4(obj, 0x40, 3, rec->field_1C);
+        func_8001D5B4(obj, 0x80, 3, rec->field_1E);
+        func_8001D5B4(obj, 0x100, 3, rec->field_20);
+        func_8001D5B4(obj, 0x200, 8, rec->field_10);
+        func_8001D5B4(obj, 0x400, 8, func_8001E984(rec->field_D, rec->field_F, rec->field_10));
+        func_8001D550((Ent1D550 *)obj, 0x1000, work->field_80);
+        func_8001D884((s32)obj);
+    } while (*list != 0);
+
+Ltail:
+    work->field_148 = 0;
+    func_8002D744(&work->field_138, &work->field_EC);
+    work->field_100 = work->field_B0;
+    work->field_104 = work->field_B4;
+    work->field_108 = work->field_B8;
+    work->field_E8 = 0;
+    ls.field_0 = work->field_CC;
+    ls.field_4 = work->field_D0;
+    ls.field_8 = work->field_D4;
+    ls.field_C = work->field_D8;
+    ls.field_10 = work->field_DC;
+    ls.field_14 = work->field_E0;
+    ls.field_18 = 0;
+    ls.field_1C = &work->field_E8;
+    func_8002B544(work->field_E4);
+    func_8002C164(&ls);
+    if (work->field_C8 == 0) {
+        return;
+    }
+    if (work->field_14C == 0) {
+        return;
+    }
+    if (work->field_C8 == 1) {
+        func_8001F1A8(actor, 0);
+        work->field_C8 = work->field_C8 + 1;
+    }
+    node = (Nd19214 *)actor->u38.ptr38;
+    node->field_58 = work->field_14C;
+    node->field_5C = work->field_14C;
+    node->field_60 = work->field_14C;
+    func_8001FDBC(actor, work->field_C0);
+    func_8001F320(actor);
+    func_80020920(actor);
+    func_800200D0(actor);
+    func_80020510(actor, 0);
+}
 
 void func_800194C8(a)
 Actor194C8 *a;
