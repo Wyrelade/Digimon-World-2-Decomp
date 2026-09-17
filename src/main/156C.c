@@ -497,7 +497,62 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800137FC);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013854);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800138C0);
+/* file-local views for func_800138C0 */
+typedef struct {
+    s16 field_0;
+    s16 field_2;
+} Coord138C0;
+
+typedef struct {
+    s16 h[2];
+} Copy138C0;
+
+/* view of Elm6F0 that reads the 0x3C flag word unsigned */
+typedef struct {
+    u8 _p[0x3C];
+    u16 field_3C;
+    u8 _p2[0x40 - 0x3E];
+} ElmFlags138C0;
+
+s32 func_800138C0(s32 a0, s32 a1, s32 a2) {
+    Coord138C0 *p0 = (Coord138C0 *)a0;
+    Coord138C0 *p1 = (Coord138C0 *)a1;
+    Copy138C0 saved;
+    s32 changed;
+
+    changed = 0;
+    saved = *(Copy138C0 *)p0;
+
+    if (((ElmFlags138C0 *)D_8005F6F0)[a2].field_3C & 0x8000) {
+        if (p0->field_0 > 0) {
+            p0->field_0 = p0->field_0 - 1;
+            goto tail;
+        }
+    }
+    if (((ElmFlags138C0 *)D_8005F6F0)[a2].field_3C & 0x2000) {
+        if (p0->field_0 < p1->field_0 - 1) {
+            p0->field_0 = p0->field_0 + 1;
+            goto tail;
+        }
+    }
+    if (((ElmFlags138C0 *)D_8005F6F0)[a2].field_3C & 0x1000) {
+        if (p0->field_2 > 0) {
+            p0->field_2 = p0->field_2 - 1;
+            goto tail;
+        }
+    }
+    if (((ElmFlags138C0 *)D_8005F6F0)[a2].field_3C & 0x4000) {
+        if (p0->field_2 < p1->field_2 - 1) {
+            p0->field_2 = p0->field_2 + 1;
+        }
+    }
+
+tail:
+    if (saved.h[0] != p0->field_0 || saved.h[1] != p0->field_2) {
+        changed = -1;
+    }
+    return changed;
+}
 
 void func_80013A10(s32 arg0, s32 arg1) {
     func_800138C0(arg0, arg1, 0);
