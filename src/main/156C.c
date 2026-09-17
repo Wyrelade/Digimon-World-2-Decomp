@@ -71,6 +71,8 @@ extern s32 func_8002DD64(void *);
 extern s32 func_80030914(void *, s32);
 extern void func_80030534(s32);
 extern void func_80030690(s32, s32);
+extern void func_80030514(void *);
+extern void func_800240E8();
 extern void func_8001F320(Actor *);
 extern Blk16 D_800416CC[];
 extern void func_8002B564(s32, Blk16 *);
@@ -2226,7 +2228,7 @@ s32 func_80023F74(s32 arg0) {
     return D_80043794[arg0] != 0;
 }
 
-u16 func_80023F90(s32 arg0) {
+s32 func_80023F90(s32 arg0) {
     return D_80047100[arg0];
 }
 
@@ -2234,7 +2236,7 @@ s32 func_80023FAC(s32 arg0) {
     return D_80043794[arg0];
 }
 
-void func_80023FC8(s32 arg0) {
+void func_80023FC8(s32 arg0, void *arg1) {
     func_80030394(D_80043794[arg0]);
 }
 
@@ -2268,7 +2270,25 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800240E8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024220);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024260);
+void func_80024260(s32 arg0, s32 arg1) {
+    u8 sp10[8];
+    s32 r;
+
+    if (D_80048DB8.field_0 != 0) {
+        while (func_80024220() != 0) {}
+    }
+    func_80023FC8(arg0, sp10);
+    r = func_80023F90(arg0);
+    D_80048DB8.field_4 = r;
+    D_80048DB8.field_8 = arg1;
+    D_80048DB8.field_10 = r;
+    D_80048DB8.field_14 = arg0;
+    D_80048DB8.field_18 = arg1;
+    D_80048DB8.field_1C = func_80023FAC(arg0);
+    D_80048DB8.field_0 += 1;
+    func_80030514(func_800240E8);
+    func_80030690(2, sp10);
+}
 
 void func_80024310(Actor *arg0, Block1C *arg1) {
     *(Block1C *)arg0->work = *arg1;

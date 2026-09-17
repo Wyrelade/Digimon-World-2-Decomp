@@ -485,7 +485,10 @@ typedef struct {
     /* 0x00 */ s32 field_0;
     /* 0x04 */ s32 field_4;
     /* 0x08 */ s32 field_8;
-    u8 _padC[0x1C - 0xC];
+    u8 _padC[0x10 - 0xC];
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
     /* 0x1C */ s32 field_1C;
 } Obj48DB8;
 
