@@ -1355,7 +1355,101 @@ void func_8001D550(Ent1D550 *p, s32 a1, s32 a2) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D5B4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D6B4);
+/* File-local record walked by func_8001D6B4 (stride 0x28). */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    u8 _pad04[0xB - 4];
+    /* 0x0B */ u8 field_B;
+    u8 _pad0C[0xE - 0xC];
+    /* 0x0E */ u8 field_E;
+    /* 0x0F */ u8 field_F;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    u8 _pad18[0x20 - 0x18];
+    /* 0x20 */ s16 field_20;
+    /* 0x22 */ s16 field_22;
+    /* 0x24 */ s16 field_24;
+    /* 0x26 */ s16 field_26;
+} Rec1D6B4; /* 0x28 */
+
+/* View of D_8005F770 (=Actor) fields func_8001D6B4 reads. */
+typedef struct {
+    u8 _pad00[0x110];
+    /* 0x110 */ s32 field_110;
+    /* 0x114 */ s32 field_114;
+    u8 _pad118[0x138 - 0x118];
+    /* 0x138 */ s32 field_138[1];
+} Wk1D6B4;
+
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s16 field_4;
+    u8 _pad06[2];
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    u8 _pad10[0x18 - 0x10];
+    /* 0x18 */ s32 field_18;
+} G4167C;
+
+/* 2-byte-aligned aggregate forcing the lwl/lwr + swl/swr block copy. */
+typedef struct {
+    s16 h[4];
+} Agg1D6B4;
+
+extern G4167C D_8004167C;
+extern u8 D_80041694;
+extern void func_8001CE9C(void *, s32);
+extern void func_8001D104(void *, void *, s32, s32);
+extern void func_8002D4A4(Obj209 *, s32 *);
+
+void func_8001D6B4(void *arg0, s32 arg1) {
+    Rec1D6B4 *s2 = (Rec1D6B4 *)arg0;
+    s32 s3 = 0;
+    s32 s4;
+
+    if (arg1 != 0) {
+        s32 f114 = ((Wk1D6B4 *)&D_8005F770)->field_114;
+        s3 = 0;
+        s3 = (((Wk1D6B4 *)&D_8005F770)->field_110 ^ 0x140) == s3;
+        if (f114 == 0xF0) {
+            s3 |= 2;
+        }
+    }
+    if (s2->field_0 == 0) {
+        return;
+    }
+    do {
+        s4 = ((Wk1D6B4 *)&D_8005F770)->field_138[s2->field_B];
+        if (s2->field_F != 0) {
+            if (s2->field_E != 0) {
+                if (s3 != 0) {
+                    s2->field_24 = 0;
+                    s2->field_22 = 0;
+                    s2->field_20 = 0;
+                    s2->field_10 = 0x1000;
+                    s2->field_14 = 0x1000;
+                } else {
+                    func_8001CE9C(s2, s4);
+                    goto Ladv;
+                }
+            }
+            if (D_8004167C.field_0 == *(s32 *)&s2->field_20 &&
+                D_8004167C.field_4 == s2->field_24 &&
+                D_8004167C.field_8 == s2->field_10 &&
+                D_8004167C.field_C == s2->field_14) {
+            } else {
+                *(Agg1D6B4 *)&D_8004167C = *(Agg1D6B4 *)&s2->field_20;
+                D_8004167C.field_8 = s2->field_10;
+                D_8004167C.field_C = s2->field_14;
+                func_8002D744(&D_8004167C, (Obj209 *)&D_8004167C.field_18);
+                func_8002D4A4((Obj209 *)&D_8004167C.field_18, &D_8004167C.field_8);
+            }
+            func_8001D104(s2, &D_80041694, s4, s3);
+        }
+    Ladv:
+        s2 = (Rec1D6B4 *)((u8 *)s2 + 0x28);
+    } while (s2->field_0 != 0);
+}
 
 void func_8001D884(s32 arg0) {
     func_8001D6B4(arg0, 1);
