@@ -3019,7 +3019,32 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033954);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800339E4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033A74);
+/* By-value struct arg spanning a3 + stack (0x28 bytes); only three fields
+   are touched here. func_80036164/func_80036594 receive its address. */
+typedef struct {
+    u8 pad0[0x10];
+    /* 0x10 */ u16 field_10;
+    /* 0x12 */ u16 field_12;
+    u8 pad1[0x24 - 0x14];
+    /* 0x24 */ u8 field_24;
+    u8 pad2[0x28 - 0x25];
+} Arg33;
+
+extern void func_80036164();
+extern void func_80033B80();
+extern void func_80036594();
+void func_80033B24(u32, u32, Out33B24 *);
+
+void func_80033A74(s16 a0, s16 a1, s16 a2, Arg33 d) {
+    Out33B24 buf;
+    u16 flag = d.field_24;
+    func_80036164(a0, a1, a2, &d);
+    func_80033B24(d.field_10, d.field_12, &buf);
+    buf.field_A = 0;
+    buf.field_0 = flag;
+    func_80033B80(&buf, &d.field_10, &d.field_12);
+    func_80036594(a0, a1, a2, &d);
+}
 
 void func_80033B24(u32 arg0, u32 arg1, Out33B24 *arg2) {
     arg2->field_A = arg0 & 0x8000;
