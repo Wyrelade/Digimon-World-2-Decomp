@@ -947,7 +947,79 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A5F4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A68C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A75C);
+/* File-local view of an Ent54C48 element with the fields func_8001A75C stamps. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s16 field_8;
+    /* 0x0A */ s16 field_A;
+    u8 _padC[0x28 - 0xC];
+    /* 0x28 */ s32 field_28;
+} Ew54C48; /* 0x2C */
+
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+} DProp411FC;
+
+extern DProp411FC D_800411FC;
+extern u8 D_80050A48;
+
+extern void func_800357E4(void *, s32, s32);
+extern void func_80035A04(s32);
+extern void func_800352C4();
+extern void func_80035024(s32, s32);
+extern void func_80034F64(s32, s32, s32);
+extern void func_800356D4(s32, s32, s32);
+extern void func_80036474(s32);
+extern void func_800363E4(s32, s32);
+extern void func_80036574();
+extern s32 func_80022F3C(s32, s32);
+extern void func_8001A5F4(s32, s32);
+extern void func_80023C74();
+
+void func_8001A75C(void) {
+    s32 v0;
+    s32 i;
+    Ew54C48 *e;
+
+    func_800357E4(&D_80050A48, 6, 0x10);
+    func_80035A04(0x1000);
+    func_800352C4();
+    func_80035024(0x7F, 0x7F);
+    func_80034F64(0, 0, 1);
+    func_800356D4(0, 0x7F, 0x7F);
+    func_80036474(3);
+    func_800363E4(0, 0);
+    func_80036574();
+
+    v0 = func_80022F3C(D_800411FC.field_0 + D_800411FC.field_4 + D_800411FC.field_8, 4);
+    e = (Ew54C48 *)D_80054C48;
+    e[0].field_28 = v0;
+    v0 += D_800411FC.field_0;
+    e[1].field_28 = v0;
+    v0 += D_800411FC.field_4;
+    e[2].field_28 = v0;
+    for (i = 0; i < 3; i++) {
+        e[i].field_4 = 0;
+        e[i].field_0 = -1;
+        e[i].field_A = 0;
+        e[i].field_8 = -1;
+    }
+
+    func_8001A5F4(0, 1);
+    do {
+        func_8001A01C();
+        func_80023C74();
+    } while (D_80054C48[0].field_4 != 0);
+
+    func_8001A5F4(1, 0xE);
+    do {
+        func_8001A01C();
+        func_80023C74();
+    } while (D_80054C48[1].field_4 != 0);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A8BC);
 
