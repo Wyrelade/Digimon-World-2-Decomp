@@ -2080,7 +2080,68 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80021DC8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80021E54);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80021E78);
+/* file-local views over D_8005E620 for func_80021E78 */
+typedef struct { u8 _p[0x66]; u16 a[1]; } V66_21E78;
+typedef struct { u8 _p[0xDD4]; u16 a[1]; } VDD4_21E78;
+typedef struct { u8 field_0; u8 field_1; u8 _p[0x5A]; } ElmV_21E78; /* 0x5C */
+typedef struct { u8 _p[0xE4]; ElmV_21E78 elems[0x24]; } EntV_21E78;
+
+extern s32 D_8005F624;
+extern s32 D_8005F644;
+extern s32 D_8005F64C;
+extern s32 D_8005F654;
+extern s32 D_8005F664;
+extern s32 func_80021E54(void *, s32);
+extern s32 func_80066B48(s32);
+
+s32 func_80021E78(s32 arg0) {
+    s32 i;
+
+    if (arg0 < 0x258) {
+        return func_80021E54(&D_8005F624, arg0);
+    }
+    if (arg0 < 0x2BC) {
+        return func_80021E54(&D_8005F644, arg0 - 0x258);
+    }
+    if (arg0 < 0x320) {
+        return func_80021E54(&D_8005F64C, arg0 - 0x2BC);
+    }
+    if (arg0 < 0x3E8) {
+        return func_80021E54(&D_8005F654, arg0 - 0x320);
+    }
+    if (arg0 < 0x44C) {
+        return D_8005F664 >= arg0 - 0x3E8;
+    }
+    if (arg0 < 0x640) {
+        return D_8005F664 < arg0 - 0x5DC;
+    }
+    if (arg0 < 0x8BD) {
+        for (i = 0; i < 0x30; i++) {
+            if (((V66_21E78 *)&D_8005E620)->a[i] == arg0 - 0x7D0) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+    if (arg0 < 0xBB8) {
+        return ((VDD4_21E78 *)&D_8005E620)->a[arg0 - 0x7D0] != 0;
+    }
+    if (arg0 < 0xFA0) {
+        s32 key = arg0 - 0xBB8;
+        for (i = 0; i < 0x24; i++) {
+            if (((EntV_21E78 *)&D_8005E620)->elems[i].field_1 == key) {
+                if (((EntV_21E78 *)&D_8005E620)->elems[i].field_0 >= 2) {
+                    return 1;
+                }
+            }
+        }
+        return 0;
+    }
+    if (func_80013378() == 2) {
+        return func_80066B48(arg0);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022038);
 
