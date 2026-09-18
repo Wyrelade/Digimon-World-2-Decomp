@@ -3651,7 +3651,13 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039B54);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039F44);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A004);
+extern s16 func_8003C804();
+
+s16 func_8003A004(s16 a0) {
+    do { } while (0);
+    return func_8003C804(a0);
+}
+__asm__(".word 0\n.word 0\n");
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A034);
 
