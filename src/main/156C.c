@@ -10,6 +10,7 @@ extern u8 D_80048F12;
 extern u8 D_8004E6E5;
 extern u16 D_8004EAFA;
 extern s32 D_800506B8;
+extern u32 D_800506E8;
 extern S5D560 D_8005D560;
 extern s32 D_8005F780;
 extern s32 D_80062F80;
@@ -3951,7 +3952,10 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003FA24);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003FAA0);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003FB0C);
+s32 func_8003FB0C(void) {
+    return D_800506E8 >> 31;
+}
+__asm__(".word 0\n.word 0\n");
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003FB24);
 
