@@ -2953,7 +2953,14 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B334);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B424);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B494);
+extern void func_8002D5E4();
+extern s32 func_8002D644();
+
+s32 func_8002B494(s32 a0) {
+    func_8002D5E4(a0);
+    return func_8002D644(a0);
+}
+__asm__(".word 0\n");
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B4C4);
 
