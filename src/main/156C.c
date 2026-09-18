@@ -3098,7 +3098,20 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DEF4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DF74);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002E000);
+extern s32 D_80061B98;
+extern s32 D_80061B40;
+extern s32 D_80061B44;
+
+s32 func_8002E000(s32 arg0) {
+    s32 t;
+    if (D_80061B98 != 0) {
+        return -1;
+    }
+    t = func_8002DD64(&D_80061B40);
+    func_80030394(t + 1, arg0);
+    return D_80061B44;
+}
+__asm__(".word 0\n.word 0\n.word 0\n");
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002E064);
 
