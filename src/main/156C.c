@@ -3182,7 +3182,21 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030258);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030334);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030394);
+u8 *func_80030394(a0, a1)
+s32 a0;
+u8 *a1;
+{
+    s32 D = a0 + 0x96;
+    s32 q1 = D / 75;
+    s32 r1 = D % 75;
+    s32 q2 = q1 / 60;
+    s32 r2 = q1 % 60;
+    a1[2] = (r1 / 10) * 16 + r1 % 10;
+    a1[1] = (r2 / 10) * 16 + r2 % 10;
+    a1[0] = (q2 / 10) * 16 + q2 % 10;
+    return a1;
+}
+__asm__(".word 0\n.word 0\n.word 0\n");
 
 u8 func_800304A4(void) {
     return D_8004E6E5;
