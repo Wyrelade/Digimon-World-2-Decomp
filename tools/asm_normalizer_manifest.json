@@ -196,5 +196,11 @@
       "reg_realloc",
       "epilogue_unfill"
     ]
+  },
+  "func_8003D4D4": {
+    "passes": [
+      "reg_realloc",
+      "epilogue_unfill"
+    ]
   }
 }
