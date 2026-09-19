@@ -3710,7 +3710,7 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036514);
 
 void func_80036554(void) { func_8003B794(0); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036574);
+void func_80036574(void) { func_8003B794(1); }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036594);
 
