@@ -3908,7 +3908,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003CF04);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003CFD4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D104);
+void func_8003D104(s32 a0, u16 *a1) {
+    *a1 = D_8004FE28[a0 * 8 + 6];
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D124);
 
