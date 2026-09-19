@@ -3702,7 +3702,9 @@ void func_80036764(void) {
     D_80062CB0 = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036774);
+void func_80036774(void) {
+    D_80062CB0 = 2;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036784);
 
