@@ -3301,7 +3301,7 @@ int func_80030A64(int a0) {
     return old;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030A84);
+void func_80030A84(s32 arg0) { func_80030D34(3, arg0); }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030AB4);
 
