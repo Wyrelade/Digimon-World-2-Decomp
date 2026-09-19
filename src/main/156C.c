@@ -3208,7 +3208,20 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002F598);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002F860);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002FC6C);
+extern u8 *D_8004E98C;
+extern u8 *D_8004E99C;
+extern u8 *D_8004E990;
+extern u8 *D_8004E998;
+s32 func_8002FC6C(u8 *a0) {
+    *D_8004E98C = 2;
+    *D_8004E99C = a0[0];
+    *D_8004E990 = a0[1];
+    *D_8004E98C = 3;
+    *D_8004E998 = a0[2];
+    *D_8004E99C = a0[3];
+    *D_8004E990 = 0x20;
+    return 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002FCF4);
 
