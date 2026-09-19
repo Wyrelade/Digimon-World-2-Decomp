@@ -1,5 +1,6 @@
 {
   "func_80028734": {"passes": ["reg_realloc", "commutative_swap"]},
   "func_8003F178": {"passes": ["reg_realloc", "laform"]},
-  "func_8002AAF4": {"passes": ["reg_realloc", "padnop"]}
+  "func_8002AAF4": {"passes": ["reg_realloc", "padnop"]},
+  "func_80036554": {"passes": ["reg_realloc", "epilogue_unfill"]}
 }
