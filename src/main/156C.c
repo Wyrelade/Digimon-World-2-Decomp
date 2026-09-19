@@ -3836,7 +3836,9 @@ void func_8003AC5C(void) {
     *D_8004FE3C = (*D_8004FE3C & 0xF0FFFFFF) | 0x20000000;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003AC84);
+void func_8003AC84(void) {
+    *D_8004FE3C = (*D_8004FE3C & 0xF0FFFFFF) | 0x22000000;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003ACAC);
 
