@@ -3151,7 +3151,7 @@ void func_8002DCD0(void) { func_8002DD54(0xF0000003, 0x20); }
 
 void func_8002DCF8(void) { func_8002DD54(0xF0000003, 0x40); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DD20);
+void func_8002DD20(void) { func_8002DD54(0xF0000003, 0x40); }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DD54);
 
