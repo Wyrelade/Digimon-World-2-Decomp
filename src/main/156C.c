@@ -2934,7 +2934,10 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A9F4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002AAB4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002AAF4);
+void func_8002AAF4(unsigned int *a0, unsigned int *a1) {
+    *a1 = (*a1 & 0xFF000000) | (*a0 & 0x00FFFFFF);
+    *a0 = (*a0 & 0xFF000000) | ((unsigned int)a1 & 0x00FFFFFF);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002AB34);
 
