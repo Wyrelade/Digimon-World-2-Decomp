@@ -110,6 +110,30 @@ def maspsx_py():
     return os.path.join(ROOT, "tools", "maspsx", "maspsx.py")
 
 
+try:
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import asm_normalizer
+except Exception:               # optional: build works without it (pure no-op)
+    asm_normalizer = None
+
+
+def normalize_ctx(as_bin):
+    """Toolchain paths the .s normalizer needs. No function names or unit paths
+    are baked into the normalizer; they come from the manifest and from here."""
+    return {
+        "python": sys.executable,
+        "maspsx_py": maspsx_py(),
+        "maspsx_flags": MASPSX_FLAGS,
+        "as_bin": as_bin,
+        "maspsx_as_flags": MASPSX_AS_FLAGS,
+        "objdump": tool("objdump"),
+        "asm_root": os.path.join(ROOT, CONFIG["asm_dir"]),
+        "run": lambda cmd: (lambda r: (r.returncode, r.stdout, r.stderr))(
+            subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True,
+                           stdin=subprocess.DEVNULL)),
+    }
+
+
 def run(cmd, stdin_devnull=False):
     kwargs = dict(cwd=ROOT, capture_output=True, text=True)
     if stdin_devnull:
@@ -187,6 +211,20 @@ def compile_c(cpp, cc1, as_bin, skip_asm=False):
             if run([cc1] + CC1_FLAGS + ["-o", s_file, i_file]) != 0:
                 print("BUILD FAILED: cc1 %s" % os.path.relpath(src, ROOT))
                 return -1
+
+            # Deterministic, target-guided .s normalization for the manifest's
+            # functions (between cc1 and the assembler). No-op if the normalizer
+            # or its manifest is absent. The linked SHA-1 is the ground gate.
+            if asm_normalizer is not None:
+                try:
+                    rewrote = asm_normalizer.normalize_s(s_file, normalize_ctx(as_bin))
+                except Exception as e:
+                    print("BUILD FAILED: normalize %s: %s"
+                          % (os.path.relpath(s_file, ROOT), e))
+                    return -1
+                if rewrote:
+                    print("  normalized: %s" % ", ".join(rewrote))
+
             cmd = [sys.executable, maspsx_py()] + MASPSX_FLAGS + [
                 "--gnu-as-path=%s" % as_bin,
             ] + MASPSX_AS_FLAGS + ["-o", obj, s_file]

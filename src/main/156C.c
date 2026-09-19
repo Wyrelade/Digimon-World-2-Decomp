@@ -2839,7 +2839,14 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800282CC);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800284C4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028734);
+int func_80028734(int a0, int a1, int a2) {
+    int v1 = 0xE1000000;
+    int v0;
+    if (a1) v1 = 0xE1000200;
+    v0 = a2 & 0x9FF;
+    if (a0) v0 |= 0x400;
+    return v0 | v1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028754);
 
