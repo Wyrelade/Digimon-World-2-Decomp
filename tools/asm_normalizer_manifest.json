@@ -368,5 +368,11 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_800304B4": {
+    "passes": [
+      "un_hi_cse_store",
+      "padnop"
+    ]
   }
 }

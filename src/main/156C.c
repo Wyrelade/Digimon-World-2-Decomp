@@ -93,6 +93,7 @@ extern s32 func_8001E984(s32, s32, s32);
 extern void func_8002D744(void *, Obj209 *);
 extern void func_8002B544(s32);
 extern void func_8001F1A8(Actor *, s32);
+extern s32 D_8004E6D0;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3271,7 +3272,7 @@ u8 func_800304A4(void) {
     return D_8004E6E5;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800304B4);
+s32 func_800304B4(s32 a0) { s32 old = D_8004E6D0; D_8004E6D0 = a0; return old; }
 
 void func_800304D4(void) { func_8002F318(); }
 
