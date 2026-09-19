@@ -3159,7 +3159,7 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DD64);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DDE4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DE68);
+void func_8002DE68(void) { func_8002E2C4(); }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DE94);
 

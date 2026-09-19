@@ -334,5 +334,12 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_8002DE68": {
+    "passes": [
+      "reg_realloc",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
