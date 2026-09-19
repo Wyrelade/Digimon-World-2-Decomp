@@ -2980,7 +2980,11 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B564);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002BA1C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002BA80);
+typedef struct {
+    s32 w[8];
+} S32;
+extern S32 D_800619C8;
+void func_8002BA80(S32 *dst) { *dst = D_800619C8; }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002BAD4);
 
