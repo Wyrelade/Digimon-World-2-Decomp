@@ -1,3 +1,4 @@
 {
-  "func_80028734": {"passes": ["reg_realloc", "commutative_swap"]}
+  "func_80028734": {"passes": ["reg_realloc", "commutative_swap"]},
+  "func_8003F178": {"passes": ["reg_realloc", "laform"]}
 }

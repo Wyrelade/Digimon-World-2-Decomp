@@ -4000,7 +4000,11 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003EE14);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003EF1C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F178);
+int func_8003F178(int a0) {
+    int old = D_80062FC4;
+    D_80062FC4 = a0;
+    return old;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F18C);
 
