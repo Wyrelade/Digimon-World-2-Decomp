@@ -3292,7 +3292,7 @@ s32 func_80030914(void *arg0, s32 arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030934);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030A34);
+void func_80030A34(s32 arg0) { func_80030D34(3, arg0); }
 
 extern s32 D_80061BA4;
 int func_80030A64(int a0) {

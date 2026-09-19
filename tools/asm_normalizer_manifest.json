@@ -249,5 +249,13 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_80030A34": {
+    "passes": [
+      "reg_realloc",
+      "prologue_save_hoist",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
