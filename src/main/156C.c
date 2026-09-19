@@ -2944,7 +2944,10 @@ void func_8002AAF4(unsigned int *a0, unsigned int *a1) {
     *a0 = (*a0 & 0xFF000000) | ((unsigned int)a1 & 0x00FFFFFF);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002AB34);
+void func_8002AB34(u8 *a0) {
+    a0[3] = 5;
+    a0[7] = 0x28;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002AB54);
 
