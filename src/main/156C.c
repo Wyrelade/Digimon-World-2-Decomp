@@ -3831,7 +3831,10 @@ s32 func_8003ABC8(s32 a0, s32 a1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003AC04);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003AC5C);
+extern u32 *D_8004FE3C;
+void func_8003AC5C(void) {
+    *D_8004FE3C = (*D_8004FE3C & 0xF0FFFFFF) | 0x20000000;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003AC84);
 
