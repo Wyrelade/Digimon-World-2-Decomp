@@ -72,7 +72,7 @@ extern Obj48DB8 D_80048DB8;
 extern u8 D_8005FDC8[];
 extern s32 func_8002DD64(void *);
 extern s32 func_80030914(void *, s32);
-extern void func_80030534(s32);
+extern s32 func_80030534(s32);
 extern void func_80030690(s32, s32);
 extern void func_80030514(void *);
 extern void func_800240E8();
@@ -94,6 +94,7 @@ extern void func_8002D744(void *, Obj209 *);
 extern void func_8002B544(s32);
 extern void func_8001F1A8(Actor *, s32);
 extern s32 D_8004E6D0;
+extern s32 D_8004E6CC;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3280,7 +3281,7 @@ void func_800304F4(void) { func_8002F598(); }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030514);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030534);
+s32 func_80030534(s32 a0) { s32 old = D_8004E6CC; D_8004E6CC = a0; return old; }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030554);
 
