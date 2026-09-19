@@ -691,9 +691,11 @@ typedef struct {
     /* 0x1C */ s32 field_1C;
 } ObjC0E4;
 
-/* arg1 of func_8002C0E4: &field_14 is handed to func_8002CF74. */
+/* arg1 of func_8002C0E4: a GTE-style MATRIX. func_8002C774 fills m[3][3] (a Z
+ * rotation scaled to 0x1000) + the field_14/18/1C translation; &field_14 is
+ * handed to func_8002CF74. */
 typedef struct {
-    u8 _pad00[0x14];
+    /* 0x00 */ s16 m[3][3];
     /* 0x14 */ s32 field_14;
     /* 0x18 */ s32 field_18;
     /* 0x1C */ s32 field_1C;

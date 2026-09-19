@@ -3008,7 +3008,32 @@ void func_8002C0E4(ObjC0E4 *a0, ArgC0E4 *a1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002C164);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002C774);
+extern s32 func_8002CBC4(s32);
+extern s32 func_8002CAF4(s32);
+
+void func_8002C774(ObjC0E4 *a0, s32 a1) {
+    ArgC0E4 mtx;
+    s32 a = a1 / 360;
+    s32 c = func_8002CBC4(a);
+    s32 s = func_8002CAF4(a);
+    if (a1 == 0) {
+        return;
+    }
+    mtx.m[0][0] = c;
+    mtx.m[0][1] = -s;
+    mtx.m[0][2] = 0;
+    mtx.m[1][0] = s;
+    mtx.m[1][1] = c;
+    mtx.m[1][2] = 0;
+    mtx.m[2][0] = 0;
+    mtx.m[2][1] = 0;
+    mtx.m[2][2] = 0x1000;
+    mtx.field_14 = 0;
+    mtx.field_18 = 0;
+    mtx.field_1C = 0;
+    func_8002D224(a0, &mtx);
+}
+__asm__(".word 0\n.word 0\n.word 0\n");
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002C834);
 
