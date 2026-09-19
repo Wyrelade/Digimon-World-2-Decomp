@@ -3676,7 +3676,7 @@ void func_800354F4(s32 arg0, s32 arg1) {
     e->field_5E = 0x7F;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035674);
+void func_80035674(s16 arg0) { func_800354F4(arg0, 0); }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003569C);
 
