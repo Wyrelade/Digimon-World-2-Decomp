@@ -347,5 +347,12 @@
       "un_hi_cse",
       "epilogue_unfill"
     ]
+  },
+  "func_80034E04": {
+    "passes": [
+      "prologue_save_hoist",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
