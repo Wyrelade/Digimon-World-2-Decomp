@@ -2889,7 +2889,7 @@ void func_80029160(s32 arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800291A8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800291D8);
+void func_800291D8(s32 arg0, s32 arg1, s32 arg2) { func_800291FC(arg0, arg1, 0, arg2); }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800291FC);
 
