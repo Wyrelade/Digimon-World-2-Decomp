@@ -385,5 +385,11 @@
       "un_hi_cse_store",
       "padnop"
     ]
+  },
+  "func_80030514": {
+    "passes": [
+      "un_hi_cse_store",
+      "padnop"
+    ]
   }
 }

@@ -74,7 +74,7 @@ extern s32 func_8002DD64(void *);
 extern s32 func_80030914(void *, s32);
 extern s32 func_80030534(s32);
 extern void func_80030690(s32, s32);
-extern void func_80030514(void *);
+extern void *func_80030514(void *);
 extern void func_800240E8();
 extern void func_8001F320(Actor *);
 extern Blk16 D_800416CC[];
@@ -95,6 +95,7 @@ extern void func_8002B544(s32);
 extern void func_8001F1A8(Actor *, s32);
 extern s32 D_8004E6D0;
 extern s32 D_8004E6CC;
+extern void *D_8004E6C8;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3279,7 +3280,7 @@ void func_800304D4(void) { func_8002F318(); }
 
 void func_800304F4(void) { func_8002F598(); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030514);
+void *func_80030514(void *a0) { void *old = D_8004E6C8; D_8004E6C8 = a0; return old; }
 
 s32 func_80030534(s32 a0) { s32 old = D_8004E6CC; D_8004E6CC = a0; return old; }
 
