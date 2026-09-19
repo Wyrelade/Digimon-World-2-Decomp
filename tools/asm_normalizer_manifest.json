@@ -8,5 +8,6 @@
   "func_8002BA80": {"passes": ["reg_realloc", "delay_fill", "padnop"]},
   "func_8001BEE8": {"passes": ["reg_realloc", "operand_recolor"]},
   "func_8002FC6C": {"passes": ["un_hi_cse", "reg_realloc"]},
-  "func_8003ABC8": {"passes": ["exit_merge", "reg_realloc"]}
+  "func_8003ABC8": {"passes": ["exit_merge", "reg_realloc"]},
+  "func_8003024C": {"passes": ["reg_realloc"]}
 }
