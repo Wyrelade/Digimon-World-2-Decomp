@@ -3800,7 +3800,13 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003AAE0);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003AB24);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003ABC8);
+extern u16 *D_8004FE28;
+extern s32 D_8004FE50;
+s32 func_8003ABC8(s32 a0, s32 a1) {
+    u16 x = D_8004FE28[a0];
+    if (a1 == -1) return x;
+    return x << D_8004FE50;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003AC04);
 
