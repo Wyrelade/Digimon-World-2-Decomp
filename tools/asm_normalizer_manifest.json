@@ -15,5 +15,6 @@
   "func_8003FB24": {"passes": ["reg_realloc", "reorder_indep"]},
   "func_8003FB38": {"passes": ["reg_realloc", "reorder_indep"]},
   "func_8003FB4C": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_8003FB60": {"passes": ["reg_realloc", "reorder_indep"]}
+  "func_8003FB60": {"passes": ["reg_realloc", "reorder_indep"]},
+  "func_8003FB74": {"passes": ["reg_realloc", "reorder_indep"]}
 }

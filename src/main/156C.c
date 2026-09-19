@@ -4134,7 +4134,11 @@ int func_8003FB60(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003FB74);
+extern s32 D_80063090;
+int func_8003FB74(void) {
+    D_80063090 = 1;
+    return 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003FB88);
 
