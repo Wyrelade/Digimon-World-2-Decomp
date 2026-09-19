@@ -14,5 +14,6 @@
   "func_80036764": {"passes": ["reg_realloc", "padnop"]},
   "func_8003FB24": {"passes": ["reg_realloc", "reorder_indep"]},
   "func_8003FB38": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_8003FB4C": {"passes": ["reg_realloc", "reorder_indep"]}
+  "func_8003FB4C": {"passes": ["reg_realloc", "reorder_indep"]},
+  "func_8003FB60": {"passes": ["reg_realloc", "reorder_indep"]}
 }
