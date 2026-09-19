@@ -46,6 +46,7 @@ extern List50798 D_80050798;
 extern Blk54CF8 D_80054CF8[];
 extern Blk54CF8 D_80058D28[];
 extern EntE620 D_8005E620;
+extern s32 D_80062FD8;
 extern void func_8001DC24(s32, s32, ElmE620 *);
 extern void func_80022AE4(void);
 extern void func_8002796C(Blk54CF8 *, s32);
@@ -4030,7 +4031,7 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003DC24);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003DCA4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003DCCC);
+void func_8003DCCC(void) { func_8003F178(D_80062FD8); }
 
 s32 *func_8003DCF4(void) {
     return &D_80062F80;

@@ -341,5 +341,11 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_8003DCCC": {
+    "passes": [
+      "un_hi_cse",
+      "epilogue_unfill"
+    ]
   }
 }
