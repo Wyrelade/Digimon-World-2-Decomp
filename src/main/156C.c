@@ -2982,7 +2982,7 @@ __asm__(".word 0\n");
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B4C4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B544);
+void func_8002B544(s32 arg0) { func_8002D6C4(); }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B564);
 

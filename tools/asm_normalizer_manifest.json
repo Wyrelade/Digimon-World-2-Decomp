@@ -1,32 +1,182 @@
 {
-  "func_80028734": {"passes": ["reg_realloc", "commutative_swap"]},
-  "func_8003F178": {"passes": ["reg_realloc", "laform"]},
-  "func_8002AAF4": {"passes": ["reg_realloc", "padnop"]},
-  "func_80036554": {"passes": ["reg_realloc", "epilogue_unfill"]},
-  "func_8003A034": {"passes": ["reg_realloc", "epilogue_unfill"]},
-  "func_8003D4A4": {"passes": ["reg_realloc", "epilogue_unfill"]},
-  "func_8002BA80": {"passes": ["reg_realloc", "delay_fill", "padnop"]},
-  "func_8001BEE8": {"passes": ["reg_realloc", "operand_recolor"]},
-  "func_8002FC6C": {"passes": ["un_hi_cse", "reg_realloc"]},
-  "func_8003ABC8": {"passes": ["exit_merge", "reg_realloc"]},
-  "func_8003024C": {"passes": ["reg_realloc"]},
-  "func_8003D604": {"passes": ["reg_realloc"]},
-  "func_80036764": {"passes": ["reg_realloc", "padnop"]},
-  "func_8003FB24": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_8003FB38": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_8003FB4C": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_8003FB60": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_8003FB74": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_8003FB88": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_8003FB9C": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_8003FBB0": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_80036774": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_8003FA14": {"passes": ["reg_realloc", "reorder_indep"]},
-  "func_8002AB34": {"passes": ["padnop"]},
-  "func_80030A64": {"passes": ["laform", "padnop"]},
-  "func_8002E2A4": {"passes": ["reg_realloc", "padnop"]},
-  "func_8003AC5C": {"passes": ["un_hi_cse"]},
-  "func_8003AC84": {"passes": ["un_hi_cse"]},
-  "func_80030E50": {"passes": ["un_hi_cse"]},
-  "func_8003D104": {"passes": ["padnop"]}
+  "func_80028734": {
+    "passes": [
+      "reg_realloc",
+      "commutative_swap"
+    ]
+  },
+  "func_8003F178": {
+    "passes": [
+      "reg_realloc",
+      "laform"
+    ]
+  },
+  "func_8002AAF4": {
+    "passes": [
+      "reg_realloc",
+      "padnop"
+    ]
+  },
+  "func_80036554": {
+    "passes": [
+      "reg_realloc",
+      "epilogue_unfill"
+    ]
+  },
+  "func_8003A034": {
+    "passes": [
+      "reg_realloc",
+      "epilogue_unfill"
+    ]
+  },
+  "func_8003D4A4": {
+    "passes": [
+      "reg_realloc",
+      "epilogue_unfill"
+    ]
+  },
+  "func_8002BA80": {
+    "passes": [
+      "reg_realloc",
+      "delay_fill",
+      "padnop"
+    ]
+  },
+  "func_8001BEE8": {
+    "passes": [
+      "reg_realloc",
+      "operand_recolor"
+    ]
+  },
+  "func_8002FC6C": {
+    "passes": [
+      "un_hi_cse",
+      "reg_realloc"
+    ]
+  },
+  "func_8003ABC8": {
+    "passes": [
+      "exit_merge",
+      "reg_realloc"
+    ]
+  },
+  "func_8003024C": {
+    "passes": [
+      "reg_realloc"
+    ]
+  },
+  "func_8003D604": {
+    "passes": [
+      "reg_realloc"
+    ]
+  },
+  "func_80036764": {
+    "passes": [
+      "reg_realloc",
+      "padnop"
+    ]
+  },
+  "func_8003FB24": {
+    "passes": [
+      "reg_realloc",
+      "reorder_indep"
+    ]
+  },
+  "func_8003FB38": {
+    "passes": [
+      "reg_realloc",
+      "reorder_indep"
+    ]
+  },
+  "func_8003FB4C": {
+    "passes": [
+      "reg_realloc",
+      "reorder_indep"
+    ]
+  },
+  "func_8003FB60": {
+    "passes": [
+      "reg_realloc",
+      "reorder_indep"
+    ]
+  },
+  "func_8003FB74": {
+    "passes": [
+      "reg_realloc",
+      "reorder_indep"
+    ]
+  },
+  "func_8003FB88": {
+    "passes": [
+      "reg_realloc",
+      "reorder_indep"
+    ]
+  },
+  "func_8003FB9C": {
+    "passes": [
+      "reg_realloc",
+      "reorder_indep"
+    ]
+  },
+  "func_8003FBB0": {
+    "passes": [
+      "reg_realloc",
+      "reorder_indep"
+    ]
+  },
+  "func_80036774": {
+    "passes": [
+      "reg_realloc",
+      "reorder_indep"
+    ]
+  },
+  "func_8003FA14": {
+    "passes": [
+      "reg_realloc",
+      "reorder_indep"
+    ]
+  },
+  "func_8002AB34": {
+    "passes": [
+      "padnop"
+    ]
+  },
+  "func_80030A64": {
+    "passes": [
+      "laform",
+      "padnop"
+    ]
+  },
+  "func_8002E2A4": {
+    "passes": [
+      "reg_realloc",
+      "padnop"
+    ]
+  },
+  "func_8003AC5C": {
+    "passes": [
+      "un_hi_cse"
+    ]
+  },
+  "func_8003AC84": {
+    "passes": [
+      "un_hi_cse"
+    ]
+  },
+  "func_80030E50": {
+    "passes": [
+      "un_hi_cse"
+    ]
+  },
+  "func_8003D104": {
+    "passes": [
+      "padnop"
+    ]
+  },
+  "func_8002B544": {
+    "passes": [
+      "reg_realloc",
+      "epilogue_unfill"
+    ]
+  }
 }
