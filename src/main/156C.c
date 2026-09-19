@@ -3860,7 +3860,7 @@ void func_8003B3F4(s32 arg0, s32 arg1) { func_8003B424(arg0, arg1, 0xCA, 0xCB); 
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B424);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B6E4);
+void func_8003B6E4(void) { func_8003B714(0xCA, 0xCB); }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B714);
 
