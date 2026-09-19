@@ -3390,7 +3390,7 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031750);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800317FC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031824);
+s32 func_80031824(s32 a0) { s32 old = D_8004FC00; D_8004FC00 = a0; return old; }
 
 s32 func_80031838(void) {
     return D_8004FC00;
