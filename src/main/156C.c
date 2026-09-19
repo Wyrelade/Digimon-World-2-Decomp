@@ -3331,7 +3331,11 @@ u16 func_80030E38(void) {
     return *D_8004FB88;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030E50);
+int func_80030E50(int a0) {
+    int old = *D_8004FB88;
+    *D_8004FB88 = a0;
+    return old;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030E68);
 

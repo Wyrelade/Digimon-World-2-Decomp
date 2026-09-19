@@ -26,5 +26,6 @@
   "func_80030A64": {"passes": ["laform", "padnop"]},
   "func_8002E2A4": {"passes": ["reg_realloc", "padnop"]},
   "func_8003AC5C": {"passes": ["un_hi_cse"]},
-  "func_8003AC84": {"passes": ["un_hi_cse"]}
+  "func_8003AC84": {"passes": ["un_hi_cse"]},
+  "func_80030E50": {"passes": ["un_hi_cse"]}
 }
