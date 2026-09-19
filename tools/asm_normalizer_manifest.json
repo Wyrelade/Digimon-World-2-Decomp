@@ -3,5 +3,6 @@
   "func_8003F178": {"passes": ["reg_realloc", "laform"]},
   "func_8002AAF4": {"passes": ["reg_realloc", "padnop"]},
   "func_80036554": {"passes": ["reg_realloc", "epilogue_unfill"]},
-  "func_8003A034": {"passes": ["reg_realloc", "epilogue_unfill"]}
+  "func_8003A034": {"passes": ["reg_realloc", "epilogue_unfill"]},
+  "func_8003D4A4": {"passes": ["reg_realloc", "epilogue_unfill"]}
 }
