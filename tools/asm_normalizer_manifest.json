@@ -354,5 +354,12 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_8003569C": {
+    "passes": [
+      "prologue_save_hoist",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
