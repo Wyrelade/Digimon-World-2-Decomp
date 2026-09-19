@@ -2996,7 +2996,7 @@ void func_8002BA80(S32 *dst) { *dst = D_800619C8; }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002BAD4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002BB54);
+void func_8002BB54(s32 arg0, s32 arg1, s32 arg2) { func_8002D664(arg0 >> 4, arg1 >> 4, arg2 >> 4); }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002BB84);
 
