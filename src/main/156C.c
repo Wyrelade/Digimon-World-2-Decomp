@@ -3939,7 +3939,10 @@ s32 func_8003D5DC(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D604);
+extern s32 D_800506B8;
+void func_8003D604(s32 a0) {
+    D_800506B8 = a0;
+}
 
 s32 func_8003D610(void) {
     return D_800506B8;
