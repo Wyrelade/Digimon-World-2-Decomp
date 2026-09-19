@@ -3020,7 +3020,29 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002CBC4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002CC64);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002CDB8);
+extern s32 func_8002DBB4(s32);
+extern s32 func_8002CC64(s32);
+
+s32 func_8002CDB8(s32 a0) {
+    s32 e, sh, x;
+    if (a0 == 0) {
+        return 0;
+    }
+    e = 8 - func_8002DBB4(a0);
+    if (e >= 0) {
+        sh = e >> 1;
+        x = a0 >> (sh << 1);
+    } else {
+        sh = (e >> 1) + 1;
+        x = a0 << (-(sh << 1));
+    }
+    sh -= 6;
+    if (sh >= 0) {
+        return func_8002CC64(x) << sh;
+    }
+    return func_8002CC64(x) >> (-sh);
+}
+__asm__(".word 0\n");
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002CE54);
 
