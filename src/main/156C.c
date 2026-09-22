@@ -3445,7 +3445,11 @@ void func_80031528(s32 arg0, s32 arg1) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031554);
+void func_80031554(s32 *arg0, u32 arg1) {
+    while (arg1-- != 0) {
+        *arg0++ = 0;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031584);
 

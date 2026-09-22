@@ -595,5 +595,10 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80031554": {
+    "passes": [
+      "padnop"
+    ]
   }
 }
