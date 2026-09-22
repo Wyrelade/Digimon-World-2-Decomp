@@ -103,6 +103,8 @@ extern void func_80036514(s16);
 extern void func_800363A4(s16);
 extern Elm354F4 *D_80061C50[];
 extern s32 func_80032494(s16, s16);
+extern s32 D_80060050;
+extern s32 D_8006004C;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -2740,7 +2742,10 @@ void func_800265FC(Actor *arg0) {
     arg0->u34.b.field_36 = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026610);
+void func_80026610(s32 arg0) {
+    D_80060050 = arg0;
+    D_8006004C = *(volatile u16 *)0x1F801120;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026630);
 

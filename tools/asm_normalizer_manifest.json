@@ -481,5 +481,11 @@
       "prologue_save_hoist",
       "padnop"
     ]
+  },
+  "func_80026610": {
+    "passes": [
+      "nosplit",
+      "delay_fill"
+    ]
   }
 }
