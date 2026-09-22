@@ -108,6 +108,7 @@ extern s32 D_8006004C;
 extern Flags4FC68 *D_8004FC68;
 extern s32 D_8004FC70[];
 extern int func_8003F178(int);
+extern Vt4FB80 *D_8004FB80;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3330,7 +3331,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030C2C);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030CC4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030CD4);
+void func_80030CD4(void) {
+    D_8004FB80->fn_C();
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030D04);
 

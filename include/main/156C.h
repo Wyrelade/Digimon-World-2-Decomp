@@ -874,4 +874,16 @@ typedef struct {
     /* 0x04 */ s32 field_4;
 } Flags4FC68;
 
+/* Callback table reached through D_8004FB80; the func_80030CD4..80030DF8
+ * wrappers forward their arguments to one slot each. */
+typedef struct {
+    /* 0x00 */ void (*fn_0)();
+    /* 0x04 */ void (*fn_4)();
+    /* 0x08 */ void (*fn_8)();
+    /* 0x0C */ void (*fn_C)();
+    /* 0x10 */ void (*fn_10)();
+    /* 0x14 */ void (*fn_14)();
+    /* 0x18 */ void (*fn_18)();
+} Vt4FB80;
+
 #endif /* MAIN_156C_H */
