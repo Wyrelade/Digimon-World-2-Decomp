@@ -510,5 +510,14 @@
       "exit_merge",
       "delay_fill"
     ]
+  },
+  "func_8003DCA4": {
+    "passes": [
+      "nosplit_nodb",
+      "prologue_save_hoist",
+      "delay_fill",
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }
