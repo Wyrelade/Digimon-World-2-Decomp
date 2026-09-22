@@ -708,5 +708,8 @@
       "reg_realloc",
       "epilogue_unfill"
     ]
+  },
+  "func_80013A30": {
+    "passes": []
   }
 }

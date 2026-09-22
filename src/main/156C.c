@@ -606,7 +606,16 @@ void func_80013A10(s32 arg0, s32 arg1) {
     func_800138C0(arg0, arg1, 0);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013A30);
+s32 func_80013A30(s32 *arg0, s32 arg1, s32 arg2) {
+    s32 old = *arg0;
+
+    if (arg2 - 1 < arg1 - old) {
+        *arg0 = arg1 - (arg2 - 1);
+    } else if (arg1 < old) {
+        *arg0 = arg1;
+    }
+    return *arg0 - old;
+}
 
 s32 func_80013A70(s16 *arg0, s16 *arg1) {
     return arg1[1] * arg0[0] + arg0[1];
