@@ -663,5 +663,11 @@
       "reorder_indep",
       "padnop"
     ]
+  },
+  "func_80040198": {
+    "passes": [
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }

@@ -4349,7 +4349,9 @@ s32 func_8004015C(void) {
     return D_80063080 + D_80063084 * 2 + D_80063088 * 4 + D_8006308C * 8;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80040198);
+s32 func_80040198(void) {
+    return D_80063090 + D_80063094 * 2 + D_80063098 * 4 + D_8006309C * 8;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800401D4);
 
