@@ -498,5 +498,10 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80035488": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }

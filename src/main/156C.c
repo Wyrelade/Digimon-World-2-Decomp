@@ -3637,7 +3637,10 @@ s32 func_80035458(u16 arg0) {
     return i < 3;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035488);
+s32 func_80035488(u16 arg0) {
+    D_8004FC68->field_4 &= ~D_8004FC70[arg0];
+    return 1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800354BC);
 
