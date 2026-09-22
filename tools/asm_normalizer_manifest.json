@@ -741,5 +741,10 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_8003E5CC": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
