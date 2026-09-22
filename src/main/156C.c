@@ -120,6 +120,7 @@ extern void func_8002DE94();
 extern s32 D_8004FDB8;
 extern s32 D_8004FE44;
 extern Stat48E90 *D_80048E90;
+extern Obj50768 *D_80050768;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -644,7 +645,15 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013C04);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800141D4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800143CC);
+void func_800143CC(Actor *arg0, s16 arg1) {
+    ActorWork *w = arg0->work;
+
+    w->field_38 = arg1;
+    if (arg1 == 3) {
+        D_80050768->field_35C = 0;
+        w->field_3C = 0;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80014400);
 

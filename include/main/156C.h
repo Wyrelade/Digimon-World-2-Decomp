@@ -894,4 +894,10 @@ typedef struct {
     /* 0x04 */ volatile u16 field_4;
 } Stat48E90;
 
+/* Object reached through D_80050768; func_800143CC clears field_35C. */
+typedef struct {
+    u8 _pad000[0x35C];
+    /* 0x35C */ s16 field_35C;
+} Obj50768;
+
 #endif /* MAIN_156C_H */

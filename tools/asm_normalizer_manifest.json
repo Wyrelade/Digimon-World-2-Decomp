@@ -619,5 +619,11 @@
   },
   "func_80028884": {
     "passes": []
+  },
+  "func_800143CC": {
+    "passes": [
+      "nosplit",
+      "delay_fill"
+    ]
   }
 }
