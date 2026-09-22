@@ -3335,7 +3335,9 @@ void func_80030CD4(void) {
     D_8004FB80->fn_C();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030D04);
+void func_80030D04(void) {
+    D_8004FB80->fn_8();
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030D34);
 
