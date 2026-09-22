@@ -119,6 +119,7 @@ extern s32 D_80061B3C;
 extern void func_8002DE94();
 extern s32 D_8004FDB8;
 extern s32 D_8004FE44;
+extern Stat48E90 *D_80048E90;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -2701,7 +2702,10 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025984);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025C00);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025C90);
+void func_80025C90(void) {
+    while (!(D_80048E90->field_4 & 2)) {
+    }
+}
 
 void func_80025CB8(Actor *arg0, u8 arg1, ActorWork *arg2, u8 arg3) {
     arg0->u34.b.field_37 = arg1;

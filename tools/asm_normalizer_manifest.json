@@ -611,5 +611,10 @@
       "nosplit",
       "delay_fill"
     ]
+  },
+  "func_80025C90": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }

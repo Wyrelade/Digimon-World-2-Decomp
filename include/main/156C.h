@@ -887,4 +887,11 @@ typedef struct {
     /* 0x18 */ void (*fn_18)();
 } Vt4FB80;
 
+/* Status block polled through D_80048E90 (func_80025C90 spins on bit 1 of
+ * field_4). */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ volatile u16 field_4;
+} Stat48E90;
+
 #endif /* MAIN_156C_H */
