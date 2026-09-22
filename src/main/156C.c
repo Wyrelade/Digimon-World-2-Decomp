@@ -1319,7 +1319,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C584);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C760);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C800);
+void func_8001C800(s32 arg0) {
+    D_80054CF8[2].field_0 = arg0;
+}
 
 void func_8001C818(s32 arg0) {
     func_8002796C(&D_80054CF8[arg0], 0x100C);

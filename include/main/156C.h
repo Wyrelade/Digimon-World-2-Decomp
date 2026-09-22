@@ -652,7 +652,8 @@ typedef struct {
 
 /* Fixed-stride block indexed by func_8001C818 (element size 0x4030). */
 typedef struct {
-    u8 data[0x4030];
+    /* 0x0000 */ s32 field_0;
+    u8 _pad4[0x402C];
 } Blk54CF8;
 
 /* Element of the D_8005E620.elems[] array (stride 0x5C); only the leading
