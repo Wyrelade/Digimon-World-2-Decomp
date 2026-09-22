@@ -127,6 +127,7 @@ extern s32 func_8002FDC8();
 extern s32 func_80039B54();
 extern s32 func_80039A78();
 extern s32 func_80039B4C(s32, s32);
+extern s32 D_80063080;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4283,7 +4284,6 @@ s32 func_8003FB0C(void) {
 }
 __asm__(".word 0\n.word 0\n");
 
-extern s32 D_80063080;
 int func_8003FB24(void) {
     D_80063080 = 1;
     return 0;
@@ -4345,7 +4345,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003FFAC);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80040084);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8004015C);
+s32 func_8004015C(void) {
+    return D_80063080 + D_80063084 * 2 + D_80063088 * 4 + D_8006308C * 8;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80040198);
 

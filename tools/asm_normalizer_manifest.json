@@ -657,5 +657,11 @@
       "prologue_save_hoist",
       "padnop"
     ]
+  },
+  "func_8004015C": {
+    "passes": [
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }
