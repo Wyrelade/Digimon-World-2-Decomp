@@ -736,5 +736,10 @@
   },
   "func_80023D68": {
     "passes": []
+  },
+  "func_800352E4": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }

@@ -927,4 +927,10 @@ typedef struct {
     u8 _pad1E[0x1A];
 } Elm624E8; /* size 0x38 */
 
+/* Hook pair at D_8004FC50; func_800352E4 calls the optional fn_4, then fn_0. */
+typedef struct {
+    /* 0x00 */ void (*fn_0)(void);
+    /* 0x04 */ void (*fn_4)(void);
+} Hooks4FC50;
+
 #endif /* MAIN_156C_H */
