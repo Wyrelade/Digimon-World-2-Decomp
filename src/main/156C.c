@@ -3722,7 +3722,11 @@ void func_800363E4(s16 arg0, s16 arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036474);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036514);
+void func_80036514(s16 arg0) {
+    D_80062C18.field_0 = 0x10;
+    D_80062C18.field_10 = arg0;
+    func_8003B994(&D_80062C18);
+}
 
 void func_80036554(void) { func_8003B794(0); }
 

@@ -414,5 +414,14 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_80036514": {
+    "passes": [
+      "shift_const_fold",
+      "base_cse_collapse",
+      "delay_slot_select",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
