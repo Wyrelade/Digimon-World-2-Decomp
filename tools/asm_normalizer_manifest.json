@@ -650,5 +650,12 @@
       "prologue_save_hoist",
       "padnop"
     ]
+  },
+  "func_80039B18": {
+    "passes": [
+      "nosplit",
+      "prologue_save_hoist",
+      "padnop"
+    ]
   }
 }

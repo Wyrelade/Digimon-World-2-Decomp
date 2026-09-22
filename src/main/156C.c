@@ -3899,7 +3899,9 @@ s16 func_80039AE4(s32 arg0, s16 arg1, s32 arg2) {
     return func_80039B54(arg0, arg1, func_80039B4C, arg2);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039B18);
+s16 func_80039B18(s32 arg0, s16 arg1, s32 arg2) {
+    return func_80039B54(arg0, arg1, func_80039B4C, arg2);
+}
 
 s32 func_80039B4C(s32 arg0, s32 arg1) {
     return arg1;
