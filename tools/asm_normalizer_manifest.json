@@ -600,5 +600,10 @@
     "passes": [
       "padnop"
     ]
+  },
+  "func_800317FC": {
+    "passes": [
+      "padnop"
+    ]
   }
 }
