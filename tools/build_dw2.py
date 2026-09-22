@@ -220,13 +220,15 @@ def compile_c(cpp, cc1, as_bin, skip_asm=False):
                 # Functions from translation units retail built without split
                 # addresses are taken from a second cc1 compile of the same file.
                 manifest = asm_normalizer.load_manifest()
-                if any("nosplit" in v.get("passes", []) for v in manifest.values()):
-                    ns_file = stem + ".nosplit.s"
-                    if run([cc1] + CC1_FLAGS + asm_normalizer.NOSPLIT_FLAGS
-                           + ["-o", ns_file, i_file]) != 0:
-                        print("BUILD FAILED: cc1 (nosplit) %s" % os.path.relpath(src, ROOT))
+                ctx["alt_s"] = {}
+                for flavor in asm_normalizer.alt_flavors(manifest):
+                    alt_file = "%s.%s.s" % (stem, flavor)
+                    if run([cc1] + CC1_FLAGS + asm_normalizer.ALT_FLAVORS[flavor]
+                           + ["-o", alt_file, i_file]) != 0:
+                        print("BUILD FAILED: cc1 (%s) %s"
+                              % (flavor, os.path.relpath(src, ROOT)))
                         return -1
-                    ctx["nosplit_s"] = ns_file
+                    ctx["alt_s"][flavor] = alt_file
                 try:
                     rewrote = asm_normalizer.normalize_s(s_file, ctx, manifest)
                 except Exception as e:
