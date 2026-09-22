@@ -3033,7 +3033,21 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A9B4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A9F4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002AAB4);
+Rec2AAB4 *func_8002AAB4(Rec2AAB4 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+    arg0->field_0 = arg1;
+    arg0->field_2 = arg2;
+    arg0->field_4 = arg3;
+    arg0->field_8 = 0;
+    arg0->field_A = 0;
+    arg0->field_C = 0;
+    arg0->field_E = 0;
+    arg0->field_11 = 0;
+    arg0->field_10 = 0;
+    arg0->field_13 = 0;
+    arg0->field_12 = 0;
+    arg0->field_6 = arg4;
+    return arg0;
+}
 
 void func_8002AAF4(unsigned int *a0, unsigned int *a1) {
     *a1 = (*a1 & 0xFF000000) | (*a0 & 0x00FFFFFF);

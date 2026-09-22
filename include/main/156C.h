@@ -900,4 +900,21 @@ typedef struct {
     /* 0x35C */ s16 field_35C;
 } Obj50768;
 
+/* Record initialised by func_8002AAB4 (four halfwords from the arguments, the
+ * rest cleared). */
+typedef struct {
+    /* 0x00 */ s16 field_0;
+    /* 0x02 */ s16 field_2;
+    /* 0x04 */ s16 field_4;
+    /* 0x06 */ s16 field_6;
+    /* 0x08 */ s16 field_8;
+    /* 0x0A */ s16 field_A;
+    /* 0x0C */ s16 field_C;
+    /* 0x0E */ s16 field_E;
+    /* 0x10 */ u8 field_10;
+    /* 0x11 */ u8 field_11;
+    /* 0x12 */ u8 field_12;
+    /* 0x13 */ u8 field_13;
+} Rec2AAB4;
+
 #endif /* MAIN_156C_H */
