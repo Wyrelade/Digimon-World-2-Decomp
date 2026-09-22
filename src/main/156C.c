@@ -117,6 +117,8 @@ extern s32 func_80030AB4(s32);
 extern s32 D_80061B38;
 extern s32 D_80061B3C;
 extern void func_8002DE94();
+extern s32 D_8004FDB8;
+extern s32 D_8004FE44;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3973,7 +3975,23 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C714);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C774);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C7D4);
+void func_8003C7D4(s32 arg0) {
+    s32 v;
+
+    switch (arg0) {
+    case 0:
+        v = 0;
+        break;
+    case 1:
+        v = 1;
+        break;
+    default:
+        v = 0;
+        break;
+    }
+    D_8004FDB8 = arg0;
+    D_8004FE44 = v;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C804);
 

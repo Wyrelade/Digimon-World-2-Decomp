@@ -605,5 +605,11 @@
     "passes": [
       "padnop"
     ]
+  },
+  "func_8003C7D4": {
+    "passes": [
+      "nosplit",
+      "delay_fill"
+    ]
   }
 }
