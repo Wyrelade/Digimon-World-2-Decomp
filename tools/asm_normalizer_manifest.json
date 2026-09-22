@@ -625,5 +625,11 @@
       "nosplit",
       "delay_fill"
     ]
+  },
+  "func_8002CAF4": {
+    "passes": [
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
