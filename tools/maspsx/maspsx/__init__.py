@@ -955,6 +955,22 @@ class MaspsxProcessor:
                             "# EXPAND_AT END",
                         ]
                     )
+                elif (
+                    r_dest != r_source
+                    and r_dest not in ("$0", "$zero", "$at", "$1")
+                    and op not in ("lwl", "lwr")
+                ):
+                    # aspsx (like GNU as) uses the load's own destination as the
+                    # address temp when it is not the index register, and only
+                    # falls back to $at when it is. lwl/lwr merge into the old
+                    # destination value, so they always use $at.
+                    res.extend(
+                        [
+                            f"lui\t{r_dest},%hi({operand})",
+                            f"addu\t{r_dest},{r_dest},{r_source}",
+                            f"{op}\t{r_dest},%lo({operand})({r_dest})",
+                        ]
+                    )
                 else:
                     res.extend(
                         [
