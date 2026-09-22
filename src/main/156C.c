@@ -3549,7 +3549,9 @@ void func_80034334(s16 arg0, s16 arg1, s16 arg2, HandlerArg arg) {
     func_80036474((u8)arg.field_24);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034364);
+void func_80034364(s16 arg0, s16 arg1, s16 arg2, HandlerArg arg) {
+    func_800363E4((u8)arg.field_24, (u8)arg.field_24);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034394);
 
