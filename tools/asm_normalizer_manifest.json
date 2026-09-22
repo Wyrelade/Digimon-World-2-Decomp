@@ -721,5 +721,11 @@
       "delay_fill",
       "epilogue_unfill"
     ]
+  },
+  "func_80031584": {
+    "passes": [
+      "reorder_indep",
+      "epilogue_unfill"
+    ]
   }
 }
