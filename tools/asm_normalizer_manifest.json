@@ -391,5 +391,13 @@
       "un_hi_cse_store",
       "padnop"
     ]
+  },
+  "func_80029FB4": {
+    "passes": [
+      "prologue_save_hoist",
+      "delay_slot_select",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
