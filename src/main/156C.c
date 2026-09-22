@@ -1037,7 +1037,7 @@ extern void func_80035024(s32, s32);
 extern void func_80034F64(s32, s32, s32);
 extern void func_800356D4(s32, s32, s32);
 extern void func_80036474(s32);
-extern void func_800363E4(s32, s32);
+extern void func_800363E4(s16, s16);
 extern void func_80036574();
 extern s32 func_80022F3C(s32, s32);
 extern void func_8001A5F4(s32, s32);
@@ -3713,7 +3713,12 @@ void func_800363A4(s16 arg0) {
     func_8003B994(&D_80062C18);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800363E4);
+void func_800363E4(s16 arg0, s16 arg1) {
+    D_80062C18.field_0 = 6;
+    D_80062C18.field_8 = arg0 * 0x7FFF / 127;
+    D_80062C18.field_A = arg1 * 0x7FFF / 127;
+    func_8003B994(&D_80062C18);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036474);
 

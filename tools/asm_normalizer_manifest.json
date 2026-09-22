@@ -407,5 +407,12 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_800363E4": {
+    "passes": [
+      "base_cse_collapse",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
