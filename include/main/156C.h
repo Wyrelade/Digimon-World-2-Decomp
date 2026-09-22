@@ -803,4 +803,17 @@ typedef struct {
     u8 _pad2[0x20];
 } Elm6A8; /* size 0x22 */
 
+/* Command block D_80062C18 handed to func_8003B994: field_0 is the command
+ * id, the remaining fields are its arguments. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s16 field_8;
+    /* 0x0A */ s16 field_A;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+} Cmd62C18; /* size 0x14 */
+
+void func_8003B994(Cmd62C18 *cmd);
+
 #endif /* MAIN_156C_H */

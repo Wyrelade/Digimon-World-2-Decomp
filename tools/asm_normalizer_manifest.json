@@ -399,5 +399,13 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_800363A4": {
+    "passes": [
+      "base_cse_collapse",
+      "delay_slot_select",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
