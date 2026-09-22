@@ -2069,6 +2069,39 @@ def expand_sym_macros(span):
     return "\n".join(out)
 
 
+def aspsx_label_nops(span):
+    """aspsx puts a load-delay nop straight after the load, even when a label
+    separates the load from the insn that consumes it; maspsx emits `label: nop`,
+    which moves every branch into that label one word early. Spell the nop out
+    right after the load (reorder mode only) so maspsx sees no hazard left."""
+    lines = span.split("\n")
+    out, noreorder = [], False
+    for k, l in enumerate(lines):
+        out.append(l)
+        s = l.strip()
+        if s.startswith(".set"):
+            if "noreorder" in s:
+                noreorder = True
+            elif re.match(r"\.set\s+reorder\b", s):
+                noreorder = False
+        if noreorder or not _s_is_insn(l):
+            continue
+        b = l.split("#", 1)[0].strip()
+        if not _is_load(b):
+            continue
+        d = defs_uses(b)[0]
+        saw_label, j = False, k + 1
+        while j < len(lines) and not _s_is_insn(lines[j]):
+            if _s_is_label(lines[j]):
+                saw_label = True
+            j += 1
+        if saw_label and j < len(lines):
+            nb = lines[j].split("#", 1)[0].strip()
+            if d & defs_uses(nb)[1]:
+                out.append(_src_indent(l) + "nop")
+    return "\n".join(out)
+
+
 def splice_alt_spans(text, alt_text, names):
     """Replace each function span in `names` with the same function's span from
     `alt_text`. Returns (new_text, [spliced names])."""
@@ -2086,7 +2119,7 @@ def splice_alt_spans(text, alt_text, names):
                                    "the two compiles" % (name, lc))
         span = re.sub(r"\$L(?!C)(\w+)", r"$Lns_\1", span)
         span = re.sub(r"(?<![\w$.])LM(\d+)\b", r"LMns\1", span)
-        span = expand_sym_macros(span)
+        span = aspsx_label_nops(expand_sym_macros(span))
         text = text[:start] + span + text[end:]
         done.append(name)
     return text, done
