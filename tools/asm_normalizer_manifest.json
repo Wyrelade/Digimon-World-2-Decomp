@@ -637,5 +637,11 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_80039A44": {
+    "passes": [
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }

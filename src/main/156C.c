@@ -124,6 +124,8 @@ extern Obj50768 *D_80050768;
 extern s32 func_8002CB30(s32);
 extern s32 func_8002FF04();
 extern s32 func_8002FDC8();
+extern s32 func_80039B54();
+extern s32 func_80039A78();
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3886,7 +3888,9 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800398D4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039994);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039A44);
+s16 func_80039A44(s32 arg0, s16 arg1) {
+    return func_80039B54(arg0, arg1, func_80039A78, 0);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039A78);
 
