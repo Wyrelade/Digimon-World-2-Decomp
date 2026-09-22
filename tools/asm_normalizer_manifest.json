@@ -733,5 +733,8 @@
       "nosplit",
       "exit_merge"
     ]
+  },
+  "func_80023D68": {
+    "passes": []
   }
 }

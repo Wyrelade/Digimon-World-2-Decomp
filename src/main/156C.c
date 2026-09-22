@@ -4,7 +4,7 @@
 extern Ent23A78 D_8005F8C8[0x50];
 extern Ent54C48 D_80054C48[3];
 extern s32 func_80024220(void);
-extern void func_80023D68();
+extern void func_80023D68(s32);
 extern s32 D_8005F774;
 extern u8 D_80048F12;
 extern u8 D_8004E6E5;
@@ -150,6 +150,7 @@ extern void func_80031750();
 extern void func_800317FC(s32 *arg0, u32 arg1);
 extern u16 *D_8004FE28;
 extern s32 D_8004FE50;
+extern void func_80023BF4(s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -2516,8 +2517,8 @@ Ent23AE8 *func_80023AE8(void) {
     return (Ent23AE8 *)best;
 }
 
-s16 func_80023B70(void) {
-    Ent23A78 *e = func_80023A78();
+s32 func_80023B70(s32 arg0) {
+    Ent23A78 *e = func_80023A78(arg0);
 
     if (e != 0) {
         e->field_8 = D_8005F770.field_0;
@@ -2540,7 +2541,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023BF4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023C74);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023D68);
+void func_80023D68(s32 arg0) {
+    func_80023BF4(arg0);
+    do {
+        func_80023C74();
+    } while (func_80023B70(arg0) != 3);
+}
 
 s32 func_80023DB0(s32 arg0) {
     Ent23A78 *p = func_80023A78(arg0);
