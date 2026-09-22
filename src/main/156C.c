@@ -3355,7 +3355,9 @@ void func_80030DC8(void) {
     D_8004FB80->fn_10();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030DF8);
+void func_80030DF8(void) {
+    D_8004FB80->fn_18();
+}
 
 u16 func_80030E28(void) {
     return D_8004EAFA;
