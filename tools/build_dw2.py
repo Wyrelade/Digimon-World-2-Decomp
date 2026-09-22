@@ -216,8 +216,19 @@ def compile_c(cpp, cc1, as_bin, skip_asm=False):
             # functions (between cc1 and the assembler). No-op if the normalizer
             # or its manifest is absent. The linked SHA-1 is the ground gate.
             if asm_normalizer is not None:
+                ctx = normalize_ctx(as_bin)
+                # Functions from translation units retail built without split
+                # addresses are taken from a second cc1 compile of the same file.
+                manifest = asm_normalizer.load_manifest()
+                if any("nosplit" in v.get("passes", []) for v in manifest.values()):
+                    ns_file = stem + ".nosplit.s"
+                    if run([cc1] + CC1_FLAGS + asm_normalizer.NOSPLIT_FLAGS
+                           + ["-o", ns_file, i_file]) != 0:
+                        print("BUILD FAILED: cc1 (nosplit) %s" % os.path.relpath(src, ROOT))
+                        return -1
+                    ctx["nosplit_s"] = ns_file
                 try:
-                    rewrote = asm_normalizer.normalize_s(s_file, normalize_ctx(as_bin))
+                    rewrote = asm_normalizer.normalize_s(s_file, ctx, manifest)
                 except Exception as e:
                     print("BUILD FAILED: normalize %s: %s"
                           % (os.path.relpath(s_file, ROOT), e))

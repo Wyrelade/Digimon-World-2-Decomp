@@ -1578,6 +1578,59 @@ def _tgt_ra_save_idx(tgt):
     return None
 
 
+def _sym_operand(line):
+    """(op, has_index) when the insn's memory operand is a bare symbol (`S`,
+    `S+k`, `S($r)`): a cc1 no-split macro the assembler expands. Else None."""
+    b = line.split("#", 1)[0].strip()
+    p = b.split(None, 1)
+    if len(p) < 2:
+        return None
+    op = p[0].lower()
+    if op not in _STORE_MN and op not in ("lb", "lbu", "lh", "lhu", "lw", "lwl", "lwr"):
+        return None
+    ops = split_ops(p[1])
+    m = re.fullmatch(r"([A-Za-z_.][\w.$]*(?:\+\d+)?)(\(\$\w+\))?", ops[-1].strip())
+    if not m:
+        return None
+    return op, bool(m.group(2))
+
+
+def _src_nwords(line):
+    """Assembled word count of one cc1 source insn: symbolic-address loads/stores
+    expand to lui(+addu)+access, `la` and out-of-range `li` to two words."""
+    so = _sym_operand(line)
+    if so:
+        return 3 if so[1] else 2
+    b = line.split("#", 1)[0].strip()
+    p = b.split(None, 1)
+    if p and p[0] == "la":
+        return 2
+    if p and p[0] == "li" and len(p) > 1:
+        try:
+            v = int(split_ops(p[1])[-1], 0)
+        except ValueError:
+            return 1
+        return 1 if (-0x8000 <= v <= 0xFFFF) else 2
+    return 1
+
+
+def _frame_store_disjoint(a, b):
+    """Both are $sp-framed stores to non-overlapping slots."""
+    if not (_frame_store(a) and _frame_store(b)):
+        return False
+    ma, mb = _mem_operand(a), _mem_operand(b)
+    if ma is None or mb is None:
+        return False
+    return ma[1] + ma[2] <= mb[1] or mb[1] + mb[2] <= ma[1]
+
+
+def _global_load(line):
+    """A load from a global symbol's storage (symbolic operand), which can never
+    alias a store into the current stack frame."""
+    so = _sym_operand(line)
+    return bool(so) and not so[0].startswith("s")
+
+
 def prologue_save_hoist_src(span, tgt):
     """Hoist the prologue register-save `sw $ra,K($sp)` up to the position the target
     puts it (immediately after the stack allocation). Retail's cc1 emits the save right
@@ -1597,11 +1650,28 @@ def prologue_save_hoist_src(span, tgt):
     idxs = [i for i, l in enumerate(lines) if _s_is_insn(l)]
     ins = [lines[i] for i in idxs]
     s_ra = _src_ra_save_idx(ins)
-    if s_ra is None or desired >= s_ra:
+    if s_ra is None:
+        return span, False
+    # `desired` is a target WORD index; map it to a source insn index through each
+    # source insn's assembled length (symbolic-address macros expand to 2-3 words).
+    w, d_src = 0, None
+    for k, l in enumerate(ins):
+        if w >= desired:
+            d_src = k
+            break
+        w += _src_nwords(l)
+    if d_src is None or w != desired:
+        return span, False
+    desired = d_src
+    if desired >= s_ra:
         return span, False
     mover = ins[s_ra].strip()
     for k in range(desired, s_ra):
-        if not (_reorder_swappable(mover, ins[k].strip()) and _indep(mover, ins[k].strip())):
+        other = ins[k].strip()
+        if not _indep(mover, other):
+            return span, False
+        if not (_reorder_swappable(mover, other) or _frame_store_disjoint(mover, other)
+                or _global_load(other)):
             return span, False
     # rebuild the insn order with the save relocated to `desired`
     new_ins = list(ins)
@@ -1813,6 +1883,55 @@ def load_manifest(path=MANIFEST):
     return data or {}
 
 
+# --------------------------------------------------------------------------
+# nosplit (META pass, not a rewrite). The retail executable links translation
+# units built with DIFFERENT cc1 address-generation settings: some were compiled
+# with split addresses (cc1 itself emits `lui $r,%hi(S)` / `%lo(S)($r)` pairs and
+# CSEs/la-forms them), others with `-mno-split-addresses`, where cc1 emits the
+# symbolic macro operand (`lw $r,S($idx)`, `sw $r,S`) and the assembler (aspsx /
+# maspsx) expands it: `lui $dst,%hi(S)` + `addu` + `lw $dst,%lo(S)($dst)` for a
+# load, a fresh `lui $at` for a store or when the destination is the index. The
+# project compiles one 156C.c, so a function from a no-split unit is recovered by
+# compiling the file a second time with -mno-split-addresses and splicing that
+# function's `.ent ... .end` span in place of the default one. It is still plain
+# cc1 output of the same C; the other passes in the recipe then run on it as usual.
+# Local `$L`/`LM` labels are renamed in the spliced span so its numbering (which
+# can drift between the two compiles) cannot collide with the rest of the file.
+# --------------------------------------------------------------------------
+META_PASSES = ("nosplit",)
+NOSPLIT_FLAGS = ["-mno-split-addresses"]
+
+
+def _lc_body(text, lc):
+    """The data lines of constant `lc` (from its label to the next label or
+    section directive), or None when it is not defined."""
+    m = re.search(r"(?m)^%s:\s*\n((?:[ \t]+\.(?:ascii|byte|half|word|space|align)"
+                  r"\b.*\n)*)" % re.escape(lc), text)
+    return m.group(1) if m else None
+
+
+def splice_alt_spans(text, alt_text, names):
+    """Replace each function span in `names` with the same function's span from
+    `alt_text`. Returns (new_text, [spliced names])."""
+    alt = {n: alt_text[s:e] for n, s, e in split_spans(alt_text)}
+    done = []
+    for name, start, end in sorted(split_spans(text), key=lambda x: -x[1]):
+        if name not in names:
+            continue
+        if name not in alt:
+            raise RuntimeError("nosplit: %s missing from the alternate compile" % name)
+        span = alt[name]
+        for lc in set(re.findall(r"\$LC\d+", span)):
+            if _lc_body(text, lc) is None or _lc_body(text, lc) != _lc_body(alt_text, lc):
+                raise RuntimeError("nosplit: %s references %s, which differs between "
+                                   "the two compiles" % (name, lc))
+        span = re.sub(r"\$L(?!C)(\w+)", r"$Lns_\1", span)
+        span = re.sub(r"(?<![\w$.])LM(\d+)\b", r"LMns\1", span)
+        text = text[:start] + span + text[end:]
+        done.append(name)
+    return text, done
+
+
 def normalize_s(s_file, ctx, manifest=None):
     """Splice-normalize the manifest functions in a cc1 .s in place. Reads once,
     rewrites once. Returns the sorted list of function names it rewrote.
@@ -1822,16 +1941,26 @@ def normalize_s(s_file, ctx, manifest=None):
     if manifest is None:
         manifest = load_manifest()
     text = _read_bytes_str(s_file)
+    rewrote = []
+    # Pass 0 -- `nosplit`: take the function's span from the alternate cc1 compile
+    # (-mno-split-addresses) before any other pass sees it.
+    ns = [n for n in manifest if "nosplit" in manifest[n].get("passes", [])]
+    if ns:
+        alt = ctx.get("nosplit_s")
+        if not alt or not os.path.exists(alt):
+            raise RuntimeError("nosplit functions %s need ctx['nosplit_s']" % ns)
+        text, done = splice_alt_spans(text, _read_bytes_str(alt), ns)
+        _write_bytes_str(s_file, text)
+        rewrote.extend(done)
     spans = split_spans(text)
     out = text
-    rewrote = []
     # Pass 1 -- text passes (reg_realloc / commutative_swap / laform). Splice from
     # the tail so earlier (start,end) offsets stay valid; words are always assembled
     # from the ON-DISK cc1 .s (unmodified until the pass-1 write below).
     for name, start, end in sorted(spans, key=lambda x: -x[1]):
         if name not in manifest:
             continue
-        passes = manifest[name].get("passes", [])
+        passes = [p for p in manifest[name].get("passes", []) if p not in META_PASSES]
         text_passes = [p for p in passes if p not in WORD_PASSES]
         if not text_passes:
             if any(p in WORD_PASSES for p in passes):
@@ -1926,4 +2055,4 @@ def normalize_s(s_file, ctx, manifest=None):
             out = out[:start] + new_span + out[end:]
 
     _write_bytes_str(s_file, out)
-    return sorted(rewrote)
+    return sorted(set(rewrote))
