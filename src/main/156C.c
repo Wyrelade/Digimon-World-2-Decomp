@@ -2504,7 +2504,15 @@ Ent23AE8 *func_80023AE8(void) {
     return (Ent23AE8 *)best;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023B70);
+s16 func_80023B70(void) {
+    Ent23A78 *e = func_80023A78();
+
+    if (e != 0) {
+        e->field_8 = D_8005F770.field_0;
+        return e->field_0;
+    }
+    return 0;
+}
 
 void func_80023BB0(void) {
     Ent23AE8 *p = func_80023AE8();
