@@ -503,5 +503,12 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_8003C8C4": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "delay_fill"
+    ]
   }
 }
