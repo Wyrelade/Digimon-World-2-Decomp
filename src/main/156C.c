@@ -3343,7 +3343,9 @@ void func_80030D34(s32 arg0, s32 arg1) {
     D_8004FB80->fn_4(arg0, arg1);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030D64);
+void func_80030D64(s32 arg0) {
+    D_8004FB80->fn_14(4, arg0);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030D98);
 

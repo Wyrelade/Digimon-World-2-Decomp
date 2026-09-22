@@ -537,5 +537,11 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_80030D64": {
+    "passes": [
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
