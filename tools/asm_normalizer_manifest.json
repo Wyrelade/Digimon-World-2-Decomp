@@ -714,5 +714,12 @@
   },
   "func_80023B70": {
     "passes": []
+  },
+  "func_8002FEB8": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "epilogue_unfill"
+    ]
   }
 }

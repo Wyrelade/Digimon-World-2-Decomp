@@ -138,6 +138,11 @@ extern Elm624E8 D_800624E8[];
 extern s32 D_80049064;
 extern u8 D_800618B0[];
 extern void func_8002A9A4(s32, u8 *);
+extern s32 D_8004E6D8;
+extern s32 D_8004E6D4;
+extern void func_80030258();
+extern void func_80030CD4(void);
+extern void func_80030D04(s32 arg0, void (*arg1)());
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3388,7 +3393,14 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002FCF4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002FDC8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002FEB8);
+void func_8002FEB8(void) {
+    D_8004E6CC = 0;
+    D_8004E6C8 = 0;
+    D_8004E6D8 = 0;
+    D_8004E6D4 = 0;
+    func_80030CD4();
+    func_80030D04(2, func_80030258);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002FF04);
 
@@ -3466,8 +3478,8 @@ void func_80030CD4(void) {
     D_8004FB80->fn_C();
 }
 
-void func_80030D04(void) {
-    D_8004FB80->fn_8();
+void func_80030D04(s32 arg0, void (*arg1)()) {
+    D_8004FB80->fn_8(arg0, arg1);
 }
 
 void func_80030D34(s32 arg0, s32 arg1) {
