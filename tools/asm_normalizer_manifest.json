@@ -701,5 +701,12 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8002A840": {
+    "passes": [
+      "nosplit",
+      "reg_realloc",
+      "epilogue_unfill"
+    ]
   }
 }
