@@ -678,5 +678,10 @@
       "delay_slot_select",
       "epilogue_unfill"
     ]
+  },
+  "func_80029120": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }

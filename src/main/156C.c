@@ -2958,7 +2958,13 @@ void func_80029104(s32 arg0) {
 void func_80029118(void) {
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80029120);
+s32 func_80029120(s32 *arg0, u32 arg1) {
+    *D_80049018 = 0x4000000;
+    while (arg1-- != 0) {
+        *D_80049014 = *arg0++;
+    }
+    return 0;
+}
 
 void func_80029160(s32 arg0) {
     *D_80049018 = 0x4000002;
