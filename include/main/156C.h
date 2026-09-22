@@ -917,4 +917,14 @@ typedef struct {
     /* 0x13 */ u8 field_13;
 } Rec2AAB4;
 
+/* Element of D_800624E8[] (stride 0x38); func_800382D4 clears a slot. */
+typedef struct {
+    /* 0x00 */ s16 field_0;
+    u8 _pad02[0x02];
+    /* 0x04 */ s16 field_4;
+    u8 _pad06[0x17];
+    /* 0x1D */ u8 field_1D;
+    u8 _pad1E[0x1A];
+} Elm624E8; /* size 0x38 */
+
 #endif /* MAIN_156C_H */

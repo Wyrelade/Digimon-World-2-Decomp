@@ -694,5 +694,12 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_800382D4": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
