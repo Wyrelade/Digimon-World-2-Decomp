@@ -569,5 +569,10 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_800291A8": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }

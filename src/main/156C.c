@@ -110,6 +110,7 @@ extern s32 D_8004FC70[];
 extern int func_8003F178(int);
 extern Vt4FB80 *D_8004FB80;
 extern u8 D_8005FDD8[];
+extern s32 *D_80049014;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -2919,7 +2920,10 @@ void func_80029160(s32 arg0) {
     *D_80049024 = 0x1000401;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800291A8);
+s32 func_800291A8(s32 arg0) {
+    *D_80049018 = arg0 | 0x10000000;
+    return *D_80049014 & 0xFFFFFF;
+}
 
 void func_800291D8(s32 arg0, s32 arg1, s32 arg2) { func_800291FC(arg0, arg1, 0, arg2); }
 
