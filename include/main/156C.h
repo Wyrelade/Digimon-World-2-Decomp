@@ -816,4 +816,13 @@ typedef struct {
 
 void func_8003B994(Cmd62C18 *cmd);
 
+/* By-value argument block of the func_80032954 handler table entries
+ * (void handler(s16, s16, s16, HandlerArg)). It starts in $a3 and continues on
+ * the caller's stack, so the callee homes $a3 to keep it contiguous. Only the
+ * fields matched so far are named. */
+typedef struct {
+    u8 _pad00[0x24];
+    /* 0x24 */ s32 field_24;
+} HandlerArg;
+
 #endif /* MAIN_156C_H */
