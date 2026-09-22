@@ -3,7 +3,7 @@
 
 extern Ent23A78 D_8005F8C8[0x50];
 extern Ent54C48 D_80054C48[3];
-extern s32 func_80024220();
+extern s32 func_80024220(void);
 extern void func_80023D68();
 extern s32 D_8005F774;
 extern u8 D_80048F12;
@@ -2603,7 +2603,16 @@ void func_8002405C(s32 a0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800240E8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024220);
+s32 func_80024220(void) {
+    switch (D_80048DB8.field_0) {
+    case 0:
+        return 0;
+    case 5:
+        D_80048DB8.field_0 = 0;
+        return 2;
+    }
+    return 1;
+}
 
 void func_80024260(s32 arg0, s32 arg1) {
     u8 sp10[8];
