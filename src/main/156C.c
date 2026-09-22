@@ -109,6 +109,7 @@ extern Flags4FC68 *D_8004FC68;
 extern s32 D_8004FC70[];
 extern int func_8003F178(int);
 extern Vt4FB80 *D_8004FB80;
+extern u8 D_8005FDD8[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -2660,7 +2661,14 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024960);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024A1C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024C98);
+u8 *func_80024C98(s32 arg0) {
+    u8 *p = D_8005FDD8;
+
+    if (arg0 & 0xF0) {
+        p += 0xF0;
+    }
+    return p;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024CB8);
 

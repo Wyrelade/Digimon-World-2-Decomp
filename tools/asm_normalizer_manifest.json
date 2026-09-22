@@ -564,5 +564,10 @@
   },
   "func_8001C800": {
     "passes": []
+  },
+  "func_80024C98": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
