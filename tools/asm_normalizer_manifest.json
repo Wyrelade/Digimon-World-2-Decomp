@@ -727,5 +727,11 @@
       "reorder_indep",
       "epilogue_unfill"
     ]
+  },
+  "func_8003AAE0": {
+    "passes": [
+      "nosplit",
+      "exit_merge"
+    ]
   }
 }
