@@ -643,5 +643,12 @@
       "reorder_indep",
       "padnop"
     ]
+  },
+  "func_80039AE4": {
+    "passes": [
+      "nosplit",
+      "prologue_save_hoist",
+      "padnop"
+    ]
   }
 }

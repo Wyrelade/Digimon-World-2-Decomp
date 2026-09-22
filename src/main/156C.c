@@ -126,6 +126,7 @@ extern s32 func_8002FF04();
 extern s32 func_8002FDC8();
 extern s32 func_80039B54();
 extern s32 func_80039A78();
+extern s32 func_80039B4C(s32, s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3894,7 +3895,9 @@ s16 func_80039A44(s32 arg0, s16 arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039A78);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039AE4);
+s16 func_80039AE4(s32 arg0, s16 arg1, s32 arg2) {
+    return func_80039B54(arg0, arg1, func_80039B4C, arg2);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039B18);
 
