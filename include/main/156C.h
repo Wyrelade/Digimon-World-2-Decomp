@@ -867,4 +867,11 @@ typedef struct {
     u8  _p9C[0x14];     /* 0x9C -> size 0xB0 */
 } Elm354F4;
 
+/* Bit-flag block pointed to by D_8004FC68; D_8004FC70[] holds the masks
+ * func_80035458 / func_80035488 set and clear in field_4. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+} Flags4FC68;
+
 #endif /* MAIN_156C_H */

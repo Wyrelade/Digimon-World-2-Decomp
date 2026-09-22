@@ -105,6 +105,8 @@ extern Elm354F4 *D_80061C50[];
 extern s32 func_80032494(s16, s16);
 extern s32 D_80060050;
 extern s32 D_8006004C;
+extern Flags4FC68 *D_8004FC68;
+extern s32 D_8004FC70[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3628,7 +3630,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035384);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035420);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035458);
+s32 func_80035458(u16 arg0) {
+    s32 i = arg0;
+
+    D_8004FC68->field_4 |= D_8004FC70[i];
+    return i < 3;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035488);
 
