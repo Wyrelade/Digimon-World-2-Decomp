@@ -453,5 +453,12 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_80032C54": {
+    "passes": [
+      "nosplit",
+      "prologue_save_hoist",
+      "padnop"
+    ]
   }
 }

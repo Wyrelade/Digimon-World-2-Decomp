@@ -101,6 +101,8 @@ extern void func_80030D34();
 extern Cmd62C18 D_80062C18;
 extern void func_80036514(s16);
 extern void func_800363A4(s16);
+extern Elm354F4 *D_80061C50[];
+extern s32 func_80032494(s16, s16);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3436,7 +3438,11 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80032914);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80032954);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80032C54);
+void func_80032C54(s16 arg0, s16 arg1, s16 arg2) {
+    Elm354F4 *e = &D_80061C50[arg0][arg1];
+    e->field_26 = *e->field_0++;
+    e->field_90 = func_80032494(arg0, arg1);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80032CD4);
 
@@ -3607,47 +3613,6 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035488);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800354BC);
 
-/* file-local view for func_800354F4 (element size 0xB0, D_80061C50[a0][a1]) */
-typedef struct {
-    s32 field_0;        /* 0x00 */
-    volatile s32 field_4; /* 0x04 */
-    s32 field_8;        /* 0x08 */
-    u8  _p0C[0x8];      /* 0x0C */
-    u8  field_14;       /* 0x14 */
-    u8  field_15;       /* 0x15 */
-    u8  field_16;       /* 0x16 */
-    u8  field_17;       /* 0x17 */
-    u8  field_18;       /* 0x18 */
-    u8  field_19;       /* 0x19 */
-    u8  field_1A;       /* 0x1A */
-    u8  field_1B;       /* 0x1B */
-    u8  field_1C;       /* 0x1C */
-    u8  field_1D;       /* 0x1D */
-    u8  field_1E;       /* 0x1E */
-    u8  field_1F;       /* 0x1F */
-    u8  field_20;       /* 0x20 */
-    u8  field_21;       /* 0x21 */
-    u8  _p22[0x5];      /* 0x22 */
-    u8  field_27[0x10]; /* 0x27 */
-    u8  field_37[0x10]; /* 0x37 */
-    u8  _p47[0xD];      /* 0x47 */
-    s16 field_54;       /* 0x54 */
-    s16 field_56;       /* 0x56 */
-    u8  _p58[0x4];      /* 0x58 */
-    s16 field_5C;       /* 0x5C */
-    s16 field_5E;       /* 0x5E */
-    s16 field_60[0x10]; /* 0x60 */
-    u8  _p80[0x4];      /* 0x80 */
-    s32 field_84;       /* 0x84 */
-    s32 field_88;       /* 0x88 */
-    s32 field_8C;       /* 0x8C */
-    s32 field_90;       /* 0x90 */
-    s32 field_94;       /* 0x94 */
-    s32 field_98;       /* 0x98 */
-    u8  _p9C[0x14];     /* 0x9C -> size 0xB0 */
-} Elm354F4;
-
-extern Elm354F4 *D_80061C50[];
 extern void func_800391B4(s32);
 extern void func_80036764(void);
 
