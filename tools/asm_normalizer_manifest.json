@@ -672,5 +672,11 @@
   },
   "func_80024220": {
     "passes": []
+  },
+  "func_80024610": {
+    "passes": [
+      "delay_slot_select",
+      "epilogue_unfill"
+    ]
   }
 }
