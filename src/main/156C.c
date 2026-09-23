@@ -333,6 +333,7 @@ extern void func_8003FBF4(void);
 extern void func_8003F46C();
 extern char D_800103C4[];
 extern u8 *func_8001E758(s32);
+extern char D_80010304[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3736,7 +3737,10 @@ void func_80027604(s32 a0, s32 a1, s32 a2, s32 a3) {
     D_80048F08->fn_8(D_80048F08->field_C, a0, 8, ((a3 & 0xFF) << 16) | ((a2 & 0xFF) << 8) | (a1 & 0xFF));
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027694);
+void func_80027694(s32 a0, s32 a1, s32 a2, s32 a3) {
+    func_800274E8(D_80010304, a0);
+    D_80048F08->fn_8(D_80048F08->field_C, a0, 8, ((a3 & 0xFF) << 16 | 0x80000000 | (a2 & 0xFF) << 8) | (a1 & 0xFF));
+}
 
 void func_8002772C(s32 a0, s32 a1) {
     func_800274E8(D_80010310, a0);

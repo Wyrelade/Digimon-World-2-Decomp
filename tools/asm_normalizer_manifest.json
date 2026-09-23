@@ -1525,5 +1525,12 @@
     "passes": [
       "commutative_swap"
     ]
+  },
+  "func_80027694": {
+    "passes": [
+      "nosplit_nodb",
+      "sched_match",
+      "delay_fill"
+    ]
   }
 }
