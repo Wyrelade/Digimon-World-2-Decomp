@@ -891,7 +891,19 @@ s32 func_80013714(s32 arg0, s32 *arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001373C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800137B8);
+void func_800137B8(Part28 *p, s32 mask, s32 v) {
+    Part28 *q = p;
+
+    if (p->field_0 != 0) {
+        do {
+            if (q->field_1C & mask) {
+                q->field_C = v;
+            }
+            p++;
+            q++;
+        } while (p->field_0 != 0);
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800137FC);
 
@@ -1036,7 +1048,7 @@ void func_800143CC(Actor *arg0, s16 arg1) {
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80014400);
 
 extern void func_8001373C(void *, s32, s32 *, s16 *);
-extern void func_800137B8(void *, s32, s32);
+extern void func_800137B8(Part28 *, s32, s32);
 extern void func_8001D504(void *, s32);
 
 void func_80014870(Actor *actor) {

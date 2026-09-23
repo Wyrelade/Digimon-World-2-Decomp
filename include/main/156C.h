@@ -1380,4 +1380,16 @@ typedef struct {
     u8 _pad2[0x36];
 } Rec624F8;
 
+/* 0x28-byte model part record; lists end at field_0 == 0 (func_8001373C, func_800137B8). */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s16 field_4;
+    /* 0x06 */ s16 field_6;
+    u8 _pad8[4];
+    /* 0x0C */ u8 field_C;
+    u8 _padD[0xF];
+    /* 0x1C */ s32 field_1C;
+    u8 _pad20[8];
+} Part28;
+
 #endif /* MAIN_156C_H */
