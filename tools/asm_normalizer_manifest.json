@@ -1146,5 +1146,12 @@
       "nosplit",
       "ra_restore_sink"
     ]
+  },
+  "func_8002E064": {
+    "passes": [
+      "nosplit",
+      "sched_match",
+      "padnop"
+    ]
   }
 }
