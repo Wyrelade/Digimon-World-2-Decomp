@@ -380,6 +380,10 @@ typedef struct {
             u8 _b0[2];
             /* 0x02 */ u16 field_2;
         } h0;
+        struct {
+            u8 _b0[3];
+            /* 0x03 */ u8 field_3;
+        } b0;
     } u0;
     /* 0x04 */ u8 field_4;
     u8 _pad05[0x03];

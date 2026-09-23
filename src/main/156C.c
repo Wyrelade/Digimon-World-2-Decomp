@@ -219,6 +219,7 @@ extern void func_8002E1A4(s32, s32);
 extern s32 D_8004FE88;
 extern s32 D_8004FE8C;
 extern Hdr3AD44 *D_8004FE90;
+extern s32 func_80023910();
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -2082,7 +2083,14 @@ s16 func_8001EF64(s32 id) {
     return func_8001ED40(id)->field_8;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001EF88);
+u16 func_8001EF88(s32 id) {
+    u16 v = func_8001ED40(id)->u0.b0.field_3 & 0xF;
+
+    if (v == 6) {
+        return (u16)func_80023910() % 5;
+    }
+    return v;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001EFF0);
 
