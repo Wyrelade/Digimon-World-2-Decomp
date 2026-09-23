@@ -1580,5 +1580,10 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_8002FDC8": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
