@@ -248,6 +248,8 @@ extern char D_80010624[];
 extern void func_8002A014(char *, ...);
 extern void func_80038BE4(s16, s32, s32, s32);
 extern void func_8003A454(s32, s32);
+extern void func_80036164();
+extern void func_80036594();
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4158,12 +4160,16 @@ void func_800336D4(s16 arg0, s16 arg1, s16 arg2) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033744);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033804);
+void func_80033804(s16 a0, s16 a1, s16 a2, HandlerArg arg) {
+    s32 v = arg.field_24;
+
+    func_80036164(a0, a1, a2, &arg);
+    arg.field_0 = v;
+    func_80036594(a0, a1, a2, &arg);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033894);
 
-extern void func_80036164();
-extern void func_80036594();
 void func_80033954(s16 a0, s16 a1, s16 a2, HandlerArg d) {
     s32 flag = d.field_24;
 
