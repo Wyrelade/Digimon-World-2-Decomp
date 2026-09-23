@@ -1241,4 +1241,13 @@ typedef struct {
     /* 0x72 */ Cell166FC field_72[1];
 } Obj166FC;
 
+/* Global D_8004EAF8: one-shot stream state opened by func_800312F8. */
+typedef struct {
+    /* 0x00 */ u16 field_0;
+    u8 _pad02[0x30];
+    /* 0x32 */ u16 field_32;
+    /* 0x34 */ s32 field_34;
+    /* 0x38 */ u8 field_38[4];
+} Obj4EAF8;
+
 #endif /* MAIN_156C_H */

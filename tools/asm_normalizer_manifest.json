@@ -1285,5 +1285,11 @@
       "nosplit",
       "ra_restore_sink"
     ]
+  },
+  "func_800312F8": {
+    "passes": [
+      "nosplit_nodb",
+      "delay_fill"
+    ]
   }
 }
