@@ -1099,4 +1099,11 @@ typedef struct {
     /* 0x34 */ s32 *field_34;
 } Obj10E38;
 
+/* 16-byte slot record in the D_80062CFC array. */
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    /* 0x1 */ u8 field_1;
+    u8 _pad02[0x0E];
+} Ent62CFC;
+
 #endif /* MAIN_156C_H */
