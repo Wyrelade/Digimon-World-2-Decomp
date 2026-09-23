@@ -1259,5 +1259,11 @@
       "nosplit",
       "epilogue_unfill"
     ]
+  },
+  "func_80027A74": {
+    "passes": [
+      "nosplit",
+      "zero_remat"
+    ]
   }
 }
