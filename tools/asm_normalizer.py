@@ -1774,6 +1774,78 @@ def taken_fill_pass(stext, tgt):
     return "\n".join(lines)
 
 
+# --------------------------------------------------------------------------
+# dead-code: after taken_fill retargets branches, a block can lose every entrant
+# (retail's jump optimizer then deleted it, and the `j` over it too). Delete the
+# instructions between an unconditional transfer (`j`/`b`/`jr`, after its slot)
+# and the next label something still references (branches, `.word` jump-table
+# entries, anything but the label's own definition); then drop a `j L` whose
+# target is the very next instruction (its slot insn, if any, stays in place).
+# Semantics-preserving; count-changing.
+# --------------------------------------------------------------------------
+def _dc_referenced(lines, name):
+    pat = re.compile(r"(?<![\w$.])" + re.escape(name) + r"(?![\w$])")
+    return any(pat.search(l.split("#", 1)[0]) for l in lines
+               if l.strip() != name + ":")
+
+
+def dead_code_pass(stext, tgt):
+    lines = stext.split("\n")
+    changed = True
+    while changed:
+        changed = False
+        noreo, dead, pend = False, False, 0
+        out = []
+        for l in lines:
+            s = l.strip()
+            if s.startswith(".set") and "noreorder" in s:
+                noreo = True
+            elif s.startswith(".set") and s.split()[-1] == "reorder":
+                noreo = False
+            if _s_is_label(l) and _dc_referenced(lines, s[:-1]):
+                dead = False
+            if _s_is_insn(l):
+                if dead:
+                    changed = True
+                    continue
+                if pend:
+                    pend -= 1
+                    if pend == 0:
+                        dead = True
+                elif re.match(r"\s*(j|b|jr)\s", l):
+                    if noreo:
+                        pend = 1                # its delay slot still runs
+                    else:
+                        dead = True
+            elif s.startswith(".end"):
+                dead = False
+            out.append(l)
+        lines = out
+    # `j L` straight to the next instruction
+    ins = [i for i, l in enumerate(lines) if _s_is_insn(l)]
+    for x in range(len(ins) - 1, -1, -1):
+        i = ins[x]
+        m = re.match(r"\s*(?:j|b)\s+(\$L\w+)\s*$", lines[i].split("#", 1)[0])
+        if not m:
+            continue
+        noreo = False
+        for y in range(i, -1, -1):
+            sy = lines[y].strip()
+            if sy.startswith(".set") and "noreorder" in sy:
+                noreo = True
+                break
+            if sy.startswith(".set") and sy.split()[-1] == "reorder":
+                break
+        after = ins[x + 2] if noreo and x + 2 < len(ins) else (ins[x + 1] if not noreo else None)
+        if after is None:
+            continue
+        span = lines[(ins[x + 1] if noreo else i) + 1:after]
+        if any(l.strip() == m.group(1) + ":" for l in span) and not any(_s_is_insn(l) for l in span):
+            del lines[i]
+            changed = True
+    return "\n".join(lines)
+
+
 def ra_restore_sink_pass(stext, tgt):
     stext = callee_restore_sink_s(stext, tgt)
     tl = [d for _w, d in tgt]
@@ -2103,6 +2175,7 @@ PASSES = {
     "sched_match": sched_match_pass,
     "fallthrough_fill": fallthrough_fill_pass,
     "taken_fill": taken_fill_pass,
+    "dead_code": dead_code_pass,
 }
 
 # Passes that CHANGE the instruction count and so must run BEFORE sigma is derived
