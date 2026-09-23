@@ -42,7 +42,14 @@ typedef struct {
 
 /* Global object pointer D_80048F08 with method pointers at 0x38 / 0x3C. */
 typedef struct {
-    u8 _pad00[0x38];
+    u8 _pad00[0x08];
+    /* 0x08 */ void (*fn_8)(s32, s32, s32, s32);
+    u8 _pad0C[0x08];
+    /* 0x14 */ void (*fn_14)(u8 *, s32);
+    u8 _pad18[0x04];
+    /* 0x1C */ s32 field_1C;
+    /* 0x20 */ s32 field_20;
+    u8 _pad24[0x14];
     /* 0x38 */ s32 (*fn)(void);
     /* 0x3C */ void (*fn_3C)(void *);
 } Obj48F08;

@@ -815,5 +815,10 @@
       "nosplit",
       "exit_merge"
     ]
+  },
+  "func_8002778C": {
+    "passes": [
+      "reorder_indep"
+    ]
   }
 }
