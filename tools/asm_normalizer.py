@@ -1087,20 +1087,28 @@ def sched_match_pass(stext, tgt):
     ins = [(i, l) for i, l in enumerate(lines) if _s_is_insn(l)]
     used = set()
     edits = []
-    for blk in _sm_units(lines, ins):
-        bodies = [_sm_dep_body(b) for _a, _z, b in blk]
-        pos = []
-        for (_a, _z, b) in blk:
-            k = _sm_srckey(b)
+    # a unit with no target match (e.g. `la $r,S+4` that splat names by the
+    # address it resolves to) is a barrier: reorder the matched runs around it
+    runs = []
+    for blk0 in _sm_units(lines, ins):
+        cur = []
+        for u in blk0:
+            k = _sm_srckey(u[2])
             t = next((q for q, tk in enumerate(tkeys)
                       if k is not None and tk == k and q not in used), None)
             if t is None:
-                pos = None
-                break
-            pos.append(t)
+                if len(cur) > 1:
+                    runs.append(cur)
+                cur = []
+                continue
             used.add(t)
-        if pos is None:
-            continue
+            cur.append((u, t))
+        if len(cur) > 1:
+            runs.append(cur)
+    for run in runs:
+        blk = [u for u, _t in run]
+        pos = [t for _u, t in run]
+        bodies = [_sm_dep_body(b) for _a, _z, b in blk]
         order = sorted(range(len(blk)), key=lambda x: pos[x])
         if order == list(range(len(blk))):
             continue
