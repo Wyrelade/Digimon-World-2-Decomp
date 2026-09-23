@@ -820,5 +820,11 @@
     "passes": [
       "reorder_indep"
     ]
+  },
+  "func_80030334": {
+    "passes": [
+      "reg_realloc",
+      "padnop"
+    ]
   }
 }

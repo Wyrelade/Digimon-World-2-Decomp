@@ -173,6 +173,8 @@ extern s16 D_8006197C;
 extern Blk5071C *D_8005071C;
 extern char D_8001031C[];
 extern void func_800274E8(char *, s32);
+extern s8 D_80010974[];
+extern void func_8002A744(s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3522,7 +3524,18 @@ void func_8003024C(s32 a0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030258);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030334);
+void func_80030334(s8 *s) {
+    s8 c;
+
+    if (!s) {
+        s = D_80010974;
+    }
+    for (; (c = *s) != 0; ) {
+        s++;
+        func_8002A744(c);
+    }
+    func_8002A840();
+}
 
 u8 *func_80030394(a0, a1)
 s32 a0;
