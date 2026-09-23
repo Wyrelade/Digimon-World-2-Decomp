@@ -2283,7 +2283,13 @@ s16 func_8001E728(s32 arg0, s32 arg1) {
     return func_8001E6A8(arg0)->field8[arg1];
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E758);
+u8 *func_8001E758(s32 id) {
+    s32 v;
+
+    v = func_8001E6A8(id)->field_0;
+    v += func_80023A08(func_8001E67C(id));
+    return (u8 *)v;
+}
 
 s16 func_8001E79C(s32 id) {
     return func_8001E6A8(id)->field_1E;

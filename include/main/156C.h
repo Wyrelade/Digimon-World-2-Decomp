@@ -361,7 +361,7 @@ typedef struct {
 
 /* Entry returned by the func_8001E6A8 table lookup (0x28 stride). */
 typedef struct {
-    u8 _pad00[0x04];
+    /* 0x00 */ s32 field_0;
     union {
         /* 0x04 */ u32 field_4;
         struct {
