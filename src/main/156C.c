@@ -2184,7 +2184,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80021D60);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80021DC8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80021E54);
+s32 func_80021E54(u8 *arg0, s32 arg1) {
+    s32 i = arg1 >> 3;
+    s32 m = 1 << (arg1 & 7);
+
+    return (arg0[i] & m) != 0;
+}
 
 /* file-local views over D_8005E620 for func_80021E78 */
 typedef struct { u8 _p[0x66]; u16 a[1]; } V66_21E78;
@@ -2197,7 +2202,7 @@ extern s32 D_8005F644;
 extern s32 D_8005F64C;
 extern s32 D_8005F654;
 extern s32 D_8005F664;
-extern s32 func_80021E54(void *, s32);
+extern s32 func_80021E54(u8 *, s32);
 extern s32 func_80066B48(s32);
 
 s32 func_80021E78(s32 arg0) {
