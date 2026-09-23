@@ -1235,6 +1235,8 @@ def _ff_word_form(body):
             return None
         if -0x8000 <= v < 0x8000:
             return "addiu\t%s,$0,%d" % (ops[0].strip(), v)
+        if 0 <= v <= 0xFFFF:
+            return "ori\t%s,$0,%d" % (ops[0].strip(), v)
         if v & 0xFFFF:
             return None
         return "lui\t%s,0x%x" % (ops[0].strip(), (v >> 16) & 0xFFFF)
@@ -1310,7 +1312,73 @@ def _ff_dead_on(lines, ins, label, reg, seen=None):
     return False
 
 
+def _ff_nr_swap(stext, tgt):
+    """cc1 filled a conditional branch slot (noreorder) with the FIRST fall-through
+    insn Y; the target's slot holds a LATER fall-through insn X. Put X in the slot
+    and Y back at the head of the fall-through. Needs: X hoistable over the insns
+    before it (incl. Y), and both destinations dead on the taken path (X now runs
+    there, Y no longer does)."""
+    if not tgt:
+        return stext
+    tb = [k for k, (_w, d) in enumerate(tgt) if d.split(None, 1)[0].lower() in _COND_BR_MN]
+    lines = stext.split("\n")
+    ours = _tf_branches(lines)
+    if len(ours) != len(tb):
+        return stext
+    for k in range(len(ours)):
+        ours = _tf_branches(lines)
+        bi, nr = ours[k]
+        tk = tb[k]
+        if not nr or tk + 1 >= len(tgt):
+            continue
+        tkey = _sm_key(tgt[tk + 1][1].strip(), True)
+        if tkey in (None, "skip", ("nop",), ("sll", "zero", "zero", 0)):
+            continue
+        slot = _tf_next_insn(lines, bi)
+        if slot is None:
+            continue
+        yform = _ff_word_form(lines[slot].split("#", 1)[0].strip())
+        if yform is None or _sm_key(yform, False) == tkey:
+            continue
+        end = slot + 1
+        while end < len(lines) and lines[end].strip().startswith(".set"):
+            end += 1
+        ins = [(i, l) for i, l in enumerate(lines) if _s_is_insn(l)]
+        pick, seen = None, [yform]
+        for fi, fl in ins:
+            if fi < end:
+                continue
+            if any(_branch_target_label(lines, ins, x) for x in lines[end:fi]):
+                break
+            if _src_is_branch(fl) or _src_is_ret(fl) or re.match(r"\s*jalr?\b", fl):
+                break
+            fb = fl.split("#", 1)[0].strip()
+            form = _ff_word_form(fb)
+            if form is not None and _sm_key(form, False) == tkey:
+                if all(_sm_indep(form, s) for s in seen):
+                    pick = (fi, form)
+                break
+            seen.append(fb)
+        if pick is None:
+            continue
+        fi, xform = pick
+        lab = re.search(r"(\$L\w+)\s*$", lines[bi].split("#", 1)[0])
+        xd, _u = defs_uses(xform)
+        yd, _u = defs_uses(yform)
+        if not lab or len(xd) != 1 or len(yd) != 1:
+            continue
+        if not (_ff_dead_on(lines, ins, lab.group(1), next(iter(xd)))
+                and _ff_dead_on(lines, ins, lab.group(1), next(iter(yd)))):
+            continue
+        ind = _src_indent(lines[slot])
+        del lines[fi]
+        lines[slot] = ind + xform
+        lines.insert(end, ind + yform)
+    return "\n".join(lines)
+
+
 def fallthrough_fill_pass(stext, tgt):
+    stext = _ff_nr_swap(stext, tgt)
     tb = [k for k, (_w, d) in enumerate(tgt)
           if d.split(None, 1)[0].lower() in _COND_BR_MN] if tgt else []
     lines = stext.split("\n")
