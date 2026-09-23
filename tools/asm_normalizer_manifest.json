@@ -1608,5 +1608,16 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_80032494": {
+    "passes": [
+      "nosplit_nodb",
+      "exit_merge",
+      "sched_match",
+      "taken_fill",
+      "dead_code",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
