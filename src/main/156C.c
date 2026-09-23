@@ -490,7 +490,23 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80012778);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001287C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001291C);
+void func_8001291C(Actor *a, Pair1291C *v) {
+    ActorWork *w = a->work;
+
+    *(Pair1291C *)w = *v;
+    switch (w->field_0) {
+    case 0:
+    default:
+        w->field_8 = 0xD;
+        break;
+    case 1:
+        w->field_8 = 5;
+        break;
+    case 2:
+        w->field_8 = 7;
+        break;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80012974);
 

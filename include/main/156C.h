@@ -1001,4 +1001,10 @@ typedef struct {
     /* 0x0C */ s32 field_C;
 } Gpu48F10;
 
+/* Two-word state func_8001291C copies into the head of an ActorWork. */
+typedef struct {
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ s32 field_4;
+} Pair1291C;
+
 #endif /* MAIN_156C_H */
