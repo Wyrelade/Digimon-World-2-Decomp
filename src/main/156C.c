@@ -88,7 +88,7 @@ extern void func_8001D550(Ent1D550 *, s32, s32);
 extern void func_8001D884(s32);
 extern void func_8001BC24(void *, Arg1BC24 *);
 extern void func_800221C4(s32, s32);
-extern void func_8001D5B4(void *, s32, s32, s32);
+extern void func_8001D5B4(Part28 *, s32, s32, s32);
 extern s32 func_8001E984(s32, s32, s32);
 extern void func_8002D744(void *, Obj209 *);
 extern void func_8002B544(s32);
@@ -1958,7 +1958,40 @@ void func_8001D550(Ent1D550 *p, s32 a1, s32 a2) {
     } while (p->field_0 != 0);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D5B4);
+void func_8001D5B4(Part28 *p, s32 mask, s32 n, s32 val) {
+    u8 d[8];
+    Part28 *q;
+    s32 i = 0;
+    s32 lead = 0;
+    s32 k;
+    s32 x;
+
+    if (n < 0) {
+        lead = 1;
+        n = -n;
+    }
+    x = val;
+    for (k = n - 1; k != -1; k--) {
+        d[k] = x % 10;
+        x /= 10;
+    }
+    if (p->field_0 != 0) {
+        q = p;
+        do {
+            if (q->field_1C & mask) {
+                if (lead == 1 || i == n - 1 || d[i] != 0) {
+                    lead = 1;
+                    q->field_D = d[i];
+                } else {
+                    q->field_D = 0xFF;
+                }
+                i++;
+            }
+            p++;
+            q++;
+        } while (p->field_0 != 0);
+    }
+}
 
 /* File-local record walked by func_8001D6B4 (stride 0x28). */
 typedef struct {
