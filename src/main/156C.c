@@ -299,6 +299,11 @@ extern s32 D_80063074;
 extern s32 D_80063078;
 extern s32 D_8006307C;
 extern s32 D_80062D50[];
+extern s32 *D_80049034;
+extern s32 D_80049038;
+extern volatile s32 D_8004903C;
+extern s32 D_80049048;
+extern u8 D_800600B0[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3583,7 +3588,31 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800291FC);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800294AC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002970C);
+s32 func_8002970C(s32 mode) {
+    D_80049048 = func_80030E50(0);
+    D_80049038 = D_8004903C = 0;
+    switch (mode & 7) {
+    case 0:
+    case 5:
+        *D_80049024 = 0x401;
+        *D_80049034 |= 0x800;
+        *D_80049018 = 0;
+        func_80029FDC(D_800600B0, 0, 0x1800);
+        break;
+    case 1:
+    case 3:
+        *D_80049024 = 0x401;
+        *D_80049034 |= 0x800;
+        *D_80049018 = 0x2000000;
+        *D_80049018 = 0x1000000;
+        break;
+    }
+    func_80030E50(D_80049048);
+    if (mode & 7) {
+        return 0;
+    }
+    return func_80029AFC(mode);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80029848);
 

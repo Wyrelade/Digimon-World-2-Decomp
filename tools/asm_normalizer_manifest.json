@@ -1316,5 +1316,10 @@
       "reorder_indep",
       "padnop"
     ]
+  },
+  "func_8002970C": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
