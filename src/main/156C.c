@@ -4166,7 +4166,16 @@ void func_80033954(s16 a0, s16 a1, s16 a2, HandlerArg d) {
     func_80036594(a0, a1, a2, &d);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800339E4);
+extern void func_80036164();
+extern void func_80036594();
+
+void func_800339E4(s16 a0, s16 a1, s16 a2, HandlerArg d) {
+    s32 v = d.field_24;
+
+    func_80036164(a0, a1, a2, &d);
+    d.field_7 = v;
+    func_80036594(a0, a1, a2, &d);
+}
 
 /* By-value struct arg spanning a3 + stack (0x28 bytes); only three fields
    are touched here. func_80036164/func_80036594 receive its address. */

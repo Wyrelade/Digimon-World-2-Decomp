@@ -1067,5 +1067,10 @@
       "prologue_save_hoist",
       "padnop"
     ]
+  },
+  "func_800339E4": {
+    "passes": [
+      "padnop"
+    ]
   }
 }
