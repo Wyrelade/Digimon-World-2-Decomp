@@ -3615,7 +3615,13 @@ void func_8002DD20(void) { func_8002DD54(0xF0000003, 0x40); }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DD54);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DD64);
+s32 func_8002DD64(void *arg) {
+    u8 *p = arg;
+
+    return (((p[0] >> 4) * 10 + (p[0] & 0xF)) * 60
+          + ((p[1] >> 4) * 10 + (p[1] & 0xF))) * 75
+         + ((p[2] >> 4) * 10 + (p[2] & 0xF)) - 150;
+}
 
 extern s32 D_80061B98;
 extern void func_8002DE68(void);
