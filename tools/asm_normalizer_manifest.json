@@ -1640,5 +1640,12 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8002B06C": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "epilogue_unfill"
+    ]
   }
 }

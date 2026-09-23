@@ -361,6 +361,7 @@ extern void func_80027CB0(DispEnv *);
 extern DispEnv D_80061968;
 extern s32 D_80049060;
 extern s8 D_80049071[];
+extern BlkFill618D0 D_800618D0[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4343,7 +4344,23 @@ void func_8002ADE4(s16 a0, s16 a1, s32 flags, u8 a3, u16 a4) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002AE4C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B06C);
+void func_8002B06C(u8 r, u8 g, u8 b, Db2B06C *db) {
+    s32 i;
+
+    D_800618D0[D_8006198C].r = r;
+    D_800618D0[D_8006198C].g = g;
+    D_800618D0[D_8006198C].b = b;
+    i = D_8006198C;
+    D_800618D0[i].x0 = D_800618F0[i];
+    D_800618D0[i].y0 = D_800618F4[i];
+    D_800618D0[i].h = D_80061994;
+    if (D_8006196C.field_D != 0) {
+        D_800618D0[i].w = D_80061990 * 3 / 2;
+    } else {
+        D_800618D0[i].w = D_80061990;
+    }
+    func_8002AAF4(db->ot, (unsigned int *)&D_800618D0[D_8006198C]);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B1A4);
 

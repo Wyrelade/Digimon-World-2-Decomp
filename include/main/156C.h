@@ -1424,4 +1424,24 @@ typedef struct {
     /* 0x13 */ u8 pad1;
 } DispEnv;
 
+/* 16-byte GPU fill-rectangle packets at D_800618D0, one per display buffer
+ * (libgpu BLK_FILL shape): tag, r g b code, x0 y0 w h. */
+typedef struct {
+    /* 0x0 */ u32 tag;
+    /* 0x4 */ u8 r;
+    /* 0x5 */ u8 g;
+    /* 0x6 */ u8 b;
+    /* 0x7 */ u8 code;
+    /* 0x8 */ u16 x0;
+    /* 0xA */ u16 y0;
+    /* 0xC */ u16 w;
+    /* 0xE */ u16 h;
+} BlkFill618D0;
+
+/* Per-buffer draw context handed to func_8002B06C; the ot pointer sits at 0x10. */
+typedef struct {
+    u8 _pad00[0x10];
+    /* 0x10 */ u32 *ot;
+} Db2B06C;
+
 #endif /* MAIN_156C_H */
