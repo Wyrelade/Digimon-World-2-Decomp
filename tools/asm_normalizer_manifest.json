@@ -1303,5 +1303,12 @@
       "shift_const_fold",
       "delay_fill"
     ]
+  },
+  "func_8003FEA4": {
+    "passes": [
+      "nosplit",
+      "ra_restore_sink",
+      "epilogue_unfill"
+    ]
   }
 }
