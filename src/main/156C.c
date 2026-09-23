@@ -4353,7 +4353,15 @@ void func_8003AC84(void) {
     *D_8004FE3C = (*D_8004FE3C & 0xF0FFFFFF) | 0x22000000;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003ACAC);
+void func_8003ACAC(void) {
+    volatile s32 i;
+    volatile s32 x;
+
+    x = 13;
+    for (i = 0; i < 60; i++) {
+        x *= 13;
+    }
+}
 
 void func_8003AD14(s32 arg0) { func_80030D34(4, arg0); }
 

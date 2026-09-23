@@ -907,5 +907,11 @@
       "nosplit",
       "epilogue_unfill"
     ]
+  },
+  "func_8003ACAC": {
+    "passes": [
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
