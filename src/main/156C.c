@@ -348,6 +348,14 @@ extern s32 D_800503B8;
 extern u16 *D_8004E9A0;
 extern char D_80010328[];
 extern s32 func_80022038();
+extern volatile u8 *D_8004EA60;
+extern volatile u8 *D_8004EA64;
+extern volatile s32 *D_8004EA68;
+extern volatile s32 *D_8004EA6C;
+extern volatile s32 *D_8004EA70;
+extern volatile s32 *D_8004EA74;
+extern volatile s32 *D_8004EA78;
+extern volatile s32 *D_8004EA7C;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4747,7 +4755,22 @@ s32 func_80030914(void *arg0, s32 arg1) {
     return func_80030934() == 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030934);
+s32 func_80030934(s32 addr, s32 size) {
+    *D_8004EA60 = 0;
+    *D_8004EA64 = 0x80;
+    *D_8004EA6C = 0x20943;
+    *D_8004EA68 = 0x1323;
+    *D_8004EA70 |= 0x8000;
+    *D_8004EA78 = addr;
+    *D_8004EA7C = size | 0x10000;
+    while (!(*D_8004EA60 & 0x40)) {
+    }
+    *D_8004EA74 = 0x11000000;
+    while (*D_8004EA74 & 0x01000000) {
+    }
+    *D_8004EA68 = 0x1325;
+    return 0;
+}
 
 void func_80030A34(s32 arg0) { func_80030D34(3, arg0); }
 
