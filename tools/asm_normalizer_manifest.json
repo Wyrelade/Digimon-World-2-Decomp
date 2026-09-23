@@ -1034,5 +1034,12 @@
     "passes": [
       "padnop"
     ]
+  },
+  "func_80031464": {
+    "passes": [
+      "nosplit",
+      "ra_restore_sink",
+      "epilogue_unfill"
+    ]
   }
 }

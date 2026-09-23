@@ -237,6 +237,7 @@ extern void func_80026588(Actor *arg0);
 extern void func_8002659C(Actor *arg0, u8 arg1);
 extern void func_800265DC(Actor *arg0, u8 arg1);
 extern s32 func_80026630(void);
+extern s32 *D_8004FBC4;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3961,7 +3962,16 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800313E4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031420);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031464);
+extern void func_800314BC(void);
+extern void func_80031528(s32 arg0, void (*arg1)(void));
+
+void (*func_80031464(void))(s32, void (*)(void)) {
+    *D_8004FBC4 = 0x100;
+    D_8004FBC0 = 0;
+    func_80031554(D_8004FBA0, 8);
+    func_80030D04(0, func_800314BC);
+    return func_80031528;
+}
 
 void func_800314BC(void) {
     void (**p)(void);
