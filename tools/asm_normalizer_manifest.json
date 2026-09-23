@@ -1501,5 +1501,12 @@
       "taken_fill",
       "padnop"
     ]
+  },
+  "func_8003DD00": {
+    "passes": [
+      "nosplit",
+      "sched_match",
+      "padnop"
+    ]
   }
 }
