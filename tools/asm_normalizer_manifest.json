@@ -1310,5 +1310,11 @@
       "ra_restore_sink",
       "epilogue_unfill"
     ]
+  },
+  "func_80032544": {
+    "passes": [
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }
