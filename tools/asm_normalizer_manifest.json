@@ -1166,5 +1166,12 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_8002B2B4": {
+    "passes": [
+      "nosplit",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }

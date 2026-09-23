@@ -264,6 +264,11 @@ extern s32 D_80061B10;
 extern s32 D_80061B08;
 extern s32 D_80061B54;
 extern char D_800102AC[];
+extern s16 D_800618F0[];
+extern s16 D_800618F4[];
+extern Rect2AB54 D_80061908;
+extern Rect2AB54 D_80061980;
+extern void func_80027AE4(Rect2AB54 *, s32, s32, s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3536,7 +3541,23 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B06C);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B1A4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B2B4);
+void func_8002B2B4(void) {
+    Rect2AB54 *dst = &D_80061908;
+    Rect2AB54 *src = &D_80061980;
+    s32 h = (u16)src->h;
+    s32 dx = D_800618F0[D_8006198C];
+    s32 dy = D_800618F4[D_8006198C];
+    s32 x;
+    s32 y;
+
+    dst->h = h;
+    dst->w = src->w;
+    x = src->x;
+    y = src->y;
+    dst->x = x + dx;
+    dst->y = y + dy;
+    func_80027AE4(dst, h, dx, dy);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B334);
 
