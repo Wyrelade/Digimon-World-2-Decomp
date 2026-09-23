@@ -1296,5 +1296,12 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80039F44": {
+    "passes": [
+      "nosplit",
+      "shift_const_fold",
+      "delay_fill"
+    ]
   }
 }

@@ -298,6 +298,7 @@ extern s32 D_80063070;
 extern s32 D_80063074;
 extern s32 D_80063078;
 extern s32 D_8006307C;
+extern s32 D_80062D50[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4997,7 +4998,23 @@ s32 func_80039B4C(s32 arg0, s32 arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039B54);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039F44);
+s16 func_80039F44(s32 a0, s16 id) {
+    s32 addr;
+
+    if ((u16)id < 17) {
+        if (D_80062D38[id] == 2) {
+            addr = D_80062D98[id];
+            func_8003C7D4(0);
+            if (func_8003C774(addr) != 0) {
+                func_8003C714(a0, D_80062D50[id]);
+                D_80062D38[id] = 1;
+                return id;
+            }
+        }
+    }
+    func_8003C8C4(0);
+    return -1;
+}
 
 extern s16 func_8003C804();
 
