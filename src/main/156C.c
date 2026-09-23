@@ -184,6 +184,7 @@ extern s32 D_8004FC5C;
 extern Gpu48F10 D_80048F10;
 extern char D_80010250[];
 extern char D_80010290[];
+extern s32 *D_8004FE38;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4282,7 +4283,14 @@ s32 func_8003ABC8(s32 a0, s32 a1) {
     return x << D_8004FE50;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003AC04);
+void func_8003AC04(s32 a0) {
+    *D_8004FE38 &= 0xFFF8FFFF;
+    if (a0 != 0) {
+        *D_8004FE38 |= 0x30000;
+    } else {
+        *D_8004FE38 |= 0x50000;
+    }
+}
 
 extern u32 *D_8004FE3C;
 void func_8003AC5C(void) {

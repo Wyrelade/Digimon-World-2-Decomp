@@ -871,5 +871,10 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_8003AC04": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
