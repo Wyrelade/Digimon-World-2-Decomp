@@ -1454,7 +1454,6 @@ def taken_fill_pass(stext, tgt):
             continue
         n_new += 1
         newlab = "$Ltf%d_%d" % (bi, n_new)
-        lines.insert(xi + 1, newlab + ":")
         ind = _src_indent(lines[bi])
         nb = lines[bi][:lines[bi].rindex(lab.group(1))] + newlab
         if nr:
@@ -1463,6 +1462,9 @@ def taken_fill_pass(stext, tgt):
         else:
             lines[bi:bi + 1] = [ind + ".set\tnoreorder", ind + ".set\tnomacro", nb,
                                 ind + form, ind + ".set\tmacro", ind + ".set\treorder"]
+            if xi > bi:
+                xi += 5
+        lines.insert(xi + 1, newlab + ":")
     # Op B: a slot insn made redundant by an identical earlier def
     ours = _tf_branches(lines)
     if len(ours) != len(tb):
