@@ -273,6 +273,11 @@ extern ObjDesc **D_80040D50[];
 extern char D_80010390[];
 extern Obj25FBC *(*D_80048E2C)(void);
 extern void (*D_80048E1C)(Obj25FBC *);
+extern s32 (*D_80048EA0[])(Obj25FBC *);
+extern s32 D_80048E5C;
+extern void (*D_80048E18)(s32);
+extern void func_80026610(s32);
+extern s32 func_80025C00(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3147,7 +3152,26 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800251AC);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002533C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025670);
+void func_80025670(Obj25FBC *a0) {
+    s32 r;
+
+    r = D_80048EA0[D_80048E5C++](a0);
+    if (r >= 0) {
+        if (D_80048E5C != 0) {
+            if (D_80048E5C != 3 || *a0->field_3C != 0x80) {
+                func_80026610(0x3C);
+                if (func_80025C00() == 0) {
+                    D_80048E18(-3);
+                }
+            }
+        }
+        if (D_80048E5C >= 5) {
+            D_80048E5C--;
+        }
+    } else {
+        D_80048E18(r);
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025760);
 

@@ -1218,5 +1218,11 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80025670": {
+    "passes": [
+      "nosplit",
+      "delay_fill"
+    ]
   }
 }
