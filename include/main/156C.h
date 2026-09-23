@@ -1021,4 +1021,10 @@ typedef struct {
     /* 0x04 */ u32 code[5];
 } DrMove2AB54;
 
+/* Status words behind D_80048E8C; func_80025144 checks bit 0 of both. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+} Regs48E8C;
+
 #endif /* MAIN_156C_H */
