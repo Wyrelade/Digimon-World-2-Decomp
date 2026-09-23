@@ -630,8 +630,80 @@ def shift_const_fold_s(stext, allowed):
     return "\n".join(lines) if changed else stext
 
 
+# The same CSE substitutes a live constant register into ALU ops: `addu $d,$s,$r`
+# (either operand order) with `li $r,K` reaching it, where retail keeps the
+# immediate form `addiu $d,$s,K` (and likewise and/or/xor -> andi/ori/xori,
+# slt/sltu -> slti/sltiu). Same reaching-definition rule, target-guided by the
+# (op, K) immediates the target emits.
+_ALU_REG_S = re.compile(r"^(\s*)(addu|and|or|xor|slt|sltu)\s+(\$\w+)\s*,\s*(\$\w+)\s*,"
+                        r"\s*(\$\w+)\s*(#.*)?$")
+_ALU_IMM = {"addu": "addiu", "and": "andi", "or": "ori", "xor": "xori",
+            "slt": "slti", "sltu": "sltiu"}
+
+
+def target_imm_alu(tgt):
+    """{(immediate op, K)} the target emits, e.g. ("addiu", -1)."""
+    out = set()
+    pat = re.compile(r"^(addiu|andi|ori|xori|slti|sltiu)\s+\S+\s*,\s*\S+\s*,\s*"
+                     r"(-?(?:0x[0-9a-fA-F]+|\d+))\s*$")
+    for _w, dis in tgt:
+        m = pat.match(dis.strip())
+        if m:
+            out.add((m.group(1), int(m.group(2), 0)))
+    return out
+
+
+def _const_reaching(lines, ins, p, reg):
+    li = ins[p][0]
+    for q in range(p - 1, -1, -1):
+        qi, ql = ins[q]
+        if q == p - 1 and _src_is_branch(ql) and not _src_is_ret(ql):
+            continue
+        if _src_is_branch(ql) or any(_branch_target_label(lines, ins, x)
+                                    for x in lines[qi:li]):
+            return None
+        d, _u = defs_uses(ql.split("#", 1)[0].strip())
+        if reg in d:
+            c = _CONST_DEF_S.match(ql)
+            if c and _src_reg(c.group(1) or c.group(3)) == reg:
+                return int(c.group(2) or c.group(4), 0)
+            return None
+    return None
+
+
+def alu_const_fold_s(stext, allowed):
+    if not allowed:
+        return stext
+    lines = stext.split("\n")
+    ins = [(i, l) for i, l in enumerate(lines) if _s_is_insn(l)]
+    changed = False
+    for p, (li, l) in enumerate(ins):
+        m = _ALU_REG_S.match(l)
+        if not m:
+            continue
+        op = _ALU_IMM[m.group(2)]
+        for src, cnt in ((m.group(4), m.group(5)), (m.group(5), m.group(4))):
+            if m.group(2) in ("slt", "sltu") and cnt != m.group(5):
+                continue                    # not commutative
+            r = _src_reg(cnt)
+            if not r or r == _src_reg("$0"):
+                continue
+            k = _const_reaching(lines, ins, p, r)
+            if k is None or (op, k) not in allowed:
+                continue
+            if op in ("andi", "ori", "xori") and not 0 <= k <= 0xFFFF:
+                continue
+            if op in ("addiu", "slti", "sltiu") and not -0x8000 <= k < 0x8000:
+                continue
+            lines[li] = "%s%s\t%s,%s,%d" % (m.group(1), op, m.group(3), src, k)
+            changed = True
+            break
+    return "\n".join(lines) if changed else stext
+
+
 def shift_const_fold_pass(stext, tgt):
-    return shift_const_fold_s(stext, target_imm_shifts(tgt))
+    stext = shift_const_fold_s(stext, target_imm_shifts(tgt))
+    return alu_const_fold_s(stext, target_imm_alu(tgt))
 
 
 # --------------------------------------------------------------------------
