@@ -1116,5 +1116,10 @@
     "passes": [
       "reg_realloc"
     ]
+  },
+  "func_80034294": {
+    "passes": [
+      "padnop"
+    ]
   }
 }
