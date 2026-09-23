@@ -4257,7 +4257,15 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034064);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034114);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800341F4);
+void func_800341F4(s16 a0, s16 a1, s16 a2, HandlerArg d) {
+    Out33B24 buf;
+    s32 v = d.field_24;
+
+    func_80036164(a0, a1, a2, &d);
+    d.field_9 = v;
+    func_80033B80(&buf, &d.field_10, &d.field_12);
+    func_80036594(a0, a1, a2, &d);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034294);
 
