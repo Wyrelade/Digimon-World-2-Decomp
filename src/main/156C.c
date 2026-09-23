@@ -2585,7 +2585,22 @@ void func_80020CE8(Obj20CE8 *a0, s32 a1) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020D54);
+s32 func_80020D54(ContC40 *a0, s32 i) {
+    AllocC40 *p = a0->field_38;
+    Obj20CE8 *e = &p->field_6C[i];
+
+    if (i != 1) {
+        func_80020CE8(e, 0);
+    } else {
+        func_80020CE8(e, 1);
+    }
+    if (i != 2) {
+        p->field_48[i] += e->field_0 >> 8;
+    } else {
+        p->field_48[2] -= e->field_0 >> 8;
+    }
+    return e->field_0 >> 8;
+}
 
 s32 func_80020E00(ContC40 *a0, s32 i) {
     AllocC40 *p = a0->field_38;

@@ -1381,5 +1381,11 @@
       "commutative_swap",
       "padnop"
     ]
+  },
+  "func_80020D54": {
+    "passes": [
+      "commutative_swap",
+      "padnop"
+    ]
   }
 }
