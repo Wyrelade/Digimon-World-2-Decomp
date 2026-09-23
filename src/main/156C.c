@@ -1916,7 +1916,16 @@ void func_8001ECE4(Actor *arg0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001ED40);
+EntED40 *func_8001ED40(s32 id) {
+    EntED40 *p = (EntED40 *)func_800239A0(0x25B0000);
+
+    do {
+        if (p->u0.id == id) {
+            return p;
+        }
+    } while ((p++)->u0.id != 0);
+    return 0;
+}
 
 s32 func_8001ED84(s32 arg0) {
     s32 base = func_80023A08(0x25B);
@@ -1932,74 +1941,74 @@ s32 func_8001EDD4(s32 arg0) {
     return func_8001ED40(arg0)->field_28 + base;
 }
 
-s32 func_8001EE10(void) {
-    return func_8001ED40()->u0.h0.field_2 & 3;
+s32 func_8001EE10(s32 id) {
+    return func_8001ED40(id)->u0.h0.field_2 & 3;
 }
 
-s32 func_8001EE34() {
-    return (func_8001ED40()->u0.field_0 >> 18) & 3;
+s32 func_8001EE34(s32 id) {
+    return (func_8001ED40(id)->u0.field_0 >> 18) & 3;
 }
 
-s32 func_8001EE5C(void) {
-    return func_8001ED40()->field_C;
+s32 func_8001EE5C(s32 id) {
+    return func_8001ED40(id)->field_C;
 }
 
-u8 func_8001EE80(void) {
-    return func_8001ED40()->field_4;
+u8 func_8001EE80(s32 id) {
+    return func_8001ED40(id)->field_4;
 }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001EEA4);
 
-s32 func_8001EF3C(void) {
-    return (func_8001ED40()->u0.field_0 >> 20) & 0xF;
+s32 func_8001EF3C(s32 id) {
+    return (func_8001ED40(id)->u0.field_0 >> 20) & 0xF;
 }
 
-s16 func_8001EF64(void) {
-    return func_8001ED40()->field_8;
+s16 func_8001EF64(s32 id) {
+    return func_8001ED40(id)->field_8;
 }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001EF88);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001EFF0);
 
-u8 func_8001F020(void) {
-    return func_8001ED40()->u10.field_10b;
+u8 func_8001F020(s32 id) {
+    return func_8001ED40(id)->u10.field_10b;
 }
 
-s32 func_8001F044(void) {
-    return func_8001ED40()->field_20 & 0xF;
+s32 func_8001F044(s32 id) {
+    return func_8001ED40(id)->field_20 & 0xF;
 }
 
-s32 func_8001F068(void) {
-    return func_8001ED40()->field_18 & 0x3FFFFFF;
+s32 func_8001F068(s32 id) {
+    return func_8001ED40(id)->field_18 & 0x3FFFFFF;
 }
 
-s32 func_8001F094(void) {
-    return func_8001ED40()->field_1C & 0x3FFFF;
+s32 func_8001F094(s32 id) {
+    return func_8001ED40(id)->field_1C & 0x3FFFF;
 }
 
-s32 func_8001F0C0(void) {
-    return func_8001ED40()->u0.field_0 >> 28;
+s32 func_8001F0C0(s32 id) {
+    return func_8001ED40(id)->u0.field_0 >> 28;
 }
 
-s32 func_8001F0E4(void) {
-    return (func_8001ED40()->u10.field_10 >> 8) & 0x7FFF;
+s32 func_8001F0E4(s32 id) {
+    return (func_8001ED40(id)->u10.field_10 >> 8) & 0x7FFF;
 }
 
-s32 func_8001F10C(void) {
-    return func_8001ED40()->field_14 & 0x3FF;
+s32 func_8001F10C(s32 id) {
+    return func_8001ED40(id)->field_14 & 0x3FF;
 }
 
-s32 func_8001F130(void) {
-    return (func_8001ED40()->field_14 >> 10) & 0x1FFF;
+s32 func_8001F130(s32 id) {
+    return (func_8001ED40(id)->field_14 >> 10) & 0x1FFF;
 }
 
-s32 func_8001F158(void) {
-    return (func_8001ED40()->field_1C >> 18) & 0x1F;
+s32 func_8001F158(s32 id) {
+    return (func_8001ED40(id)->field_1C >> 18) & 0x1F;
 }
 
-s32 func_8001F180(void) {
-    return (func_8001ED40()->field_1C >> 23) & 0xFF;
+s32 func_8001F180(s32 id) {
+    return (func_8001ED40(id)->field_1C >> 23) & 0xFF;
 }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F1A8);
