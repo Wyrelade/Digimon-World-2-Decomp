@@ -1544,5 +1544,13 @@
       "nosplit",
       "taken_fill"
     ]
+  },
+  "func_80033124": {
+    "passes": [
+      "nosplit",
+      "commutative_swap",
+      "sched_match",
+      "padnop"
+    ]
   }
 }

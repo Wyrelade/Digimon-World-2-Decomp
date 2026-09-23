@@ -337,6 +337,7 @@ extern char D_80010304[];
 extern char D_80010328[];
 extern void func_80029FB4(void);
 extern Pkt48F9C D_80048F9C;
+extern void func_80039334(s16, s8, u8, u16, u8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4892,7 +4893,14 @@ void func_80033054(s16 a0, s16 a1, u8 a2) {
     e->field_90 = func_80032494(a0, a1);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033124);
+void func_80033124(s16 a0, s16 a1, s32 a2) {
+    Elm354F4 *e = &D_80061C50[a0][a1];
+    s32 i = e->field_17;
+
+    func_80039334(a0 | (a1 << 8), e->field_26, e->field_37[i], e->field_60[i], a2);
+    e->field_27[i] = a2;
+    e->field_90 = func_80032494(a0, a1);
+}
 
 void func_800331F4(s16 a0, s16 a1, s32 a2) {
     Elm354F4 *e = &D_80061C50[a0][a1];
