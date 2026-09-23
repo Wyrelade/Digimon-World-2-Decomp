@@ -1265,5 +1265,8 @@
       "nosplit",
       "zero_remat"
     ]
+  },
+  "func_8001BE74": {
+    "passes": []
   }
 }

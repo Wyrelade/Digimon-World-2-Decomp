@@ -1526,7 +1526,14 @@ void func_8001BC24(void *arg0, Arg1BC24 *arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BE08);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BE74);
+void func_8001BE74(s32 a0, s32 a1) {
+    Ent11440 *p = func_80011510(9, -1, -1);
+    if (a0 != -1 && p != 0) {
+        Rec34 *r = &p->field_2C[a0];
+        r->field_20 = a1;
+        r->field_2 = a1;
+    }
+}
 
 void func_8001BEE8(s32 a0, s32 a1) {
     Ent11440 *p = func_80011510(9, -1, -1);
