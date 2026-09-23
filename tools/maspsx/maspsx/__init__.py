@@ -293,6 +293,10 @@ def is_instruction(line: str, ignore_nop=False, ignore_set=False, ignore_label=F
         return False
     if line in (".set\tmacro", ".set\tnomacro"):
         return False
+    # $at directives (e.g. around an explicitly expanded symbolic access) are not
+    # instructions: a load-delay check must look past them to the real consumer.
+    if line in (".set\tat", ".set\tnoat"):
+        return False
     if line in ("#.set\tvolatile", "#.set\tnovolatile"):
         return False
     if line in ("#APP", "#NO_APP"):
