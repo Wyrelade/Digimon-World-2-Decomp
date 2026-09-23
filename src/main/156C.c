@@ -3113,7 +3113,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800278A4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002796C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027A18);
+void func_80027A18(Ent27A18 *a0) {
+    s32 n = a0->field_3;
+
+    D_80048F08->fn_3C(0);
+    D_80048F08->fn_14(a0->field_4, n);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027A74);
 

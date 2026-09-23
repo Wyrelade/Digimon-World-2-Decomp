@@ -1051,4 +1051,12 @@ typedef struct {
 } Cmd3D124;
 void func_8003D124(Cmd3D124 *);
 
+/* Record handed to func_80027A18: a count byte at 0x3 and the data it counts
+ * from 0x4 (passed to D_80048F08->fn_14). */
+typedef struct {
+    u8 _pad00[0x03];
+    /* 0x03 */ u8 field_3;
+    /* 0x04 */ u8 field_4[1];
+} Ent27A18;
+
 #endif /* MAIN_156C_H */

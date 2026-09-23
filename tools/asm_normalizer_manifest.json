@@ -958,5 +958,10 @@
     "passes": [
       "reorder_indep"
     ]
+  },
+  "func_80027A18": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
