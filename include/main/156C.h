@@ -924,6 +924,8 @@ typedef struct {
 typedef struct {
     /* 0x00 */ s32 field_0;
     /* 0x04 */ volatile u16 field_4;
+    u8 _pad06[0x4];
+    /* 0x0A */ u16 field_A;
 } Stat48E90;
 
 /* Object reached through D_80050768; func_800143CC clears field_35C. */

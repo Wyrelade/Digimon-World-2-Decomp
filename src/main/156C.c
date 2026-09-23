@@ -236,6 +236,7 @@ extern void func_80030A84(s32);
 extern void func_80026588(Actor *arg0);
 extern void func_8002659C(Actor *arg0, u8 arg1);
 extern void func_800265DC(Actor *arg0, u8 arg1);
+extern s32 func_80026630(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3022,7 +3023,21 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025760);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025984);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025C00);
+s32 func_80025C00(void) {
+    Regs48E8C *q = D_80048E8C;
+    Stat48E90 *st = D_80048E90;
+
+    q->field_0 = -0x81;
+    if (st->field_4 & 0x80) {
+        do {
+            if (func_80026630() != 0) {
+                return 0;
+            }
+        } while (D_80048E90->field_4 & 0x80);
+    }
+    D_80048E90->field_A |= 0x10;
+    return 1;
+}
 
 void func_80025C90(void) {
     while (!(D_80048E90->field_4 & 2)) {

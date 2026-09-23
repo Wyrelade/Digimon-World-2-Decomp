@@ -1022,5 +1022,12 @@
     "passes": [
       "epilogue_unfill"
     ]
+  },
+  "func_80025C00": {
+    "passes": [
+      "nosplit",
+      "delay_slot_select",
+      "epilogue_unfill"
+    ]
   }
 }
