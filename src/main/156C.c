@@ -233,6 +233,9 @@ extern u8 *D_8004E60C;
 extern void func_80030A34(s32);
 extern int func_80030A64(int);
 extern void func_80030A84(s32);
+extern void func_80026588(Actor *arg0);
+extern void func_8002659C(Actor *arg0, u8 arg1);
+extern void func_800265DC(Actor *arg0, u8 arg1);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3032,7 +3035,19 @@ void func_80025CB8(Actor *arg0, u8 arg1, ActorWork *arg2, u8 arg3) {
     arg0->u34.b.field_36 = arg3;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025CC8);
+void func_80025CC8(Obj25FBC *a0) {
+    switch (a0->field_46) {
+    case 2:
+        func_80026588((Actor *)a0);
+        break;
+    case 3:
+        func_8002659C((Actor *)a0, a0->field_E4);
+        break;
+    case 4:
+        func_800265DC((Actor *)a0, a0->field_47);
+        break;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025D4C);
 

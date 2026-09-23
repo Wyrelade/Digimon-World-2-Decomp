@@ -1017,5 +1017,10 @@
   },
   "func_80011F5C": {
     "passes": []
+  },
+  "func_80025CC8": {
+    "passes": [
+      "epilogue_unfill"
+    ]
   }
 }

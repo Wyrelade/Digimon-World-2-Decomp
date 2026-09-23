@@ -764,7 +764,8 @@ typedef struct {
     /* 0x18 */ s32 field_18;
     u8 _pad1C[0x2A];
     /* 0x46 */ u8 field_46;
-    u8 _pad47[0x2];
+    /* 0x47 */ u8 field_47;
+    u8 _pad48[0x1];
     /* 0x49 */ u8 field_49;
     u8 _pad4A[0x13];
     /* 0x5D */ u8 field_5D[6];
