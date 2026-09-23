@@ -1633,5 +1633,12 @@
       "zero_remat",
       "reg_realloc"
     ]
+  },
+  "func_8002A87C": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
