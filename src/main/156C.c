@@ -1379,7 +1379,12 @@ void func_8001BEE8(s32 a0, s32 a1) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BF58);
+void func_8001BF58(s32 a0, s32 a1) {
+    Ent11440 *p = func_80011510(9, -1, -1);
+    if (a0 != -1 && p != 0) {
+        p->field_2C[a0].field_31 = a1;
+    }
+}
 
 void func_8001BFC8(void *a0, s32 a1, s32 a2, Halves a3) {
     Arg1BC24 local;

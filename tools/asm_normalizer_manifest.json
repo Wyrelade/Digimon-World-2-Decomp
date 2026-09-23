@@ -990,5 +990,11 @@
       "nosplit",
       "epilogue_unfill"
     ]
+  },
+  "func_8001BF58": {
+    "passes": [
+      "reg_realloc",
+      "operand_recolor"
+    ]
   }
 }
