@@ -1037,4 +1037,17 @@ typedef struct {
     /* 0x10 */ s32 field_10;
 } State62F80;
 
+/* Stack command block passed to func_8003D124 (built by func_80034F64 /
+ * 80035024 / 800356D4): field_0 is a command/flag word. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s16 field_4;
+    /* 0x06 */ s16 field_6;
+    u8 _pad08[0x0C];
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    u8 _pad1C[0x0C];
+} Cmd3D124;
+void func_8003D124(Cmd3D124 *);
+
 #endif /* MAIN_156C_H */
