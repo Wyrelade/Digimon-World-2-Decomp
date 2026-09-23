@@ -66,12 +66,23 @@ typedef struct {
 
 Ent23AE8 *func_80023AE8();
 
-/* Global struct D_8005D560; field_0 is an id, 4/8/C hold results (func_8001E480). */
+/* Entry returned by the func_8001E4CC table lookup (0x2C stride). */
+typedef struct {
+    /* 0x00 */ s16 field_0;
+    /* 0x02 */ s16 field_2;
+    /* 0x04 */ u8 field_4;
+    u8 _pad05[0x0F];
+    /* 0x14 */ s32 field_14[6];
+} EntE4CC;
+
+/* Global struct D_8005D560; field_0 is an id, 4/8 hold results, field_C walks the
+ * func_800239A0 entry table and field_10 holds the entry func_8001E390 picked. */
 typedef struct {
     /* 0x00 */ s32 field_0;
     /* 0x04 */ s32 field_4;
     /* 0x08 */ s32 field_8;
-    /* 0x0C */ s32 field_C;
+    /* 0x0C */ EntE4CC *field_C;
+    /* 0x10 */ EntE4CC field_10;
 } S5D560;
 
 /* Record cleared by func_800230DC. */
@@ -358,14 +369,6 @@ typedef struct {
 
 Ent1DB18 *func_8001DB18();
 
-/* Entry returned by the func_8001E4CC table lookup (0x2C stride). */
-typedef struct {
-    /* 0x00 */ s16 field_0;
-    /* 0x02 */ s16 field_2;
-    /* 0x04 */ u8 field_4;
-    u8 _pad05[0x0F];
-    /* 0x14 */ s32 field_14[6];
-} EntE4CC;
 
 /* Entry returned by the func_8001E6A8 table lookup (0x28 stride). */
 typedef struct {
