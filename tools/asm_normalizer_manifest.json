@@ -1619,5 +1619,12 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80029EB8": {
+    "passes": [
+      "nosplit",
+      "taken_fill",
+      "padnop"
+    ]
   }
 }

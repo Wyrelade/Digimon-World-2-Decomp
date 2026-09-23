@@ -4124,7 +4124,21 @@ s32 func_80029D74(Rect2AB54 *rect, s32 x, s32 y) {
     return 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80029EB8);
+s32 func_80029EB8(u32 *p) {
+    if (D_80048F12 >= 2) {
+        D_80048F0C(&D_80010364, p);
+    }
+    D_8004904C = func_80030AB4(-1) + 0xF0;
+    D_80049050 = 0;
+    while ((*D_80049024 & 0x01000000) || !(*D_80049018 & 0x04000000)) {
+        if (func_800299B8() != 0) {
+            return -1;
+        }
+    }
+    func_80030D34(2, func_80029FB4);
+    D_80048F08->field_18(p);
+    return 0;
+}
 
 void func_80029FB4(void) { func_80030D34(0x2, func_800294AC); }
 
