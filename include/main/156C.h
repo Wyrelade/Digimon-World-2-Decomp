@@ -721,6 +721,14 @@ typedef struct {
     /* 0x1C */ s32 field_1C;
 } ArgC0E4;
 
+/* Accumulate-and-clamp record used by func_80020CE8: field_0 += field_4, then
+ * clamped against field_8. */
+typedef struct {
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ s32 field_4;
+    /* 0x8 */ s32 field_8;
+} Obj20CE8;
+
 /* Buffer allocated into a container's field_38 by func_80020C40 (0x90 bytes via
  * func_80022F3C); only the fields it stamps are known. */
 typedef struct {
@@ -730,10 +738,14 @@ typedef struct {
     /* 0x38 */ s32 field_38;
     u8 _pad3C[0x06];
     /* 0x42 */ s16 field_42;
-    u8 _pad44[0x14];
+    u8 _pad44[0x04];
+    /* 0x48 */ s32 field_48[3];
+    u8 _pad54[0x04];
     /* 0x58 */ s32 field_58;
     /* 0x5C */ s32 field_5C;
     /* 0x60 */ s32 field_60;
+    u8 _pad64[0x08];
+    /* 0x6C */ Obj20CE8 field_6C[3];
 } AllocC40;
 
 /* Container whose field_38 holds an AllocC40* (func_80020C40's arg0). */
@@ -762,14 +774,6 @@ typedef struct {
     /* 0x10 */ s32 field_10;
     /* 0x14 */ s32 field_14;
 } ObjDesc;
-
-/* Accumulate-and-clamp record used by func_80020CE8: field_0 += field_4, then
- * clamped against field_8. */
-typedef struct {
-    /* 0x0 */ s32 field_0;
-    /* 0x4 */ s32 field_4;
-    /* 0x8 */ s32 field_8;
-} Obj20CE8;
 
 /* Argument to func_80025FBC (byte/half fields deep in a large record). */
 typedef struct {

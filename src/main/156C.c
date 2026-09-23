@@ -2587,7 +2587,22 @@ void func_80020CE8(Obj20CE8 *a0, s32 a1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020D54);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80020E00);
+s32 func_80020E00(ContC40 *a0, s32 i) {
+    AllocC40 *p = a0->field_38;
+    Obj20CE8 *e = &p->field_6C[i];
+
+    func_80020CE8(e, 0);
+    switch (i) {
+    case 0:
+    case 1:
+        p->field_48[i] -= e->field_0 >> 8;
+        break;
+    case 2:
+        p->field_48[2] += e->field_0 >> 8;
+        break;
+    }
+    return e->field_0 >> 8;
+}
 
 void func_80020EB0(Ctx38 *arg0, s32 arg1, Elem12 *arg2) {
     Elem12 *e = &arg0->buf->elems[arg1];
