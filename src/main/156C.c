@@ -5242,7 +5242,7 @@ s16 func_80039F44(s32 a0, s16 id) {
     return -1;
 }
 
-extern s16 func_8003C804();
+extern s32 func_8003C804();
 
 s16 func_8003A004(s16 a0) {
     do { } while (0);
@@ -5448,7 +5448,25 @@ void func_8003C7D4(s32 arg0) {
     D_8004FE44 = v;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C804);
+s32 func_8003C804(s32 a0) {
+    s32 r;
+
+    if (D_8004FDB8 == 1 || D_8004FE5C == 1) {
+        return 1;
+    }
+    r = func_8003C8B4(D_8004FDB0);
+    if (a0 == 1) {
+        if (r == 0) {
+            while (func_8003C8B4(D_8004FDB0) == 0) {
+            }
+        }
+        r = 1;
+    } else if (r != 1) {
+        return r;
+    }
+    D_8004FE5C = r;
+    return r;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C8B4);
 
