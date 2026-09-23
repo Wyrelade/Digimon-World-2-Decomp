@@ -1140,5 +1140,11 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8003D620": {
+    "passes": [
+      "nosplit",
+      "ra_restore_sink"
+    ]
   }
 }
