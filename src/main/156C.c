@@ -3292,7 +3292,18 @@ s32 func_80028884(s32 arg0, s32 arg1) {
     return 0xE5000000 | ((arg1 & 0x7FF) << 11) | (arg0 & 0x7FF);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800288A0);
+u32 func_800288A0(Rect288A0 *tw) {
+    s32 t[4];
+
+    if (tw != 0) {
+        t[0] = (tw->x & 0xFF) >> 3;
+        t[2] = (-tw->w & 0xFF) >> 3;
+        t[1] = (tw->y & 0xFF) >> 3;
+        t[3] = (-tw->h & 0xFF) >> 3;
+        return 0xE2000000 | (t[1] << 15) | (t[0] << 10) | (t[3] << 5) | t[2];
+    }
+    return 0;
+}
 
 s32 func_80028920(void) {
     return *D_80049018;

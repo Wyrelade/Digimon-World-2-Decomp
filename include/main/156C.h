@@ -1125,4 +1125,12 @@ typedef struct {
     /* 0x2 */ s16 field_2;
 } Pair61900;
 
+/* 16-bit rectangle func_800288A0 packs into a texture-window command. */
+typedef struct {
+    /* 0x0 */ s16 x;
+    /* 0x2 */ s16 y;
+    /* 0x4 */ s16 w;
+    /* 0x6 */ s16 h;
+} Rect288A0;
+
 #endif /* MAIN_156C_H */
