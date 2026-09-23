@@ -1231,5 +1231,13 @@
       "delay_fill",
       "epilogue_unfill"
     ]
+  },
+  "func_80033744": {
+    "passes": [
+      "nosplit",
+      "commutative_swap",
+      "prologue_save_hoist",
+      "padnop"
+    ]
   }
 }
