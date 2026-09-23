@@ -1273,5 +1273,11 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80033C24": {
+    "passes": [
+      "nosplit",
+      "padnop"
+    ]
   }
 }
