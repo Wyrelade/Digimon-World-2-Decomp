@@ -332,6 +332,7 @@ extern void func_8003FA14(void);
 extern void func_8003FBF4(void);
 extern void func_8003F46C();
 extern char D_800103C4[];
+extern u8 *func_8001E758(s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -2090,7 +2091,41 @@ void func_8001DB68(void *a0, Out1DB68 *out) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DC24);
+void func_8001DC24(s32 a0, s32 a1, ElmE620 *e) {
+    Row1DB18 *r = (Row1DB18 *)func_8001DB18(a0);
+    u8 *name;
+    s32 i;
+
+    if ((D_8005F788 & 0xFF00) == 0x500) {
+        if (a1 == 0) {
+            a1 = 1;
+        } else if (a1 == 1) {
+            a1 = 0;
+        }
+    }
+    func_80022F8C(e, 0x5C);
+    e->field_0 = 2;
+    e->field_1 = r[a1].field_8;
+    e->field_16 = e->field_14 = r[a1].field_A;
+    e->field_1A = e->field_18 = r[a1].field_C;
+    name = func_8001E758(e->field_1);
+    for (i = 0; i < 14; i++) {
+        e->field_4C[i] = name[i];
+    }
+    e->field_D = r[a1].field_12;
+    e->field_1C = r[a1].field_13;
+    e->field_1E = r[a1].field_14;
+    e->field_20 = r[a1].field_16;
+    e->field_22 = r[a1].field_17;
+    e->field_23 = r[a1].field_18;
+    e->field_24 = r[a1].field_19;
+    e->field_F = func_8001EB58(e->field_D);
+    if (e->field_D == 1) {
+        e->field_10 = 0;
+    } else {
+        e->field_10 = func_8001E984(e->field_D - 1, 100, 0);
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DDA8);
 

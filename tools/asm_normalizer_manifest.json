@@ -1520,5 +1520,10 @@
   },
   "func_8001E758": {
     "passes": []
+  },
+  "func_8001DC24": {
+    "passes": [
+      "commutative_swap"
+    ]
   }
 }

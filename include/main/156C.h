@@ -330,9 +330,17 @@ typedef struct {
 typedef struct {
     u8 _pad00[0x08];
     /* 0x08 */ u16 field_8;
-    u8 _pad0A[0x8];
+    /* 0x0A */ u16 field_A;
+    /* 0x0C */ u16 field_C;
+    u8 _pad0E[0x4];
     /* 0x12 */ u8 field_12;
-    u8 _pad13[0xB];
+    /* 0x13 */ u8 field_13;
+    /* 0x14 */ u16 field_14;
+    /* 0x16 */ u8 field_16;
+    /* 0x17 */ u8 field_17;
+    /* 0x18 */ u8 field_18;
+    /* 0x19 */ u8 field_19;
+    u8 _pad1A[0x4];
 } Row1DB18; /* 0x1E */
 
 /* Record func_8001DB68 fills from an Ent1DB18. */
@@ -681,7 +689,25 @@ typedef struct {
    status byte is touched by func_80022118. */
 typedef struct {
     /* 0x00 */ u8 field_0;
-    u8 _pad01[0x5B];
+    /* 0x01 */ u8 field_1;
+    u8 _pad02[0xB];
+    /* 0x0D */ u8 field_D;
+    u8 _pad0E[0x1];
+    /* 0x0F */ u8 field_F;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ u16 field_14;
+    /* 0x16 */ u16 field_16;
+    /* 0x18 */ u16 field_18;
+    /* 0x1A */ u16 field_1A;
+    /* 0x1C */ s16 field_1C;
+    /* 0x1E */ u16 field_1E;
+    /* 0x20 */ s16 field_20;
+    /* 0x22 */ u8 field_22;
+    /* 0x23 */ u8 field_23;
+    /* 0x24 */ u8 field_24;
+    u8 _pad25[0x27];
+    /* 0x4C */ u8 field_4C[14];
+    u8 _pad5A[0x2];
 } ElmE620; /* size 0x5C */
 
 /* Global at D_8005E620: a 0xE4-byte header followed by an array of 0x24
