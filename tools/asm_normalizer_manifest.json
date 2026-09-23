@@ -764,5 +764,12 @@
       "nosplit",
       "epilogue_unfill"
     ]
+  },
+  "func_8003FA24": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "epilogue_unfill"
+    ]
   }
 }
