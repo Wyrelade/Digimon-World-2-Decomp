@@ -2397,7 +2397,15 @@ void func_80022118(s32 arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800221C4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022388);
+void func_80022388(Pair22388 *p) {
+    s32 i;
+
+    for (i = 0; i < 6; i++) {
+        if (p[i].field_0 != -1) {
+            func_800221C4(p[i].field_0, p[i].field_2);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800223EC);
 

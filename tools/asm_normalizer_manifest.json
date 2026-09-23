@@ -978,5 +978,8 @@
       "delay_slot_select",
       "padnop"
     ]
+  },
+  "func_80022388": {
+    "passes": []
   }
 }

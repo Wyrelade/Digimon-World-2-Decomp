@@ -1065,4 +1065,10 @@ typedef struct {
     /* 0x4 */ s32 field_4;
 } Hdr3AD44;
 
+/* (id, arg) pair; func_80022388 walks six of them, -1 id = unused slot. */
+typedef struct {
+    /* 0x0 */ s16 field_0;
+    /* 0x2 */ s16 field_2;
+} Pair22388;
+
 #endif /* MAIN_156C_H */
