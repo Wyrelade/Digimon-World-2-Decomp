@@ -1816,7 +1816,33 @@ void func_8001CD2C(s32 arg0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CDA8);
+s32 func_8001CDA8(void) {
+    u32 min = -1;
+    s32 best = 0;
+    s32 i;
+    Elem20 *p = D_8005CD60;
+
+    for (i = 0; i < 24; i++, p++) {
+        if (p->field_0 == -2) {
+            continue;
+        }
+        if (p->field_0 == 0) {
+            best = i;
+            break;
+        }
+        if ((u32)p->field_4 < min) {
+            min = p->field_4;
+            best = i;
+        }
+    }
+    p = &D_8005CD60[best];
+    p->field_0 = -2;
+    p->field_4 = D_8005F770.field_0;
+    p->field_8 = 0;
+    p->field_C = ((p->field_14 & 2) == 0) << 7;
+    p->field_10 = ((p->field_1C & 0x100) >> 4) | ((p->field_18 & 0x3FF) >> 6) | ((p->field_1C & 0x200) << 2);
+    return (s32)p;
+}
 
 void func_8001CE80(s32 *arg0) {
     if (*arg0 == -2) {
