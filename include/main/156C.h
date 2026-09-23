@@ -1172,10 +1172,13 @@ typedef struct {
     /* 0x00 */ s32 field_0;
     /* 0x04 */ s16 field_4;
     /* 0x06 */ s16 field_6;
-    u8 _pad08[0x0C];
+    u8 _pad08[0x08];
+    /* 0x10 */ s16 field_10;
+    /* 0x12 */ s16 field_12;
     /* 0x14 */ s32 field_14;
     /* 0x18 */ s32 field_18;
-    u8 _pad1C[0x04];
+    /* 0x1C */ s16 field_1C;
+    /* 0x1E */ s16 field_1E;
     /* 0x20 */ s32 field_20;
     /* 0x24 */ s32 field_24;
 } Cmd3D124;
