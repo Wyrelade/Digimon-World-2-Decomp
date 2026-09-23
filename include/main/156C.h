@@ -1036,10 +1036,26 @@ typedef struct {
 
 /* 0x20-byte record in the table D_80062D08 points at. */
 typedef struct {
-    u8 _pad0[0x4];
+    /* 0x00 */ u8 field_0;
+    /* 0x01 */ u8 field_1;
+    /* 0x02 */ u8 field_2;
+    /* 0x03 */ u8 field_3;
     /* 0x04 */ u8 field_4;
     /* 0x05 */ u8 field_5;
-    u8 _pad6[0x1A];
+    /* 0x06 */ u8 field_6;
+    /* 0x07 */ u8 field_7;
+    /* 0x08 */ u8 field_8;
+    /* 0x09 */ u8 field_9;
+    /* 0x0A */ u8 field_A;
+    /* 0x0B */ u8 field_B;
+    /* 0x0C */ u8 field_C;
+    /* 0x0D */ u8 field_D;
+    u8 _padE[0x2];
+    /* 0x10 */ u16 field_10;
+    /* 0x12 */ u16 field_12;
+    /* 0x14 */ u16 field_14;
+    /* 0x16 */ u16 field_16;
+    u8 _pad18[0x8];
 } Rec62D08;
 
 /* Graphics-debug state at D_80048F10 (func_80027278 / func_80027388): debug

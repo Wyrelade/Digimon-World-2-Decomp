@@ -249,7 +249,7 @@ extern void func_8002A014(char *, ...);
 extern void func_80038BE4(s16, s32, s32, s32);
 extern void func_8003A454(s32, s32);
 extern void func_80036164();
-extern void func_80036594();
+extern s32 func_80036594();
 extern void func_800391B4(s32);
 extern u8 D_80062D38[];
 extern u16 D_80062D90;
@@ -4535,7 +4535,7 @@ void func_80033954(s16 a0, s16 a1, s16 a2, HandlerArg d) {
 }
 
 extern void func_80036164();
-extern void func_80036594();
+extern s32 func_80036594();
 
 void func_800339E4(s16 a0, s16 a1, s16 a2, HandlerArg d) {
     s32 v = d.field_24;
@@ -4558,7 +4558,7 @@ typedef struct {
 
 extern void func_80036164();
 extern void func_80033B80();
-extern void func_80036594();
+extern s32 func_80036594();
 void func_80033B24(u32, u32, Out33B24 *);
 
 void func_80033A74(s16 a0, s16 a1, s16 a2, Arg33 d) {
@@ -4930,7 +4930,39 @@ void func_80036554(void) { func_8003B794(0); }
 
 void func_80036574(void) { func_8003B794(1); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036594);
+s32 func_80036594(a0, a1, a2, src)
+s16 a0;
+s16 a1;
+s16 a2;
+Rec62D08 *src;
+{
+    s16 i;
+
+    if (D_80062D38[a0] == 1) {
+        func_800398D4(a0, a1);
+        i = a2 + D_80062D18.field_7 * 16;
+        D_80062D08[i].field_0 = src->field_0;
+        D_80062D08[i].field_1 = src->field_1;
+        D_80062D08[i].field_2 = src->field_2;
+        D_80062D08[i].field_3 = src->field_3;
+        D_80062D08[i].field_4 = src->field_4;
+        D_80062D08[i].field_5 = src->field_5;
+        D_80062D08[i].field_7 = src->field_7;
+        D_80062D08[i].field_6 = src->field_6;
+        D_80062D08[i].field_8 = src->field_8;
+        D_80062D08[i].field_9 = src->field_9;
+        D_80062D08[i].field_A = src->field_A;
+        D_80062D08[i].field_B = src->field_B;
+        D_80062D08[i].field_C = src->field_C;
+        D_80062D08[i].field_D = src->field_D;
+        D_80062D08[i].field_10 = src->field_10;
+        D_80062D08[i].field_12 = src->field_12;
+        D_80062D08[i].field_14 = src->field_14;
+        D_80062D08[i].field_16 = src->field_16;
+        return 0;
+    }
+    return -1;
+}
 
 extern u16 D_80062CB0;
 void func_80036764(void) {
