@@ -481,9 +481,12 @@ Ent23A78 *func_80023A78();
 
 /* 3-entry table at D_80054C48, stride 0x2C, searched by func_8001A300. */
 typedef struct {
-    u8 _pad0[4];
+    /* 0x00 */ s32 field_0;
     /* 0x04 */ s32 field_4;
-    u8 _pad8[0x24];
+    /* 0x08 */ s16 field_8;
+    /* 0x0A */ s16 field_A;
+    /* 0x0C */ s16 field_C[0xE];
+    /* 0x28 */ s32 field_28;
 } Ent54C48; /* 0x2C */
 
 /* Args to func_8002828C: a record it stamps (field_3/field_4/field_8) and a

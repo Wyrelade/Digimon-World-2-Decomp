@@ -363,6 +363,9 @@ extern s32 D_80049060;
 extern s8 D_80049071[];
 extern BlkFill618D0 D_800618D0[];
 extern void func_80024260(s32, s32);
+extern void func_8003569C(s16, s16);
+extern void func_80032844(s16);
+extern void func_80039994(s16);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -1518,7 +1521,25 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A340);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A410);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A4A8);
+void func_8001A4A8(s32 idx) {
+    s32 i;
+    s32 k;
+
+    if (D_80054C48[idx].field_8 == -1) {
+        return;
+    }
+    for (i = 0; i < D_80054C48[idx].field_A; i++) {
+        for (k = 0; k < 0x10; k++) {
+            func_8003569C(D_80054C48[idx].field_C[i], k);
+        }
+        func_80032844(D_80054C48[idx].field_C[i]);
+    }
+    func_80039994(D_80054C48[idx].field_8);
+    D_80054C48[idx].field_4 = 0;
+    D_80054C48[idx].field_0 = -1;
+    D_80054C48[idx].field_A = 0;
+    D_80054C48[idx].field_8 = -1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A5F4);
 
