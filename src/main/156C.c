@@ -180,6 +180,7 @@ extern void func_8003A9F8(s32, u32);
 extern Snd62D18 D_80062D18;
 extern Rec62D08 *D_80062D08;
 extern s32 func_80037C38(s32, s32, s32, s32);
+extern s32 D_8004FC5C;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3965,7 +3966,14 @@ void func_800352E4(void) {
     D_8004FC50.fn_0();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035330);
+void func_80035330(void) {
+    if (D_8004FC5C == 0) {
+        D_8004FC5C = 1;
+    } else {
+        D_8004FC5C = 0;
+        D_8004FC50.fn_0();
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035384);
 

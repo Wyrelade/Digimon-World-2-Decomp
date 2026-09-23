@@ -851,5 +851,13 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80035330": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
