@@ -82,7 +82,7 @@ extern void func_8002B564(s32, Blk16 *);
 extern void func_8002BB54(s32, s32, s32);
 extern void func_8002BAD4(s32);
 extern s32 func_8001E134(void);
-extern u8 *func_80011F5C(void *);
+extern s32 *func_80011F5C(s32);
 extern s32 D_80040FD0[];
 extern void func_8001D550(Ent1D550 *, s32, s32);
 extern void func_8001D884(s32);
@@ -516,7 +516,28 @@ void func_80011F04(void) {
     } while (i < 12);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011F5C);
+s32 *func_80011F5C(s32 id) {
+    s32 *base = 0;
+    u32 i;
+    s32 key;
+
+    if ((i = id - 0x78) < 0x10) {
+        key = 0x5130000;
+    } else if ((i = id - 0xD0) < 0x1A) {
+        key = 0x5130001;
+    } else if ((i = id - 0x97) < 0xF) {
+        key = 0x5130002;
+    } else {
+        goto end;
+    }
+    base = (s32 *)func_800239A0(key);
+    id = i;
+end:
+    if (base != 0) {
+        base = &base[id];
+    }
+    return base;
+}
 
 s32 func_80011FE4(void *arg0) {
     s32 r = 0;
