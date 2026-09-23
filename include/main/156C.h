@@ -1059,4 +1059,10 @@ typedef struct {
     /* 0x04 */ u8 field_4[1];
 } Ent27A18;
 
+/* Two-word header func_8003AD44 fills and publishes through D_8004FE90. */
+typedef struct {
+    /* 0x0 */ u32 field_0;
+    /* 0x4 */ s32 field_4;
+} Hdr3AD44;
+
 #endif /* MAIN_156C_H */

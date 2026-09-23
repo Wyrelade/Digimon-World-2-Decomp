@@ -970,5 +970,13 @@
       "reorder_indep",
       "epilogue_unfill"
     ]
+  },
+  "func_8003AD44": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "delay_slot_select",
+      "padnop"
+    ]
   }
 }
