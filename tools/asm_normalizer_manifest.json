@@ -953,5 +953,10 @@
   },
   "func_8001E1D0": {
     "passes": []
+  },
+  "func_8002772C": {
+    "passes": [
+      "reorder_indep"
+    ]
   }
 }
