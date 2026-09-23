@@ -1246,5 +1246,12 @@
       "reg_realloc",
       "padnop"
     ]
+  },
+  "func_8003E878": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "epilogue_unfill"
+    ]
   }
 }
