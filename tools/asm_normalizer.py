@@ -1557,11 +1557,53 @@ def ra_restore_sink_pass(stext, tgt):
     return "\n".join(out)
 
 
+# The same for a nonzero 16-bit constant: our cc1 copies a register holding K
+# (`move $d,$s` after `li $s,K`), retail re-materializes it (`addiu $d,$zero,K`).
+# Budget per K = target's K materializations minus ours.
+_KTGT = re.compile(r"^(?:addiu|li)\s+\S+\s*,\s*(?:\$?zero\s*,\s*)?(-?(?:0x[0-9a-fA-F]+|\d+))\s*$")
+
+
+def const_remat_s(stext, want):
+    lines = stext.split("\n")
+    ins = [(i, l) for i, l in enumerate(lines) if _s_is_insn(l)]
+    have = {}
+    for _i, l in ins:
+        c = _CONST_DEF_S.match(l)
+        if c:
+            k = int(c.group(2) or c.group(4), 0)
+            have[k] = have.get(k, 0) + 1
+    budget = {k: n - have.get(k, 0) for k, n in want.items() if k != 0}
+    if not any(v > 0 for v in budget.values()):
+        return stext
+    changed = False
+    for p, (li, l) in enumerate(ins):
+        m = _MOVE_S.match(l)
+        if not m:
+            continue
+        src = _src_reg(m.group(3))
+        if not src or src == _src_reg("$0"):
+            continue
+        k = _const_reaching(lines, ins, p, src)
+        if k is None or budget.get(k, 0) <= 0 or not -0x8000 <= k < 0x8000:
+            continue
+        lines[li] = "%sli\t%s,%d" % (m.group(1), m.group(2), k)
+        budget[k] -= 1
+        changed = True
+    return "\n".join(lines) if changed else stext
+
+
 def zero_remat_pass(stext, tgt):
     want = sum(1 for _w, dis in tgt if _ZERO_TGT.match(dis.strip()))
     have = sum(1 for l in stext.split("\n")
                if _s_is_insn(l) and _ZERO_DEF_S.match(l))
-    return zero_remat_s(stext, want - have)
+    stext = zero_remat_s(stext, want - have)
+    wk = {}
+    for _w, dis in tgt:
+        m = _KTGT.match(dis.strip())
+        if m:
+            k = int(m.group(1), 0)
+            wk[k] = wk.get(k, 0) + 1
+    return const_remat_s(stext, wk)
 
 
 # --------------------------------------------------------------------------
