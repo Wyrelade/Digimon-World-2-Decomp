@@ -853,7 +853,17 @@ void func_8003B994(Cmd62C18 *cmd);
  * the caller's stack, so the callee homes $a3 to keep it contiguous. Only the
  * fields matched so far are named. */
 typedef struct {
-    u8 _pad00[0x24];
+    /* 0x00 */ u8 field_0;
+    u8 _pad01[0x05];
+    /* 0x06 */ u8 field_6;
+    /* 0x07 */ u8 field_7;
+    u8 _pad08[0x01];
+    /* 0x09 */ u8 field_9;
+    /* 0x0A */ u8 field_A;
+    u8 _pad0B[0x05];
+    /* 0x10 */ u16 field_10;
+    /* 0x12 */ u16 field_12;
+    u8 _pad14[0x10];
     /* 0x24 */ s32 field_24;
 } HandlerArg;
 

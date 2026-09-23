@@ -1029,5 +1029,10 @@
       "delay_slot_select",
       "epilogue_unfill"
     ]
+  },
+  "func_80033954": {
+    "passes": [
+      "padnop"
+    ]
   }
 }

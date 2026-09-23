@@ -4097,7 +4097,15 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033804);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033894);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033954);
+extern void func_80036164();
+extern void func_80036594();
+void func_80033954(s16 a0, s16 a1, s16 a2, HandlerArg d) {
+    s32 flag = d.field_24;
+
+    func_80036164(a0, a1, a2, &d);
+    d.field_6 = flag;
+    func_80036594(a0, a1, a2, &d);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800339E4);
 
