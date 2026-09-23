@@ -3286,7 +3286,11 @@ int func_80028734(int a0, int a1, int a2) {
     return v0 | v1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028754);
+s32 func_80028754(s16 x, s16 y) {
+    x = (x < 0) ? 0 : ((x > D_80048F10.field_4 - 1) ? D_80048F10.field_4 - 1 : x);
+    y = (y < 0) ? 0 : ((y > D_80048F10.field_6 - 1) ? D_80048F10.field_6 - 1 : y);
+    return 0xE3000000 | ((y & 0x3FF) << 10) | (x & 0x3FF);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800287EC);
 

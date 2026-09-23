@@ -1015,7 +1015,9 @@ typedef struct {
     /* 0x01 */ u8 field_1;
     /* 0x02 */ u8 field_2;
     /* 0x03 */ u8 field_3;
-    u8 _pad04[0x8];
+    /* 0x04 */ s16 field_4;
+    /* 0x06 */ s16 field_6;
+    u8 _pad08[0x4];
     /* 0x0C */ s32 field_C;
 } Gpu48F10;
 

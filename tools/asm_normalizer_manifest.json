@@ -1072,5 +1072,11 @@
     "passes": [
       "padnop"
     ]
+  },
+  "func_80028754": {
+    "passes": [
+      "nosplit",
+      "reorder_indep"
+    ]
   }
 }
