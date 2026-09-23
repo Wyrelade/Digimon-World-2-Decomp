@@ -797,5 +797,14 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8002BB84": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "ra_restore_sink",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
