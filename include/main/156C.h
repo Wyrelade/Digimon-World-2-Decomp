@@ -1276,4 +1276,12 @@ typedef struct {
     /* 0x14 */ s32 field_14;
 } Wk116CC;
 
+/* Three status bytes at D_8004E9A4 reset by func_8002FCF4 (field_0 = 2,
+ * field_1/field_2 cleared). */
+typedef struct {
+    /* 0x00 */ u8 field_0;
+    /* 0x01 */ u8 field_1;
+    /* 0x02 */ u8 field_2;
+} Cd4E9A4;
+
 #endif /* MAIN_156C_H */
