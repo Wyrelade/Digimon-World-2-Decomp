@@ -990,4 +990,15 @@ typedef struct {
     u8 _pad6[0x1A];
 } Rec62D08;
 
+/* Graphics-debug state at D_80048F10 (func_80027278 / func_80027388): debug
+ * type 0x0, level 0x2, reverse 0x3, and the saved word at 0xC. */
+typedef struct {
+    /* 0x00 */ u8 field_0;
+    /* 0x01 */ u8 field_1;
+    /* 0x02 */ u8 field_2;
+    /* 0x03 */ u8 field_3;
+    u8 _pad04[0x8];
+    /* 0x0C */ s32 field_C;
+} Gpu48F10;
+
 #endif /* MAIN_156C_H */

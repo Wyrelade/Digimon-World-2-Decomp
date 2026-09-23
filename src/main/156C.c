@@ -20,7 +20,7 @@ extern Elm678 D_8005F678[];
 extern Elm6F0 D_8005F6F0[];
 extern u8 D_800416FC[];
 extern Obj48F08 *D_80048F08;
-extern void (*D_80048F0C)(void *, void *);
+extern void (*D_80048F0C)(void *, ...);
 extern u8 D_800102C0;
 extern u8 D_80048F20[];
 extern u8 D_80048F7C[];
@@ -181,6 +181,8 @@ extern Snd62D18 D_80062D18;
 extern Rec62D08 *D_80062D08;
 extern s32 func_80037C38(s32, s32, s32, s32);
 extern s32 D_8004FC5C;
+extern Gpu48F10 D_80048F10;
+extern char D_80010250[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -2989,7 +2991,15 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800270B4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027104);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027278);
+u8 func_80027278(u8 level) {
+    s32 old = D_80048F10.field_2;
+
+    D_80048F10.field_2 = level;
+    if (level) {
+        D_80048F0C(D_80010250, D_80048F10.field_2, D_80048F10.field_0, D_80048F10.field_3);
+    }
+    return old;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800272D4);
 
