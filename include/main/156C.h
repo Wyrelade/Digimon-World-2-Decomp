@@ -751,11 +751,27 @@ typedef struct {
 
 /* Argument to func_80025FBC (byte/half fields deep in a large record). */
 typedef struct {
-    u8 _pad0[0xE3];
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    u8 _pad0C[0x8];
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    u8 _pad1C[0x2A];
+    /* 0x46 */ u8 field_46;
+    u8 _pad47[0x2];
+    /* 0x49 */ u8 field_49;
+    u8 _pad4A[0x13];
+    /* 0x5D */ u8 field_5D[6];
+    u8 _pad63[0x80];
     /* 0xE3 */ u8 field_E3;
-    u8 _pad1[0x5];
+    /* 0xE4 */ u8 field_E4;
+    u8 _padE5[0x1];
+    /* 0xE6 */ u16 field_E6;
+    u8 _padE8[0x1];
     /* 0xE9 */ u8 field_E9;
-    u8 _pad2[0x2];
+    /* 0xEA */ u8 field_EA;
+    u8 _padEB[0x1];
     /* 0xEC */ u16 field_EC;
 } Obj25FBC;
 

@@ -2801,7 +2801,35 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024654);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024704);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800247F4);
+void func_800247F4(Obj25FBC *a0) {
+    u8 *p;
+    s32 k;
+    u8 c;
+
+    if (a0->field_49 != 0) {
+        p = a0->field_5D;
+        c = 0xFF;
+        k = 5;
+        a0->field_49 = 0;
+        a0->field_46 = 0;
+        a0->field_E6 = 0;
+        a0->field_14 = 0;
+        a0->field_18 = 0;
+        a0->field_E3 = 0;
+        a0->field_E4 = 0;
+        a0->field_E6 = 0;
+        a0->field_E9 = 0;
+        a0->field_EA = 0;
+        a0->field_0 = 0;
+        a0->field_4 = 0;
+        a0->field_8 = 0;
+        do {
+            *p = c;
+            k--;
+            p++;
+        } while (k >= 0);
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002485C);
 

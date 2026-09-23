@@ -840,5 +840,11 @@
       "nosplit",
       "padnop"
     ]
+  },
+  "func_800247F4": {
+    "passes": [
+      "nosplit_nodb",
+      "delay_fill"
+    ]
   }
 }
