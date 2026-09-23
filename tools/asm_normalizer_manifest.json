@@ -834,5 +834,11 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_8003C714": {
+    "passes": [
+      "nosplit",
+      "padnop"
+    ]
   }
 }
