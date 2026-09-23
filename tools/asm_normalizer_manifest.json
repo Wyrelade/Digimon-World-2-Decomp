@@ -1387,5 +1387,12 @@
       "commutative_swap",
       "padnop"
     ]
+  },
+  "func_8003DDB0": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "epilogue_unfill"
+    ]
   }
 }
