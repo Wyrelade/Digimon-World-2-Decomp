@@ -1511,5 +1511,11 @@
   },
   "func_800231AC": {
     "passes": []
+  },
+  "func_800299B8": {
+    "passes": [
+      "nosplit",
+      "epilogue_unfill"
+    ]
   }
 }
