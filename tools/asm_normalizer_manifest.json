@@ -1338,5 +1338,12 @@
   },
   "func_8001CDA8": {
     "passes": []
+  },
+  "func_80024544": {
+    "passes": [
+      "nosplit",
+      "ra_restore_sink",
+      "delay_fill"
+    ]
   }
 }

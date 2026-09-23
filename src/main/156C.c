@@ -306,6 +306,11 @@ extern s32 D_80049048;
 extern u8 D_800600B0[];
 extern s32 *D_8004E994;
 extern volatile Cd4E9A4 D_8004E9A4;
+extern s32 D_80048E50;
+extern Reg48DF0 *D_80048DF0;
+extern State60058 D_80060058;
+extern void func_80026FE4(s32, u8 *);
+extern Obj25FBC *D_80048E4C;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3189,7 +3194,23 @@ u8 func_80024474(void) {
     return o->field_49;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024544);
+void func_80024544(void) {
+    State60058 *p = &D_80060058;
+
+    D_80048E50 = 0;
+    func_80026FC4();
+    func_80026FF4(2, D_80048E78);
+    func_80026FE4(2, D_80048E78);
+    D_80048DF0->field_0 = -2;
+    D_80048DF0->field_4 |= 1;
+    func_80027004(3, 0);
+    func_80026FD4();
+    D_80048E1C(D_80048E4C);
+    D_80048E1C(&D_80048E4C[1]);
+    p->field_4 = 0;
+    p->field_0 = 0;
+    D_80048E50 = 1;
+}
 
 void func_80024610(void) {
     func_80026FC4();

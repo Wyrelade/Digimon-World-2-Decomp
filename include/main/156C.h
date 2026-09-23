@@ -1284,4 +1284,16 @@ typedef struct {
     /* 0x02 */ u8 field_2;
 } Cd4E9A4;
 
+/* Word pair at *D_80048DF0: func_80024544 writes -2 to 0x0 and sets bit 0 of 0x4. */
+typedef struct {
+    /* 0x0 */ volatile s32 field_0;
+    /* 0x4 */ volatile s32 field_4;
+} Reg48DF0;
+
+/* Two-word state D_80060058, cleared by func_80024544. */
+typedef struct {
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ s32 field_4;
+} State60058;
+
 #endif /* MAIN_156C_H */
