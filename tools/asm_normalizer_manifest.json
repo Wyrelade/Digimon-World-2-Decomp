@@ -771,5 +771,10 @@
       "delay_fill",
       "epilogue_unfill"
     ]
+  },
+  "func_8003FBC4": {
+    "passes": [
+      "epilogue_unfill"
+    ]
   }
 }

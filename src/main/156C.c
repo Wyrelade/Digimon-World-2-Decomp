@@ -4214,7 +4214,10 @@ extern void func_8003DAE0(void);
 extern void func_8003DB74(void);
 extern void func_8003DA04(void);
 
-void func_8003D504(s32 a0) {
+/* K&R definition: func_8003D4A4 / func_8003FBC4 call it without arguments. */
+void func_8003D504(a0)
+s32 a0;
+{
     s32 s0 = a0;
     s32 s1;
     func_80030CC4(0);
@@ -4500,7 +4503,11 @@ int func_8003FBB0(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003FBC4);
+void func_8003FBC4(void) {
+    func_8003D504();
+    func_8003D594();
+    func_8003D4F4();
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003FBF4);
 
