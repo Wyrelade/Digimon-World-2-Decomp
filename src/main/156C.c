@@ -356,6 +356,9 @@ extern volatile s32 *D_8004EA70;
 extern volatile s32 *D_8004EA74;
 extern volatile s32 *D_8004EA78;
 extern volatile s32 *D_8004EA7C;
+extern void func_80027104(s32);
+extern void func_80027CB0(DispEnv *);
+extern DispEnv D_80061968;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4249,7 +4252,45 @@ void func_8002AC54(u16 a0, u16 a1, u16 a2, u16 a3, u16 a4) {
     func_8002B1A4();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002ACC8);
+void func_8002ACC8(u16 x, u16 y, u16 flags, u16 dtd, u16 rgb24) {
+    Rect2AB54 *r;
+    s32 mode;
+    s32 m;
+
+    m = 0;
+    if (((flags >> 4) & 3) == 3) {
+        m = 3;
+    }
+    func_80027104(m);
+    D_80061908.ofs[0] = D_80061908.ofs[1] = 0;
+    D_80061908.tw_h = 0;
+    D_80061908.tw_w = 0;
+    D_80061908.tw_y = 0;
+    D_80061908.tw_x = 0;
+    D_80061908.tpage = 0;
+    D_80061908.dtd = dtd;
+    D_80061908.dfe = 0;
+    D_80061908.isbg = 0;
+    func_80027AE4(&D_80061908);
+    D_80061968.disp.x = 0;
+    D_80061968.disp.y = 0;
+    D_80061968.disp.w = x;
+    D_80061968.disp.h = y;
+    r = &D_80061968.screen;
+    r->x = 0;
+    r->y = 0;
+    r->w = 0;
+    r->h = 0;
+    mode = func_80031838();
+    if (mode == 1) {
+        D_80061968.screen.y = 0x18;
+        D_80061968.pad0 = mode;
+    }
+    D_80061968.isinter = flags & 1;
+    D_8006198E = flags & 4;
+    D_80061968.isrgb24 = rgb24;
+    func_80027CB0(&D_80061968);
+}
 
 void func_8002ADE4(s16 a0, s16 a1, s32 flags, u8 a3, u16 a4) {
     D_8006191C.field_0 = 0;

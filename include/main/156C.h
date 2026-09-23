@@ -1413,4 +1413,15 @@ typedef struct {
     /* 0xA */ s16 field_A;
 } Reg506BC;
 
+/* GPU display environment (libgpu DISPENV layout) at D_80061968, set up by
+   func_8002ACC8 and applied by func_80027CB0. */
+typedef struct {
+    /* 0x00 */ Rect2AB54 disp;
+    /* 0x08 */ Rect2AB54 screen;
+    /* 0x10 */ u8 isinter;
+    /* 0x11 */ u8 isrgb24;
+    /* 0x12 */ u8 pad0;
+    /* 0x13 */ u8 pad1;
+} DispEnv;
+
 #endif /* MAIN_156C_H */
