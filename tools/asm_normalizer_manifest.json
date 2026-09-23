@@ -1422,5 +1422,12 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80027604": {
+    "passes": [
+      "nosplit_nodb",
+      "sched_match",
+      "delay_fill"
+    ]
   }
 }
