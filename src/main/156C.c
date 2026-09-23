@@ -338,6 +338,7 @@ extern char D_80010328[];
 extern void func_80029FB4(void);
 extern Pkt48F9C D_80048F9C;
 extern void func_80039334(s16, s8, u8, u16, u8);
+extern Reg506BC *D_800506BC;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -5972,7 +5973,15 @@ s32 func_8003D740(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D770);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D7E8);
+s32 func_8003D7E8(void) {
+    volatile s32 i[4];
+
+    D_800506BC->field_A = 0;
+    i[0] = 10;
+    while (--i[0] != -1) {
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D850);
 

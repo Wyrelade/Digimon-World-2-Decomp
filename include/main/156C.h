@@ -1399,4 +1399,10 @@ typedef struct {
     /* 0x0C */ u32 move[5];
 } Pkt48F9C;
 
+/* Register block reached through the pointer at D_800506BC. */
+typedef struct {
+    u8 _pad0[0xA];
+    /* 0xA */ s16 field_A;
+} Reg506BC;
+
 #endif /* MAIN_156C_H */

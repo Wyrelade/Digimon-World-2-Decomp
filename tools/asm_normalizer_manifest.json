@@ -1552,5 +1552,14 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_8003D7E8": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "taken_fill",
+      "fallthrough_fill",
+      "epilogue_unfill"
+    ]
   }
 }
