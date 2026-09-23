@@ -47,7 +47,7 @@ typedef struct {
     u8 _pad0C[0x04];
     /* 0x10 */ void (*fn_10)(s32);
     /* 0x14 */ void (*fn_14)(u8 *, s32);
-    u8 _pad18[0x04];
+    /* 0x18 */ s32 field_18;
     /* 0x1C */ s32 field_1C;
     /* 0x20 */ s32 field_20;
     u8 _pad24[0x14];
@@ -1191,6 +1191,7 @@ typedef struct {
     /* 0x19 */ u8 r0;
     /* 0x1A */ u8 g0;
     /* 0x1B */ u8 b0;
+    /* 0x1C */ u32 dr_env[16];
 } DrawEnv;
 
 #endif /* MAIN_156C_H */

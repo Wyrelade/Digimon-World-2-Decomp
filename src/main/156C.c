@@ -270,6 +270,7 @@ extern Rect2AB54 D_80061908;
 extern Rect2AB54 D_80061980;
 extern void func_80027AE4(Rect2AB54 *, s32, s32, s32);
 extern ObjDesc **D_80040D50[];
+extern char D_80010390[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3313,7 +3314,15 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027A74);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027AE4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027BA4);
+void func_80027BA4(s32 ot, DrawEnv *env) {
+    if (D_80048F10.field_2 >= 2) {
+        D_80048F0C(D_80010390, ot, env);
+    }
+    func_800284C4(env->dr_env, env);
+    env->dr_env[0] = (env->dr_env[0] & 0xFF000000) | (ot & 0xFFFFFF);
+    D_80048F08->fn_8(D_80048F08->field_18, (s32)env->dr_env, 0x40, 0);
+    func_80027044(D_80048F10.field_10, env, 0x5C);
+}
 
 s32 func_80027C7C(s32 arg0) {
     func_80027044(arg0, D_80048F20, 0x5C);

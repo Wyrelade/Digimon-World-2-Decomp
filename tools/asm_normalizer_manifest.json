@@ -1193,5 +1193,10 @@
   },
   "func_8001107C": {
     "passes": []
+  },
+  "func_80027BA4": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
