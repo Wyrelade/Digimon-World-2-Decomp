@@ -318,6 +318,7 @@ extern s32 D_80048E64;
 extern s32 D_80048E9C;
 extern s32 (*D_80048E20)(Ent266D0 *, s32);
 extern void (*D_80048E24)(Ent266D0 *);
+extern void func_80039334(s16, s8, u8, u16, u8);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4726,7 +4727,14 @@ void func_80033054(s16 a0, s16 a1, u8 a2) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033124);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800331F4);
+void func_800331F4(s16 a0, s16 a1, s32 a2) {
+    Elm354F4 *e = &D_80061C50[a0][a1];
+    u8 k = e->field_17;
+
+    func_80038B74((s8)e->field_26, e->field_37[k], (u8)a2);
+    func_80039334(a0 | (a1 << 8), (s8)e->field_26, e->field_37[k], e->field_60[k], e->field_27[k]);
+    e->field_90 = func_80032494(a0, a1);
+}
 
 extern void func_80036764(void);
 extern void func_80036774(void);

@@ -1452,5 +1452,13 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_800331F4": {
+    "passes": [
+      "nosplit",
+      "commutative_swap",
+      "sched_match",
+      "padnop"
+    ]
   }
 }
