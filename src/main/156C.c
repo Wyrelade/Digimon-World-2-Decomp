@@ -183,6 +183,7 @@ extern s32 func_80037C38(s32, s32, s32, s32);
 extern s32 D_8004FC5C;
 extern Gpu48F10 D_80048F10;
 extern char D_80010250[];
+extern char D_80010290[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3007,7 +3008,16 @@ u8 func_80027378(void) {
     return D_80048F12;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027388);
+s32 func_80027388(s32 a0) {
+    s32 old;
+
+    if (D_80048F10.field_2 >= 2) {
+        D_80048F0C(D_80010290, a0);
+    }
+    old = D_80048F10.field_C;
+    D_80048F10.field_C = a0;
+    return old;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800273E8);
 

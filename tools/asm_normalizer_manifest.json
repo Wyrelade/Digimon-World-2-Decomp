@@ -866,5 +866,10 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80027388": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
