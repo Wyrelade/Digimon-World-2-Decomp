@@ -5395,7 +5395,17 @@ s16 func_80039A44(s32 arg0, s16 arg1) {
     return func_80039B54(arg0, arg1, func_80039A78, 0);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039A78);
+s32 func_80039A78(s32 a0, s32 a1, s32 id) {
+    s32 r = func_8003ADA4(a0, a1);
+
+    if (r == -1) {
+        D_80062D38[(s16)id] = 0;
+        func_8003C8C4(0);
+        D_80062D90--;
+        return -1;
+    }
+    return r;
+}
 
 s16 func_80039AE4(s32 arg0, s16 arg1, s32 arg2) {
     return func_80039B54(arg0, arg1, func_80039B4C, arg2);

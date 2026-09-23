@@ -1487,5 +1487,12 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_80039A78": {
+    "passes": [
+      "nosplit",
+      "shift_const_fold",
+      "padnop"
+    ]
   }
 }
