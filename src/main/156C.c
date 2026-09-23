@@ -2289,7 +2289,23 @@ s32 func_8001E938(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E984);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001EB58);
+s32 func_8001EB58(s32 x) {
+    s32 h = x / 2;
+
+    if (x < 6) {
+        return x / 3 + 13;
+    }
+    if (x < 18) {
+        return h + 14;
+    }
+    if (x < 28) {
+        return h + 17;
+    }
+    {
+        s32 r = (u16)((u16)func_80023910() % 3) + 2;
+        return x + r;
+    }
+}
 
 void func_8001EC00(Actor *arg0, s32 *arg1) {
     arg0->work->field_0 = *arg1;

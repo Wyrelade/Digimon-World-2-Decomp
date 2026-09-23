@@ -1370,5 +1370,10 @@
       "nosplit",
       "padnop"
     ]
+  },
+  "func_8001EB58": {
+    "passes": [
+      "padnop"
+    ]
   }
 }
