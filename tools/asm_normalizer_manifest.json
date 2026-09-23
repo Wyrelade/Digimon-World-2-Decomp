@@ -826,5 +826,13 @@
       "reg_realloc",
       "padnop"
     ]
+  },
+  "func_8002BA1C": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
