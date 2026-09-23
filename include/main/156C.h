@@ -920,7 +920,7 @@ typedef struct {
     u8  field_20;       /* 0x20 */
     u8  field_21;       /* 0x21 */
     u8  _p22[0x4];      /* 0x22 */
-    u8  field_26;       /* 0x26 */
+    s8  field_26;       /* 0x26 */
     u8  field_27[0x10]; /* 0x27 */
     u8  field_37[0x10]; /* 0x37 */
     u8  _p47[0xD];      /* 0x47 */
