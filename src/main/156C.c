@@ -4805,7 +4805,15 @@ void func_80033CE4(s16 a0, s16 a1, s16 a2, HandlerArg d) {
     func_80036594(a0, a1, a2, &d);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033D94);
+void func_80033D94(s16 a0, s16 a1, s16 a2, Arg33 d) {
+    Out33B24 buf;
+    u16 flag = d.field_24;
+    func_80036164(a0, a1, a2, &d);
+    func_80033B24(d.field_10, d.field_12, &buf);
+    buf.field_4 = flag;
+    func_80033B80(&buf, &d.field_10, &d.field_12);
+    func_80036594(a0, a1, a2, &d);
+}
 
 void func_80033E44(s16 a0, s16 a1, s16 a2, Arg33 d) {
     Out33B24 buf;
