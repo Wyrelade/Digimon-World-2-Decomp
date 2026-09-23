@@ -346,6 +346,7 @@ extern u16 D_8004FDE4[24];
 extern s32 D_8004FE14;
 extern s32 D_800503B8;
 extern u16 *D_8004E9A0;
+extern char D_80010328[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3840,7 +3841,16 @@ void func_8002778C(s32 a0, s32 a1) {
     D_80048F08->fn_8(D_80048F08->field_1C, a0, 8, a1);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800277EC);
+s32 func_800277EC(Rect2AB54 *rect, s32 x, s32 y) {
+    func_800274E8(D_80010328, (s32)rect);
+    if (rect->w == 0 || rect->h == 0) {
+        return -1;
+    }
+    D_80048F9C.move[2] = *(u32 *)&rect->x;
+    D_80048F9C.move[3] = (y << 16) | (x & 0xFFFF);
+    D_80048F9C.move[4] = *(u32 *)&rect->w;
+    return D_80048F08->fn_8((s32)D_80048F08->field_18, (s32)D_80048F9C.move, 0x14, 0);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800278A4);
 
