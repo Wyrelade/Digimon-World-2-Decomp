@@ -932,5 +932,10 @@
       "exit_merge",
       "padnop"
     ]
+  },
+  "func_8002AC54": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
