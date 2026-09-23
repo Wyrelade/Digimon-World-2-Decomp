@@ -283,7 +283,9 @@ typedef struct {
         ObjEC10 *ptr38;
     } u38;
     /* 0x3C */ Sub3C *field_3C;
-    u8 _pad40[0x08];
+    u8 _pad40[0x06];
+    /* 0x46 */ u8 field_46;
+    /* 0x47 */ u8 field_47;
     /* 0x48 */ ActorSub5C field_48[2];
 } Actor;
 

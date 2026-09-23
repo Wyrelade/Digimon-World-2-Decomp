@@ -3472,7 +3472,23 @@ s32 func_80025FBC(Obj25FBC *arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025FF4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800260C8);
+void func_800260C8(Actor *a) {
+    switch (a->field_46) {
+    case 2:
+        func_8002659C(a, a->field_47);
+        return;
+    case 3:
+        func_800265BC(a, a->field_47);
+        return;
+    case 4:
+        if (a->field_48[0].field_0 == 0) {
+            func_800265DC(a, a->field_47);
+            return;
+        }
+        func_800265FC(a);
+        return;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026170);
 
