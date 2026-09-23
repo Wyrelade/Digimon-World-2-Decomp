@@ -1103,5 +1103,13 @@
     "passes": [
       "padnop"
     ]
+  },
+  "func_80035B54": {
+    "passes": [
+      "nosplit",
+      "reg_realloc",
+      "prologue_save_hoist",
+      "epilogue_unfill"
+    ]
   }
 }
