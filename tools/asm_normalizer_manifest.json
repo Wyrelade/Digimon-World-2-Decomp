@@ -1345,5 +1345,11 @@
       "ra_restore_sink",
       "delay_fill"
     ]
+  },
+  "func_800287EC": {
+    "passes": [
+      "nosplit",
+      "reorder_indep"
+    ]
   }
 }
