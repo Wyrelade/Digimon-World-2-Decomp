@@ -1178,5 +1178,11 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_8002A9F4": {
+    "passes": [
+      "nosplit",
+      "padnop"
+    ]
   }
 }

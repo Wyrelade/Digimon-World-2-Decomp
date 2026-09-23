@@ -3478,7 +3478,32 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A9A4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A9B4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A9F4);
+DrawEnv *func_8002A9F4(DrawEnv *env, s32 x, s32 y, s32 w, s32 h) {
+    s32 mode = func_80031838();
+
+    env->clip_x = x;
+    env->clip_y = y;
+    env->clip_w = w;
+    env->tw_x = 0;
+    env->tw_y = 0;
+    env->tw_w = 0;
+    env->tw_h = 0;
+    env->r0 = 0;
+    env->g0 = 0;
+    env->b0 = 0;
+    env->dtd = 1;
+    env->clip_h = h;
+    if (mode) {
+        env->dfe = h < 0x121;
+    } else {
+        env->dfe = h < 0x101;
+    }
+    env->ofs[0] = x;
+    env->ofs[1] = y;
+    env->tpage = 10;
+    env->isbg = 0;
+    return env;
+}
 
 Rec2AAB4 *func_8002AAB4(Rec2AAB4 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     arg0->field_0 = arg1;

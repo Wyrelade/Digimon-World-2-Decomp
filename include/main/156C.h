@@ -1160,4 +1160,25 @@ typedef struct {
     /* 0x72 */ GridCell field_72[16];
 } GridMenu;
 
+/* GPU drawing environment (libgpu DRAWENV layout, 0x1C head); filled by
+   func_8002A9F4. */
+typedef struct {
+    /* 0x00 */ s16 clip_x;
+    /* 0x02 */ s16 clip_y;
+    /* 0x04 */ s16 clip_w;
+    /* 0x06 */ s16 clip_h;
+    /* 0x08 */ s16 ofs[2];
+    /* 0x0C */ s16 tw_x;
+    /* 0x0E */ s16 tw_y;
+    /* 0x10 */ s16 tw_w;
+    /* 0x12 */ s16 tw_h;
+    /* 0x14 */ u16 tpage;
+    /* 0x16 */ u8 dtd;
+    /* 0x17 */ u8 dfe;
+    /* 0x18 */ u8 isbg;
+    /* 0x19 */ u8 r0;
+    /* 0x1A */ u8 g0;
+    /* 0x1B */ u8 b0;
+} DrawEnv;
+
 #endif /* MAIN_156C_H */
