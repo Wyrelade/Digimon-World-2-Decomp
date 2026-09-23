@@ -1121,5 +1121,12 @@
     "passes": [
       "padnop"
     ]
+  },
+  "func_80031CD4": {
+    "passes": [
+      "prologue_save_hoist",
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }
