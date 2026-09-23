@@ -978,7 +978,10 @@ typedef struct {
     u8 _pad000[0x108];
     /* 0x108 */ s16 field_108;
     /* 0x10A */ s16 field_10A;
-    u8 _pad10C[0x250];
+    u8 _pad10C[0x1A];
+    /* 0x126 */ s16 field_126;
+    /* 0x128 */ s32 field_128;
+    u8 _pad12C[0x230];
     /* 0x35C */ s16 field_35C;
 } Obj50768;
 
@@ -1299,5 +1302,24 @@ typedef struct {
     /* 0x0 */ s32 field_0;
     /* 0x4 */ s32 field_4;
 } State60058;
+
+/* One selectable entry of the Work174F8 menu (8 bytes). */
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    u8 _pad1[0x3];
+    /* 0x4 */ s32 field_4;
+} Sel174F8;
+
+/* Actor work block while func_800174F8's menu is active: cursor pos/size
+ * pairs at 0x50/0x54 and the entry table at 0x6C. */
+typedef struct {
+    u8 _pad00[0x50];
+    /* 0x50 */ s16 field_50[2];
+    /* 0x54 */ s16 field_54[2];
+    u8 _pad58[0x0A];
+    /* 0x62 */ s16 field_62;
+    u8 _pad64[0x08];
+    /* 0x6C */ Sel174F8 field_6C[1];
+} Work174F8;
 
 #endif /* MAIN_156C_H */

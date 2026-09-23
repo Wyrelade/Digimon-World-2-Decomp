@@ -312,6 +312,7 @@ extern State60058 D_80060058;
 extern void func_80026FE4(s32, u8 *);
 extern Obj25FBC *D_80048E4C;
 extern s32 func_8003DE18(s32 *);
+extern s32 D_8005F704;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -1133,7 +1134,23 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80016FDC);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017214);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800174F8);
+void func_800174F8(Actor *a0) {
+    Work174F8 *w = (Work174F8 *)a0->work;
+    Sel174F8 *e = &w->field_6C[func_80013A70(w->field_50, w->field_54)];
+    s32 k;
+
+    if (D_8005F704 > 0) {
+        k = 0x10;
+        if (e->field_0 == 1) {
+            D_80050768->field_128 = e->field_4;
+            D_80050768->field_126 = 0;
+            w->field_62 = 3;
+            func_800115DC(a0, 3);
+            k = 0xE;
+        }
+        func_8001A68C(k, 0);
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017594);
 
