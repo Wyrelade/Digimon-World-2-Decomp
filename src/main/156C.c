@@ -1789,7 +1789,19 @@ u8 func_8001E1AC(void) {
     return func_8001DFF4()->u4.b4.field_7;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E1D0);
+s32 func_8001E1D0(s32 id) {
+    EntDFF4 *p = (EntDFF4 *)func_800239A0(0x45E0000);
+    s32 i = 0;
+
+    while (p->u0.field_0h != 0) {
+        if (p->u0.field_0h == id) {
+            return i;
+        }
+        p++;
+        i++;
+    }
+    return 0;
+}
 
 s32 func_8001E22C(s32 a0) {
     s16 *p = (s16 *)func_800239A0(0x45E0000);

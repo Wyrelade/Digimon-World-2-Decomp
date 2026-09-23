@@ -404,6 +404,7 @@ typedef struct {
 typedef struct {
     union {
         /* 0x00 */ u32 field_0;
+        /* 0x00 */ s16 field_0h;
         struct {
             u8 _b0[2];
             /* 0x02 */ u8 field_2;
