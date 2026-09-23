@@ -745,11 +745,23 @@ typedef struct {
 /* Buffer allocated + registered by func_800111D4 (in the D_80050798 list) and
  * populated by func_800113B8; only the pointer/count fields it writes are known. */
 typedef struct {
-    u8 _pad00[0x2C];
+    /* 0x00 */ u32 field_0;
+    u8 _pad04[0x20];
+    /* 0x24 */ s32 field_24;
+    u8 _pad28[0x04];
     /* 0x2C */ s32 field_2C;
     /* 0x30 */ s32 field_30;
     /* 0x34 */ s32 field_34;
 } Buf111D4;
+
+/* Object type descriptor from the D_80040D50[id >> 8][id & 0xFF] table
+   (func_8001107C): optional init callback and the two buffer sizes. */
+typedef struct {
+    /* 0x00 */ void (*init)(Buf111D4 *, s32);
+    u8 _pad04[0x0C];
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+} ObjDesc;
 
 /* Accumulate-and-clamp record used by func_80020CE8: field_0 += field_4, then
  * clamped against field_8. */

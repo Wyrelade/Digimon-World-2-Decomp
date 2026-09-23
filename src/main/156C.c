@@ -269,6 +269,7 @@ extern s16 D_800618F4[];
 extern Rect2AB54 D_80061908;
 extern Rect2AB54 D_80061980;
 extern void func_80027AE4(Rect2AB54 *, s32, s32, s32);
+extern ObjDesc **D_80040D50[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -308,7 +309,22 @@ void func_80010ED4(s32 *arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010F24);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001107C);
+void func_8001107C(u32 id, s32 *slot, s32 arg) {
+    ObjDesc *d;
+    Buf111D4 *o;
+
+    if (*slot != 0) {
+        func_80010ED4(slot);
+    }
+    d = D_80040D50[id >> 8][id & 0xFF];
+    o = func_800113B8(d->field_10, d->field_14);
+    o->field_0 = id;
+    o->field_24 = 0;
+    if (arg != 0 && d->init != 0) {
+        d->init(o, arg);
+    }
+    *slot = (s32)o;
+}
 
 void func_80011140(void) {
     func_80011544();
@@ -632,7 +648,7 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013308);
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013378);
 
 extern s32 func_80013308();
-extern void func_8001107C(s32, s32, s32);
+extern void func_8001107C(u32, s32 *, s32);
 extern s32 func_8001A300(void);
 extern s32 D_8005F78C;
 
@@ -1363,7 +1379,7 @@ s32 func_8001A920(void) {
 }
 
 extern void func_8001CB80(s32);
-extern void func_8001107C(s32, s32, s32);
+extern void func_8001107C(u32, s32 *, s32);
 extern s32 D_8005F788;
 
 void func_8001A958(Actor *a0) {
