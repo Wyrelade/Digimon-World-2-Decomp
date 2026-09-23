@@ -4455,8 +4455,8 @@ void func_80030D64(s32 arg0) {
     D_8004FB80->fn_14(4, arg0);
 }
 
-void func_80030D98(void) {
-    D_8004FB80->fn_14();
+void func_80030D98(s32 a0, s32 a1) {
+    D_8004FB80->fn_14(a0, a1);
 }
 
 void func_80030DC8(void) {
@@ -5687,7 +5687,14 @@ s32 *func_8003DCF4(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003DD00);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003DD70);
+void func_8003DD70(void) {
+    volatile s32 *p = &D_80062F80.field_0;
+
+    while (*p != 0) {
+    }
+    func_80030D98(7, 0);
+    func_8003FDF0();
+}
 
 s32 func_8003DDB0(s32 arg0) {
     s32 r;
