@@ -4283,7 +4283,16 @@ void func_80033FB4(s16 a0, s16 a1, s16 a2, Arg33 d) {
     func_80036594(a0, a1, a2, &d);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034064);
+void func_80034064(s16 a0, s16 a1, s16 a2, Arg33 d) {
+    Out33B24 buf;
+    s32 f = d.field_24;
+
+    func_80036164(a0, a1, a2, &d);
+    buf.field_E = 1;
+    buf.field_8 = f;
+    func_80033B80(&buf, &d.field_10, &d.field_12);
+    func_80036594(a0, a1, a2, &d);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034114);
 

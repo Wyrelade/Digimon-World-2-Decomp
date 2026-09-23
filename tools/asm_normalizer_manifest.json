@@ -1128,5 +1128,10 @@
       "reorder_indep",
       "padnop"
     ]
+  },
+  "func_80034064": {
+    "passes": [
+      "padnop"
+    ]
   }
 }
