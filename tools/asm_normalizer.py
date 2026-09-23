@@ -1269,7 +1269,17 @@ def _ff_dead_on(lines, ins, label, reg, seen=None):
         body = l.split("#", 1)[0].strip()
         br = _src_is_branch(l) or _src_is_ret(l)
         if re.match(r"\s*jalr?\b", l):
-            return False
+            # a call kills every caller-saved register that is not an argument;
+            # its delay slot (noreorder) and a jalr target register still read
+            if reg not in _CALL_CLOBBER or reg in ("a0", "a1", "a2", "a3"):
+                return False
+            if reg in defs_uses(body)[1]:
+                return False
+            if i in nr and k + 1 < len(rest):
+                sd, su = defs_uses(rest[k + 1][1].split("#", 1)[0].strip())
+                if reg in su:
+                    return False
+            return True
         d, u = defs_uses(body)
         if reg in u:
             return False
