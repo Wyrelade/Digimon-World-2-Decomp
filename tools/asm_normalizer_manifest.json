@@ -1008,5 +1008,11 @@
   },
   "func_8002DD64": {
     "passes": []
+  },
+  "func_8002DEF4": {
+    "passes": [
+      "nosplit_nodb",
+      "delay_fill"
+    ]
   }
 }
