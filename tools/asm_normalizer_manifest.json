@@ -1561,5 +1561,13 @@
       "fallthrough_fill",
       "epilogue_unfill"
     ]
+  },
+  "func_8003A054": {
+    "passes": [
+      "nosplit",
+      "ra_restore_sink",
+      "fallthrough_fill",
+      "padnop"
+    ]
   }
 }

@@ -339,6 +339,12 @@ extern void func_80029FB4(void);
 extern Pkt48F9C D_80048F9C;
 extern void func_80039334(s16, s8, u8, u16, u8);
 extern Reg506BC *D_800506BC;
+extern s32 D_8004FDB4;
+extern s32 D_8004FDDC;
+extern s32 D_8004FDE0;
+extern u16 D_8004FDE4[24];
+extern s32 D_8004FE14;
+extern s32 D_800503B8;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -5602,9 +5608,45 @@ s16 func_8003A004(s16 a0) {
 }
 __asm__(".word 0\n.word 0\n");
 
+extern void func_8003A054(s32);
+
 void func_8003A034(void) { func_8003A054(0); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A054);
+void func_8003A054(s32 a0) {
+    s32 i;
+    u16 *p;
+
+    func_80030CD4();
+    func_8003A1D4(a0);
+    if (a0 == 0) {
+        i = 23;
+        p = &D_8004FDE4[23];
+        do {
+            *p = 0xC000;
+            i--;
+            p--;
+        } while (i >= 0);
+    }
+    func_8003A13C();
+    D_8004FDBC = 0;
+    D_8004FDC0 = 0;
+    D_8004FDCC.field_0 = 0;
+    D_8004FDCC.field_4 = 0;
+    D_8004FDCC.field_6 = 0;
+    D_8004FDCC.field_8 = 0;
+    D_8004FDCC.field_C = 0;
+    D_8004FDC4 = D_800503B8;
+    func_8003AAE0(0xD1, D_800503B8, 0);
+    D_8004FE88 = 0;
+    D_8004FE8C = 0;
+    D_8004FE90 = 0;
+    D_8004FDB8 = 0;
+    D_8004FE44 = 0;
+    D_8004FDB4 = 0;
+    D_8004FDE0 = 0;
+    D_8004FDDC = 0;
+    D_8004FE14 = 0;
+}
 
 void func_8003A13C(void) {
     if (D_8004FE18 == 0) {
