@@ -905,7 +905,20 @@ void func_800137B8(Part28 *p, s32 mask, s32 v) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800137FC);
+void func_800137FC(Part28 *p, s32 mask, u16 *xy) {
+    Part28 *q = p;
+
+    if (p->field_0 != 0) {
+        do {
+            if (q->field_1C & mask) {
+                q->field_4 = xy[0];
+                q->field_6 = xy[1];
+            }
+            p++;
+            q++;
+        } while (p->field_0 != 0);
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013854);
 
