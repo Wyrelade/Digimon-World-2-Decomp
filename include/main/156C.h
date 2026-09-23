@@ -47,7 +47,7 @@ typedef struct {
     /* 0x0C */ s32 field_C;
     /* 0x10 */ void (*fn_10)(s32);
     /* 0x14 */ void (*fn_14)(u8 *, s32);
-    /* 0x18 */ s32 field_18;
+    /* 0x18 */ void (*field_18)(u32 *);
     /* 0x1C */ s32 field_1C;
     /* 0x20 */ s32 field_20;
     u8 _pad24[0x14];
@@ -1391,5 +1391,12 @@ typedef struct {
     /* 0x1C */ s32 field_1C;
     u8 _pad20[8];
 } Part28;
+
+/* Static GPU packets at D_80048F9C; the VRAM-to-VRAM move packet (tag, GP0
+ * 0x80 command, source xy, destination xy, size) starts at 0xC. */
+typedef struct {
+    u8 _pad00[0xC];
+    /* 0x0C */ u32 move[5];
+} Pkt48F9C;
 
 #endif /* MAIN_156C_H */

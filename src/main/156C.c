@@ -334,6 +334,9 @@ extern void func_8003F46C();
 extern char D_800103C4[];
 extern u8 *func_8001E758(s32);
 extern char D_80010304[];
+extern char D_80010328[];
+extern void func_80029FB4(void);
+extern Pkt48F9C D_80048F9C;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4006,7 +4009,25 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80029B9C);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80029C88);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80029D74);
+s32 func_80029D74(Rect2AB54 *rect, s32 x, s32 y) {
+    func_800274E8(D_80010328, (s32)rect);
+    D_8004904C = func_80030AB4(-1) + 0xF0;
+    D_80049050 = 0;
+    while ((*D_80049024 & 0x01000000) || !(*D_80049018 & 0x04000000)) {
+        if (func_800299B8() != 0) {
+            return -1;
+        }
+    }
+    func_80030D34(2, func_80029FB4);
+    if (rect->w == 0 || rect->h == 0) {
+        return -1;
+    }
+    D_80048F9C.move[2] = *(u32 *)&rect->x;
+    D_80048F9C.move[3] = (y << 16) | (x & 0xFFFF);
+    D_80048F9C.move[4] = *(u32 *)&rect->w;
+    D_80048F08->field_18(D_80048F9C.move);
+    return 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80029EB8);
 
