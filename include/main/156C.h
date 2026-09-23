@@ -1088,7 +1088,9 @@ typedef struct {
     u8 _pad08[0x0C];
     /* 0x14 */ s32 field_14;
     /* 0x18 */ s32 field_18;
-    u8 _pad1C[0x0C];
+    u8 _pad1C[0x04];
+    /* 0x20 */ s32 field_20;
+    /* 0x24 */ s32 field_24;
 } Cmd3D124;
 void func_8003D124(Cmd3D124 *);
 

@@ -1311,7 +1311,7 @@ extern void func_800357E4(void *, s32, s32);
 extern void func_80035A04(s32);
 extern void func_800352C4();
 extern void func_80035024(s16, s16);
-extern void func_80034F64(s32, s32, s32);
+extern void func_80034F64(s8, s8, s8);
 extern void func_800356D4(s32, s32, s32);
 extern s16 func_80036474(s16);
 extern void func_800363E4(s16, s16);
@@ -4490,7 +4490,31 @@ void func_80034E04(s16 arg0, s16 arg1, s8 arg2, s16 arg3) { func_80034E44(arg0, 
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034E44);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034F64);
+void func_80034F64(s8 a0, s8 a1, s8 a2) {
+    Cmd3D124 c;
+
+    if (a0 == 0) {
+        if (a1 == 0) {
+            c.field_0 = 0x200;
+            c.field_18 = a2;
+        }
+        if (a1 == 1) {
+            c.field_0 = 0x100;
+            c.field_14 = a2;
+        }
+    }
+    if (a0 == 1) {
+        if (a1 == 0) {
+            c.field_0 = 0x2000;
+            c.field_24 = a2;
+        }
+        if (a1 == 1) {
+            c.field_0 = 0x1000;
+            c.field_20 = a2;
+        }
+    }
+    func_8003D124(&c);
+}
 
 void func_80035024(s16 a0, s16 a1) {
     Cmd3D124 c;

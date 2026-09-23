@@ -1198,5 +1198,11 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80034F64": {
+    "passes": [
+      "nosplit",
+      "epilogue_unfill"
+    ]
   }
 }
