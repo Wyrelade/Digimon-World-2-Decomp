@@ -1091,4 +1091,12 @@ typedef struct {
     /* 0xD */ u8 field_D;
 } St6196C;
 
+/* Object whose handle array (count at 0x30, array at 0x34) func_80010E38
+ * walks through func_80010F24. */
+typedef struct {
+    u8 _pad00[0x30];
+    /* 0x30 */ s32 field_30;
+    /* 0x34 */ s32 *field_34;
+} Obj10E38;
+
 #endif /* MAIN_156C_H */

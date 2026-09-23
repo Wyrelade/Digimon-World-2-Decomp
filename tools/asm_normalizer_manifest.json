@@ -996,5 +996,8 @@
       "reg_realloc",
       "operand_recolor"
     ]
+  },
+  "func_80010E38": {
+    "passes": []
   }
 }
