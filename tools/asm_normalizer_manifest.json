@@ -885,5 +885,11 @@
       "commutative_swap",
       "reorder_indep"
     ]
+  },
+  "func_8003AA7C": {
+    "passes": [
+      "reg_realloc",
+      "reorder_indep"
+    ]
   }
 }

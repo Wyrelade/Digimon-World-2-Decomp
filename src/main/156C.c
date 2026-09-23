@@ -185,6 +185,8 @@ extern Gpu48F10 D_80048F10;
 extern char D_80010250[];
 extern char D_80010290[];
 extern s32 *D_8004FE38;
+extern volatile u16 D_8004FE40;
+extern s32 func_8003A778();
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4284,7 +4286,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A778);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A9F8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003AA7C);
+s32 func_8003AA7C(s32 a0, s32 a1) {
+    func_8003A778(2, D_8004FE40 << D_8004FE50);
+    func_8003A778(0);
+    func_8003A778(3, a0, a1);
+    return a1;
+}
 
 void func_8003AAE0(s32 arg0, u32 arg1, s32 arg2) {
     if (arg2 == 0) {
