@@ -973,4 +973,21 @@ typedef struct {
     /* 0xBA9 */ u8 field_BA9[12];
 } Blk5071C;
 
+/* Sound state block at D_80062D18 (splat splits it into small byte symbols);
+ * func_80037BD0 indexes the D_80062D08 table with field_7 * 16 + field_C. */
+typedef struct {
+    u8 _pad0[0x7];
+    /* 0x07 */ s8 field_7;
+    u8 _pad8[0x4];
+    /* 0x0C */ u8 field_C;
+} Snd62D18;
+
+/* 0x20-byte record in the table D_80062D08 points at. */
+typedef struct {
+    u8 _pad0[0x4];
+    /* 0x04 */ u8 field_4;
+    /* 0x05 */ u8 field_5;
+    u8 _pad6[0x1A];
+} Rec62D08;
+
 #endif /* MAIN_156C_H */
