@@ -517,7 +517,8 @@ typedef struct {
     /* 0x00 */ s32 field_0;
     /* 0x04 */ s32 field_4;
     /* 0x08 */ s32 field_8;
-    u8 _padC[0x10 - 0xC];
+    /* 0x0C */ u8 field_C;
+    u8 _padD[0x3];
     /* 0x10 */ s32 field_10;
     /* 0x14 */ s32 field_14;
     /* 0x18 */ s32 field_18;
