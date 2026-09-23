@@ -289,13 +289,17 @@ typedef struct {
 /* Entry returned by the func_8001D8C4 table lookup (0x12 stride); accessed
  * fields only. */
 typedef struct {
-    u8 _pad00[0x02];
+    /* 0x00 */ s16 field_0;
     /* 0x02 */ u8 field_2;
     /* 0x03 */ u8 field_3;
     union {
         /* 0x04 */ u8 field_4;
         /* 0x04 */ u16 field_4h;
     } u4;
+    u8 _pad06[0x02];
+    /* 0x08 */ u8 field_8[5];
+    /* 0x0D */ u8 field_D[4];
+    u8 _pad11;
 } EntD8C4;
 
 /* Record returned by func_8001DB18; func_8001DB68 unpacks it. field_0 is read as

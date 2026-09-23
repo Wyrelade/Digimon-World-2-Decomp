@@ -1111,5 +1111,10 @@
       "prologue_save_hoist",
       "epilogue_unfill"
     ]
+  },
+  "func_8001DA80": {
+    "passes": [
+      "reg_realloc"
+    ]
   }
 }

@@ -1789,7 +1789,23 @@ u8 func_8001D9A8(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D9CC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DA80);
+u8 func_8001DA80(s32 id, s32 val) {
+    EntD8C4 *e = func_8001D8C4(id);
+    s32 i;
+
+    if (e->field_D[0] == 0) {
+        return 0;
+    }
+    for (i = 0; i < 4; i++) {
+        if (e->field_8[i + 1] == 0) {
+            break;
+        }
+        if (val >= e->field_8[i] && val < e->field_8[i + 1]) {
+            break;
+        }
+    }
+    return e->field_D[i];
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DB18);
 
