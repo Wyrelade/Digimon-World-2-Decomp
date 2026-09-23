@@ -933,4 +933,11 @@ typedef struct {
     /* 0x04 */ void (*fn_4)(void);
 } Hooks4FC50;
 
+/* Object passed to the D_80048E30 callback by func_800266D0; field_3C points at
+ * a status byte cleared after the call. */
+typedef struct {
+    u8 _pad00[0x3C];
+    /* 0x3C */ u8 *field_3C;
+} Ent266D0;
+
 #endif /* MAIN_156C_H */
