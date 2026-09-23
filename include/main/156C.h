@@ -945,7 +945,10 @@ typedef struct {
 
 /* Object reached through D_80050768; func_800143CC clears field_35C. */
 typedef struct {
-    u8 _pad000[0x35C];
+    u8 _pad000[0x108];
+    /* 0x108 */ s16 field_108;
+    /* 0x10A */ s16 field_10A;
+    u8 _pad10C[0x250];
     /* 0x35C */ s16 field_35C;
 } Obj50768;
 
@@ -1141,5 +1144,20 @@ typedef struct {
     /* 0x4 */ s16 w;
     /* 0x6 */ s16 h;
 } Rect288A0;
+
+/* Grid menu: cursor at 0x54, dimensions at 0x58, 6-byte cells from 0x72
+   (cell index = func_80013A70(cursor, dims)). */
+typedef struct {
+    /* 0x00 */ u16 field_0;
+    u8 _pad02[0x04];
+} GridCell;
+
+typedef struct {
+    u8 _pad00[0x54];
+    /* 0x54 */ s16 field_54[2];
+    /* 0x58 */ s16 field_58[2];
+    u8 _pad5C[0x16];
+    /* 0x72 */ GridCell field_72[16];
+} GridMenu;
 
 #endif /* MAIN_156C_H */

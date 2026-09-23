@@ -947,7 +947,18 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800164AC);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800166FC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80016834);
+void func_80016834(Actor *a0, GridMenu *m) {
+    u16 v = m->field_72[func_80013A70(m->field_54, m->field_58)].field_0;
+
+    if (v == 0) {
+        func_8001A68C(0x10, 0);
+    } else {
+        func_8001A68C(0xE, 0);
+        D_80050768->field_108 = v;
+        D_80050768->field_10A = func_80013A70(m->field_54, m->field_58);
+        func_800115DC(a0, 4);
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800168F0);
 
