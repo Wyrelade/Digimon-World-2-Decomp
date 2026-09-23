@@ -1075,4 +1075,20 @@ typedef struct {
     /* 0x2 */ s16 field_2;
 } Pair22388;
 
+/* State blocks reset by func_8002ADE4. */
+typedef struct {
+    /* 0x0 */ s16 field_0;
+    /* 0x2 */ u8 field_2;
+    /* 0x3 */ u8 field_3;
+    /* 0x4 */ u8 field_4;
+} St6191C;
+
+typedef struct {
+    /* 0x0 */ s16 field_0;
+    /* 0x2 */ s16 field_2;
+    u8 _pad04[0x08];
+    /* 0xC */ u8 field_C;
+    /* 0xD */ u8 field_D;
+} St6196C;
+
 #endif /* MAIN_156C_H */
