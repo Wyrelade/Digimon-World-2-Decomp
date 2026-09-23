@@ -562,7 +562,75 @@ void func_800116B0(Actor *arg0, s32 *arg1) {
     w->field_4 = arg1[1];
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800116CC);
+void func_800116CC(Actor *a0) {
+    Wk116CC *w = (Wk116CC *)a0->work;
+    s32 v;
+
+    switch (a0->field_10) {
+    case 0:
+        func_80011544(a0);
+        break;
+    case 1:
+        switch (a0->field_14) {
+        case 0:
+            break;
+        case 1:
+            return;
+        }
+        if (w->field_10 == 0) {
+            switch (w->field_8) {
+            case 0:
+                v = 0xE;
+                goto set;
+            case 1:
+                v = 0xD;
+                goto set;
+            case 2:
+                v = 0xB;
+            set:
+                w->field_C = v;
+                w->field_14 = 0;
+                w->field_10 = 0;
+                break;
+            default:
+                w->field_C = 7;
+                w->field_10 = 2;
+                w->field_14 = w->field_8 - 3;
+                break;
+            }
+            w->field_8++;
+            if (w->field_8 == 0x12) {
+                w->field_8 = 0xF;
+            }
+        } else {
+            w->field_10--;
+        }
+        break;
+    case 2:
+        switch (a0->field_14) {
+        case 1:
+            w->field_C = 0xD;
+            w->field_14 = 0;
+            a0->field_14++;
+            break;
+        case 2:
+            w->field_C = 0xE;
+            w->field_14 = 0;
+            a0->field_14++;
+            break;
+        case 0:
+        default:
+            w->field_C = 0xB;
+            w->field_14 = 0;
+            a0->field_14++;
+            break;
+        case 3:
+            func_800115C0(a0, 3);
+            break;
+        }
+        break;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011854);
 

@@ -1266,4 +1266,14 @@ typedef struct {
     /* 0x38 */ u8 field_38[4];
 } Obj4EAF8;
 
+/* Work block (Actor.work) of the actor state machine func_800116CC:
+ * field_8 = step counter, field_C = pose id, field_10 = delay, field_14 = sub. */
+typedef struct {
+    u8 _pad00[0x8];
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+} Wk116CC;
+
 #endif /* MAIN_156C_H */
