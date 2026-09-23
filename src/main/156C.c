@@ -4125,7 +4125,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800331F4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800332E4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033394);
+void func_80033394(s16 a0, s16 a1, u8 a2) {
+    Elm354F4 *e = &D_80061C50[a0][a1];
+
+    func_800363E4(a2, a2);
+    e->field_90 = func_80032494(a0, a1);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033424);
 

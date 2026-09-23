@@ -1060,5 +1060,12 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_80033394": {
+    "passes": [
+      "nosplit",
+      "prologue_save_hoist",
+      "padnop"
+    ]
   }
 }
