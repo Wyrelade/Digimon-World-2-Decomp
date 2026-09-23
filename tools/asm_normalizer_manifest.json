@@ -758,5 +758,11 @@
       "prologue_save_hoist",
       "epilogue_unfill"
     ]
+  },
+  "func_8003FAA0": {
+    "passes": [
+      "nosplit",
+      "epilogue_unfill"
+    ]
   }
 }
