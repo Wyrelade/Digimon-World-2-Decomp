@@ -1590,6 +1590,55 @@ def _tf_thread(lines, label):
     return (xi, f, None) if f is not None else None
 
 
+_TF_INV = {"beq": "bne", "bne": "beq", "beqz": "bnez", "bnez": "beqz",
+           "blez": "bgtz", "bgtz": "blez", "bltz": "bgez", "bgez": "bltz"}
+
+
+def _tf_place(lines, start, form, d, u):
+    """Insert the 1-word insn `form` (defs d, uses u) on the straight-line path
+    from line `start`: right before the first reader of its destination or the
+    first join label, replacing an explicit load-delay `nop` right before that
+    spot. Returns False when no spot is found (a write of d/u on the way, or a
+    transfer that does not read d)."""
+    reg = next(iter(d))
+    ins = [(i, l) for i, l in enumerate(lines) if _s_is_insn(l)]
+    dest = None
+    for j in range(start, len(lines)):
+        l = lines[j]
+        if _s_is_label(l) and _branch_target_label(lines, ins, l):
+            dest = j
+            break
+        if not _s_is_insn(l):
+            continue
+        jd, ju = defs_uses(l.split("#", 1)[0].strip())
+        if _src_is_branch(l) or _src_is_ret(l) or re.match(r"\s*jalr?\b", l):
+            if reg in ju:
+                dest = j
+            break
+        if reg in ju:
+            dest = j
+            break
+        if set(jd) & (set(d) | set(u)):
+            break
+    if dest is None:
+        return False
+    at = dest
+    while at > start and (lines[at - 1].strip().startswith(".set")
+                          or lines[at - 1].strip() in ("#nop", "")):
+        at -= 1
+    ind = "\t"
+    pi = max((y for y, _l in ins if y < at), default=None)
+    if pi is not None and pi >= start and _tf_is_nop(lines[pi].split("#", 1)[0].strip()):
+        li_ = max((y for y, _l in ins if y < pi), default=None)
+        ld = lines[li_].split("#", 1)[0].strip() if li_ is not None else ""
+        if (re.match(r"(lw|lh|lhu|lb|lbu)\s", ld) and li_ >= start
+                and not set(defs_uses(ld)[0]) & set(u)):
+            lines[pi] = _src_indent(lines[pi]) + form
+            return True
+    lines.insert(at, ind + form)
+    return True
+
+
 def taken_fill_pass(stext, tgt):
     if not tgt:
         return stext
@@ -1600,6 +1649,68 @@ def taken_fill_pass(stext, tgt):
         return stext
     nop_key = ("sll", "zero", "zero", 0)
     n_new = 0
+    # Op F: `bc r,L1; S1; j L2; S2; L1:` where retail has `binv r,L2; S2` and S1
+    # back on the L1 path: invert the branch over the jump. S2 then also runs on
+    # the L1 path (its dest must be dead there); S1 no longer runs on the L2 path
+    # (its dest must be dead there) and goes before its first reader.
+    for k in range(len(ours)):
+        ours = _tf_branches(lines)
+        if len(ours) != len(tb) or k >= len(ours):
+            break
+        bi, nr = ours[k]
+        tk = tb[k]
+        if not nr or tk + 1 >= len(tgt):
+            continue
+        mb = re.match(r"(\s*)(\w+)(\s+.*,\s*)(\$L\w+)\s*$", lines[bi].split("#", 1)[0])
+        tmn = tgt[tk][1].split(None, 1)[0].lower()
+        if not mb or _TF_INV.get(mb.group(2)) is None:
+            continue
+        inv = _TF_INV[mb.group(2)]
+        if tmn not in (inv, {"bne": "bnez", "beq": "beqz"}.get(inv, inv)) and not (
+                inv in ("bnez", "beqz") and tmn == inv[:3]):
+            continue
+        s1 = _tf_next_insn(lines, bi)
+        ji = _tf_next_insn(lines, s1) if s1 is not None else None
+        if ji is None:
+            continue
+        mj = re.match(r"\s*j\s+(\$L\w+)\s*$", lines[ji].split("#", 1)[0])
+        s2 = _tf_next_insn(lines, ji)
+        if not mj or s2 is None:
+            continue
+        l1 = mb.group(4)
+        nxt = _tf_next_insn(lines, s2)
+        if nxt is None or not any(lines[y].strip() == l1 + ":" for y in range(s2 + 1, nxt)):
+            continue
+        f1 = _ff_word_form(lines[s1].split("#", 1)[0].strip())
+        f2 = _ff_word_form(lines[s2].split("#", 1)[0].strip())
+        if f1 is None or f2 is None:
+            continue
+        if _sm_key(tgt[tk + 1][1].strip(), True) != _sm_key(f2, False):
+            continue
+        d1, u1 = defs_uses(f1)
+        d2, u2 = defs_uses(f2)
+        if len(d1) != 1 or len(d2) != 1:
+            continue
+        ins = [(i, l) for i, l in enumerate(lines) if _s_is_insn(l)]
+        if not _ff_dead_on(lines, ins, l1, next(iter(d2))):
+            continue
+        if not _ff_dead_on(lines, ins, mj.group(1), next(iter(d1))):
+            continue
+        new = list(lines)
+        # s2 line and the j group go; the branch becomes binv L2 with S2 in its slot
+        grp_end = s2 + 1
+        while grp_end < len(new) and new[grp_end].strip().startswith(".set"):
+            grp_end += 1
+        grp_start = ji
+        while grp_start > s1 + 1 and new[grp_start - 1].strip().startswith(".set"):
+            grp_start -= 1
+        new[bi] = mb.group(1) + inv + mb.group(3) + mj.group(1)
+        new[s1] = _src_indent(new[s1]) + f2
+        del new[grp_start:grp_end]
+        at = grp_start
+        if not _tf_place(new, at, f1, d1, u1):
+            continue
+        lines = new
     # Op C: our slot holds an insn cc1 stole from the fall-through path where the
     # target leaves a nop: put it back on the fall-through, right before the first
     # insn that reads its destination (its destination must be dead on the taken
