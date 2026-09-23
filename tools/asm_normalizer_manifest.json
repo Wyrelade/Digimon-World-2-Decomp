@@ -1253,5 +1253,11 @@
       "delay_fill",
       "epilogue_unfill"
     ]
+  },
+  "func_8003A614": {
+    "passes": [
+      "nosplit",
+      "epilogue_unfill"
+    ]
   }
 }
