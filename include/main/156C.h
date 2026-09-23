@@ -1027,4 +1027,14 @@ typedef struct {
     /* 0x04 */ s32 field_4;
 } Regs48E8C;
 
+/* State block at D_80062F80 armed by func_8003E134 (field_0 = 2, arg in
+ * field_10) before it pushes func_8003E19C as a state handler. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+} State62F80;
+
 #endif /* MAIN_156C_H */

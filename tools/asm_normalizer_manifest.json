@@ -919,5 +919,12 @@
       "nosplit",
       "exit_merge"
     ]
+  },
+  "func_8003E134": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "epilogue_unfill"
+    ]
   }
 }
