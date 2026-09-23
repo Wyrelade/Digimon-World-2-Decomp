@@ -854,7 +854,8 @@ typedef struct {
     u8  _p47[0xD];      /* 0x47 */
     s16 field_54;       /* 0x54 */
     s16 field_56;       /* 0x56 */
-    u8  _p58[0x4];      /* 0x58 */
+    u16 field_58;       /* 0x58 */
+    u16 field_5A;       /* 0x5A */
     s16 field_5C;       /* 0x5C */
     s16 field_5E;       /* 0x5E */
     s16 field_60[0x10]; /* 0x60 */

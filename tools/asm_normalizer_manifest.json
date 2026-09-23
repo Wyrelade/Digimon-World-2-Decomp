@@ -751,5 +751,12 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80035BE4": {
+    "passes": [
+      "nosplit",
+      "prologue_save_hoist",
+      "epilogue_unfill"
+    ]
   }
 }
