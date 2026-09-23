@@ -1291,5 +1291,10 @@
       "nosplit_nodb",
       "delay_fill"
     ]
+  },
+  "func_8003FDF0": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
