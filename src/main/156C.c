@@ -5434,7 +5434,12 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B424);
 
 void func_8003B6E4(void) { func_8003B714(0xCA, 0xCB); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B714);
+s32 func_8003B714(s32 a0, s32 a1) {
+    volatile u16 *r = D_8004FE28;
+    s32 hi = (r[a1] & 0xFF) << 16;
+
+    return r[a0] | hi;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B744);
 
