@@ -187,6 +187,7 @@ extern char D_80010290[];
 extern s32 *D_8004FE38;
 extern volatile u16 D_8004FE40;
 extern s32 func_8003A778();
+extern u16 func_8003AB24(s32, u32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4380,7 +4381,13 @@ u32 func_8003C714(s32 a0, u32 n) {
     return n;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C774);
+s32 func_8003C774(u32 addr) {
+    if (addr - 0x1010 > 0x7EFE8) {
+        return 0;
+    }
+    D_8004FE40 = func_8003AB24(-1, addr);
+    return D_8004FE40 << D_8004FE50;
+}
 
 void func_8003C7D4(s32 arg0) {
     s32 v;

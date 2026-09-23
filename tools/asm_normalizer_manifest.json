@@ -891,5 +891,12 @@
       "reg_realloc",
       "reorder_indep"
     ]
+  },
+  "func_8003C774": {
+    "passes": [
+      "nosplit",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
