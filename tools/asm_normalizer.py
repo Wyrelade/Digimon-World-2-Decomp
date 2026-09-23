@@ -1243,6 +1243,89 @@ def _ff_word_form(body):
     return body
 
 
+_ASM_ROOT = None          # set by normalize_s from ctx["asm_root"]
+_CALLEE_S = {}
+_CALLEE_RD = {}
+
+
+def _callee_insns(fn):
+    """The retail asm of `fn` as a list of insn texts, with "LABEL" markers."""
+    if fn not in _CALLEE_S:
+        p = find_target_s(_ASM_ROOT, fn) if _ASM_ROOT else None
+        out = []
+        if p:
+            pat = re.compile(r"/\*\s*[0-9A-Fa-f]+\s+[0-9A-Fa-f]{8}\s+[0-9A-Fa-f]{8}\s*\*/\s+(.*)$")
+            for line in open(p, encoding="utf-8", errors="replace"):
+                m = pat.search(line)
+                if m:
+                    out.append(re.sub(r"\s+", " ", m.group(1).strip()))
+                elif re.match(r"\s*\.L\w+:", line):
+                    out.append("LABEL")
+        _CALLEE_S[fn] = out or None
+    return _CALLEE_S[fn]
+
+
+def _callee_reads(fn, reg, depth=0):
+    """Conservatively: may function `fn` (retail asm) read argument register `reg`
+    before writing it? A read counts unless `reg` was written earlier in the same
+    basic block or in the straight-line entry prefix (delay slots included); a
+    call made while `reg` may still hold the entry value recurses into that
+    callee (depth-limited). Unknown callee or deep chain: assume it reads."""
+    key = (fn, reg)
+    if key in _CALLEE_RD:
+        return _CALLEE_RD[key]
+    _CALLEE_RD[key] = True                   # recursion guard: assume read
+    body = _callee_insns(fn)
+    if body is None or depth > 3:
+        return True
+    entry_w, prefix, blk_w, res = False, True, False, False
+
+    def written():
+        return entry_w or blk_w
+    k = 0
+    while k < len(body):
+        b = body[k]
+        if b == "LABEL":
+            prefix, blk_w = False, False
+            k += 1
+            continue
+        mn = b.split(None, 1)[0].lower()
+        is_call = mn in ("jal", "jalr")
+        is_br = mn in _COND_BR_MN or mn in ("j", "b", "jr")
+        d, u = defs_uses(b)
+        if reg in u and not written() and not (is_call and mn == "jal"):
+            res = True                       # (a direct call's own read is the callee's)
+            break
+        if is_call or is_br:
+            slot = body[k + 1] if k + 1 < len(body) and body[k + 1] != "LABEL" else ""
+            sd, su = defs_uses(slot) if slot else (set(), set())
+            if reg in su and not written():
+                res = True
+                break
+            if reg in sd:
+                blk_w = True
+                if prefix:
+                    entry_w = True
+            if is_call and not written():
+                mc = re.match(r"jal (\w+)$", b)
+                if not mc or _callee_reads(mc.group(1), reg, depth + 1):
+                    res = True
+                    break
+            if is_call:
+                blk_w = True                 # the call clobbers it
+            else:
+                prefix, blk_w = False, False
+            k += 2
+            continue
+        if reg in d:
+            blk_w = True
+            if prefix:
+                entry_w = True
+        k += 1
+    _CALLEE_RD[key] = res
+    return res
+
+
 def _ff_dead_on(lines, ins, label, reg, seen=None):
     """`reg` is dead at `label`: on every path from it (both sides of conditional
     branches, `j` followed, delay slots included) it is written before it is read.
@@ -1273,9 +1356,13 @@ def _ff_dead_on(lines, ins, label, reg, seen=None):
         if re.match(r"\s*jalr?\b", l):
             # a call kills every caller-saved register that is not an argument;
             # its delay slot (noreorder) and a jalr target register still read
-            if reg not in _CALL_CLOBBER or reg in ("a0", "a1", "a2", "a3"):
+            if reg not in _CALL_CLOBBER:
                 return False
-            if reg in defs_uses(body)[1]:
+            if reg in ("a0", "a1", "a2", "a3"):
+                mc = re.match(r"\s*jal\s+(\w+)\s*$", body)
+                if not mc or _callee_reads(mc.group(1), reg):
+                    return False
+            if body.split(None, 1)[0].lower() == "jalr" and reg in defs_uses(body)[1]:
                 return False
             if i in nr and k + 1 < len(rest):
                 sd, su = defs_uses(rest[k + 1][1].split("#", 1)[0].strip())
@@ -3312,6 +3399,8 @@ def normalize_s(s_file, ctx, manifest=None):
 
     ctx keys: python, maspsx_py, maspsx_flags, as_bin, maspsx_as_flags, objdump,
     run (callable -> (rc, out, err)), asm_root."""
+    global _ASM_ROOT
+    _ASM_ROOT = ctx.get("asm_root")
     if manifest is None:
         manifest = load_manifest()
     text = _read_bytes_str(s_file)
