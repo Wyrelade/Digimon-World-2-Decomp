@@ -1341,4 +1341,11 @@ typedef struct {
     /* 0xC */ s32 field_C;
 } Blk4FDCC;
 
+/* 0x38-byte record in the table at D_800624F8 (field_0 = id, matched by
+ * func_800391B4). */
+typedef struct {
+    /* 0x00 */ s16 field_0;
+    u8 _pad2[0x36];
+} Rec624F8;
+
 #endif /* MAIN_156C_H */

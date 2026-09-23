@@ -324,6 +324,10 @@ extern s32 D_8004FDBC;
 extern s32 D_8004FDC0;
 extern s32 D_8004FDC4;
 extern Blk4FDCC D_8004FDCC;
+extern s8 D_80062D0C;
+extern s32 D_8004FC18;
+extern Rec624F8 D_800624F8[];
+extern s16 D_80062D30;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -5365,7 +5369,18 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80038BE4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039150);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800391B4);
+void func_800391B4(s32 id) {
+    u8 i;
+
+    for (i = 0; i < D_80062D0C; i++) {
+        s32 m = 1 << i;
+
+        if (!(D_8004FC18 & m) && D_800624F8[i].field_0 == (s16)id) {
+            D_80062D30 = i;
+            func_80038314(0);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039264);
 
