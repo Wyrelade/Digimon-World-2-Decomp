@@ -1153,5 +1153,13 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_80029AFC": {
+    "passes": [
+      "nosplit_nodb",
+      "exit_merge",
+      "fallthrough_fill",
+      "delay_fill"
+    ]
   }
 }

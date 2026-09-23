@@ -3400,7 +3400,19 @@ void func_80029984(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800299B8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80029AFC);
+s32 func_80029AFC(s32 a0) {
+    *D_80049018 = 0x10000007;
+    if ((*D_80049014 & 0xFFFFFF) != 2) {
+        *D_80049014 = (*D_80049018 & 0x3FFF) | 0xE1001000;
+        *(volatile s32 *)D_80049014;
+        return 0;
+    }
+    if (!(a0 & 8)) {
+        return 1;
+    }
+    *D_80049018 = 0x09000001;
+    return 2;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80029B9C);
 
