@@ -1445,5 +1445,12 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_800332E4": {
+    "passes": [
+      "nosplit",
+      "sched_match",
+      "padnop"
+    ]
   }
 }

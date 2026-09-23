@@ -4728,7 +4728,19 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033124);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800331F4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800332E4);
+extern void func_80036764(void);
+extern void func_80036774(void);
+
+void func_800332E4(s16 a0, s16 a1, u8 a2) {
+    Elm354F4 *e = &D_80061C50[a0][a1];
+
+    if (a2 < 0x40) {
+        func_80036764();
+    } else {
+        func_80036774();
+    }
+    e->field_90 = func_80032494(a0, a1);
+}
 
 void func_80033394(s16 a0, s16 a1, u8 a2) {
     Elm354F4 *e = &D_80061C50[a0][a1];
