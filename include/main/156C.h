@@ -1021,7 +1021,15 @@ typedef struct {
 /* Object passed to the D_80048E30 callback by func_800266D0; field_3C points at
  * a status byte cleared after the call. */
 typedef struct {
-    u8 _pad00[0x3C];
+    u8 _pad00[0x10];
+    /* 0x10 */ void *field_10;
+    u8 _pad14[0x1C];
+    /* 0x30 */ u8 *field_30;
+    u8 _pad34[0x3];
+    /* 0x37 */ u8 field_37;
+    /* 0x38 */ u8 field_38;
+    /* 0x39 */ u8 field_39;
+    u8 _pad3A[0x2];
     /* 0x3C */ u8 *field_3C;
 } Ent266D0;
 

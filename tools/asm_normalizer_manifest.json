@@ -1429,5 +1429,13 @@
       "sched_match",
       "delay_fill"
     ]
+  },
+  "func_8002689C": {
+    "passes": [
+      "nosplit",
+      "taken_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

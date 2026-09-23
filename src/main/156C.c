@@ -314,6 +314,10 @@ extern Obj25FBC *D_80048E4C;
 extern s32 func_8003DE18(s32 *);
 extern s32 D_8005F704;
 extern char D_800102F8[];
+extern s32 D_80048E64;
+extern s32 D_80048E9C;
+extern s32 (*D_80048E20)(Ent266D0 *, s32);
+extern void (*D_80048E24)(Ent266D0 *);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3528,7 +3532,30 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026718);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800267F0);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002689C);
+s32 func_8002689C(Ent266D0 *a0) {
+    s32 f = 0;
+    s32 r;
+
+    if (D_80048E64 != 0) {
+        s32 st = *a0->field_3C;
+        if ((st >> 4) == 8) {
+            f = a0->field_37 == 0;
+        }
+    }
+    D_80048E9C = f;
+    if (f == 0 && a0->field_37 == 0 && a0->field_38 == 0
+        && (a0 == a0->field_10 || a0->field_39 == 0) && *a0->field_30 == 0) {
+        D_80048E24(a0);
+    }
+    r = func_80025984(a0, (u8)D_80048E20(a0, D_80048E9C));
+    if (r == 0x5A || r == 0) {
+        return r;
+    }
+    if (r >= 0) {
+        return -4;
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800269B8);
 
