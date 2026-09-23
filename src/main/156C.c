@@ -263,6 +263,7 @@ extern s32 D_80061B00;
 extern s32 D_80061B10;
 extern s32 D_80061B08;
 extern s32 D_80061B54;
+extern char D_800102AC[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3230,7 +3231,15 @@ s32 func_80027388(s32 a0) {
     return old;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800273E8);
+void func_800273E8(s32 a0) {
+    if (D_80048F10.field_2 >= 2) {
+        D_80048F0C(D_800102AC, a0);
+    }
+    if (a0 == 0) {
+        func_80029FDC(D_80048F10.field_6C, -1, 0x14);
+    }
+    D_80048F08->fn_10(a0 ? 0x03000000 : 0x03000001);
+}
 
 void func_80027480(void *a0) {
     if (D_80048F12 >= 2) {

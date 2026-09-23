@@ -44,7 +44,8 @@ typedef struct {
 typedef struct {
     u8 _pad00[0x08];
     /* 0x08 */ void (*fn_8)(s32, s32, s32, s32);
-    u8 _pad0C[0x08];
+    u8 _pad0C[0x04];
+    /* 0x10 */ void (*fn_10)(s32);
     /* 0x14 */ void (*fn_14)(u8 *, s32);
     u8 _pad18[0x04];
     /* 0x1C */ s32 field_1C;
@@ -1023,6 +1024,8 @@ typedef struct {
     /* 0x06 */ s16 field_6;
     u8 _pad08[0x4];
     /* 0x0C */ s32 field_C;
+    /* 0x10 */ u8 field_10[0x5C];
+    /* 0x6C */ u8 field_6C[0x14];
 } Gpu48F10;
 
 /* Two-word state func_8001291C copies into the head of an ActorWork. */
