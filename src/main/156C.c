@@ -271,6 +271,7 @@ extern Rect2AB54 D_80061980;
 extern void func_80027AE4(Rect2AB54 *, s32, s32, s32);
 extern ObjDesc **D_80040D50[];
 extern char D_80010390[];
+extern Obj25FBC *(*D_80048E2C)(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3012,7 +3013,22 @@ void func_80024410(Actor *arg0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024474);
+u8 func_80024474(void) {
+    Obj25FBC *o = D_80048E2C();
+
+    if (o->field_37 != 0 || o->field_38 != 0 || (o != o->field_10 && o->field_39 != 0)
+        || *o->field_30 != 0) {
+        switch (o->field_49) {
+        case 3:
+            return 1;
+        case 2:
+            return 1;
+        case 6:
+            return 4;
+        }
+    }
+    return o->field_49;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024544);
 

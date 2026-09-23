@@ -1207,5 +1207,11 @@
   },
   "func_80013558": {
     "passes": []
+  },
+  "func_80024474": {
+    "passes": [
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
