@@ -5200,7 +5200,20 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800344D4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034704);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800348D4);
+void func_800348D4(s32 a0, s32 a1, s32 a2, s32 a3) {
+    Elm354F4 *e = &D_80061C50[(s16)a0][(s16)a1];
+    u8 k = e->field_17;
+    s32 v = e->field_27[k];
+    s32 on = (u8)a3;
+
+    if (a3 & 0xFF) {
+        if (!((e->field_80 >> k) & 1)) {
+            func_80036FA4((s16)(a0 | (a1 << 8)), e->field_26, e->field_37[k], (u8)a2, on, v);
+        }
+    } else {
+        func_800374C0((s16)(a0 | (a1 << 8)), e->field_26, e->field_37[k], (u8)a2);
+    }
+}
 
 void func_800349B4(s16 arg0, s16 arg1, s16 arg2) {
     Elm354F4 *e = &D_80061C50[arg0][arg1];

@@ -1572,5 +1572,13 @@
   },
   "func_8001F1A8": {
     "passes": []
+  },
+  "func_800348D4": {
+    "passes": [
+      "nosplit",
+      "sched_match",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
