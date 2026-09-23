@@ -2905,7 +2905,27 @@ void func_800230DC(Rec230DC *arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800230FC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800231AC);
+void func_800231AC(Elm6A8 *a0, s32 i) {
+    switch (func_80024474(i << 4)) {
+    case 2:
+    case 6:
+        switch (D_8005F678[i].field_C) {
+        case 0:
+        default:
+            func_800230DC((Rec230DC *)&D_8005F678[i]);
+            D_8005F678[i].field_C = 1;
+            break;
+        case 1:
+            func_800230FC(&D_8005F678[i], a0);
+            break;
+        }
+        break;
+    case 0:
+    default:
+        D_8005F678[i].field_C = 0;
+        break;
+    }
+}
 
 s32 func_80023270(s32 arg0, s32 arg1, s32 arg2) {
     s32 r = 0;
