@@ -1823,10 +1823,25 @@ s32 func_8001E67C(s32 arg0) {
     return 0xCBA;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E6A8);
+EntE6A8 *func_8001E6A8(s32 id) {
+    EntE6A8 *e = (EntE6A8 *)func_800239A0(func_8001E67C(id) << 16);
+    s32 k;
 
-s16 func_8001E704(void) {
-    return func_8001E6A8()->u4.h4.field_6;
+    while (1) {
+        k = (e->u4.field_4 >> 1) & 0x7FFF;
+        if (k == 0) {
+            break;
+        }
+        if (k == id) {
+            return e;
+        }
+        e++;
+    }
+    return 0;
+}
+
+s16 func_8001E704(s32 id) {
+    return func_8001E6A8(id)->u4.h4.field_6;
 }
 
 s16 func_8001E728(s32 arg0, s32 arg1) {
@@ -1835,12 +1850,12 @@ s16 func_8001E728(s32 arg0, s32 arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E758);
 
-s16 func_8001E79C(void) {
-    return func_8001E6A8()->field_1E;
+s16 func_8001E79C(s32 id) {
+    return func_8001E6A8(id)->field_1E;
 }
 
-s16 func_8001E7C0(void) {
-    return func_8001E6A8()->field_20;
+s16 func_8001E7C0(s32 id) {
+    return func_8001E6A8(id)->field_20;
 }
 
 void func_8001E7E4(s32 a0, void *a1) {
@@ -1855,8 +1870,8 @@ void func_8001E7E4(s32 a0, void *a1) {
     *(Row6 *)((u8 *)a1 + 12) = *(Row6 *)(base + e->field_26 * 6);
 }
 
-s32 func_8001E8D0(void) {
-    return func_8001E6A8()->u4.field_4 & 1;
+s32 func_8001E8D0(s32 id) {
+    return func_8001E6A8(id)->u4.field_4 & 1;
 }
 
 u16 func_8001E8F4(s32 idx) {
