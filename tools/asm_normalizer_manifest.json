@@ -1466,5 +1466,13 @@
       "nosplit",
       "epilogue_unfill"
     ]
+  },
+  "func_80030C2C": {
+    "passes": [
+      "nosplit",
+      "sched_match",
+      "delay_fill",
+      "epilogue_unfill"
+    ]
   }
 }
