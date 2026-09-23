@@ -913,5 +913,11 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_800314BC": {
+    "passes": [
+      "nosplit",
+      "exit_merge"
+    ]
   }
 }

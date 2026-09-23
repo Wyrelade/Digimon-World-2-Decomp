@@ -40,7 +40,7 @@ extern s32 *D_80049024;
 extern u16 *D_8004FB88;
 extern s32 D_80062FC4;
 extern s32 D_8004FE5C;
-extern s32 D_8004FBA0[];
+extern void (*D_8004FBA0[])(void);
 extern Stack54CD0 D_80054CD0;
 extern List50798 D_80050798;
 extern Blk54CF8 D_80054CF8[];
@@ -190,6 +190,7 @@ extern s32 func_8003A778();
 extern u16 func_8003AB24(s32, u32);
 extern Regs48E8C *D_80048E8C;
 extern void (*D_80048E40)(void);
+extern s32 D_8004FBC0;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3774,9 +3775,23 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031420);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031464);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800314BC);
+void func_800314BC(void) {
+    void (**p)(void);
+    s32 i;
 
-void func_80031528(s32 arg0, s32 arg1) {
+    i = 0;
+    p = D_8004FBA0;
+    D_8004FBC0++;
+    do {
+        if (*p != 0) {
+            (*p)();
+        }
+        i++;
+        p++;
+    } while (i < 8);
+}
+
+void func_80031528(s32 arg0, void (*arg1)(void)) {
     if (arg1 != D_8004FBA0[arg0]) {
         D_8004FBA0[arg0] = arg1;
     }
