@@ -1332,4 +1332,13 @@ typedef struct {
     /* 0x6C */ Sel174F8 field_6C[1];
 } Work174F8;
 
+/* 0x10-byte state block at D_8004FDCC cleared by func_8003A054. */
+typedef struct {
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ s16 field_4;
+    /* 0x6 */ s16 field_6;
+    /* 0x8 */ s32 field_8;
+    /* 0xC */ s32 field_C;
+} Blk4FDCC;
+
 #endif /* MAIN_156C_H */
