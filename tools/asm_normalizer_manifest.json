@@ -963,5 +963,12 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_8002DE94": {
+    "passes": [
+      "nosplit",
+      "reorder_indep",
+      "epilogue_unfill"
+    ]
   }
 }
