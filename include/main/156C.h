@@ -1221,4 +1221,24 @@ typedef struct {
     /* 0x4 */ Halves h;
 } Key13558;
 
+/* 6-byte map cell record in the func_800166FC grid (field_0 = item id). */
+typedef struct {
+    /* 0x0 */ u16 field_0;
+    u8 _pad2[0x2];
+    /* 0x4 */ u16 field_4;
+} Cell166FC;
+
+/* Map object walked by func_800166FC: cursor (0x54) and size (0x58) s16 pairs
+ * index the cell grid at 0x72. */
+typedef struct {
+    u8 _pad00[0x44];
+    /* 0x44 */ u8 field_44[0x10];
+    /* 0x54 */ s16 field_54[2];
+    /* 0x58 */ s16 field_58[2];
+    u8 _pad5C[0xA];
+    /* 0x66 */ s16 field_66;
+    u8 _pad68[0xA];
+    /* 0x72 */ Cell166FC field_72[1];
+} Obj166FC;
+
 #endif /* MAIN_156C_H */

@@ -1239,5 +1239,12 @@
       "prologue_save_hoist",
       "padnop"
     ]
+  },
+  "func_800166FC": {
+    "passes": [
+      "nosplit",
+      "reg_realloc",
+      "padnop"
+    ]
   }
 }

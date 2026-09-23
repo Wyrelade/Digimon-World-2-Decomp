@@ -603,7 +603,7 @@ end:
     return base;
 }
 
-s32 func_80011FE4(void *arg0) {
+s32 func_80011FE4(s32 arg0) {
     s32 r = 0;
     if (func_8001E134() != 0) {
         u8 *p = func_80011F5C(arg0);
@@ -984,7 +984,31 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80016394);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800164AC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800166FC);
+void func_800166FC(Actor *a0, Obj166FC *o) {
+    s16 *pos = o->field_54;
+    s16 *size = o->field_58;
+    s32 id = o->field_72[func_80013A70(pos, size)].field_0;
+    s32 r;
+    Halves h;
+
+    if (id != 0) {
+        r = func_80011FE4(id);
+        if (r != 0) {
+            goto found;
+        }
+        h.lo = 0x10;
+        h.hi = 0xBA;
+        func_800134F8(o->field_44, func_800239A0(0x1FD00A1), 0x81, h);
+    }
+    func_8001A68C(0x10, 0);
+    return;
+found:
+    D_80050768->field_108 = id;
+    D_80050768->field_10A = o->field_72[func_80013A70(pos, size)].field_4;
+    o->field_66 = r == 1;
+    func_8001A68C(0xE, 0);
+    func_80011564(a0);
+}
 
 void func_80016834(Actor *a0, GridMenu *m) {
     u16 v = m->field_72[func_80013A70(m->field_54, m->field_58)].field_0;
