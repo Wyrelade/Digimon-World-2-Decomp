@@ -943,4 +943,11 @@ typedef struct {
     /* 0x3C */ u8 *field_3C;
 } Ent266D0;
 
+/* Block reached through D_8005071C; func_80011F04 compacts the 12 slot bytes at
+ * 0xBA9 (nonzero entries moved to the front, the rest cleared). */
+typedef struct {
+    u8 _pad000[0xBA9];
+    /* 0xBA9 */ u8 field_BA9[12];
+} Blk5071C;
+
 #endif /* MAIN_156C_H */

@@ -809,5 +809,11 @@
   },
   "func_8001E6A8": {
     "passes": []
+  },
+  "func_80011F04": {
+    "passes": [
+      "nosplit",
+      "exit_merge"
+    ]
   }
 }
