@@ -1196,4 +1196,11 @@ typedef struct {
     /* 0x1C */ u32 dr_env[16];
 } DrawEnv;
 
+/* Zero-terminated list entry walked by func_80013558: low 12 bits of `key` pick
+   the 0x1FD resource, bits 12-15 are mode flags; `h` is forwarded by value. */
+typedef struct {
+    /* 0x0 */ s32 key;
+    /* 0x4 */ Halves h;
+} Key13558;
+
 #endif /* MAIN_156C_H */

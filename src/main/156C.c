@@ -708,7 +708,18 @@ void func_800134F8(void *arg0, s32 arg1, u32 arg2, Halves arg3) {
     func_8001BC24(arg0, &local);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013558);
+s32 func_80013558(s32 *a0, Key13558 *a1, u32 a2) {
+    s32 n = 0;
+
+    while (a1->key != 0) {
+        n++;
+        func_800134F8(a0, (s32)func_800239A0((a1->key & 0xFFF) | 0x1FD0000),
+                      a2 | ((a1->key & 0xF000) >> 10), a1->h);
+        a1++;
+        a0++;
+    }
+    return n;
+}
 
 void func_8001361C(s32 *a0, Halves *a1, s32 *a2, u32 a3) {
     while (*a2 != 0) {
