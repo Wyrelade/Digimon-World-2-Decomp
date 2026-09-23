@@ -4715,7 +4715,14 @@ void func_80032C54(s16 arg0, s16 arg1, s16 arg2) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80032CD4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033054);
+void func_80033054(s16 a0, s16 a1, u8 a2) {
+    Elm354F4 *e = &D_80061C50[a0][a1];
+    u8 k = e->field_17;
+
+    func_80039334((s16)(a0 | (a1 << 8)), (s8)e->field_26, e->field_37[k], a2, e->field_27[k]);
+    e->field_60[k] = a2;
+    e->field_90 = func_80032494(a0, a1);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033124);
 

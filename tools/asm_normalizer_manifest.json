@@ -1437,5 +1437,13 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80033054": {
+    "passes": [
+      "nosplit",
+      "commutative_swap",
+      "sched_match",
+      "padnop"
+    ]
   }
 }
