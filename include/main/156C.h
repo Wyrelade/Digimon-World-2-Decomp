@@ -1007,4 +1007,18 @@ typedef struct {
     /* 0x4 */ s32 field_4;
 } Pair1291C;
 
+/* func_8002AB54 builds a GPU move-image packet (PsyQ SetDrawMove shape):
+ * Rect2AB54 is the 16-bit source rectangle, DrMove2AB54 the tagged packet. */
+typedef struct {
+    /* 0x0 */ s16 x;
+    /* 0x2 */ s16 y;
+    /* 0x4 */ s16 w;
+    /* 0x6 */ s16 h;
+} Rect2AB54;
+typedef struct {
+    /* 0x00 */ u8 _pad00[3];
+    /* 0x03 */ u8 len;
+    /* 0x04 */ u32 code[5];
+} DrMove2AB54;
+
 #endif /* MAIN_156C_H */

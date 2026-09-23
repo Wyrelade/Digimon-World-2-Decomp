@@ -3255,7 +3255,19 @@ void func_8002AB34(u8 *a0) {
     a0[7] = 0x28;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002AB54);
+void func_8002AB54(DrMove2AB54 *p, Rect2AB54 *r, s32 x, s32 y) {
+    s32 len = 5;
+
+    if (r->w == 0 || r->h == 0) {
+        len = 0;
+    }
+    p->code[0] = 0x01000000;
+    p->code[1] = 0x80000000;
+    p->len = len;
+    p->code[2] = *(u32 *)&r->x;
+    p->code[3] = (y << 16) | (x & 0xFFFF);
+    p->code[4] = *(u32 *)&r->w;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002ABB4);
 
