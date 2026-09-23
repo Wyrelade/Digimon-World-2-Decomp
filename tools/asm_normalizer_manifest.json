@@ -1358,5 +1358,11 @@
       "commutative_swap",
       "prologue_save_hoist"
     ]
+  },
+  "func_80033CE4": {
+    "passes": [
+      "nosplit",
+      "padnop"
+    ]
   }
 }
