@@ -1041,5 +1041,13 @@
       "ra_restore_sink",
       "epilogue_unfill"
     ]
+  },
+  "func_8002B4C4": {
+    "passes": [
+      "nosplit",
+      "ra_restore_sink",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }

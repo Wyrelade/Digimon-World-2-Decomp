@@ -1119,4 +1119,10 @@ typedef struct {
     u8 _pad02[0x0E];
 } Ent62CFC;
 
+/* s16 pair at D_80061900 filled by func_8002B4C4 and handed to func_8002B1A4. */
+typedef struct {
+    /* 0x0 */ s16 field_0;
+    /* 0x2 */ s16 field_2;
+} Pair61900;
+
 #endif /* MAIN_156C_H */

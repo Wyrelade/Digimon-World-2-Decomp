@@ -200,7 +200,7 @@ extern void func_8002ACC8(u16, u16, u16, u16, u16);
 extern void func_8002BB84(void);
 extern void func_8002AE4C();
 extern void func_8002B2B4(void);
-extern void func_8002B1A4(void);
+extern void func_8002B1A4();
 extern s32 D_8004FE18;
 extern s32 D_8004FDB0;
 extern void func_8003A614(void);
@@ -238,6 +238,12 @@ extern void func_8002659C(Actor *arg0, u8 arg1);
 extern void func_800265DC(Actor *arg0, u8 arg1);
 extern s32 func_80026630(void);
 extern s32 *D_8004FBC4;
+extern Pair61900 D_80061900;
+extern s32 D_80061990;
+extern s32 D_80061994;
+extern s32 D_80061998;
+extern s32 D_8006199C;
+extern s32 D_800619A0;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3474,7 +3480,14 @@ s32 func_8002B494(s32 a0) {
 }
 __asm__(".word 0\n");
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B4C4);
+void func_8002B4C4(void) {
+    D_80061900.field_0 = D_80061990 / 2;
+    D_80061900.field_2 = D_80061994 / 2;
+    func_8002B1A4(&D_80061900);
+    D_800619A0 = 10;
+    D_8006199C = 0;
+    D_80061998 = 0x3FFF;
+}
 
 void func_8002B544(s32 arg0) { func_8002D6C4(); }
 
