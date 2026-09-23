@@ -5656,7 +5656,19 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035CE4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035F04);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036054);
+s32 func_80036054(s16 a0, s16 a1, SlotHead8 *out) {
+    if (D_80062D38[a0] == 1) {
+        func_800398D4(a0, a1);
+        out->field_0 = D_80062CFC[a1].field_0;
+        out->field_1 = D_80062CFC[a1].field_1;
+        out->field_2 = D_80062CFC[a1].field_2;
+        out->field_3 = D_80062CFC[a1].field_3;
+        out->field_4 = D_80062CFC[a1].field_4;
+        out->field_6 = D_80062CFC[a1].field_6;
+        return 0;
+    }
+    return -1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036164);
 

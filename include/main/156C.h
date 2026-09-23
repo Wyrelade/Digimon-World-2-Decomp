@@ -1232,7 +1232,12 @@ typedef struct {
 typedef struct {
     /* 0x0 */ u8 field_0;
     /* 0x1 */ u8 field_1;
-    u8 _pad02[0x0E];
+    /* 0x2 */ u8 field_2;
+    /* 0x3 */ u8 field_3;
+    /* 0x4 */ u8 field_4;
+    u8 _pad05[0x1];
+    /* 0x6 */ u16 field_6;
+    u8 _pad08[0x08];
 } Ent62CFC;
 
 /* s16 pair at D_80061900 filled by func_8002B4C4 and handed to func_8002B1A4. */
@@ -1443,5 +1448,16 @@ typedef struct {
     u8 _pad00[0x10];
     /* 0x10 */ u32 *ot;
 } Db2B06C;
+
+/* 8-byte copy of an Ent62CFC head filled by func_80036054. */
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    /* 0x1 */ u8 field_1;
+    /* 0x2 */ u8 field_2;
+    /* 0x3 */ u8 field_3;
+    /* 0x4 */ u8 field_4;
+    u8 _pad05[0x1];
+    /* 0x6 */ u16 field_6;
+} SlotHead8;
 
 #endif /* MAIN_156C_H */
