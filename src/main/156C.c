@@ -4705,7 +4705,23 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F864);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F874);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F924);
+s32 func_8003F924(s8 *a, s8 *b) {
+    if (a == 0 || b == 0) {
+        if (a == b) {
+            return 0;
+        }
+        if (a == 0) {
+            return -1;
+        }
+        return 1;
+    }
+    while (*a == *b++) {
+        if (*a++ == 0) {
+            return 0;
+        }
+    }
+    return *a - b[-1];
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F994);
 

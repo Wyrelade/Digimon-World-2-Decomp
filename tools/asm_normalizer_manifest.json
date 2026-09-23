@@ -926,5 +926,11 @@
       "delay_fill",
       "epilogue_unfill"
     ]
+  },
+  "func_8003F924": {
+    "passes": [
+      "exit_merge",
+      "padnop"
+    ]
   }
 }
