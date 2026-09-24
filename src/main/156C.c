@@ -437,6 +437,17 @@ extern s32 D_80061C48;
 extern s32 D_80060054;
 extern s32 func_80013854(void *, s32, s32);
 extern u16 D_80040F98[];
+extern void (*D_80061BC8)(s16, s16, s32);
+extern void (*D_80061BCC)(s16, s16, s32);
+extern void (*D_80061BD0)(s16, s16, s32);
+extern void (*D_80061BD4)(s16, s16, s32);
+extern void (*D_80061BD8)(s16, s16, s32);
+extern void (*D_80061BDC)(s16, s16, s32);
+extern void (*D_80061BE0)(s16, s16, s32);
+extern void (*D_80061BE4)(s16, s16, s32);
+extern void (*D_80061BE8)(s16, s16, s32);
+extern void (*D_80061BEC)(s16, s16, s32);
+extern void (*D_80061BF0)(s16, s16);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -6455,7 +6466,54 @@ void func_80034424(s16 a0, s16 a1) {
     e->field_90 = func_80032494(a0, a1);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800344D4);
+void func_800344D4(s16 a0, s16 a1, s32 a2) {
+    s16 i = a0;
+    s16 j = a1;
+    Elm354F4 *e = &D_80061C50[i][j];
+    s32 v = *e->field_0++;
+
+    switch ((u8)a2) {
+    case 0:
+        e->field_26 = v;
+        e->field_90 = func_80032494(i, j);
+        return;
+    case 6:
+        D_80061BC8(i, j, v);
+        return;
+    case 7:
+        D_80061BCC(i, j, v);
+        return;
+    case 10:
+        D_80061BD0(i, j, v);
+        return;
+    case 11:
+        D_80061BD4(i, j, v);
+        return;
+    case 64:
+        D_80061BD8(i, j, v);
+        return;
+    case 91:
+        D_80061BEC(i, j, v);
+        return;
+    case 98:
+        D_80061BDC(i, j, v);
+        return;
+    case 99:
+        D_80061BE0(i, j, v);
+        return;
+    case 100:
+        D_80061BE4(i, j, v);
+        return;
+    case 101:
+        D_80061BE8(i, j, v);
+        return;
+    case 0x79:
+        D_80061BF0(i, j);
+        return;
+    }
+    e->field_90 = func_80032494(a0, a1);
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034704);
 

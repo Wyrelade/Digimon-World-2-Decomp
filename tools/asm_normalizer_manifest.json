@@ -1909,5 +1909,13 @@
     "passes": [
       "commutative_swap"
     ]
+  },
+  "func_800344D4": {
+    "passes": [
+      "nosplit",
+      "shift_const_fold",
+      "sched_match",
+      "padnop"
+    ]
   }
 }
