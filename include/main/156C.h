@@ -964,7 +964,8 @@ typedef struct {
     s8  field_26;       /* 0x26 */
     u8  field_27[0x10]; /* 0x27 */
     u8  field_37[0x10]; /* 0x37 */
-    u8  _p47[0xD];      /* 0x47 */
+    u8  _p47[0xB];      /* 0x47 */
+    s16 field_52;       /* 0x52 */
     s16 field_54;       /* 0x54 */
     s16 field_56;       /* 0x56 */
     u16 field_58;       /* 0x58 */

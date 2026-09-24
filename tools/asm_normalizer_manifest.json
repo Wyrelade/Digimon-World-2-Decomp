@@ -1708,5 +1708,13 @@
       "commutative_swap",
       "padnop"
     ]
+  },
+  "func_80031DA4": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "sched_match",
+      "padnop"
+    ]
   }
 }
