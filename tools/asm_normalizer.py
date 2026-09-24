@@ -1092,6 +1092,19 @@ def _sm_units(lines, ins, la_tmp=None):
                 cur.append((i, j, lines[grp[1]].split("#", 1)[0].strip()))
                 i = j + 1
                 continue
+            # indexed form `lui $1,%hi(S); addu $1,$1,$b; op $r,%lo(S)($1)`:
+            # one unit keyed / dependency-checked as the macro `op $r,S($b)`
+            if (j < len(lines) and len(grp) == 3 and not prev_br
+                    and re.match(r"\s*lui\s+\$(?:1|at)\s*,\s*%hi\(", lines[grp[0]])):
+                ma = re.match(r"\s*addu\s+\$(?:1|at)\s*,\s*\$(?:1|at)\s*,\s*(\$\w+)\s*$",
+                              lines[grp[1]].split("#", 1)[0])
+                m3 = re.match(r"\s*(lw|lh|lhu|lb|lbu)\s+(\$\w+)\s*,\s*%lo\(([A-Za-z_]\w*)\)"
+                              r"\(\$(?:1|at)\)\s*$", lines[grp[2]].split("#", 1)[0])
+                if ma and m3 and norm_reg(ma.group(1)) not in ("at", None):
+                    cur.append((i, j, "%s\t%s,%s(%s)" % (m3.group(1), m3.group(2),
+                                                         m3.group(3), ma.group(1))))
+                    i = j + 1
+                    continue
             flush()
             i = j + 1
             prev_br = False
@@ -1218,6 +1231,8 @@ def sched_match_pass(stext, tgt):
             k = _sm_srckey(u[2])
             if la_tmp.get((u[0], u[1])) in bad:
                 k = None                    # not private: a barrier
+            if u[2].split(None, 1)[0].lower() == "nop":
+                k = None                    # an explicit load-delay nop stays put
             t = next((q for q, tk in enumerate(tkeys)
                       if k is not None and tk == k and q not in used), None)
             if t is None:
