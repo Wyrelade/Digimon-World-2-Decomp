@@ -1923,4 +1923,9 @@ typedef struct Blk22E60 {
     /* 0x8 */ s32 field_8;
 } Blk22E60;
 
+/* 6-byte rank table at D_80050724, indexed by ElmE620.field_0 (func_80022AE4). */
+typedef struct {
+    u8 b[6];
+} Tbl50724;
+
 #endif /* MAIN_156C_H */

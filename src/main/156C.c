@@ -481,6 +481,7 @@ extern Halves D_80050704;
 extern Halves D_80050708;
 extern s32 D_80050750;
 extern s32 func_80023F90(s32 arg0);
+extern Tbl50724 D_80050724[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -4217,7 +4218,41 @@ void func_800229F4(void) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022AE4);
+void func_80022AE4(void) {
+    Tbl50724 tbl = D_80050724[0];
+    ElmE620 *base = D_80050720->elems;
+    ElmE620 tmp;
+    s32 i;
+    s32 j;
+    s32 best;
+    s32 bestk;
+    s32 k;
+
+    func_800229F4();
+    for (i = 0; i < 0x23; i++) {
+        if (base[i].field_0 == 0) {
+            return;
+        }
+        best = i;
+        bestk = base[i].field_1 + (999 - base[i].field_D) * 1000 + tbl.b[base[i].field_0] * 1000000;
+        for (j = i + 1; j < 0x24; j++) {
+            if (base[j].field_0 == 0) {
+                break;
+            }
+            k = base[j].field_1 + (999 - base[j].field_D) * 1000 + tbl.b[base[j].field_0] * 1000000;
+            if (k < bestk) {
+                best = j;
+                bestk = k;
+            }
+        }
+        if (best != i) {
+            tmp = base[i];
+            base[i] = base[best];
+            base[best] = tmp;
+        }
+    }
+}
+
 
 void func_80022D84(ActorWork *arg0) {
     Node22D84 *n = (Node22D84 *)((u8 *)arg0 - 0xC);
