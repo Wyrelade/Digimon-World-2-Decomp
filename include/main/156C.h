@@ -1022,7 +1022,8 @@ typedef struct {
 /* Status block polled through D_80048E90 (func_80025C90 spins on bit 1 of
  * field_4). */
 typedef struct {
-    /* 0x00 */ s32 field_0;
+    /* 0x00 */ volatile u8 field_0;
+    u8 _pad01[0x3];
     /* 0x04 */ volatile u16 field_4;
     u8 _pad06[0x4];
     /* 0x0A */ u16 field_A;
@@ -1097,6 +1098,9 @@ typedef struct {
     /* 0x39 */ u8 field_39;
     u8 _pad3A[0x2];
     /* 0x3C */ u8 *field_3C;
+    /* 0x40 */ u8 *field_40;
+    /* 0x44 */ u8 field_44;
+    /* 0x45 */ u8 field_45;
 } Ent266D0;
 
 /* Block reached through D_8005071C; func_80011F04 compacts the 12 slot bytes at

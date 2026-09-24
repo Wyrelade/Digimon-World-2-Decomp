@@ -156,7 +156,7 @@ extern s32 D_80062F94;
 extern void func_8003F5A4(s32);
 extern s32 (*D_80048E30)(Ent266D0 *);
 extern s32 D_80048E98;
-extern void func_80025760(Ent266D0 *, s32);
+extern s32 func_80025760(Ent266D0 *, s32);
 extern void func_80038BE4(s16, s32, s32, s32);
 extern s32 D_80063010[4][4];
 extern s32 (*D_80063050[4])(s32 *);
@@ -434,6 +434,7 @@ extern void func_8002A004(s32);
 extern s16 D_800624D0;
 extern s16 D_800624D2;
 extern s32 D_80061C48;
+extern s32 D_80060054;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4072,7 +4073,51 @@ void func_80025670(Obj25FBC *a0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025760);
+s32 func_80025760(Ent266D0 *a0, s32 a1) {
+    s32 r;
+    s32 v;
+    s32 t;
+
+    if (a1 < 0) {
+        r = D_80048E90->field_0;
+        a0->field_44 = 0xFF;
+        a0->field_45 = 1;
+        *a0->field_40 = ~a1;
+        while (!(D_80048E90->field_4 & 1)) {
+        }
+        while (func_80026630() == 0) {
+        }
+        D_80048E90->field_0 = ~a1;
+    } else {
+        v = 0x88;
+        t = *a0->field_3C;
+        if ((t >> 4) == 8 && a0->field_44 >= 9) {
+            v = 0x22;
+        }
+        D_80060050 = 0x1AE;
+        D_8006004C = *(volatile u16 *)0x1F801120;
+        D_80060054 = *(volatile u16 *)0x1F801124;
+        while (!(D_80048E90->field_4 & 2)) {
+        }
+        r = D_80048E90->field_0;
+        D_80048E90->field_E = v;
+        while (!(D_80048E8C->field_0 & 0x80)) {
+            if (func_80026630() != 0) {
+                return -0x14;
+            }
+        }
+        D_80048E90->field_0 = a1;
+        if (v == 0x22) {
+            D_80048E8C->field_0 = -0x81;
+            D_80048E90->field_A |= 0x10;
+        }
+        a0->field_45++;
+        a0->field_3C[a0->field_44] = r;
+        a0->field_44++;
+    }
+    return r;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025984);
 
