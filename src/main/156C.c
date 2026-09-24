@@ -3923,7 +3923,14 @@ void func_80022628(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800226AC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800227A8);
+s32 func_800227A8(s32 id) {
+    s32 i = func_800225C4();
+    if (i != -1) {
+        D_80050720->field_66[i] = id;
+    }
+    return i;
+}
+
 
 void func_800227F0(s32 i) {
     D_80050720->field_66[i] = 0;
