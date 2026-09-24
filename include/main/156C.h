@@ -843,7 +843,7 @@ typedef struct {
     u8 _pad0C[0x4];
     /* 0x10 */ void *field_10;
     /* 0x14 */ void (*field_14)(void *);
-    /* 0x18 */ s32 field_18;
+    /* 0x18 */ s32 (*field_18)(void *);
     u8 _pad1C[0x14];
     /* 0x30 */ u8 *field_30;
     u8 _pad34[0x1];
@@ -853,8 +853,10 @@ typedef struct {
     /* 0x38 */ u8 field_38;
     /* 0x39 */ u8 field_39;
     u8 _pad3A[0x2];
-    /* 0x3C */ u8 *field_3C;
-    u8 _pad40[0x6];
+    /* 0x3C */ volatile u8 *field_3C;
+    u8 _pad40[0x4];
+    /* 0x44 */ volatile u8 field_44;
+    u8 _pad45[0x1];
     /* 0x46 */ u8 field_46;
     /* 0x47 */ u8 field_47;
     u8 _pad48[0x1];
@@ -862,7 +864,8 @@ typedef struct {
     /* 0x4A */ u8 field_4A;
     u8 _pad4B[0x1];
     /* 0x4C */ s32 field_4C;
-    u8 _pad50[0xD];
+    /* 0x50 */ u8 field_50;
+    u8 _pad51[0xC];
     /* 0x5D */ u8 field_5D[6];
     u8 _pad63[0x80];
     /* 0xE3 */ u8 field_E3;

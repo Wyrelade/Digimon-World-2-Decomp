@@ -1950,5 +1950,11 @@
   },
   "func_8001F668": {
     "passes": []
+  },
+  "func_80024DC8": {
+    "passes": [
+      "nosplit",
+      "sched_match"
+    ]
   }
 }

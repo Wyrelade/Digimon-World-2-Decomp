@@ -449,6 +449,7 @@ extern void (*D_80061BE8)(s16, s16, s32);
 extern void (*D_80061BEC)(s16, s16, s32);
 extern void (*D_80061BF0)(s16, s16);
 extern void func_8001CAC4(Elem20 *);
+extern s32 func_80025D4C(Obj25FBC *);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4408,7 +4409,68 @@ s32 func_80024CB8(Obj25FBC *a0) {
     return 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024DC8);
+void func_80024DC8(Obj25FBC *a0) {
+    s32 old;
+    s32 i;
+    s32 r;
+
+    if (!(*a0->field_3C & 0xF0)) {
+        a0->field_30[0] = 0xFF;
+        a0->field_30[1] = 0;
+        a0->field_E8 = 0;
+        a0->field_35 = 0;
+        D_80048E1C(a0);
+        return;
+    }
+    old = a0->field_E8;
+    a0->field_E8 = *a0->field_3C >> 4;
+    if (a0->field_E8 == 0xF) {
+        a0->field_E8 = old;
+    } else {
+        a0->field_30[0] = 0;
+        a0->field_30[1] = a0->field_3C[0];
+        a0->field_35 = a0->field_44;
+        for (i = 2; i < a0->field_44; i++) {
+            a0->field_30[i] = a0->field_3C[i];
+        }
+    }
+    if ((a0->field_3C[1] == 0 && (a0->field_46 != 1 || a0->field_14 != 0) && a0->field_50 == 0)
+        || a0->field_E8 != old) {
+        D_80048E1C(a0);
+    }
+
+    a0->field_4A = 0;
+    if (a0->field_46 == 0xFF) {
+        return;
+    }
+    if (a0->field_46 != 0 && a0->field_37 == 0) {
+        return;
+    }
+    if ((u8)(a0->field_46 - 2) < 0xFC && *a0->field_3C != 0xF3) {
+        D_80048E1C(a0);
+        return;
+    }
+    switch (a0->field_46) {
+    case 0:
+        a0->field_49 = 1;
+        a0->field_46++;
+        break;
+    case 1:
+        a0->field_47 = 0;
+        a0->field_46++;
+        break;
+    case 0xFE:
+        a0->field_46 = 0xFF;
+        break;
+    default:
+        if (a0->field_18 != 0) {
+            a0->field_46 += a0->field_18(a0);
+        } else {
+            a0->field_46 += func_80025D4C(a0);
+        }
+        break;
+    }
+}
 
 void func_80025034(Obj25FBC *a0) {
     a0->field_4C++;
