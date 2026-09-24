@@ -1987,5 +1987,10 @@
     "passes": [
       "gp8_nosplit"
     ]
+  },
+  "func_8001A8BC": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }
