@@ -2424,7 +2424,11 @@ def _wr_nodes(lines):
             node(slot, u, d)
         last = len(nodes) - 1
         if mn in ("jal", "jalr"):
-            node(None, [(r, None) for r in ("a0", "a1", "a2", "a3")],
+            # a direct call reads only the argument registers its callee's
+            # retail asm reads (unknown callee: all four)
+            mc = re.match(r"\s*jal\s+([A-Za-z_]\w*)\s*$", lines[i].split("#", 1)[0])
+            node(None, [(r, None) for r in ("a0", "a1", "a2", "a3")
+                        if not mc or _callee_reads(mc.group(1), r)],
                  [(r, None) for r in _CALL_CLOBBER if r not in ("hi", "lo")])
         elif mn in ("j", "jr") and regs:
             node(None, [(r, None) for r in _WR_RET], [], fall=False)
@@ -2531,9 +2535,35 @@ def _wr_webs(nodes):
     return occ, pinned, reg_of, LO, def_w
 
 
+def _wr_rename(lines, nodes, occ, mapping):
+    """Rewrite every explicit occurrence of each web in `mapping` to its new
+    register (simultaneously)."""
+    edits = {}
+    for (n, rr, pos, kd), w in occ.items():
+        if w in mapping and pos is not None:
+            edits.setdefault(nodes[n]["line"], {})[pos] = "$%d" % ABI2NUM[mapping[w]]
+    for li, poss in edits.items():
+        ind, mn, ops, com, rp = _wr_parse(lines[li])
+        ops = list(ops)
+        for pos, num in poss.items():
+            k, par_, _r = rp[pos]
+            if par_:
+                ops[k] = re.sub(r"\(\$\w+\)$", "(%s)" % num, ops[k])
+            else:
+                ops[k] = num
+        body = lines[li].split("#", 1)[0].strip().split(None, 1)[0]
+        lines[li] = "%s%s\t%s%s" % (ind, body, ",".join(ops),
+                                    ("\t#" + com) if com else "")
+
+
 def web_realloc_pass(stext, tgt):
     lines = stext.split("\n")
-    tk = [(mn, regs) for mn, regs, _ in (insn_parts(d) for _, d in tgt) if mn != "nop"]
+    tk = []
+    for _, d in tgt:
+        mn, regs, _sk = insn_parts(d)
+        if mn != "nop":
+            sy = _SYM_RE.findall(d)
+            tk.append((mn + ("|" + sy[0] if sy else ""), regs))
     for _ in range(12):
         nodes, ok = _wr_nodes(lines)
         if not ok:
@@ -2546,8 +2576,9 @@ def web_realloc_pass(stext, tgt):
             ind, mn, ops, com, rp = _wr_parse(lines[nd["line"]])
             if mn == "nop" or not mn:
                 continue
+            sy = _SYM_RE.findall(lines[nd["line"]].split("#", 1)[0])
             for cm, cr in _wr_canon(mn, ops, rp):
-                ours.append((n, cr, cm))
+                ours.append((n, cr, cm + ("|" + sy[0] if sy and cm != "?" else "")))
         sm = difflib.SequenceMatcher(None, [o[2] for o in ours], [t[0] for t in tk],
                                      autojunk=False)
         want = {}
@@ -2564,6 +2595,23 @@ def web_realloc_pass(stext, tgt):
                         w = occ.get((n, r, pos, kd))
                         if w is not None:
                             want.setdefault(w, set()).add(t)
+        # all wanted webs at once first (resolves swaps and cycles), then one
+        # at a time
+        cand = {}
+        for w, ts in want.items():
+            if w in pinned or len(ts) != 1:
+                continue
+            t = next(iter(ts))
+            if t != reg_of[w] and t not in _WR_FIXED and reg_of[w] not in _WR_FIXED:
+                cand[w] = t
+        if len(cand) > 1:
+            fin = dict(reg_of)
+            fin.update(cand)
+            clash = any(fin[x] == fin[y] for n in range(len(nodes))
+                        for x in def_w[n] for y in LO[n] if x != y)
+            if not clash:
+                _wr_rename(lines, nodes, occ, cand)
+                continue
         done = False
         for w, ts in sorted(want.items()):
             if w in pinned or len(ts) != 1:
@@ -2583,23 +2631,7 @@ def web_realloc_pass(stext, tgt):
                     break
             if bad:
                 continue
-            num = "$%d" % ABI2NUM[t]
-            edits = {}
-            for (n, rr, pos, kd), ww in occ.items():
-                if ww == w and pos is not None:
-                    edits.setdefault(nodes[n]["line"], set()).add(pos)
-            for li, poss in edits.items():
-                ind, mn, ops, com, rp = _wr_parse(lines[li])
-                ops = list(ops)
-                for pos in poss:
-                    k, par_, _r = rp[pos]
-                    if par_:
-                        ops[k] = re.sub(r"\(\$\w+\)$", "(%s)" % num, ops[k])
-                    else:
-                        ops[k] = num
-                body = lines[li].split("#", 1)[0].strip().split(None, 1)[0]
-                lines[li] = "%s%s\t%s%s" % (ind, body, ",".join(ops),
-                                            ("\t#" + com) if com else "")
+            _wr_rename(lines, nodes, occ, {w: t})
             done = True
             break
         if not done:
