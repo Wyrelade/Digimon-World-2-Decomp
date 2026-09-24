@@ -2135,5 +2135,10 @@
       "gp8_nosplit",
       "label_nop"
     ]
+  },
+  "func_8002284C": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }

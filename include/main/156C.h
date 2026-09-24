@@ -1678,6 +1678,8 @@ typedef struct {
     u8 _pad36[0x1C];
     /* 0x52 */ u8 field_52[0x14];
     /* 0x66 */ u16 field_66[0x30];
+    u8 _padC6[0x1E];
+    /* 0xE4 */ ElmE620 elems[0x24];
 } Obj50720;
 
 /* Record behind Ent17D84.field_4: an id byte at 0x01, a name at 0x4C. */
