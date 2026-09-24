@@ -1061,11 +1061,13 @@ def _sm_indep(a, b, stable=frozenset()):
     return True
 
 
-def _sm_units(lines, ins):
+def _sm_units(lines, ins, la_tmp=None):
     """Straight-line blocks of movable units. A unit is one insn line, or an
     explicitly expanded symbolic access `.set noat; lui $1,%hi(S); op ..%lo(S)($1);
     .set at` (keyed and dependency-checked by its %lo insn). Returns
-    [[(first_line, last_line, key_body), ...], ...]."""
+    [[(first_line, last_line, key_body), ...], ...]. With a `la_tmp` dict, a
+    split address `lui $t,%hi(S); addiu $d,$t,%lo(S)` is one unit keyed
+    `la $d,S` and la_tmp[(first, last)] = $t (the caller must prove $t private)."""
     blocks, cur, noreo, prev_br = [], [], False, False
     ins_at = {i for i, _l in ins}
 
@@ -1121,6 +1123,15 @@ def _sm_units(lines, ins):
                             idx = ma.group(3)
                             j = j2
                             b2 = lines[j].split("#", 1)[0].strip()
+                    m3 = re.match(r"addiu\s+(\$\w+)\s*,\s*(\$\w+)\s*,\s*%lo\(([^)]+)\)$", b2)
+                    if (la_tmp is not None and m3 and idx is None
+                            and m3.group(2) == mh.group(1) and m3.group(3) == mh.group(2)
+                            and m3.group(1) != mh.group(1)):
+                        cur.append((i, j, "la\t%s,%s" % (m3.group(1), m3.group(3))))
+                        la_tmp[(i, j)] = mh.group(1)
+                        prev_br = False
+                        i = j + 1
+                        continue
                     m2 = re.match(r"(\w+)\s+(\$\w+)\s*,\s*%lo\(([^)]+)\)\((\$\w+)\)$", b2)
                     if (m2 and m2.group(3) == mh.group(2) and m2.group(4) == mh.group(1)
                             and m2.group(2) == mh.group(1)
@@ -1158,6 +1169,23 @@ def _sm_dep_body(body):
     return "%s\t%s,%s" % m.groups() if m else body
 
 
+def _sm_dead_after(lines, last, reg):
+    """`reg` is written before it is read on the straight line after line
+    `last` (labels are passed through; a transfer or the end gives up)."""
+    for j in range(last + 1, len(lines)):
+        l = lines[j]
+        if not _s_is_insn(l):
+            continue
+        if _src_is_branch(l) or _src_is_ret(l) or re.match(r"\s*jalr?\b", l):
+            return False
+        d, u = defs_uses(_sm_dep_body(l.split("#", 1)[0].strip()))
+        if reg in u:
+            return False
+        if reg in d:
+            return True
+    return False
+
+
 def sched_match_pass(stext, tgt):
     tkeys = [_sm_key(d.strip(), True) for _w, d in tgt]
     lines = stext.split("\n")
@@ -1167,10 +1195,29 @@ def sched_match_pass(stext, tgt):
     # a unit with no target match (e.g. `la $r,S+4` that splat names by the
     # address it resolves to) is a barrier: reorder the matched runs around it
     runs = []
-    for blk0 in _sm_units(lines, ins):
+    la_tmp = {}
+    blocks = _sm_units(lines, ins, la_tmp)
+    for blk0 in blocks:
+        # a split-address temp is private when only its own `la` units touch it
+        # in the block and it is written before read after the block: then the
+        # units depend on each other only through their destinations
+        tmps = {la_tmp[(u[0], u[1])] for u in blk0 if (u[0], u[1]) in la_tmp}
+        bad = set()
+        for t in tmps:
+            rt = norm_reg(t)
+            for u in blk0:
+                if la_tmp.get((u[0], u[1])) == t:
+                    continue
+                du = defs_uses(_sm_dep_body(u[2]))
+                if rt in du[0] or rt in du[1]:
+                    bad.add(t)
+            if t not in bad and not _sm_dead_after(lines, blk0[-1][1], rt):
+                bad.add(t)
         cur = []
         for u in blk0:
             k = _sm_srckey(u[2])
+            if la_tmp.get((u[0], u[1])) in bad:
+                k = None                    # not private: a barrier
             t = next((q for q, tk in enumerate(tkeys)
                       if k is not None and tk == k and q not in used), None)
             if t is None:
