@@ -2322,7 +2322,20 @@ u8 func_8001DA80(s32 id, s32 val) {
     return e->field_D[i];
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DB18);
+Ent1DB18 *func_8001DB18(s32 id) {
+    Rec1DB18 *p = (Rec1DB18 *)func_80023A08(0xC6F);
+
+    while (1) {
+        if (p->field_0 == 0) {
+            break;
+        }
+        if (p->field_0 == id) {
+            return (Ent1DB18 *)p;
+        }
+        p++;
+    }
+    return 0;
+}
 
 void func_8001DB68(void *a0, Out1DB68 *out) {
     Ent1DB18 *src = func_8001DB18(a0);

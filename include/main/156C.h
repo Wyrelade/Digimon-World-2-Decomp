@@ -1567,4 +1567,11 @@ typedef struct {
     /* 0x11 */ u8 field_11;
 } Src16198;
 
+/* 0x64-stride zero-terminated table (func_80023A08(0xC6F)) searched by
+ * func_8001DB18 for the record whose leading id byte matches. */
+typedef struct {
+    /* 0x00 */ u8 field_0;
+    u8 _pad01[0x63];
+} Rec1DB18;
+
 #endif /* MAIN_156C_H */
