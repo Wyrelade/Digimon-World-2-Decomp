@@ -384,6 +384,9 @@ extern s32 func_8001E704(s32 id);
 extern s32 func_8001E728(s32 arg0, s32 arg1);
 extern void func_80020C40(ContC40 *a0, s32 *a1, u16 a2);
 extern void func_8002B424(s32, s32 *);
+extern s16 D_8005E6E4;
+extern void func_800226AC(void);
+extern void func_80066F34(s32, s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3046,7 +3049,43 @@ void func_80022118(s32 arg0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800221C4);
+void func_800221C4(s32 id, s32 val) {
+    if (id < 600) {
+        if (id == 0x10 && val == 0) {
+            func_800220D0((u8 *)&D_8005F624, 0x11, 0);
+        }
+        func_800220D0((u8 *)&D_8005F624, id, val);
+    } else if (id < 700) {
+        func_800220D0((u8 *)&D_8005F644, id - 600, val);
+    } else if (id < 800) {
+        func_800220D0((u8 *)&D_8005F64C, id - 700, val);
+    } else if (id < 1000) {
+        func_800220D0((u8 *)&D_8005F654, id - 800, val);
+    } else if (id < 2000) {
+        D_8005F664 = id - 1900;
+    } else if (id < 0x8BD) {
+        D_8005E6E4 = id - 2000;
+        func_800226AC();
+    } else if (id < 3000) {
+        ((VDD4_21E78 *)&D_8005E620)->a[id - 2000]++;
+    } else if (id < 4000) {
+        switch (id - 3000) {
+        case 3:
+            func_80022118(0xB7);
+            break;
+        case 31:
+            func_80022118(0xB6);
+            break;
+        case 217:
+            func_80022118(0xB8);
+            break;
+        }
+    } else if (id < 10000) {
+        if (func_80013378() == 2) {
+            func_80066F34(id, val);
+        }
+    }
+}
 
 void func_80022388(Pair22388 *p) {
     s32 i;
