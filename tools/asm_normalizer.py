@@ -731,6 +731,62 @@ _ZERO_TGT = re.compile(r"^(?:addu|or)\s+\S+\s*,\s*\$?zero\s*,\s*\$?zero\s*$"
                        r"|^(?:move\s+\S+\s*,\s*\$?zero|li\s+\S+\s*,\s*0)\s*$")
 
 
+def _noreorder_lines(lines):
+    out, on = set(), False
+    for x, l in enumerate(lines):
+        t = l.strip()
+        if t.startswith(".set") and "noreorder" in t:
+            on = True
+        elif t.startswith(".set") and t.split()[-1] == "reorder":
+            on = False
+        elif on:
+            out.add(x)
+    return out
+
+
+def _zero_reach(lines, ins, p, reg, nr, depth=0):
+    """`reg` holds zero on every path reaching insn ins[p]. Walks back on the
+    straight line; at a join label every entrant branch must deliver zero too
+    (its noreorder slot, else the path before it), and the fall-through only
+    counts when the insn before the label is not the slot of a `j`."""
+    li = ins[p][0]
+    for q in range(p - 1, -1, -1):
+        qi, ql = ins[q]
+        if q == p - 1 and _src_is_branch(ql):
+            continue            # we sit in its delay slot: it has not transferred yet
+        labs = [x.strip()[:-1] for x in lines[qi + 1:li]
+                if _s_is_label(x) and _branch_target_label(lines, ins, x)]
+        if labs:
+            if depth >= 4:
+                return False
+            for lab in labs:
+                pat = re.compile(r"[\s,]" + re.escape(lab) + r"\s*$")
+                for b, (bi, bl) in enumerate(ins):
+                    if not pat.search(bl.split("#", 1)[0]) or not _src_is_branch(bl):
+                        continue
+                    if bi in nr and b + 1 < len(ins) and ins[b + 1][0] in nr:
+                        sb = ins[b + 1][1].split("#", 1)[0].strip()
+                        if reg in defs_uses(sb)[0]:
+                            z = _ZERO_DEF_S.match(ins[b + 1][1])
+                            if not (z and _src_reg(next(g for g in z.groups()[:4] if g)) == reg):
+                                return False
+                            continue
+                    if not _zero_reach(lines, ins, b, reg, nr, depth + 1):
+                        return False
+            prev = ins[q - 1][1] if q > 0 else ""
+            if (q > 0 and qi in nr and re.match(r"\s*(j|b)\s+\$L", prev)
+                    and ins[q - 1][0] in nr):
+                return True     # ql is the slot of a `j`: no fall-through entrant
+        if _src_is_branch(ql):
+            return False
+        d, _u = defs_uses(ql.split("#", 1)[0].strip())
+        if reg in d:
+            z = _ZERO_DEF_S.match(ql)
+            return bool(z) and _src_reg(next(g for g in z.groups()[:4] if g)) == reg
+        li = qi
+    return False
+
+
 def zero_remat_s(stext, budget):
     if budget <= 0:
         return stext
@@ -746,20 +802,7 @@ def zero_remat_s(stext, budget):
         src = _src_reg(m.group(3))
         if not src or src == _src_reg("$0"):
             continue
-        zero = False
-        for q in range(p - 1, -1, -1):
-            qi, ql = ins[q]
-            if q == p - 1 and _src_is_branch(ql):
-                continue            # we sit in its delay slot: it has not transferred yet
-            if _src_is_branch(ql) or any(_branch_target_label(lines, ins, x)
-                                        for x in lines[qi:li]):
-                break
-            d, _u = defs_uses(ql.split("#", 1)[0].strip())
-            if src in d:
-                z = _ZERO_DEF_S.match(ql)
-                zero = bool(z) and _src_reg(next(g for g in z.groups()[:4] if g)) == src
-                break
-        if not zero:
+        if not _zero_reach(lines, ins, p, src, _noreorder_lines(lines)):
             continue
         lines[li] = "%smove\t%s,$0" % (m.group(1), m.group(2))
         budget -= 1
@@ -2390,9 +2433,11 @@ def _wr_canon(mn, ops, rp):
         return [("?", [])] * _src_nwords("\t%s\t%s" % (mn, ",".join(ops)))
     if mn == "li":
         n = _src_nwords("\tli\t%s" % ",".join(ops))
+        v = int(ops[-1], 0)
+        if n != 1 and v & 0xFFFF == 0:
+            return [("lui", regs)]
         if n != 1:
             return [("?", [])] * n
-        v = int(ops[-1], 0)
         return [("addiu" if v < 0x8000 else "ori", regs + [("zero", None)])]
     if mn == "move":
         return [("addu", regs + [("zero", None)])]
@@ -2624,14 +2669,37 @@ def _wr_rename(lines, nodes, occ, mapping):
                                     ("\t#" + com) if com else "")
 
 
+def _wr_imms(items):
+    """Integer operands (immediates, memory offsets) of an operand list; labels
+    and %hi/%lo operands are skipped."""
+    out = []
+    for it in items:
+        it = it.strip()
+        mm = re.fullmatch(r"(.*)\((\S+)\)", it)
+        if mm and (mm.group(2) == "#" or norm_reg(mm.group(2)) is not None):
+            it = mm.group(1).strip()
+        if norm_reg(it) is not None or it == "#":
+            continue
+        v = _sm_int(it) if it else 0
+        if v is not None:
+            out.append(str(v))
+    return out
+
+
+def _wr_tok(mn, regs, sym, imms):
+    """Alignment token: mnemonic, %hi/%lo symbol, zero-register pattern, ints."""
+    return "%s|%s|%s|%s" % (mn, sym or "", "".join("Z" if r == "zero" else "R" for r in regs),
+                            ",".join(imms))
+
+
 def web_realloc_pass(stext, tgt):
     lines = stext.split("\n")
     tk = []
     for _, d in tgt:
-        mn, regs, _sk = insn_parts(d)
+        mn, regs, sk = insn_parts(d)
         if mn != "nop":
             sy = _SYM_RE.findall(d)
-            tk.append((mn + ("|" + sy[0] if sy else ""), regs))
+            tk.append((_wr_tok(mn, regs, sy[0] if sy else "", _wr_imms(sk)), regs))
     for _ in range(12):
         nodes, ok = _wr_nodes(lines)
         if not ok:
@@ -2645,8 +2713,14 @@ def web_realloc_pass(stext, tgt):
             if mn == "nop" or not mn:
                 continue
             sy = _SYM_RE.findall(lines[nd["line"]].split("#", 1)[0])
+            im = _wr_imms(ops)
+            if mn == "subu" and len(im) == 1:
+                im = [str(-int(im[0]))]
             for cm, cr in _wr_canon(mn, ops, rp):
-                ours.append((n, cr, cm + ("|" + sy[0] if sy and cm != "?" else "")))
+                if mn == "li" and cm == "lui":
+                    im = [str((int(ops[-1], 0) >> 16) & 0xFFFF)]
+                ours.append((n, cr, "?" if cm == "?" else
+                             _wr_tok(cm, [r for r, _p in cr], sy[0] if sy else "", im)))
         sm = difflib.SequenceMatcher(None, [o[2] for o in ours], [t[0] for t in tk],
                                      autojunk=False)
         want = {}
@@ -2662,14 +2736,21 @@ def web_realloc_pass(stext, tgt):
                     for kd in ("d", "u"):
                         w = occ.get((n, r, pos, kd))
                         if w is not None:
-                            want.setdefault(w, set()).add(t)
+                            cnt = want.setdefault(w, {})
+                            cnt[t] = cnt.get(t, 0) + 1
         # all wanted webs at once first (resolves swaps and cycles), then one
         # at a time
         cand = {}
-        for w, ts in want.items():
-            if w in pinned or len(ts) != 1:
+        pick = {}
+        for w, cnt in want.items():
+            # plurality of the aligned occurrences (identical-looking insns can
+            # pair up crosswise; any pick is sound, the gate decides)
+            top = sorted(cnt.items(), key=lambda x: -x[1])
+            if len(top) == 1 or top[0][1] > top[1][1]:
+                pick[w] = top[0][0]
+        for w, t in pick.items():
+            if w in pinned:
                 continue
-            t = next(iter(ts))
             if t != reg_of[w] and t not in _WR_FIXED and reg_of[w] not in _WR_FIXED:
                 cand[w] = t
         if len(cand) > 1:
@@ -2681,10 +2762,9 @@ def web_realloc_pass(stext, tgt):
                 _wr_rename(lines, nodes, occ, cand)
                 continue
         done = False
-        for w, ts in sorted(want.items()):
-            if w in pinned or len(ts) != 1:
+        for w, t in sorted(pick.items()):
+            if w in pinned:
                 continue
-            t = next(iter(ts))
             r = reg_of[w]
             if t == r or t in _WR_FIXED or r in _WR_FIXED:
                 continue
