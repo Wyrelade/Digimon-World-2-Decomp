@@ -1947,5 +1947,8 @@
       "save_slot",
       "ra_restore_sink"
     ]
+  },
+  "func_8001F668": {
+    "passes": []
   }
 }

@@ -1820,4 +1820,60 @@ typedef union {
     s32 w[2];
 } Rect28E84;
 
+/* Primitive tag: next-pointer (24 bits) + word count (8 bits), PsyQ P_TAG shape. */
+typedef struct {
+    u32 addr : 24;
+    u32 len : 8;
+} Tag1F668;
+
+/* Byte colour + GPU code, copied as a 4-byte unaligned struct. */
+typedef struct {
+    u8 r;
+    u8 g;
+    u8 b;
+    u8 code;
+} Col1F668;
+
+typedef struct {
+    s16 x;
+    s16 y;
+} XY1F668;
+
+/* Flat quad packet (PsyQ POLY_F4 shape). */
+typedef struct {
+    /* 0x00 */ Tag1F668 tag;
+    /* 0x04 */ Col1F668 c;
+    /* 0x08 */ XY1F668 xy[4];
+} PolyF4_1F668; /* size 0x18 */
+
+/* Draw-mode packet (PsyQ DR_MODE shape). */
+typedef struct {
+    /* 0x00 */ Tag1F668 tag;
+    /* 0x04 */ u32 code[2];
+} DrMode1F668; /* size 0xC */
+
+/* Model-space vertex (PsyQ SVECTOR shape). */
+typedef struct {
+    s16 vx;
+    s16 vy;
+    s16 vz;
+    s16 pad;
+} SVec1F668; /* size 0x8 */
+
+/* 3x3 rotation + translation (PsyQ MATRIX shape). */
+typedef struct {
+    s16 m[3][3];
+    s32 t[3];
+} Mat1F668; /* size 0x20 */
+
+/* Coordinate system func_8002B424 initialises (PsyQ GsCOORDINATE2 shape). */
+typedef struct {
+    /* 0x00 */ s32 flg;
+    /* 0x04 */ Mat1F668 coord;
+    /* 0x24 */ Mat1F668 workm;
+    /* 0x44 */ s32 param;
+    /* 0x48 */ s32 super;
+    u8 _pad4C[0x4];
+} Coord1F668; /* size 0x50 */
+
 #endif /* MAIN_156C_H */

@@ -3375,7 +3375,52 @@ void func_8001F5E8(Actor *a0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F668);
+void func_8001F668(Col1F668 *col, SVec1F668 *v, s32 flags, s32 idx) {
+    Coord1F668 coord;
+    Mat1F668 m;
+    s32 pz;
+    s32 flag;
+    PolyF4_1F668 *p;
+    PolyF4_1F668 *q;
+    DrMode1F668 *dm;
+    s32 *ot;
+    Actor *g;
+
+    func_8002B424(0, (s32 *)&coord);
+    func_8002BD94(&coord, &m);
+    func_8002B494(&m);
+    g = &D_8005F770;
+    p = (PolyF4_1F668 *)g->work;
+    ot = g->field_138[idx];
+    p->c = *col;
+    func_8002AB34((u8 *)p);
+    q = p;
+    if (flags & 4) {
+        p->c.code |= 2;
+    }
+    func_8002D6D4(&v[0], &p->xy[0], &pz, &flag);
+    p->xy[0].x /= 2;
+    p->xy[0].y /= 2;
+    func_8002D6D4(&v[1], &p->xy[1], &pz, &flag);
+    p->xy[1].x /= 2;
+    p->xy[1].y /= 2;
+    func_8002D6D4(&v[2], &p->xy[2], &pz, &flag);
+    p->xy[2].x /= 2;
+    p->xy[2].y /= 2;
+    func_8002D6D4(&v[3], &p->xy[3], &pz, &flag);
+    p->xy[3].x /= 2;
+    p->xy[3].y /= 2;
+    p->tag.addr = ((Tag1F668 *)ot)->addr;
+    ((Tag1F668 *)ot)->addr = (u32)p;
+    p++;
+    func_8002ABB4((DrMode1F668 *)p, 0, 0, (flags & 3) << 5, 0);
+    dm = (DrMode1F668 *)(q + 1);
+    dm->tag.addr = ((Tag1F668 *)ot)->addr;
+    ((Tag1F668 *)ot)->addr = (u32)p;
+    p = (PolyF4_1F668 *)(dm + 1);
+    g->work = (ActorWork *)p;
+}
+
 
 void func_8001F90C(void) {
     s32 i;
