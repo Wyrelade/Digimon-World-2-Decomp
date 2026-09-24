@@ -2093,7 +2093,23 @@ s32 func_8001A300(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A340);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A410);
+void func_8001A410(s32 id) {
+    s32 i;
+    s32 j;
+    s32 k;
+
+    if (id != -1) {
+        i = id >> 8;
+        j = (id >> 4) & 0xF;
+        k = id & 0xF;
+        if (D_80054C48[i].field_4 == 0) {
+            func_8003569C(D_80054C48[i].field_C[j], k);
+        }
+        if (D_80050718 == id) {
+            D_80050718 = -1;
+        }
+    }
+}
 
 void func_8001A4A8(s32 idx) {
     s32 i;
