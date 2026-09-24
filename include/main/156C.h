@@ -685,19 +685,25 @@ typedef struct {
 /* s16 held in a 4-byte stride slot (Actor194C8.slot54). */
 typedef struct {
     /* 0x00 */ s16 v;
-    /* 0x02 */ s16 pad;
+    /* 0x02 */ s16 field_2;
 } Slot4;
 
 /* View of the Actor block touched by func_800194C8. */
 typedef struct {
-    u8 _pad00[0x54];
+    /* 0x00 */ s32 field_0;
+    u8 _pad04[0x44];
+    /* 0x48 */ s32 field_48;
+    /* 0x4C */ s32 field_4C;
+    /* 0x50 */ s32 field_50;
     /* 0x54 */ Slot4 slot54[4];
     /* 0x64 */ Blk12 block64[4]; /* the channel count is re-stored at +2 */
     /* 0x94 */ s32 field_94[4];
-    u8 _padA4[0xAC - 0xA4];
+    u8 _padA4[0x4];
+    /* 0xA8 */ s32 field_A8;
     /* 0xAC */ Rec1A records[4];
-    u8 _pad114[0x118 - 0x114];
+    /* 0x114 */ s32 field_114;
     /* 0x118 */ u8 *field_118;
+    /* 0x11C */ u8 field_11C[8];
 } Actor194C8;
 
 /* Destination record for func_80033B24's bitfield unpack (all s16 fields). */
@@ -1082,7 +1088,7 @@ typedef struct {
     /* 0x128 */ s32 field_128;
     u8 _pad12C[0x230];
     /* 0x35C */ s16 field_35C;
-    u8 _pad35E[0x2];
+    /* 0x35E */ s16 field_35E;
     /* 0x360 */ s16 field_360;
 } Obj50768;
 

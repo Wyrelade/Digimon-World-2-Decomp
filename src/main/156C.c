@@ -502,6 +502,8 @@ extern s32 D_8005F788[];
 extern s32 func_8002284C(s32 mode);
 extern void func_8001C4C8(s32 arg0);
 extern void func_8001BE74(s32 a0, s32 a1);
+extern Halves D_80050714;
+extern void func_80019614(Actor194C8 *, s32);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -2503,7 +2505,111 @@ void func_800197FC(Actor *arg0, s16 arg1) {
     arg0->work->field_A4 = arg1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019808);
+void func_80019808(Actor *a0) {
+    Actor194C8 *w = (Actor194C8 *)a0->work;
+    Halves h;
+    Src16198 st;
+    s32 i;
+    s32 k;
+    s32 id;
+    s32 t;
+    s32 j;
+    s32 n;
+
+    switch (a0->field_10) {
+    case 0:
+    default:
+        w->field_118 = D_80050768->field_110;
+        func_800194C8(w);
+        w->field_114 = 0;
+        func_8001C088(&w->field_0, 0x15);
+        func_80011544(a0);
+        break;
+    case 1:
+        switch (a0->field_14) {
+        case 0:
+        default:
+            if (func_800136E4((s32)a0, &w->field_A8) != 0) {
+                break;
+            }
+            func_80013558(&w->field_0, (Key13558 *)func_80013AB0(0x5130024, 0), 1);
+            func_80019614(w, 1);
+            h.lo = 0x13;
+            h.hi = 0x32;
+            func_800134F8(&w->field_50, (s32)&w->field_118[0x4C], 1, h);
+            func_80011564(a0);
+            break;
+        case 1:
+            i = w->field_114;
+            k = func_80013A70(&w->slot54[i].v, (s16 *)w->block64[i].data);
+            func_8001BB88(&w->field_48);
+            func_8001BB88(&w->field_4C);
+            if (k < w->records[i].count) {
+                id = w->records[i].arr[w->slot54[i].field_2];
+                st.field_C = D_80050714;
+                st.field_10 = 0x80;
+                st.field_11 = 0;
+                st.field_0 = func_8001EDD4(id);
+                func_80013470(&w->field_48, (Src13470 *)&st);
+                st.field_C.hi = 0xCA;
+                st.field_0 = (s32)func_800239A0(0x1FD0150);
+                func_80013AFC(w->field_11C, func_8001EE80(id), -4);
+                st.field_4 = (s32)w->field_11C;
+                func_80013470(&w->field_4C, (Src13470 *)&st);
+            }
+            func_80011564(a0);
+            break;
+        case 2:
+            t = D_8005F6F0[0].field_4;
+            if (t > 0 || D_8005F6F0[0].field_0 > 0) {
+                n = w->field_114;
+                if (t > 0) {
+                    n--;
+                } else {
+                    n++;
+                }
+                w->field_114 = n & 3;
+                func_8001A68C(0xD, 0);
+                func_80019614(w, 0);
+                func_800115DC(a0, 1);
+            } else {
+                j = w->field_114;
+                if (func_80013A10((s32)&w->slot54[j], (s32)&w->block64[j]) != 0) {
+                    func_80013A30(&w->field_94[j], w->slot54[j].field_2, 3);
+                    func_80019614(w, 0);
+                    func_8001A68C(0xD, 0);
+                    func_800115DC(a0, 1);
+                } else if (D_8005F6F0[0].field_1C > 0 || D_8005F6F0[0].field_10 > 0) {
+                    func_800115C0(a0, 2);
+                    if (D_8005F6F0[0].field_10 > 0) {
+                        D_80050768->field_35E = -1;
+                        func_8001A68C(0xE, 0);
+                    } else {
+                        D_80050768->field_35E = 0;
+                        func_8001A68C(0xB, 0);
+                    }
+                }
+            }
+            break;
+        }
+        break;
+    case 2:
+        switch (a0->field_14) {
+        case 0:
+        default:
+            func_8001C0B0(&w->field_0, 0x15);
+            func_80011564(a0);
+            break;
+        case 1:
+            if (func_80013714((s32)a0, &w->field_A8) == 0) {
+                func_800115C0(a0, 3);
+            }
+            break;
+        }
+        break;
+    }
+}
+
 
 void func_80019BF4(Actor *actor) {
     Wk19BF4 *w = (Wk19BF4 *)actor->work;
