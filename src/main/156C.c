@@ -482,6 +482,8 @@ extern Halves D_80050708;
 extern s32 D_80050750;
 extern s32 func_80023F90(s32 arg0);
 extern Tbl50724 D_80050724[];
+extern s32 D_8005078C;
+extern s32 D_8005072C;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -4493,7 +4495,22 @@ void func_8002329C(void) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023484);
+void func_80023484(void) {
+    s32 t = ((Db5F770 *)&D_8005F770)->field_4 - (((Db5F770 *)&D_8005F770)->field_4 != 0);
+
+    if (D_8005078C != 0 && D_8005072C >= t) {
+        ((Db5F770 *)&D_8005F770)->field_28 = (((Db5F770 *)&D_8005F770)->field_28 == 0);
+        func_80027CB0(&((Db5F770 *)&D_8005F770)->disp[((Db5F770 *)&D_8005F770)->field_28]);
+        func_80027AE4(&((Db5F770 *)&D_8005F770)->draw[((Db5F770 *)&D_8005F770)->field_28]);
+        func_8001C858(((Db5F770 *)&D_8005F770)->field_28 ^ 1);
+        D_8005078C = 0;
+        D_8005072C = 0;
+    } else {
+        D_8005072C++;
+    }
+    func_80031854();
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023550);
 

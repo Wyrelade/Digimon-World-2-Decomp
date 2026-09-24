@@ -1928,4 +1928,37 @@ typedef struct {
     u8 b[6];
 } Tbl50724;
 
+/* View of D_8005F770 as the frame/display state (func_80023484, func_80023550). */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    u8 _pad10[0x04];
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ s32 field_1C;
+    /* 0x20 */ s32 field_20;
+    /* 0x24 */ s32 field_24;
+    /* 0x28 */ s32 field_28;
+    u8 _pad2C[0x04];
+    /* 0x30 */ DrawEnv draw[2];
+    /* 0xE8 */ DispEnv disp[2];
+} Db5F770;
+/* Load header filled by func_8002BBD4 (func_80023550 reads field_C). */
+typedef struct {
+    s32 field_0;
+    s32 field_4;
+    s32 field_8;
+    /* 0x0C */ s32 field_C;
+    s32 field_10[4];
+} Hdr23550;
+/* Clear rectangle for func_80027604. */
+typedef struct {
+    s16 x;
+    s16 y;
+    s16 w;
+    s16 h;
+} Rect23550;
+
 #endif /* MAIN_156C_H */
