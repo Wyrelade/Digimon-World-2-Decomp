@@ -2080,5 +2080,11 @@
     "passes": [
       "gp8_nosplit"
     ]
+  },
+  "func_80013308": {
+    "passes": [
+      "gp8_nosplit",
+      "sched_match"
+    ]
   }
 }
