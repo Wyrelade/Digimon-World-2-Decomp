@@ -1449,7 +1449,8 @@ typedef struct {
 /* Actor work block while func_800174F8's menu is active: cursor pos/size
  * pairs at 0x50/0x54 and the entry table at 0x6C. */
 typedef struct {
-    u8 _pad00[0x50];
+    u8 _pad00[0x40];
+    /* 0x40 */ u8 field_40[0x10];
     /* 0x50 */ s16 field_50[2];
     /* 0x54 */ s16 field_54[2];
     u8 _pad58[0x0A];

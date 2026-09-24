@@ -2218,5 +2218,10 @@
       "ra_restore_sink",
       "sched_match"
     ]
+  },
+  "func_80017884": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }

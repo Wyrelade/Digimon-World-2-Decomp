@@ -494,6 +494,7 @@ extern u8 *D_8005076C;
 extern char D_80010334[];
 extern s32 D_80048FBC;
 extern u32 D_80048FD0;
+extern Halves D_8005070C;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -1816,7 +1817,23 @@ void func_800176D8(Actor *s0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001777C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017884);
+void func_80017884(Actor *a0) {
+    Work174F8 *w = (Work174F8 *)a0->work;
+    Src16198 st;
+
+    st.field_C = D_8005070C;
+    st.field_11 = 0;
+    st.field_10 = 0x81;
+    if (func_80012778(D_80050768->field_108, D_80050768->field_10A, 0, 0) != 0) {
+        st.field_0 = (s32)func_800239A0(0x1FD00FD);
+        st.field_4 = func_8001E048(D_80050768->field_108);
+        func_8001A68C(0x1D, 0);
+    } else {
+        st.field_0 = (s32)func_800239A0(0x1FD00A0);
+        st.field_4 = 0;
+    }
+    func_80013470(w->field_40, (Src13470 *)&st);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017944);
 
