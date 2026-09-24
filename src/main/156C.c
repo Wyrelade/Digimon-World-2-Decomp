@@ -4092,7 +4092,10 @@ void func_800238E4(s32 a0) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800238F4);
+void func_800238F4(void) {
+    D_80050790 = (D_80050790 + 1) & 0xFFF;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023910);
 
