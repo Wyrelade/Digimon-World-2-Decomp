@@ -1745,5 +1745,12 @@
   },
   "func_800221C4": {
     "passes": []
+  },
+  "func_800251AC": {
+    "passes": [
+      "nosplit_nodb",
+      "fallthrough_fill",
+      "delay_fill"
+    ]
   }
 }
