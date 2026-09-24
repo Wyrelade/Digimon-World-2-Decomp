@@ -436,6 +436,7 @@ extern s16 D_800624D2;
 extern s32 D_80061C48;
 extern s32 D_80060054;
 extern s32 func_80013854(void *, s32, s32);
+extern u16 D_80040F98[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -1822,7 +1823,69 @@ void func_800197FC(Actor *arg0, s16 arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019808);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019BF4);
+void func_80019BF4(Actor *actor) {
+    Wk19BF4 *w = (Wk19BF4 *)actor->work;
+    s32 *p;
+    s32 *list;
+    void *obj;
+    s32 i;
+    s32 j;
+    s32 k;
+    s32 m;
+    u16 v;
+    Pair54 tmp;
+
+    if (w->field_A8 == 0) {
+        return;
+    }
+    p = (s32 *)func_800239A0(0x5130026);
+    if (*p == 0) {
+        return;
+    }
+    i = 0;
+    do {
+        obj = func_800239A0(p[i]);
+        switch (i) {
+        case 0:
+            k = w->field_114;
+            v = D_80040F98[k];
+            if (w->field_AC[k].field_0 != 0) {
+                tmp = w->field_54[k];
+                tmp.field_2 = w->field_54[k].field_2 - w->field_94[k];
+                func_8001373C(obj, 0x4000, (s32 *)&tmp, &w->field_64[k].field_0);
+                func_800137B8(obj, 0x4000, (actor->field_28 >> 2) & 3);
+            } else {
+                v |= 0x4000;
+            }
+            func_8001D504(obj, v);
+            break;
+        case 1:
+            m = 0xFFFFF;
+            for (j = 0; j < 4; j++) {
+                if (w->field_94[j] != 0) {
+                    if (w->field_114 == j) {
+                        m -= 1 << (j * 4 + 1);
+                    } else {
+                        m -= 1 << (j * 4 + 2);
+                    }
+                }
+                if (w->field_64[j].field_2 - w->field_94[j] >= 4) {
+                    if (w->field_114 == j) {
+                        m -= 1 << (j * 4 + 3);
+                    } else {
+                        m -= 1 << (j * 4 + 4);
+                    }
+                }
+            }
+            func_8001D504(obj, m);
+            break;
+        }
+        func_8001D550(obj, 0x1000, w->field_A8);
+        func_8001D884((s32)obj);
+        i++;
+    } while (p[i] != 0);
+}
+
 
 void func_80019E40(Actor *arg0, s32 *arg1) {
     arg0->work->field_0 = *arg1;

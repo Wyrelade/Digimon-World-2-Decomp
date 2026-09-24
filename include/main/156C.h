@@ -1677,4 +1677,29 @@ typedef struct {
     /* 0x6C */ Ent17D84 field_6C[1];
 } Obj17D84;
 
+/* 12-byte record in the func_80019BF4 work view (s16 at +2 compared against field_94). */
+typedef struct {
+    /* 0x0 */ s16 field_0;
+    /* 0x2 */ s16 field_2;
+    u8 _pad4[0x8];
+} Rec19BF4;
+
+/* 0x1A-byte record in the func_80019BF4 work view; only the leading s16 is read. */
+typedef struct {
+    /* 0x00 */ s16 field_0;
+    u8 _pad2[0x18];
+} Slot19BF4;
+
+/* View of Actor.work used by func_80019BF4 (four slots indexed by field_114). */
+typedef struct {
+    u8 _pad00[0x54];
+    /* 0x54 */ Pair54 field_54[4];
+    /* 0x64 */ Rec19BF4 field_64[4];
+    /* 0x94 */ s32 field_94[4];
+    u8 _padA4[0x4];
+    /* 0xA8 */ s32 field_A8;
+    /* 0xAC */ Slot19BF4 field_AC[4];
+    /* 0x114 */ s32 field_114;
+} Wk19BF4;
+
 #endif /* MAIN_156C_H */
