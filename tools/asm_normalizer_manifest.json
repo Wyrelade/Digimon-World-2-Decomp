@@ -1692,5 +1692,12 @@
       "taken_fill",
       "padnop"
     ]
+  },
+  "func_8001C760": {
+    "passes": [
+      "web_realloc",
+      "sched_match",
+      "padnop"
+    ]
   }
 }

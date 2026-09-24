@@ -298,6 +298,9 @@ typedef struct {
     /* 0x46 */ u8 field_46;
     /* 0x47 */ u8 field_47;
     /* 0x48 */ ActorSub5C field_48[2];
+    u8 _pad100[0x18];
+    /* 0x118 */ s32 field_118[8];
+    /* 0x138 */ s32 *field_138[8];
 } Actor;
 
 /* Entry returned by the func_8001D8C4 table lookup (0x12 stride); accessed
@@ -688,8 +691,7 @@ typedef struct {
 
 /* Fixed-stride block indexed by func_8001C818 (element size 0x4030). */
 typedef struct {
-    /* 0x0000 */ s32 field_0;
-    u8 _pad4[0x402C];
+    /* 0x0000 */ s32 field_0[0x100C];
 } Blk54CF8;
 
 /* Element of the D_8005E620.elems[] array (stride 0x5C); only the leading
@@ -1463,5 +1465,12 @@ typedef struct {
     u8 _pad05[0x1];
     /* 0x6 */ u16 field_6;
 } SlotHead8;
+
+/* State block at D_8005CCF8; field_60 selects the row of the slot tables
+ * read by func_8001C760. */
+typedef struct {
+    u8 _pad0[0x60];
+    /* 0x60 */ s32 field_60;
+} Mode5CCF8;
 
 #endif /* MAIN_156C_H */
