@@ -1646,7 +1646,32 @@ void func_80016198(Obj16198 *a0, s32 a1) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80016394);
+void func_80016394(Actor *a0, Obj16198 *w) {
+    Cell16198 *c;
+    s32 id;
+    s32 snd;
+    Src16198 st;
+
+    c = &w->field_72[func_80013A70(w->field_54, w->field_58.field_0)];
+    if (c->field_0 == 0) {
+        snd = 0x10;
+    } else {
+        id = c->field_0;
+        D_80050720->field_DD4[id] += (D_80050720->field_DD4[id] + 1 < 100);
+        func_800227F0(c->field_4);
+        st.field_C = D_80050704;
+        st.field_10 = 0x81;
+        st.field_11 = 0;
+        st.field_4 = func_8001E048(id);
+        st.field_0 = (s32)func_800239A0(0x1FD0122);
+        func_80013470(&w->field_40, (Src13470 *)&st);
+        func_80015F68(w);
+        func_80016198(w, 0);
+        func_800115DC(a0, 2);
+        snd = 0xE;
+    }
+    func_8001A68C(snd, 0);
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800164AC);
 

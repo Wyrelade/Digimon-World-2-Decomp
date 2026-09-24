@@ -1605,19 +1605,37 @@ typedef union {
     u32 w[2];
 } Rect282CC;
 
+/* One 6-byte icon grid cell: item id, count, sound/effect arg. */
+typedef struct {
+    /* 0x0 */ u16 field_0;
+    /* 0x2 */ s16 field_2;
+    /* 0x4 */ s16 field_4;
+} Cell16198;
+
+/* Grid size pair plus the rest of the 12-byte layout record copied from resource 0x5130017. */
+typedef struct {
+    /* 0x0 */ s16 field_0[2];
+    /* 0x4 */ s16 field_4[4];
+} Box16198;
+
 /* Icon grid page: 16 sprite slots, item count/page at 0x6C/0x6E, 6-byte
    cells from 0x72 (id, count) and 4-byte count text buffers at 0x702. */
 typedef struct {
     /* 0x000 */ s32 field_0[16];
-    u8 _pad40[0x2C];
+    /* 0x040 */ s32 field_40;
+    /* 0x044 */ s32 field_44;
+    u8 _pad48[0x4];
+    /* 0x04C */ s32 field_4C;
+    u8 _pad50[0x4];
+    /* 0x054 */ s16 field_54[2];
+    /* 0x058 */ Box16198 field_58;
+    /* 0x064 */ s16 field_64;
+    /* 0x066 */ s16 field_66;
+    /* 0x068 */ s32 field_68;
     /* 0x06C */ s16 field_6C;
     /* 0x06E */ s16 field_6E;
     u8 _pad70[0x2];
-    /* 0x072 */ struct {
-        u16 field_0;
-        s16 field_2;
-        u8 _pad4[0x2];
-    } field_72[280];
+    /* 0x072 */ Cell16198 field_72[280];
     /* 0x702 */ u8 field_702[16][4];
 } Obj16198;
 
@@ -1681,6 +1699,7 @@ typedef struct {
     /* 0x66 */ u16 field_66[0x30];
     u8 _padC6[0x1E];
     /* 0xE4 */ ElmE620 elems[0x24];
+    /* 0xDD4 */ u16 field_DD4[0x100];
 } Obj50720;
 
 /* Record behind Ent17D84.field_4: an id byte at 0x01, a name at 0x4C. */
