@@ -4998,7 +4998,47 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028A18);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028C48);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028E84);
+s32 func_80028E84(Rect28E84 *rect, s32 *p) {
+    s32 size;
+    s32 n;
+    s32 blocks;
+
+    func_80029984();
+    rect->r.w = (rect->r.w < 0) ? 0 : ((rect->r.w > D_80048F10.field_4) ? D_80048F10.field_4 : rect->r.w);
+    rect->r.h = (rect->r.h < 0) ? 0 : ((rect->r.h > D_80048F10.field_6) ? D_80048F10.field_6 : rect->r.h);
+    size = (rect->r.w * rect->r.h + 1) / 2;
+    if (size <= 0) {
+        return -1;
+    }
+    n = size % 16;
+    blocks = size / 16;
+    while (!(*D_80049018 & 0x4000000)) {
+        if (func_800299B8() != 0) {
+            return -1;
+        }
+    }
+    *D_80049018 = 0x4000000;
+    *D_80049014 = 0x1000000;
+    *D_80049014 = 0xC0000000;
+    *D_80049014 = rect->w[0];
+    *D_80049014 = rect->w[1];
+    while (!(*D_80049018 & 0x8000000)) {
+        if (func_800299B8() != 0) {
+            return -1;
+        }
+    }
+    for (n--; n != -1; n--) {
+        *p++ = *D_80049014;
+    }
+    if (blocks != 0) {
+        *D_80049018 = 0x4000003;
+        *D_8004901C = (s32)p;
+        *D_80049020 = (blocks << 16) | 0x10;
+        *D_80049024 = 0x1000200;
+    }
+    return 0;
+}
+
 
 void func_80029104(s32 arg0) {
     *D_80049018 = arg0;

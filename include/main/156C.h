@@ -1809,4 +1809,15 @@ typedef union {
     Tpage1CE9C t;
 } Pkt1CE9C;
 
+/* Rectangle func_80028E84 clips and sends as two command words. */
+typedef union {
+    struct {
+        s16 x;
+        s16 y;
+        s16 w;
+        s16 h;
+    } r;
+    s32 w[2];
+} Rect28E84;
+
 #endif /* MAIN_156C_H */

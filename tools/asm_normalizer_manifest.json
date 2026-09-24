@@ -1937,5 +1937,15 @@
       "save_slot",
       "sched_match"
     ]
+  },
+  "func_80028E84": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "reg_realloc",
+      "web_realloc",
+      "save_slot",
+      "ra_restore_sink"
+    ]
   }
 }
