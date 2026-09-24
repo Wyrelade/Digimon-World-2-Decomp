@@ -172,7 +172,7 @@ extern s16 D_8006197E;
 extern s16 D_8006197C;
 extern Blk5071C *D_8005071C;
 extern char D_8001031C[];
-extern void func_800274E8(char *, s32);
+extern void func_800274E8(char *, Rect2AB54 *);
 extern s8 D_80010974[];
 extern void func_8002A744(s32);
 extern void (*volatile D_8004FE60)(void);
@@ -207,7 +207,7 @@ extern void func_8003A614(void);
 extern s32 func_8003A1B4(s32, s32, s32, s32);
 extern void func_8003A1C4(s32);
 extern char D_80010310[];
-extern void func_800274E8(char *, s32);
+extern void func_800274E8(char *, Rect2AB54 *);
 extern s32 D_80061B24;
 extern s32 D_80061B20;
 extern s32 D_80061B1C;
@@ -393,6 +393,9 @@ extern s32 D_80048E6C;
 extern s32 D_80048E58;
 extern s32 D_80048E60;
 extern s32 func_8002533C(Obj25FBC *);
+extern char D_800102D4[];
+extern char D_800102E0[];
+extern char D_800102F4[];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4056,7 +4059,22 @@ void func_80027480(void *a0) {
     D_80048F08->fn_3C(a0);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800274E8);
+void func_800274E8(char *name, Rect2AB54 *r) {
+    switch (D_80048F10.field_2) {
+    case 1:
+        if (r->w > D_80048F10.field_4 || r->w + r->x > D_80048F10.field_4
+            || r->y > D_80048F10.field_6 || r->y + r->h > D_80048F10.field_6
+            || r->w <= 0 || r->x < 0 || r->y < 0 || r->h <= 0) {
+            D_80048F0C(D_800102D4, name);
+            D_80048F0C(D_800102E0, r->x, r->y, r->w, r->h);
+        }
+        break;
+    case 2:
+        D_80048F0C(D_800102F4, name);
+        D_80048F0C(D_800102E0, r->x, r->y, r->w, r->h);
+        break;
+    }
+}
 
 void func_80027604(s32 a0, s32 a1, s32 a2, s32 a3) {
     func_800274E8(D_800102F8, a0);

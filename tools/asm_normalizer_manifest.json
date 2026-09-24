@@ -1752,5 +1752,12 @@
       "fallthrough_fill",
       "delay_fill"
     ]
+  },
+  "func_800274E8": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "delay_fill"
+    ]
   }
 }
