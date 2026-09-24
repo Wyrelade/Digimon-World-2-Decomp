@@ -4618,7 +4618,19 @@ void func_80021D50(void) {
 void func_80021D58(void) {
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80021D60);
+s32 func_80021D60(void) {
+    s32 best = 0;
+    s32 i;
+    s32 v;
+
+    if (D_8005071C->field_BA8 != 0) {
+        for (i = 0; i < D_8005071C->field_BA8; i++) {
+            best = (best < (v = D_8005071C->field_BA9[i])) ? v : best;
+        }
+    }
+    return best;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80021DC8);
 

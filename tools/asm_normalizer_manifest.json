@@ -2269,5 +2269,10 @@
   },
   "func_8001D9CC": {
     "passes": []
+  },
+  "func_80021D60": {
+    "passes": [
+      "gp8_nosplit_noskip"
+    ]
   }
 }
