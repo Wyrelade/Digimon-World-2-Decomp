@@ -1815,7 +1815,26 @@ void func_800176D8(Actor *s0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001777C);
+void func_8001777C(Actor *a0) {
+    Work174F8 *w = (Work174F8 *)a0->work;
+    Sel174F8 *e = &w->field_6C[func_80013A70(w->field_50, w->field_54)];
+    Src16198 st;
+
+    if (D_8005F704 > 0) {
+        if (e->field_0 == 1 && func_80012778(D_80050768->field_108, D_80050768->field_10A, 0, e->field_4) != 0) {
+            st.field_C = D_8005070C;
+            st.field_11 = 0;
+            st.field_10 = 0x81;
+            st.field_0 = (s32)func_800239A0(0x1FD00FD);
+            st.field_4 = func_8001E048(D_80050768->field_108);
+            func_80013470(w->field_40, (Src13470 *)&st);
+            func_8001A68C(0x1D, 0);
+            func_800115DC(a0, 4);
+        } else {
+            func_8001A68C(0x10, 0);
+        }
+    }
+}
 
 void func_80017884(Actor *a0) {
     Work174F8 *w = (Work174F8 *)a0->work;

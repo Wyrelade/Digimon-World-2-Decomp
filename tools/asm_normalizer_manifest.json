@@ -2223,5 +2223,10 @@
     "passes": [
       "gp8_nosplit"
     ]
+  },
+  "func_8001777C": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }
