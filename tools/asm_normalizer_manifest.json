@@ -1678,5 +1678,12 @@
       "nosplit",
       "taken_fill"
     ]
+  },
+  "func_8003F18C": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "dead_code"
+    ]
   }
 }

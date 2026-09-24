@@ -369,6 +369,8 @@ extern void func_80039994(s16);
 extern char D_800103F8[];
 extern void func_80029FB4(void);
 extern void func_80029FB4(void);
+extern s32 D_80062F70;
+extern s32 D_80062F74;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -6611,7 +6613,51 @@ int func_8003F178(int a0) {
     return old;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F18C);
+s32 func_8003F18C(s32 wait, s32 *a1, s32 *a2) {
+    State62F80 *p = &D_80062F80;
+    s32 t0;
+    s32 a3;
+
+    if (p->field_0 == 0 && p->field_8 == 0) {
+        return -1;
+    }
+    t0 = p->field_0;
+    a3 = p->field_4;
+    if (wait == 0) {
+        if (p->field_8 == 0) {
+            volatile s32 *q = &p->field_8;
+
+            do {
+            } while (*q == 0);
+        }
+        if (a2 != 0) {
+            *a2 = *(volatile s32 *)&D_80062F74;
+        }
+        if (a1 != 0) {
+            *a1 = *(volatile s32 *)&D_80062F70;
+        }
+        ((volatile State62F80 *)&D_80062F80)->field_8 = 0;
+        return 1;
+    }
+    if (p->field_8 == 0) {
+        if (a2 != 0) {
+            *a2 = a3;
+        }
+        if (a1 == 0) {
+            return 0;
+        }
+        *a1 = t0;
+        return 0;
+    }
+    if (a2 != 0) {
+        *a2 = *(volatile s32 *)&D_80062F74;
+    }
+    if (a1 != 0) {
+        *a1 = *(volatile s32 *)&D_80062F70;
+    }
+    p->field_8 = 0;
+    return 1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F2A8);
 
