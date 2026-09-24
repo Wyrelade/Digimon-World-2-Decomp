@@ -468,6 +468,8 @@ extern s32 D_80050778;
 extern s32 D_8005077C;
 extern s32 D_80050784;
 extern Blk22E60 *D_80050788;
+extern s32 D_80050948[];
+extern s32 D_8005075C;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -732,7 +734,18 @@ void func_80011638(Actor *arg0, u32 arg1) {
     arg0->field_20 = arg1 & 0xFF;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011644);
+void func_80011644(void) {
+    s32 *p;
+    s32 i;
+
+    p = D_80050948;
+    func_80023BF4(0x19A);
+    for (i = 0; i < D_8005075C; i++) {
+        func_80023BF4(*p);
+        p++;
+    }
+}
+
 
 void func_800116A8(void) {
 }
