@@ -1975,5 +1975,12 @@
       "nosplit",
       "label_nop"
     ]
+  },
+  "func_8001C898": {
+    "passes": [
+      "web_realloc",
+      "sched_match",
+      "padnop"
+    ]
   }
 }

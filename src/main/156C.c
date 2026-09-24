@@ -2398,7 +2398,29 @@ s32 func_8001C858(s32 arg0) {
     return func_80027A74(&p[-1]);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C898);
+void func_8001C898(s32 arg0) {
+    u32 *p = (u32 *)&D_80058D28[arg0];
+    u32 *end = (u32 *)&D_80058D28[arg0 - 1];
+    u32 *q;
+    u32 m = 0xFFFFFF;
+
+    p--;
+    while (p != end) {
+        q = p - 1;
+        if ((*p & m) == ((u32)q & m)) {
+            u32 v = *q;
+            u32 w = (u32)(q - 1) & m;
+
+            while ((v & m) == w) {
+                q--;
+                v = *q;
+                w = (u32)(q - 1) & m;
+            }
+            *p = (u32)q & m;
+        }
+        p = q;
+    }
+}
 
 s32 func_8001C92C(void) {
     return 0;
