@@ -6658,7 +6658,57 @@ void func_80031DA4(s16 a0, s16 a1) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031EA0);
+void func_80031EA0(s16 a0, s16 a1) {
+    Elm354F4 *e = &D_80061C50[a0][a1];
+
+    e->field_21++;
+    if ((s8)e->field_20 == 0) {
+        e->field_88 = 0;
+        e->field_1C = 0;
+        e->field_90 = 0;
+        if (D_80061C50[a0][a1].field_98 & 0x400) {
+            e->field_0 = e->field_C;
+        } else {
+            e->field_0 = e->field_4;
+        }
+        return;
+    }
+    if ((s8)e->field_21 < (s8)e->field_20) {
+        e->field_88 = 0;
+        e->field_1C = 0;
+        e->field_90 = 0;
+        if (D_80061C50[a0][a1].field_98 & 0x400) {
+            e->field_0 = e->field_C;
+            e->field_8 = (s32)e->field_C;
+        } else {
+            e->field_0 = e->field_4;
+            e->field_8 = (s32)e->field_4;
+        }
+        return;
+    }
+    D_80061C50[a0][a1].field_98 &= ~1;
+    D_80061C50[a0][a1].field_98 &= ~8;
+    D_80061C50[a0][a1].field_98 &= ~2;
+    D_80061C50[a0][a1].field_98 |= 0x200;
+    D_80061C50[a0][a1].field_98 |= 4;
+    e->field_14 = 0;
+    if (D_80061C50[a0][a1].field_98 & 0x400) {
+        e->field_8 = (s32)e->field_C;
+    } else {
+        e->field_8 = (s32)e->field_4;
+    }
+    {
+        s8 n = e->field_22;
+        if (n != -1) {
+            e->field_14 = 0;
+            func_80032544(e->field_22, (s8)e->field_23);
+            func_800391B4((s16)(a0 | (a1 << 8)));
+        }
+    }
+    func_800391B4((s16)(a0 | (a1 << 8)));
+    e->field_90 = e->field_54;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800320E4);
 

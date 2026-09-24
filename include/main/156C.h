@@ -973,7 +973,8 @@ typedef struct {
     u8 *field_0;        /* 0x00 */
     u8 *volatile field_4; /* 0x04 */
     s32 field_8;        /* 0x08 */
-    u8  _p0C[0x8];      /* 0x0C */
+    u8 *volatile field_C; /* 0x0C */
+    u8  _p10[0x4];      /* 0x10 */
     u8  field_14;       /* 0x14 */
     u8  field_15;       /* 0x15 */
     u8  field_16;       /* 0x16 */

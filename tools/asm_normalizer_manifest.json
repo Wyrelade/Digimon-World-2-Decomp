@@ -2069,5 +2069,11 @@
     "passes": [
       "gp8"
     ]
+  },
+  "func_80031EA0": {
+    "passes": [
+      "load_remat",
+      "reorder_indep"
+    ]
   }
 }
