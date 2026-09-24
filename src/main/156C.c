@@ -1738,7 +1738,18 @@ void func_8001BC24(void *arg0, Arg1BC24 *arg1) {
     *(s32 *)arg0 = i;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BE08);
+s32 func_8001BE08(s32 id) {
+    Ent11440 *p;
+
+    if (id == -1) {
+        return 1;
+    }
+    p = func_80011510(9, -1, -1);
+    if (p == 0) {
+        return 0;
+    }
+    return p->field_2C[id].field_23;
+}
 
 void func_8001BE74(s32 a0, s32 a1) {
     Ent11440 *p = func_80011510(9, -1, -1);

@@ -1699,5 +1699,14 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_8001BE08": {
+    "passes": [
+      "taken_fill",
+      "dead_code",
+      "web_realloc",
+      "commutative_swap",
+      "padnop"
+    ]
   }
 }
