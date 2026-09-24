@@ -396,6 +396,13 @@ extern s32 func_8002533C(Obj25FBC *);
 extern char D_800102D4[];
 extern char D_800102E0[];
 extern char D_800102F4[];
+extern s8 D_80010944[];
+extern char D_80010950[];
+extern u8 D_8004E9A8[];
+extern u8 D_8004E6E4;
+extern u8 *D_8004E98C;
+extern u8 *D_8004E99C;
+extern u8 *D_8004E990;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -5090,7 +5097,48 @@ void func_8002FEB8(void) {
     func_80030D04(2, func_80030258);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002FF04);
+s32 func_8002FF04(void) {
+    func_80030334(D_80010944);
+    func_8002A014(D_80010950, D_8004E9A8);
+    D_8004E6E5 = 0;
+    D_8004E6E4 = 0;
+    D_8004E6CC = 0;
+    D_8004E6C8 = 0;
+    D_8004E6D8 = 0;
+    D_8004E6D4 = 0;
+    func_80030CD4();
+    func_80030D04(2, func_80030258);
+    *D_8004E98C = 1;
+    while (*D_8004E990 & 7) {
+        *D_8004E98C = 1;
+        *D_8004E990 = 7;
+        *D_8004E99C = 7;
+    }
+    {
+        volatile Cd4E9A4 *p = &D_8004E9A4;
+
+        p->field_1 = p->field_2 = 0;
+        p->field_0 = 2;
+    }
+    *D_8004E98C = 0;
+    *D_8004E990 = 0;
+    *D_8004E994 = 0x1325;
+    func_8002F860(1, 0, 0, 0);
+    if (D_8004E6D4 & 0x10) {
+        func_8002F860(1, 0, 0, 0);
+    }
+    if (func_8002F860(10, 0, 0, 0) != 0) {
+        return -1;
+    }
+    if (func_8002F860(12, 0, 0, 0) != 0) {
+        return -1;
+    }
+    if (func_8002F318(0, 0) != 2) {
+        return -1;
+    }
+    return 0;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800300E4);
 

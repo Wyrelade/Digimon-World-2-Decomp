@@ -1759,5 +1759,13 @@
       "web_realloc",
       "delay_fill"
     ]
+  },
+  "func_8002FF04": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "delay_fill",
+      "epilogue_unfill"
+    ]
   }
 }
