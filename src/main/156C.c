@@ -420,6 +420,9 @@ extern s32 func_8003F574(u8 *, s32);
 extern s32 func_8003F18C(s32 wait, s32 *a1, s32 *a2);
 extern void func_8003FEA4(void);
 extern s32 D_80062F90;
+extern void func_80025CC8(Obj25FBC *a0);
+extern void func_80026568(Actor *arg0, u8 arg1);
+extern void (*D_80048E1C)(Obj25FBC *);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3776,7 +3779,40 @@ u8 *func_80024C98(s32 arg0) {
     return p;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024CB8);
+s32 func_80024CB8(Obj25FBC *a0) {
+    if (*a0->field_3C == 0xF3) {
+        if (a0->field_E8 == 0) {
+            func_80026568((Actor *)a0, 0);
+            return 0;
+        }
+        if (a0->field_46 == 0xFF) {
+            goto stop;
+        }
+        if (a0->field_49 == 2) {
+            D_80048E1C(a0);
+        }
+    }
+    switch (a0->field_46) {
+    case 1:
+        func_80026568((Actor *)a0, 1);
+        break;
+    case 0xFE:
+    stop:
+        func_80026568((Actor *)a0, 0);
+        break;
+    case 0:
+    case 0xFF:
+        break;
+    default:
+        if (a0->field_14 != 0) {
+            a0->field_14(a0);
+        } else {
+            func_80025CC8(a0);
+        }
+        break;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024DC8);
 

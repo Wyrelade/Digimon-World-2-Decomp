@@ -819,7 +819,7 @@ typedef struct {
     /* 0x08 */ s32 field_8;
     u8 _pad0C[0x4];
     /* 0x10 */ void *field_10;
-    /* 0x14 */ s32 field_14;
+    /* 0x14 */ void (*field_14)(void *);
     /* 0x18 */ s32 field_18;
     u8 _pad1C[0x14];
     /* 0x30 */ u8 *field_30;
