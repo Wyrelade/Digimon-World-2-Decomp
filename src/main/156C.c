@@ -488,6 +488,8 @@ extern Halves D_80050700;
 extern s32 func_80012778(s32, s32, s32, s32);
 extern u8 *D_8005076C;
 extern u8 *D_80050770;
+extern u8 *D_8005076C;
+extern void func_80015298(Actor *, s32);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -1489,7 +1491,29 @@ void func_80015668(Actor *a0) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80015770);
+void func_80015770(Actor *a0) {
+    Wk14EA4 *w = (Wk14EA4 *)a0->work;
+    s32 id;
+    Src16198 st;
+
+    if (D_8005F704 > 0) {
+        id = D_8005076C[func_80013A70(w->field_88, w->field_8C)];
+        if (id != 0xFF && func_80012778(D_80050768->field_108, D_80050768->field_10A, id, 0) != 0) {
+            st.field_C = D_80050700;
+            st.field_11 = 0;
+            st.field_10 = 0x81;
+            st.field_0 = (s32)func_800239A0(0x1FD00FC);
+            st.field_4 = func_8001E048(D_80050720->field_2C[id]);
+            func_80013470(&w->field_50, (Src13470 *)&st);
+            func_80015298(a0, 0);
+            func_8001A68C(0x1D, 0);
+            func_800115DC(a0, 3);
+        } else {
+            func_8001A68C(0x10, 0);
+        }
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001588C);
 
