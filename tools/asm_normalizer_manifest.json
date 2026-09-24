@@ -2196,5 +2196,10 @@
     "passes": [
       "nodiv"
     ]
+  },
+  "func_80022430": {
+    "passes": [
+      "nodiv"
+    ]
   }
 }

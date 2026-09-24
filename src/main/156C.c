@@ -4088,7 +4088,19 @@ s32 func_800223EC(s32 v, s32 div, s32 lo, s32 hi) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022430);
+s32 func_80022430(s32 v, s32 div, s32 lo, s32 hi) {
+    s32 span;
+    s32 r;
+
+    v /= div;
+    span = hi - lo;
+    r = v % (span * 2);
+    if (r < span) {
+        return r + lo;
+    }
+    return hi - (r - span);
+}
+
 
 void func_80022468(void) {
     func_80022F8C(D_80050720, 0x1058);
