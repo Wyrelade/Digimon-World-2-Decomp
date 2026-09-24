@@ -1415,7 +1415,7 @@ def _callee_reads(fn, reg, depth=0):
         return _CALLEE_RD[key]
     _CALLEE_RD[key] = True                   # recursion guard: assume read
     body = _callee_insns(fn)
-    if body is None or depth > 3:
+    if body is None or depth > 8:
         return True
     entry_w, prefix, blk_w, res = False, True, False, False
 
@@ -1452,6 +1452,8 @@ def _callee_reads(fn, reg, depth=0):
                     break
             if is_call:
                 blk_w = True                 # the call clobbers it
+                if prefix:
+                    entry_w = True           # ... on every path: all go through here
             else:
                 prefix, blk_w = False, False
             k += 2
