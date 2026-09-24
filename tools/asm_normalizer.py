@@ -4281,10 +4281,13 @@ ALT_FLAVORS = {
     "nosplit": ["-mno-split-addresses"],
     "nosplit_nodb": ["-mno-split-addresses", "-fno-delayed-branch"],
     "nodb": ["-fno-delayed-branch"],
+    "gp8": ["-G8"],
+    "gp8_nosplit": ["-G8", "-mno-split-addresses"],
 }
 META_PASSES = tuple(ALT_FLAVORS)
 # local-label prefix per alternate compile (nosplit keeps the historical "ns")
-_ALT_TAG = {"nosplit": "ns", "nosplit_nodb": "nsnd", "nodb": "nd"}
+_ALT_TAG = {"nosplit": "ns", "nosplit_nodb": "nsnd", "nodb": "nd", "gp8": "gp",
+            "gp8_nosplit": "gpns"}
 
 
 def alt_flavors(manifest):
@@ -4370,12 +4373,44 @@ def aspsx_label_nops(span):
     return "\n".join(out)
 
 
+def _gp_small(alt_text):
+    """Symbols a -G compile declared small (`.extern SYM, N`, `.comm`/`.lcomm`
+    within the threshold): cc1 leaves their accesses as macros and the
+    assembler makes them $gp-relative."""
+    small = set()
+    for m in re.finditer(r"(?m)^\s*\.(?:extern|comm|lcomm)\s+([A-Za-z_.][\w.$]*)\s*,\s*(\d+)",
+                         alt_text):
+        if 0 < int(m.group(2)) <= 8:
+            small.add(m.group(1))
+    return small
+
+
+def gp_rel_macros(span, small):
+    """Spell a -G compile's small-data macros the way the assembler emits them:
+    `op $r,S[+k]` -> `op $r,%gp_rel(S[+k])($gp)`, `la $r,S[+k]` ->
+    `addiu $r,$gp,%gp_rel(S[+k])` (one word each)."""
+    if not small:
+        return span
+    out = []
+    for l in span.split("\n"):
+        b = l.split("#", 1)[0].strip()
+        m = re.fullmatch(r"(la|lw|lh|lhu|lb|lbu|sw|sh|sb)\s+(\$\w+)\s*,\s*"
+                         r"([A-Za-z_.][\w.$]*)((?:\+\d+)?)", b)
+        if m and m.group(3) in small:
+            op, r, sym = m.group(1), m.group(2), m.group(3) + m.group(4)
+            l = _src_indent(l) + ("addiu\t%s,$gp,%%gp_rel(%s)" % (r, sym) if op == "la"
+                                  else "%s\t%s,%%gp_rel(%s)($gp)" % (op, r, sym))
+        out.append(l)
+    return "\n".join(out)
+
+
 def splice_alt_spans(text, alt_text, names, tag="ns"):
     """Replace each function span in `names` with the same function's span from
     `alt_text`. Returns (new_text, [spliced names]). `tag` keeps the renamed local
     labels unique per alternate compile: the LM line-marker counters of two flavor
     compiles overlap, so two flavors must not share a prefix."""
     alt = {n: alt_text[s:e] for n, s, e in split_spans(alt_text)}
+    small = _gp_small(alt_text)
     done = []
     for name, start, end in sorted(split_spans(text), key=lambda x: -x[1]):
         if name not in names:
@@ -4389,7 +4424,7 @@ def splice_alt_spans(text, alt_text, names, tag="ns"):
                                    "the two compiles" % (name, lc))
         span = re.sub(r"\$L(?!C)(\w+)", r"$L%s_\1" % tag, span)
         span = re.sub(r"(?<![\w$.])LM(\d+)\b", r"LM%s\1" % tag, span)
-        span = aspsx_label_nops(expand_sym_macros(span))
+        span = aspsx_label_nops(expand_sym_macros(gp_rel_macros(span, small)))
         text = text[:start] + span + text[end:]
         done.append(name)
     return text, done
