@@ -4144,7 +4144,24 @@ u8 *func_80027044(u8 *dst, u8 *src, s32 n) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027084);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800270B4);
+u8 *func_800270B4(u8 *dst, u8 *src) {
+    u8 *r = 0;
+
+    if (dst != 0) {
+        u8 *d = dst;
+        if (src != 0) {
+            s32 c = *src++;
+
+            *dst++ = c;
+            while (c != 0) {
+                c = *src++;
+                *dst++ = c;
+            }
+            r = d;
+        }
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027104);
 

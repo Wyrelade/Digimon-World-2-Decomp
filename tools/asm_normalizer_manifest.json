@@ -1825,5 +1825,11 @@
   },
   "func_8001DB18": {
     "passes": []
+  },
+  "func_800270B4": {
+    "passes": [
+      "nosplit",
+      "padnop"
+    ]
   }
 }
