@@ -1786,5 +1786,11 @@
       "web_realloc",
       "sched_match"
     ]
+  },
+  "func_8003FBF4": {
+    "passes": [
+      "nosplit",
+      "delay_fill"
+    ]
   }
 }

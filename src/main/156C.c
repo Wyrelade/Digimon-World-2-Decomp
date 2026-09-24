@@ -404,6 +404,15 @@ extern u8 *D_8004E98C;
 extern u8 *D_8004E99C;
 extern u8 *D_8004E990;
 extern Hook33424 D_80061CD0[][16];
+extern int func_8003FB24(void);
+extern int func_8003FB38(void);
+extern int func_8003FB4C(void);
+extern int func_8003FB60(void);
+extern int func_8003FB74(void);
+extern int func_8003FB88(void);
+extern int func_8003FB9C(void);
+extern int func_8003FBB0(void);
+extern void func_8003FEA4(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -7182,7 +7191,32 @@ void func_8003FBC4(void) {
     func_8003D4F4();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003FBF4);
+void func_8003FBF4(void) {
+    s32 s;
+
+    s = func_80026FC4();
+    D_80063060 = func_8003A1B4(0xF4000001, 4, 0x1000, (s32)func_8003FB24);
+    D_80063064 = func_8003A1B4(0xF4000001, 0x8000, 0x1000, (s32)func_8003FB38);
+    D_80063068 = func_8003A1B4(0xF4000001, 0x100, 0x1000, (s32)func_8003FB4C);
+    D_8006306C = func_8003A1B4(0xF4000001, 0x2000, 0x1000, (s32)func_8003FB60);
+    D_80063070 = func_8003A1B4(0xF0000011, 4, 0x1000, (s32)func_8003FB74);
+    D_80063074 = func_8003A1B4(0xF0000011, 0x8000, 0x1000, (s32)func_8003FB88);
+    D_80063078 = func_8003A1B4(0xF0000011, 0x100, 0x1000, (s32)func_8003FB9C);
+    D_8006307C = func_8003A1B4(0xF0000011, 0x2000, 0x1000, (s32)func_8003FBB0);
+    func_8003A1C4(D_80063060);
+    func_8003A1C4(D_80063064);
+    func_8003A1C4(D_80063068);
+    func_8003A1C4(D_8006306C);
+    func_8003A1C4(D_80063070);
+    func_8003A1C4(D_80063074);
+    func_8003A1C4(D_80063078);
+    func_8003A1C4(D_8006307C);
+    func_8003FEA4();
+    if (s == 1) {
+        func_80026FD4();
+    }
+}
+
 
 void func_8003FDD0(void) { func_8003D5DC(); }
 
