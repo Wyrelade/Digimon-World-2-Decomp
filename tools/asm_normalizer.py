@@ -2639,6 +2639,63 @@ def web_realloc_pass(stext, tgt):
     return "\n".join(lines)
 
 
+# --------------------------------------------------------------------------
+# save_slot. After reg_realloc renames callee-saved registers, each one still
+# lives in the stack slot its OLD number was given (cc1 lays the save area out by
+# register number), so `sw $s1,0x14($sp)` can come out as `sw $s1,0x20($sp)`
+# while every other insn matches. Re-lay the save area to the target's
+# register -> slot map: target-guided (same saved set, same slot set), and sound
+# only when those slots are touched by nothing but the saves and restores of
+# their own register (checked over the whole function).
+# --------------------------------------------------------------------------
+_SS_RE = re.compile(r"^(\s*)(sw|lw)(\s+)(\$\w+)(\s*,\s*)(-?(?:0x[0-9a-fA-F]+|\d+))\((\$\w+)\)(.*)$")
+
+
+def _ss_map(pairs):
+    """{reg: offset} of callee-saved `sw reg,off($sp)` in (mnem, reg, off) list."""
+    m = {}
+    for mn, r, off in pairs:
+        if mn == "sw" and r in _CALLEE_RS and r not in m:
+            m[r] = off
+    return m
+
+
+def save_slot_pass(stext, tgt):
+    tp = []
+    for _w, d in tgt:
+        mn, regs, skel = insn_parts(d)
+        if mn == "sw" and len(regs) == 2 and regs[1] == "sp":
+            off = _sm_int(skel[1].replace("(#)", ""))
+            if off is not None:
+                tp.append(("sw", regs[0], off))
+    tmap = _ss_map(tp)
+    lines = stext.split("\n")
+    acc = []                                   # (line, mnem, reg, off)
+    for i, l in enumerate(lines):
+        m = _SS_RE.match(l.split("#", 1)[0])
+        if m and norm_reg(m.group(7)) == "sp":
+            acc.append((i, m.group(2), norm_reg(m.group(4)), int(m.group(6), 0)))
+        elif _s_is_insn(l) and re.search(r"\(\$(?:sp|29)\)", l):
+            mo = _mem_operand(l.split("#", 1)[0].strip())
+            if mo and mo[0] == "sp":
+                acc.append((i, "other", None, mo[1]))
+    omap = _ss_map([(mn, r, off) for _i, mn, r, off in acc])
+    if not omap or set(omap) != set(tmap) or omap == tmap \
+            or sorted(omap.values()) != sorted(tmap.values()):
+        return stext
+    slot_reg = {off: r for r, off in omap.items()}
+    for _i, mn, r, off in acc:
+        if off in slot_reg and (mn == "other" or r != slot_reg[off]):
+            return stext                       # slot used for something else
+    for i, mn, r, off in acc:
+        if off in slot_reg:
+            m = _SS_RE.match(lines[i].split("#", 1)[0])
+            lines[i] = "%s%s%s%s%s%d(%s)%s" % (m.group(1), m.group(2), m.group(3),
+                                               m.group(4), m.group(5), tmap[r],
+                                               m.group(7), m.group(8))
+    return "\n".join(lines)
+
+
 PASSES = {
     # reg_realloc is applied specially (it needs sigma from words); the ordered
     # list in the manifest still names it so the recipe is explicit and auditable.
@@ -2649,6 +2706,7 @@ PASSES = {
     "commutative_swap": commutative_swap_s,
     "operand_recolor": operand_recolor_s,
     "web_realloc": web_realloc_pass,
+    "save_slot": save_slot_pass,
     "laform": laform_fold_pass,
     "base_cse_collapse": base_cse_collapse_pass,
     "shift_const_fold": shift_const_fold_pass,
