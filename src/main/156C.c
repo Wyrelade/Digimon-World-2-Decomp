@@ -481,6 +481,7 @@ extern Halves D_80050704;
 extern Halves D_80050708;
 extern s32 D_80050750;
 extern s32 func_80023F90(s32 arg0);
+void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3990,7 +3991,22 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800223EC);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022430);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022468);
+void func_80022468(void) {
+    func_80022F8C(D_80050720, 0x1058);
+    D_80050720->field_0 = 1;
+    func_80021DC8();
+    D_8005E620.field_14 = 0x8F;
+    D_8005E620.field_15 = 0x95;
+    D_8005E620.field_16 = 0xB7;
+    D_8005E620.field_17 = 0xFF;
+    D_8005E620.field_8 = 0x1F4;
+    D_8005E620.field_D1 = 0x9E;
+    D_8005E620.field_D2 = 0xD5;
+    D_8005E620.field_D3 = 0x96;
+    D_8005E620.field_D4 = 0xFF;
+    D_8005E620.field_4 = 0;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800224EC);
 

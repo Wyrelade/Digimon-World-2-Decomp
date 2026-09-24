@@ -746,7 +746,20 @@ typedef struct {
 /* Global at D_8005E620: a 0xE4-byte header followed by an array of 0x24
    ElmE620 slots (func_80022118 scans and updates their status bytes). */
 typedef struct {
-    u8 _pad00[0xE4];
+    u8 _pad00[0x04];
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    u8 _pad0C[0x08];
+    /* 0x14 */ u8 field_14;
+    /* 0x15 */ u8 field_15;
+    /* 0x16 */ u8 field_16;
+    /* 0x17 */ u8 field_17;
+    u8 _pad18[0xB9];
+    /* 0xD1 */ u8 field_D1;
+    /* 0xD2 */ u8 field_D2;
+    /* 0xD3 */ u8 field_D3;
+    /* 0xD4 */ u8 field_D4;
+    u8 _padD5[0x0F];
     /* 0xE4 */ ElmE620 elems[0x24];
 } EntE620;
 
@@ -1652,7 +1665,8 @@ typedef struct {
 
 /* Object behind the D_80050720 pointer (func_80014CBC). */
 typedef struct {
-    u8 _pad00[0x08];
+    /* 0x00 */ u8 field_0;
+    u8 _pad01[0x07];
     /* 0x08 */ s32 field_8;
     u8 _pad0C[0x18];
     /* 0x24 */ s16 field_24;
