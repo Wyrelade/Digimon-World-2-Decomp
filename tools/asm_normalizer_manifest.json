@@ -2254,5 +2254,10 @@
     "passes": [
       "gp8"
     ]
+  },
+  "func_8001309C": {
+    "passes": [
+      "reg_realloc"
+    ]
   }
 }

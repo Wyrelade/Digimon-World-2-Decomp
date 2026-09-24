@@ -972,7 +972,86 @@ void func_8001291C(Actor *a, Pair1291C *v) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80012974);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001309C);
+void func_8001309C(Actor *a) {
+    ActorWork *w = a->work;
+    Part28 *base = (Part28 *)func_800239A0(0x1A10018);
+    Part28 *p;
+    s32 k;
+    s32 v;
+    s32 x;
+
+    w->field_28 += D_8005F770.field_8;
+    for (p = base; p->field_0 != 0; p++) {
+        if (p->field_1C & 0x20) {
+            v = w->field_24;
+            p->field_6 = -0x48;
+            p->field_4 = v * 9 - 0x71;
+            if (w->field_24 == w->field_8) {
+                p->field_F = 0;
+            } else {
+                p->field_F = 1;
+            }
+        } else if (p->field_1C & 0x40) {
+            v = w->field_2C;
+            x = -0x73;
+            if (v >= 10) {
+                x = -0x6D;
+            }
+            if (v >= 5) {
+                x += 6;
+            }
+            p->field_4 = x + v * 19;
+            p->field_6 = w->field_2E * 18 - 0x2F;
+        }
+        k = 0;
+        if (w->field_2C >= 10 && w->field_2E >= 4) {
+            k = w->field_2E - 3;
+        }
+        if (p->field_1C & 0x7DC) {
+            p->field_F = 0;
+        }
+        if (!(w->field_28 & 0x10)) {
+            switch (k) {
+            case 0:
+                if (p->field_1C & 0x40) {
+                    p->field_F = 1;
+                }
+                break;
+            case 1:
+                if (p->field_1C & 0x80) {
+                    p->field_F = 1;
+                }
+                break;
+            case 2:
+                if (p->field_1C & 0x100) {
+                    p->field_F = 1;
+                }
+                break;
+            case 3:
+                if (p->field_1C & 0x200) {
+                    p->field_F = 1;
+                }
+                break;
+            case 4:
+                if (p->field_1C & 0x400) {
+                    p->field_F = 1;
+                }
+                break;
+            }
+        }
+        if (w->field_0 == 0 && (p->field_1C & 4)) {
+            p->field_F = 1;
+        }
+        if (w->field_0 == 1 && (p->field_1C & 8)) {
+            p->field_F = 1;
+        }
+        if (w->field_0 == 2 && (p->field_1C & 0x10)) {
+            p->field_F = 1;
+        }
+    }
+    func_8001D884((s32)base);
+}
+
 
 void func_80013308(s32 id) {
     s32 *p;
