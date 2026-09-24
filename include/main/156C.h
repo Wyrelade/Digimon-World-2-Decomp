@@ -620,7 +620,10 @@ typedef struct {
 
 /* Returned by func_80011440/func_80011510: the stride-0x34 record array at 0x2C. */
 typedef struct {
-    u8 _pad00[0x2C];
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    u8 _pad0C[0x20];
     /* 0x2C */ Rec34 *field_2C;
 } Ent11440;
 

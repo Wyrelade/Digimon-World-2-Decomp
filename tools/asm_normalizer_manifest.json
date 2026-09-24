@@ -1864,5 +1864,12 @@
   },
   "func_80017D84": {
     "passes": []
+  },
+  "func_80011440": {
+    "passes": [
+      "reg_realloc",
+      "taken_fill",
+      "padnop"
+    ]
   }
 }

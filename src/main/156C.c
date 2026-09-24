@@ -593,7 +593,24 @@ Buf111D4 *func_800113B8(s32 a0, s32 a1) {
     return s0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011440);
+Ent11440 *func_80011440(void) {
+    s32 i;
+    Ent11440 *e;
+
+    i = D_80050938.field_C;
+    while (i < D_80050798.count) {
+        e = (Ent11440 *)D_80050798.entries[i];
+        if (e != 0
+            && (D_80050938.field_0 == -1 || e->field_0 == D_80050938.field_0)
+            && (D_80050938.field_4 == -1 || e->field_4 == D_80050938.field_4)
+            && (D_80050938.field_8 == -1 || e->field_8 == D_80050938.field_8)) {
+            D_80050938.field_C = i + 1;
+            return (Ent11440 *)D_80050798.entries[i];
+        }
+        i++;
+    }
+    return 0;
+}
 
 extern Ent11440 *func_80011440(void);
 
