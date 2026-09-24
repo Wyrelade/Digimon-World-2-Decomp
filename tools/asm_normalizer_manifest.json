@@ -2027,5 +2027,10 @@
     "passes": [
       "gp8_nosplit"
     ]
+  },
+  "func_8001EFF0": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }

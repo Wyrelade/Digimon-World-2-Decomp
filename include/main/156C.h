@@ -427,7 +427,8 @@ typedef struct {
         } b0;
     } u0;
     /* 0x04 */ u8 field_4;
-    u8 _pad05[0x03];
+    /* 0x05 */ u8 field_5;
+    /* 0x06 */ s16 field_6;
     /* 0x08 */ s16 field_8;
     u8 _pad0A[0x02];
     /* 0x0C */ s32 field_C;

@@ -464,6 +464,8 @@ extern s32 D_80050718;
 extern s32 D_80050774;
 extern Obj50720 *D_80050720;
 extern s32 D_800506FC;
+extern s32 D_80050778;
+extern s32 D_8005077C;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3392,7 +3394,13 @@ u16 func_8001EF88(s32 id) {
     return v;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001EFF0);
+s32 *func_8001EFF0(s32 id) {
+    EntED40 *e = func_8001ED40(id);
+    D_80050778 = e->field_6;
+    D_8005077C = e->field_5;
+    return &D_80050778;
+}
+
 
 u8 func_8001F020(s32 id) {
     return func_8001ED40(id)->u10.field_10b;
