@@ -2139,7 +2139,10 @@ void func_8001A8BC(void) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A8D0);
+void func_8001A8D0(void) {
+    func_8001A68C(D_80050774, 1);
+}
+
 
 void func_8001A8F4(s32 arg0) {
     D_80054CD0.data[D_80054CD0.count] = arg0;

@@ -1992,5 +1992,10 @@
     "passes": [
       "gp8_nosplit"
     ]
+  },
+  "func_8001A8D0": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }
