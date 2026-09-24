@@ -2280,6 +2280,92 @@ def const_remat_s(stext, want):
     return "\n".join(lines) if changed else stext
 
 
+
+# --------------------------------------------------------------------------
+# load-remat: our cc1 CSEs a second read of the same memory word into a register
+# copy (`lb $3,34($16) ... move $4,$3`); retail reads the memory again
+# (`lb $4,34($16)`). Where the target carries more loads of an (opcode, offset)
+# than we do, a `move rd,rs` whose rs comes from such a load earlier on the same
+# straight-line path (no label, store or call in between, base and rs not
+# rewritten) becomes the reload. Count may change (a load-delay nop), so it runs
+# before sigma.
+# --------------------------------------------------------------------------
+_LOAD_S = re.compile(r"^(\s*)(lb|lbu|lh|lhu|lw)\s+(\$\w+)\s*,\s*(-?\d+)\((\$\w+)\)\s*(#.*)?$")
+_LOAD_T = re.compile(r"(lb|lbu|lh|lhu|lw)\s+\S+\s*,\s*(-?(?:0x[0-9a-fA-F]+|\d+))\(")
+_LR_STOP = re.compile(r"(s[bhw]|swl|swr|jal|jalr|j|jr|syscall|break)\b")
+
+
+def load_remat_pass(stext, tgt):
+    want, tk = {}, []
+    for _w, dis in tgt:
+        m = _LOAD_T.match(dis.strip())
+        k = (m.group(1), int(m.group(2), 0)) if m else None
+        tk.append(k)
+        if m:
+            want[k] = want.get(k, 0) + 1
+    lines = stext.split("\n")
+    ins = [(i, l) for i, l in enumerate(lines) if _s_is_insn(l)]
+    have = {}
+    for _i, l in ins:
+        m = _LOAD_S.match(l)
+        if m:
+            k = (m.group(2), int(m.group(4)))
+            have[k] = have.get(k, 0) + 1
+    nr = _noreorder_lines(lines)
+    body = " ".join(l.split("#", 1)[0] for l in lines if _s_is_insn(l)
+                    or l.strip().startswith(".word"))
+    refd = set(re.findall(r"[$\w.]+", body))
+    changed = False
+    for p, (li, l) in enumerate(ins):
+        m = _MOVE_S.match(l)
+        if not m or li in nr:
+            continue
+        rd, rs = norm_reg(m.group(2)), norm_reg(m.group(3))
+        if rs in (None, "zero") or rd in (None, "zero"):
+            continue
+        q, hit = p - 1, None
+        while q >= 0:
+            qi, ql = ins[q]
+            if qi in nr or any(_s_is_label(x) and x.strip()[:-1] in refd
+                                for x in lines[qi + 1:ins[q + 1][0]]):
+                break
+            b = ql.split("#", 1)[0].strip()
+            ml = _LOAD_S.match(ql)
+            d, _u = defs_uses(b)
+            if ml and norm_reg(ml.group(3)) == rs:
+                hit = (q, ml)
+                break
+            if rs in d or _LR_STOP.match(b):
+                break
+            q -= 1
+        if not hit:
+            continue
+        q, ml = hit
+        op, off, base = ml.group(2), int(ml.group(4)), ml.group(5)
+        k = (op, off)
+        if norm_reg(base) == rs or want.get(k, 0) <= have.get(k, 0):
+            continue
+        if any(norm_reg(base) in defs_uses(ins[x][1].split("#", 1)[0].strip())[0]
+               for x in range(q + 1, p)):
+            continue
+        new = "%s%s\t%s,%d(%s)" % (m.group(1), op, m.group(2), off, base)
+        lines[li] = new
+        have[k] = have.get(k, 0) + 1
+        changed = True
+        # the reload issues where the target has it: above a directly preceding
+        # load (same straight line) when the target shows the pair in that order
+        pi, pl = ins[p - 1] if p else (None, "")
+        mp = _LOAD_S.match(pl)
+        if (mp and pi not in nr and not any(_s_is_label(x) for x in lines[pi + 1:li])
+                and rd not in defs_uses(pl.split("#", 1)[0].strip())[0]
+                and rd != norm_reg(mp.group(5))
+                and norm_reg(mp.group(3)) != norm_reg(base)):
+            k2 = (mp.group(2), int(mp.group(4)))
+            if any(a == k and b == k2 for a, b in zip(tk, tk[1:])):
+                lines[pi], lines[li] = new, pl
+    return "\n".join(lines) if changed else stext
+
+
 def zero_remat_pass(stext, tgt):
     want = sum(1 for _w, dis in tgt if _ZERO_TGT.match(dis.strip()))
     have = sum(1 for l in stext.split("\n")
@@ -3074,6 +3160,7 @@ PASSES = {
     "base_cse_collapse": base_cse_collapse_pass,
     "shift_const_fold": shift_const_fold_pass,
     "zero_remat": zero_remat_pass,
+    "load_remat": load_remat_pass,
     "ra_restore_sink": ra_restore_sink_pass,
     "sched_match": sched_match_pass,
     "fallthrough_fill": fallthrough_fill_pass,
@@ -3086,7 +3173,7 @@ PASSES = {
 # such pass listed in a recipe is applied ahead of reg_realloc regardless of the
 # manifest order; the rest keep their listed order after sigma.
 PRE_SIGMA_PASSES = ("un_hi_cse", "un_hi_cse_store", "exit_merge", "base_cse_collapse",
-                    "shift_const_fold", "zero_remat")
+                    "shift_const_fold", "zero_remat", "load_remat")
 
 # --------------------------------------------------------------------------
 # WORD-LEVEL passes. The original PSY-Q assembler (aspsx) scheduled branch and
