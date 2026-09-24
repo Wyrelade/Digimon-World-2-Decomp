@@ -4011,7 +4011,17 @@ void func_80022F8C(void *a0, s32 a1) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022FE8);
+void func_80022FE8(s32 *tbl) {
+    Blk22E60 *b = D_80050788;
+
+    if (b->field_8 != 1) {
+        do {
+            tbl[b->field_8] += (s32)b->field_4 - (s32)b;
+            b = b->field_4;
+        } while (b->field_8 != 1);
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023044);
 
