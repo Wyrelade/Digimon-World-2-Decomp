@@ -473,6 +473,9 @@ extern s32 D_8005075C;
 extern s32 D_80040E68[];
 extern u8 *D_80010000[];
 extern void func_8001A410(s32);
+extern void func_8001A410(s32);
+extern void func_80035C4C(s16 a0, s16 a1, s16 a2, s16 a3);
+extern void func_80034E04(s16, s16, s8, s16);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -2125,7 +2128,25 @@ void func_8001A5F4(s32 idx, s32 v) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A68C);
+void func_8001A68C(s32 id, s32 set) {
+    s32 k;
+    s32 i;
+    s32 j;
+    if (D_80050718 != id) {
+        if (set != 0 && D_80050718 != -1) {
+            func_8001A410(D_80050718);
+        }
+        i = id >> 8;
+        j = (id >> 4) & 0xF;
+        k = id & 0xF;
+        func_8003569C(D_80054C48[i].field_C[j], k);
+        func_80035C4C(D_80054C48[i].field_C[j], k, 0x7F, 0x7F);
+        func_80034E04(D_80054C48[i].field_C[j], k, 1, 1);
+        if (set != 0) {
+            D_80050718 = id;
+        }
+    }
+}
 
 /* File-local view of an Ent54C48 element with the fields func_8001A75C stamps. */
 typedef struct {
