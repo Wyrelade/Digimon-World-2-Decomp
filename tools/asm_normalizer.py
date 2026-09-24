@@ -2852,6 +2852,13 @@ def web_realloc_pass(stext, tgt):
                 if len(treg) != len(cr):
                     continue
                 comm = cm.split("|", 1)[0] in _COMMUTATIVE_ACC | {"mult", "multu"}
+                # a pinned web (entry value, call argument, ...) keeps its register:
+                # an aligned pair that disagrees there is a misalignment
+                if not comm and any(
+                        occ.get((n, r, pos, kd)) in pinned and r != t
+                        for (r, pos), t in zip(cr, treg) if pos is not None
+                        for kd in ("d", "u")):
+                    continue
                 uses = []
                 for k, ((r, pos), t) in enumerate(zip(cr, treg)):
                     if pos is None:
