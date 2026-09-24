@@ -1961,4 +1961,18 @@ typedef struct {
     s16 h;
 } Rect23550;
 
+/* Menu work block behind Actor.work for the item-use menu (func_80014EA4..func_80015914). */
+typedef struct {
+    /* 0x00 */ s32 field_0[20];
+    /* 0x50 */ s32 field_50;
+    /* 0x54 */ s32 field_54;
+    /* 0x58 */ s32 field_58;
+    /* 0x5C */ s32 field_5C;
+    u8 _pad60[0x28];
+    /* 0x88 */ s16 field_88[2];
+    /* 0x8C */ s16 field_8C[2];
+    u8 _pad90[0x8];
+    /* 0x98 */ s16 field_98;
+} Wk14EA4;
+
 #endif /* MAIN_156C_H */

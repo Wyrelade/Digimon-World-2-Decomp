@@ -484,6 +484,8 @@ extern s32 func_80023F90(s32 arg0);
 extern Tbl50724 D_80050724[];
 extern s32 D_8005078C;
 extern s32 D_8005072C;
+extern Halves D_80050700;
+extern s32 func_80012778(s32, s32, s32, s32);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -1416,7 +1418,23 @@ void func_80014CBC(Actor *actor) {
     } while (*list != 0);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80014EA4);
+void func_80014EA4(Actor *a0) {
+    Wk14EA4 *w = (Wk14EA4 *)a0->work;
+    Src16198 st;
+
+    if (func_80012778(D_80050768->field_108, D_80050768->field_10A, 0, 0) != 0) {
+        st.field_C = D_80050700;
+        st.field_11 = 0;
+        st.field_10 = 0x81;
+        st.field_0 = (s32)func_800239A0(0x1FD00FD);
+        st.field_4 = func_8001E048(D_80050768->field_108);
+        func_80013470(&w->field_50, (Src13470 *)&st);
+        func_8001A68C(0x1D, 0);
+    } else {
+        func_800134F8(&w->field_50, (s32)func_800239A0(0x1FD00A0), 0x81, D_80050700);
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80014F78);
 
