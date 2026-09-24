@@ -476,6 +476,7 @@ extern void func_8001A410(s32);
 extern void func_8001A410(s32);
 extern void func_80035C4C(s16 a0, s16 a1, s16 a2, s16 a3);
 extern void func_80034E04(s16, s16, s8, s16);
+extern void func_80035F04(s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -2091,7 +2092,25 @@ s32 func_8001A300(void) {
     return found;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A340);
+void func_8001A340(void) {
+    Ent54C48 *p;
+    s32 i;
+    s32 j;
+    s32 k;
+
+    for (i = 0; i < 3; i++) {
+        p = &D_80054C48[i];
+        if (p->field_8 != -1) {
+            for (j = 0; j < p->field_A; j++) {
+                for (k = 0; k < 0x10; k++) {
+                    func_8003569C(p->field_C[j], k);
+                }
+            }
+        }
+    }
+    func_80035F04(0);
+    D_80050718 = -1;
+}
 
 void func_8001A410(s32 id) {
     s32 i;
