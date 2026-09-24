@@ -1673,7 +1673,62 @@ void func_80016394(Actor *a0, Obj16198 *w) {
     func_8001A68C(snd, 0);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800164AC);
+void func_800164AC(Actor *a0, Obj16198 *w) {
+    Cell16198 *c;
+    s32 n;
+    s32 i;
+    s32 t;
+    s32 snd;
+    Src16198 st;
+
+    c = &w->field_72[func_80013A70(w->field_54, w->field_58.field_0)];
+    if (c->field_0 == 0) {
+        snd = 0x10;
+    } else if (func_80013A70(w->field_54, w->field_58.field_0) >= w->field_6C) {
+        snd = 0x10;
+    } else {
+        n = func_8002281C();
+        for (i = 0; i < n; i++) {
+            if (D_80050720->field_66[i] == 0) {
+                break;
+            }
+        }
+        if (i == n) {
+            func_800134F8(&w->field_40, (s32)func_800239A0(0x1FD0124), 0x81, D_80050704);
+            snd = 0x10;
+        } else {
+            D_80050720->field_66[i] = c->field_0;
+            D_80050720->field_DD4[c->field_0]--;
+            st.field_C = D_80050704;
+            st.field_10 = 0x81;
+            st.field_11 = 0;
+            st.field_4 = func_8001E048(c->field_0);
+            st.field_0 = (s32)func_800239A0(0x1FD0123);
+            func_80013470(&w->field_40, (Src13470 *)&st);
+            func_80015F68(w);
+            if (w->field_54[0] >= w->field_58.field_0[0]) {
+                w->field_54[0] = w->field_58.field_0[0] - 1;
+            }
+            if (w->field_54[1] >= w->field_58.field_0[1]) {
+                w->field_54[1] = w->field_58.field_0[1] - 1;
+            }
+            t = w->field_58.field_0[0] - 2;
+            if (t < 0) {
+                t = 0;
+            }
+            w->field_6E = (w->field_6E < t) ? w->field_6E : t;
+            func_80016198(w, 0);
+            if (w->field_6C == 0) {
+                func_800115DC(a0, 6);
+            } else {
+                func_800115DC(a0, 2);
+            }
+            snd = 0xE;
+        }
+    }
+    func_8001A68C(snd, 0);
+}
+
 
 void func_800166FC(Actor *a0, Obj166FC *o) {
     s16 *pos = o->field_54;
