@@ -2007,5 +2007,10 @@
     "passes": [
       "gp8_nosplit"
     ]
+  },
+  "func_800227F0": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }
