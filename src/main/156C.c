@@ -466,6 +466,8 @@ extern Obj50720 *D_80050720;
 extern s32 D_800506FC;
 extern s32 D_80050778;
 extern s32 D_8005077C;
+extern s32 D_80050784;
+extern Blk22E60 *D_80050788;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3949,7 +3951,20 @@ void func_80022D84(ActorWork *arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022DEC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022E60);
+void func_80022E60(Blk22E60 *heap, s32 size) {
+    Blk22E60 *end;
+
+    D_80050784 = size;
+    D_80050788 = heap;
+    end = (Blk22E60 *)((u8 *)heap + size) - 1;
+    heap->field_0 = NULL;
+    heap->field_4 = end;
+    heap->field_8 = 0;
+    end->field_0 = heap;
+    end->field_4 = NULL;
+    end->field_8 = 1;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022E90);
 

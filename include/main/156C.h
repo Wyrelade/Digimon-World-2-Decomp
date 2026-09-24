@@ -1895,4 +1895,11 @@ typedef struct {
 } Work141D4;
 
 
+/* 12-byte heap block header (func_80022E60): prev, next, in-use flag. */
+typedef struct Blk22E60 {
+    /* 0x0 */ struct Blk22E60 *field_0;
+    /* 0x4 */ struct Blk22E60 *field_4;
+    /* 0x8 */ s32 field_8;
+} Blk22E60;
+
 #endif /* MAIN_156C_H */
