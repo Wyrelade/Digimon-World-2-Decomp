@@ -413,6 +413,13 @@ extern int func_8003FB88(void);
 extern int func_8003FB9C(void);
 extern int func_8003FBB0(void);
 extern void func_8003FEA4(void);
+extern char D_80010C70[];
+extern void func_8003F518(s32, u8 *);
+extern void func_8003F874(u8 *, s32);
+extern s32 func_8003F574(u8 *, s32);
+extern s32 func_8003F18C(s32 wait, s32 *a1, s32 *a2);
+extern void func_8003FEA4(void);
+extern s32 D_80062F90;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -6971,7 +6978,55 @@ s32 func_8003E134(s32 arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003E19C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003E444);
+s32 func_8003E444(s32 a0, s32 a1, s32 a2) {
+    s32 tries;
+    s32 r;
+    s32 st;
+
+    tries = 0;
+    if (D_80062F80.field_14 >= 0) {
+        func_8002A014(D_80010C70);
+        return -1;
+    }
+    func_8003F518(a0, D_80062F80.field_24);
+    func_8003F874(D_80062F80.field_24, a1);
+    D_80062F80.field_10 = a0;
+    do {
+    retry:
+        r = func_8003F574(D_80062F80.field_24, 1);
+        if (r >= 0) {
+            goto ok;
+        }
+        D_80062FD8 = func_8003F178(0);
+        if (D_80062F80.field_0 > 0) {
+            func_8002A014(D_80010B74);
+        } else {
+            D_80062F80.field_0 = 2;
+            D_80062F80.field_4 = 0;
+            D_80062F80.field_8 = 0;
+            D_80062F90 = a0;
+            func_8003FA24(func_8003E19C);
+        }
+        func_8003F18C(0, NULL, &st);
+        func_8003F178(D_80062FD8);
+        if (st == 3) {
+            goto retry;
+        }
+        if (st != 2) {
+            break;
+        }
+    } while (++tries < 5);
+    if (st == 0) {
+        st = 5;
+    }
+    return st;
+ok:
+    func_8003F5A4(r);
+    func_8003FEA4();
+    D_80062F80.field_14 = func_8003F574(D_80062F80.field_24, a2 | 0x8000);
+    return 0;
+}
+
 
 void func_8003E5CC(void) {
     s32 *p = &D_80062F94;

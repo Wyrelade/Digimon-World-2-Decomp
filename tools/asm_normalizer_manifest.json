@@ -1802,5 +1802,17 @@
   },
   "func_80016198": {
     "passes": []
+  },
+  "func_8003E444": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "reg_realloc",
+      "save_slot",
+      "ra_restore_sink",
+      "taken_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

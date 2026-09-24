@@ -1177,7 +1177,7 @@ typedef struct {
     /* 0x18 */ s32 field_18;
     /* 0x1C */ s32 field_1C;
     /* 0x20 */ s32 field_20;
-    u8 _pad24[0x20];
+    /* 0x24 */ u8 field_24[0x20];
     /* 0x44 */ s32 field_44;
     /* 0x48 */ s32 field_48;
     /* 0x4C */ s32 field_4C;
