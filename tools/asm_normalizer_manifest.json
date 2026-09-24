@@ -2086,5 +2086,12 @@
       "gp8_nosplit",
       "sched_match"
     ]
+  },
+  "func_8001A5F4": {
+    "passes": [
+      "gp8_nosplit",
+      "web_realloc",
+      "sched_match"
+    ]
   }
 }
