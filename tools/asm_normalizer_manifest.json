@@ -1659,5 +1659,12 @@
   },
   "func_8001A4A8": {
     "passes": []
+  },
+  "func_80025114": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "padnop"
+    ]
   }
 }

@@ -3630,7 +3630,12 @@ void func_80025034(Obj25FBC *a0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025114);
+s32 func_80025114(Obj25FBC *p) {
+    if (p->field_E6 != 0 && p->field_46 == 0xFF) {
+        return 0;
+    }
+    return 1;
+}
 
 s32 func_80025144(void) {
     if (!(D_80048E8C->field_4 & 1)) {
