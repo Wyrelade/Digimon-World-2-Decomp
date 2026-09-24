@@ -497,6 +497,11 @@ extern u32 D_80048FD0;
 extern Halves D_8005070C;
 extern void func_80014F78(Actor *);
 extern void func_800153F4(Actor *, s32);
+extern s32 D_80050764;
+extern s32 D_8005F788[];
+extern s32 func_8002284C(s32 mode);
+extern void func_8001C4C8(s32 arg0);
+extern void func_8001BE74(s32 a0, s32 a1);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -1270,7 +1275,158 @@ void func_80013BF8(Actor *arg0, s16 arg1) {
     arg0->work->field_30 = arg1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013C04);
+void func_80013C04(Actor *a0) {
+    Wk13C04 *w = (Wk13C04 *)a0->work;
+    s32 *slot = (s32 *)a0->u34.field_34;
+    Pair54 *tbl;
+    s32 v;
+    s32 k;
+    s32 snd;
+
+    switch (a0->field_10) {
+    case 0:
+    default:
+        D_80050768 = (Obj50768 *)func_80022F3C(0x364, 2);
+        D_80050768->field_360 = 0;
+        D_80050764 = 0;
+        *(Layout8C *)w->field_24 = *(Layout8C *)func_800239A0(0x5130005);
+        D_80050768->field_0 = 0;
+        v = D_8005F788[0];
+        if (v / 256 != 2) {
+            switch (v) {
+            default:
+                D_80050768->field_0 = 2;
+                break;
+            case 0x32D ... 0x32E:
+                D_80050768->field_0 = 6;
+                break;
+            case 0x32A ... 0x32C:
+                D_80050768->field_0 = 4;
+                break;
+            }
+        } else {
+            D_80050768->field_0 = 1;
+            if (func_80021E78(0x67) == 0) {
+                D_80050768->field_0 |= 8;
+            }
+        }
+        if (func_8002284C(0) == 0x24) {
+            D_80050768->field_0 = (D_80050768->field_0 | 0x10) & ~2;
+        }
+        D_80050768->field_4 = 0;
+        func_8001C088(&w->field_0, 8);
+        func_80011544(a0);
+        func_8001C4C8(0x20);
+        break;
+    case 1:
+        tbl = (Pair54 *)func_800239A0(0x5130006);
+        switch (a0->field_14) {
+        case 0:
+        default:
+            if (func_800136E4((s32)a0, &w->field_34) != 0) {
+                break;
+            }
+            func_80013558(&w->field_0, (Key13558 *)func_800239A0(0x5130003), 2);
+            func_8001BB88((D_80050768->field_0 & 1) ? &w->field_14 : &w->field_18);
+            func_8001BE74(w->field_4, (D_80050768->field_0 >> 4) & 1);
+            func_8001BE74(w->field_8, (D_80050768->field_0 >> 4) & 1);
+            func_8001BE74(w->field_C, (D_80050768->field_0 >> 4) & 1);
+            func_8001BE74(w->field_10, !(D_80050768->field_0 & 2));
+            func_8001BE74(w->field_14, !(D_80050768->field_0 & 4));
+            func_8001BE74(w->field_18, !(D_80050768->field_0 & 8));
+            func_80011564(a0);
+            break;
+        case 1:
+            if (func_80013A10((s32)w->field_20, (s32)w->field_24) != 0) {
+                snd = 0xC;
+            } else if (D_8005F6F0[0].field_14 > 0) {
+                k = func_80013A70(w->field_20, w->field_24);
+                if (k == 5 && (D_80050768->field_0 & 1)) {
+                    k = 6;
+                }
+                if ((u32)(k - 1) < 3 && (D_80050768->field_0 & 0x10)) {
+                    snd = 0x10;
+                } else if (k == 4 && !(D_80050768->field_0 & 2)) {
+                    snd = 0x10;
+                } else if (k == 5 && !(D_80050768->field_0 & 4)) {
+                    snd = 0x10;
+                } else if (k == 6 && !(D_80050768->field_0 & 8)) {
+                    snd = 0x10;
+                } else if (k == 5) {
+                    D_80050768->field_360 = 1;
+                    func_800115C0(a0, 2);
+                    snd = 0xA;
+                } else {
+                    w->field_32 = k;
+                    func_80011564(a0);
+                    snd = 0xA;
+                }
+            } else {
+                if (D_8005F6F0[0].field_1C > 0) {
+                    func_8001A68C(0xB, 0);
+                    func_800115C0(a0, 2);
+                }
+                break;
+            }
+            func_8001A68C(snd, 0);
+            break;
+        case 2:
+            switch (a0->field_18) {
+            case 0:
+            default:
+                func_8001C0B0(&w->field_0, 8);
+                func_80011580(a0);
+                break;
+            case 1:
+                if (func_80013714((s32)a0, &w->field_34) == 0) {
+                    func_80011564(a0);
+                }
+                break;
+            }
+            break;
+        case 3:
+            switch (a0->field_18) {
+            case 0:
+            default:
+                func_8001107C(tbl[w->field_32].field_0, slot, tbl[w->field_32].field_2);
+                func_80011580(a0);
+                break;
+            case 1:
+                if (*slot == 0) {
+                    if (D_80050768->field_360 != 0) {
+                        func_800115C0(a0, 2);
+                    } else {
+                        func_800115DC(a0, 0);
+                    }
+                }
+                break;
+            }
+            break;
+        }
+        break;
+    case 2:
+        switch (a0->field_14) {
+        case 0:
+        default:
+            func_8001C0B0(&w->field_0, 8);
+            D_80050764 = D_80050768->field_360;
+            func_80011564(a0);
+            func_8001C4F0(0x20);
+            break;
+        case 1:
+            if (func_80013714((s32)a0, &w->field_34) == 0) {
+                func_800115C0(a0, 3);
+                func_80022D84((ActorWork *)D_80050768);
+            }
+            break;
+        }
+        break;
+    }
+    if (D_80050768 != NULL) {
+        D_80050768->field_4 = a0->field_28;
+    }
+}
+
 
 void func_800141D4(Actor *actor) {
     Work141D4 *w = (Work141D4 *)actor->work;
@@ -2662,14 +2818,13 @@ s32 func_8001A920(void) {
 
 extern Elem20 *func_8001CB80(s32);
 extern void func_8001107C(u32, s32 *, s32);
-extern s32 D_8005F788;
 
 void func_8001A958(Actor *a0) {
     if (a0->field_10 != 0) {
         return;
     }
     func_8001CB80(0x13A0000);
-    if ((D_8005F788 & 0xF00) != 0x500) {
+    if ((D_8005F788[0] & 0xF00) != 0x500) {
         func_8001CB80(0x1100000);
         func_8001107C(0xA, a0->u34.field_34, 0);
     }
@@ -3397,7 +3552,7 @@ void func_8001DC24(s32 a0, s32 a1, ElmE620 *e) {
     u8 *name;
     s32 i;
 
-    if ((D_8005F788 & 0xFF00) == 0x500) {
+    if ((D_8005F788[0] & 0xFF00) == 0x500) {
         if (a1 == 0) {
             a1 = 1;
         } else if (a1 == 1) {
@@ -3433,7 +3588,7 @@ void func_8001DDA8(s32 a0, s32 a1, ElmE620 *e, Out1DDA8 *o) {
     u8 *name;
     s32 i;
 
-    if ((D_8005F788 & 0xFF00) == 0x500) {
+    if ((D_8005F788[0] & 0xFF00) == 0x500) {
         if (a1 == 0) {
             a1 = 1;
         } else if (a1 == 1) {

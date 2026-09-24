@@ -2012,4 +2012,21 @@ typedef struct {
     u32 len : 8;
 } OTag;
 
+/* Title/main menu work block behind Actor.work (func_80013C04). */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    u8 _pad1C[0x4];
+    /* 0x20 */ s16 field_20[2];
+    /* 0x24 */ s16 field_24[2];
+    u8 _pad28[0xA];
+    /* 0x32 */ s16 field_32;
+    /* 0x34 */ s32 field_34;
+} Wk13C04;
+
 #endif /* MAIN_156C_H */
