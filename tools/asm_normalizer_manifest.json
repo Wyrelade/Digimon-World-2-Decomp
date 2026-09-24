@@ -1767,5 +1767,12 @@
       "delay_fill",
       "epilogue_unfill"
     ]
+  },
+  "func_80033524": {
+    "passes": [
+      "nosplit",
+      "sched_match",
+      "padnop"
+    ]
   }
 }

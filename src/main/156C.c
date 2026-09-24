@@ -5560,7 +5560,48 @@ void func_80033394(s16 a0, s16 a1, u8 a2) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033424);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033524);
+void func_80033524(a0, a1, a2)
+s16 a0;
+s16 a1;
+u8 a2;
+{
+    Elm354F4 *e = &D_80061C50[a0][a1];
+    u8 n;
+
+    switch (a2) {
+    case 0x14:
+        e->field_1B = a2;
+        e->field_1C = 1;
+        e->field_90 = func_80032494(a0, a1);
+        e->field_8 = (s32)e->field_0;
+        break;
+    case 0x1E:
+        n = e->field_1D;
+        e->field_1B = a2;
+        if (n == 0) {
+            e->field_15 = 0;
+            e->field_90 = func_80032494(a0, a1);
+        } else if (n < 0x7F) {
+            e->field_1D = n - 1;
+            e->field_90 = func_80032494(a0, a1);
+            if (e->field_1D != 0) {
+                e->field_0 = (u8 *)e->field_8;
+            } else {
+                e->field_15 = 0;
+            }
+        } else {
+            func_80032494(a0, a1);
+            e->field_90 = 0;
+            e->field_0 = (u8 *)e->field_8;
+        }
+        break;
+    default:
+        e->field_1B = a2;
+        e->field_1F++;
+        e->field_90 = func_80032494(a0, a1);
+        break;
+    }
+}
 
 void func_80033664(s16 arg0, s16 arg1, s16 arg2) {
     Elm354F4 *e = &D_80061C50[arg0][arg1];
