@@ -1774,5 +1774,10 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_800374C0": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }

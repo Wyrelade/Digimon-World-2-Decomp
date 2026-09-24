@@ -6191,7 +6191,33 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036C54);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036FA4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800374C0);
+s32 func_800374C0(s32 a0, s32 a1, s32 a2, s32 a3) {
+    s32 bit;
+    s32 k;
+    u8 i;
+    s32 n = 0;
+
+    i = 0;
+    if (i < D_80062D0C) {
+        bit = 1;
+        k = a3 & 0xFFFF;
+        do {
+            s32 m = bit << i;
+
+            if (!(D_8004FC18 & m) && D_800624E8[i].field_E == k && D_800624E8[i].field_14 == (s16)a2 && D_800624E8[i].field_10 == (s16)a0 && D_800624E8[i].field_18 == (s16)a1) {
+                if (D_800624E8[i].field_0 == 0xFF) {
+                    func_800382D4(i);
+                } else {
+                    D_80062D30 = i;
+                    func_80038314(0);
+                }
+                n++;
+            }
+            i++;
+        } while (i < D_80062D0C);
+    }
+    return n;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80037620);
 

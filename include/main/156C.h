@@ -1051,7 +1051,14 @@ typedef struct {
     /* 0x00 */ s16 field_0;
     u8 _pad02[0x02];
     /* 0x04 */ s16 field_4;
-    u8 _pad06[0x17];
+    u8 _pad06[0x8];
+    /* 0x0E */ s16 field_E;
+    /* 0x10 */ s16 field_10;
+    u8 _pad12[0x2];
+    /* 0x14 */ s16 field_14;
+    u8 _pad16[0x2];
+    /* 0x18 */ s16 field_18;
+    u8 _pad1A[0x3];
     /* 0x1D */ u8 field_1D;
     u8 _pad1E[0x1A];
 } Elm624E8; /* size 0x38 */
