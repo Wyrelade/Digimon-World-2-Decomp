@@ -2042,5 +2042,11 @@
     "passes": [
       "gp8"
     ]
+  },
+  "func_800225C4": {
+    "passes": [
+      "gp8_nosplit",
+      "label_nop"
+    ]
   }
 }

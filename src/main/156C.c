@@ -3882,7 +3882,23 @@ u8 func_80022578(void) {
     return result;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800225C4);
+s32 func_800225C4(void) {
+    s32 r;
+    s32 n;
+    s32 i;
+
+    r = -1;
+    n = func_8002281C();
+    for (i = 0; i < n; i++) {
+        if (D_80050720->field_66[i] == 0) {
+            r = i;
+            goto done;
+        }
+    }
+done:
+    return r;
+}
+
 
 void func_80022628(void) {
     u16 *src;
