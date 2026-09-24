@@ -1653,6 +1653,11 @@ typedef struct {
     /* 0x26 */ s16 field_26;
     /* 0x28 */ s16 field_28;
     /* 0x2A */ s16 field_2A;
+    /* 0x2C */ u16 field_2C[4];
+    /* 0x34 */ u16 field_34;
+    u8 _pad36[0x1C];
+    /* 0x52 */ u8 field_52[0x14];
+    /* 0x66 */ u16 field_66[0x30];
 } Obj50720;
 
 /* Record behind Ent17D84.field_4: an id byte at 0x01, a name at 0x4C. */

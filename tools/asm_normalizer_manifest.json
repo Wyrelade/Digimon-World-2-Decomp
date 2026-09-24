@@ -1997,5 +1997,10 @@
     "passes": [
       "gp8_nosplit"
     ]
+  },
+  "func_80022518": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }

@@ -462,6 +462,7 @@ extern u8 func_800223EC(s32, s32, s32, s32);
 extern s32 D_80050790;
 extern s32 D_80050718;
 extern s32 D_80050774;
+extern Obj50720 *D_80050720;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -3847,7 +3848,14 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022468);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800224EC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022518);
+s32 func_80022518(s32 i) {
+    Obj50720 *p = D_80050720;
+    if (p->field_52[i] == 1) {
+        return -1;
+    }
+    return p->field_2C[i];
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002254C);
 
