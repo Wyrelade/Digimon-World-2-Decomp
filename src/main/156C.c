@@ -4023,7 +4023,23 @@ void func_80022FE8(s32 *tbl) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023044);
+u32 func_80023044(void) {
+    Blk22E60 *b = D_80050788;
+    u32 best = 0;
+    u32 sz;
+
+    while (b->field_8 != 1) {
+        if (b->field_8 == 0) {
+            sz = (s32)b->field_4 - (s32)b;
+            if (best < sz) {
+                best = sz;
+            }
+        }
+        b = b->field_4;
+    }
+    return best;
+}
+
 
 void func_800230AC(void) {
     func_80024654(D_8005F6A8, D_8005F6A8 + 0x22);
