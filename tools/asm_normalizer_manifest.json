@@ -1819,5 +1819,8 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_800230FC": {
+    "passes": []
   }
 }

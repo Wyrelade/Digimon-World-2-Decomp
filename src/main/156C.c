@@ -3269,7 +3269,32 @@ void func_800230DC(Rec230DC *arg0) {
     arg0->field_8 = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800230FC);
+void func_800230FC(Rec230DC *p, u8 *buf) {
+    s32 n;
+
+    p->field_8 = p->field_4;
+    p->field_4 = ((buf[2] << 8) + buf[3]) ^ 0xFFFF;
+    p->field_0 = (p->field_8 ^ p->field_4) & p->field_4;
+    if (p->field_8 != p->field_4) {
+        p->field_10 = p->field_0;
+        p->field_14 = 0;
+        p->field_15 = 0;
+        return;
+    }
+    n = ++p->field_15;
+    if (p->field_14 == 0) {
+        if (n >= 11) {
+            goto rep;
+        }
+    } else if (n >= 4) {
+    rep:
+        p->field_14 = 1;
+        p->field_15 = 0;
+        p->field_10 = p->field_4;
+        return;
+    }
+    p->field_10 = 0;
+}
 
 void func_800231AC(Elm6A8 *a0, s32 i) {
     switch (func_80024474(i << 4)) {

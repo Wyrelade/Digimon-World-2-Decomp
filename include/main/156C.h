@@ -87,7 +87,7 @@ typedef struct {
 
 /* Record cleared by func_800230DC. */
 typedef struct {
-    u8 _pad00[0x04];
+    /* 0x00 */ s32 field_0;
     /* 0x04 */ s32 field_4;
     /* 0x08 */ s32 field_8;
     /* 0x0C */ s32 field_C;
