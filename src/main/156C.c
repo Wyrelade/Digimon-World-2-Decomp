@@ -4122,7 +4122,44 @@ s32 func_8002284C(s32 mode) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022910);
+s32 func_80022910(s32 mode, ElmE620 **list) {
+    s32 n = 0;
+    s32 i;
+    ElmE620 **p = list;
+    ElmE620 *e = D_80050720->elems;
+
+    for (i = 0; i < 0x24; i++, e++) {
+        switch (mode) {
+        default:
+            if (e->field_0 == mode) {
+                *p++ = e;
+                n++;
+            }
+            break;
+        case 2:
+            if (e->field_0 >= 2) {
+                *p++ = e;
+                n++;
+            }
+            break;
+        case 3:
+            if (e->field_0 >= 3) {
+                p++;
+                list[e->field_0 - 3] = e;
+                n++;
+            }
+            break;
+        case 4:
+            if (e->field_0 == 2) {
+                *p++ = e;
+                n++;
+            }
+            break;
+        }
+    }
+    return n;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800229F4);
 

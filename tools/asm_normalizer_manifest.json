@@ -2140,5 +2140,11 @@
     "passes": [
       "gp8_nosplit"
     ]
+  },
+  "func_80022910": {
+    "passes": [
+      "gp8_nosplit",
+      "reorder_indep"
+    ]
   }
 }
