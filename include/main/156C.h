@@ -1018,7 +1018,9 @@ typedef struct {
     u8 _pad000[0x108];
     /* 0x108 */ s16 field_108;
     /* 0x10A */ s16 field_10A;
-    u8 _pad10C[0x1A];
+    u8 _pad10C[0x4];
+    /* 0x110 */ u8 *field_110;
+    u8 _pad114[0x12];
     /* 0x126 */ s16 field_126;
     /* 0x128 */ s32 field_128;
     u8 _pad12C[0x230];
@@ -1474,5 +1476,36 @@ typedef struct {
     u8 _pad0[0x60];
     /* 0x60 */ s32 field_60;
 } Mode5CCF8;
+
+/* 0x1C-byte parameter block copied from D_80040F64 into Wk18BF8.field_CC. */
+typedef struct {
+    s32 w[7];
+} Prm1C;
+
+/* View of Actor.work set up by func_80018BF8 (fields 0x7C..0x14C). */
+typedef struct {
+    u8 _pad00[0x7C];
+    /* 0x7C */ s16 field_7C;
+    u8 _pad7E[0x6];
+    /* 0x84 */ u8 *field_84;
+    u8 _pad88[0x28];
+    /* 0xB0 */ s32 field_B0[3];
+    /* 0xBC */ u16 field_BC;
+    u8 _padBE[0x2];
+    /* 0xC0 */ s32 field_C0;
+    /* 0xC4 */ s32 field_C4;
+    /* 0xC8 */ s32 field_C8;
+    /* 0xCC */ Prm1C field_CC;
+    /* 0xE8 */ s32 field_E8;
+    u8 _padEC[0x4C];
+    /* 0x138 */ s16 field_138;
+    u8 _pad13A[0x6];
+    /* 0x140 */ s16 field_140;
+    /* 0x142 */ s16 field_142;
+    /* 0x144 */ s16 field_144;
+    u8 _pad146[0x2];
+    /* 0x148 */ s32 field_148;
+    /* 0x14C */ s32 field_14C;
+} Wk18BF8;
 
 #endif /* MAIN_156C_H */

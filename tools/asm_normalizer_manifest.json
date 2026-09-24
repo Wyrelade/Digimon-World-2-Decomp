@@ -1737,5 +1737,10 @@
       "fallthrough_fill",
       "padnop"
     ]
+  },
+  "func_80018BF8": {
+    "passes": [
+      "reorder_indep"
+    ]
   }
 }
