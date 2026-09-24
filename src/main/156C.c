@@ -3011,7 +3011,39 @@ s32 func_8001E938(void) {
     return i;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001E984);
+s32 func_8001E984(s32 lv, s32 max, s32 cur) {
+    s32 x;
+    s32 sq;
+    s32 exp;
+
+    if (lv >= max) {
+        return 99999999;
+    }
+    if (lv >= 62) {
+        x = lv - 61;
+        exp = 826540 + x * 65535;
+    } else if (lv >= 31) {
+        x = lv - 30;
+        sq = x * x;
+        exp = (sq * x * 5 + sq * 15 + x * 1145) * 4 + 31080;
+    } else if (lv >= 21) {
+        x = lv - 20;
+        sq = x * x;
+        exp = (sq * x * 5 + sq * 15) * 2 + x * 1220 + 5880;
+    } else if (lv >= 11) {
+        x = lv - 10;
+        sq = x * x;
+        exp = sq * x * 10 / 3 + sq * 10 + x * 107 + 480;
+    } else {
+        x = lv;
+        sq = x * x;
+        exp = sq * x / 3 + sq + x * 5;
+    }
+    if (exp < cur) {
+        return 0;
+    }
+    return exp - cur;
+}
 
 s32 func_8001EB58(s32 x) {
     s32 h = x / 2;
