@@ -458,6 +458,7 @@ extern void func_80031CD4(s32 a0, s16 a1);
 extern void func_80032644(s16 a0, s16 a1);
 extern void func_800354F4(s32 arg0, s32 arg1);
 extern void func_80031D74(s16, s16);
+extern u8 func_800223EC(s32, s32, s32, s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -1187,7 +1188,68 @@ void func_80013BF8(Actor *arg0, s16 arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013C04);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800141D4);
+void func_800141D4(Actor *actor) {
+    Work141D4 *w = (Work141D4 *)actor->work;
+    s32 *p;
+    s32 *list;
+    void *obj;
+    s32 i;
+    Part28 *base;
+    Part28 *q;
+    Part28 *r;
+
+    if (w->field_34 != 0) {
+        p = (s32 *)func_800239A0(0x5130004);
+        if (*p != 0) {
+            i = 0;
+            list = p;
+            do {
+                obj = func_800239A0(*list);
+                switch (i) {
+                case 0:
+                default:
+                    func_8001373C(obj, 2, &w->field_20, &w->field_24);
+                    func_800137B8(obj, 2, (actor->field_28 >> 2) & 3);
+                    break;
+                case 1:
+                    func_8001D5B4(obj, 2, 8, D_80050720->field_8);
+                    break;
+                }
+                func_8001D550(obj, 0x1000, w->field_34);
+                list++;
+                func_8001D884((s32)obj);
+                i++;
+            } while (*list != 0);
+        }
+    }
+    base = (Part28 *)func_800239A0(0x459000C);
+    for (q = base; q->field_0 != 0; q++) {
+        switch (q->field_1C) {
+        case 2:
+            q->field_C = func_800223EC(actor->field_28, 0xA, 0, 7);
+            break;
+        case 8:
+            q->field_4 -= 2;
+            if (q->field_4 == -0x168) {
+                q->field_4 = 0;
+            }
+            break;
+        case 0x10:
+            q->field_4 += 1;
+            if (q->field_4 == 0xD8) {
+                q->field_4 = 0;
+            }
+            break;
+        case 0x20:
+            q->field_4 -= 2;
+            if (q->field_4 == -0x1C0) {
+                q->field_4 = 0;
+            }
+            break;
+        }
+    }
+    func_8001D884((s32)base);
+}
 
 void func_800143CC(Actor *arg0, s16 arg1) {
     ActorWork *w = arg0->work;

@@ -1969,5 +1969,11 @@
       "nosplit",
       "zero_remat"
     ]
+  },
+  "func_800141D4": {
+    "passes": [
+      "nosplit",
+      "label_nop"
+    ]
   }
 }

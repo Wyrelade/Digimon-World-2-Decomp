@@ -1879,4 +1879,14 @@ typedef struct {
     u8 _pad4C[0x4];
 } Coord1F668; /* size 0x50 */
 
+/* Actor work view used by func_800141D4 (part list animation). */
+typedef struct {
+    u8 _pad00[0x20];
+    /* 0x20 */ s32 field_20;
+    /* 0x24 */ s16 field_24;
+    u8 _pad26[0xE];
+    /* 0x34 */ s32 field_34;
+} Work141D4;
+
+
 #endif /* MAIN_156C_H */
