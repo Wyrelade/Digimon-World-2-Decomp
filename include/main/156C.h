@@ -1583,4 +1583,35 @@ typedef struct {
     /* 0x04 */ s32 field_4;
 } Flags506C0;
 
+/* Record listed in Wk14CBC.field_A0 (func_80014CBC). */
+typedef struct {
+    u8 _pad00[0x0D];
+    /* 0x0D */ u8 field_D;
+    u8 _pad0E[0x06];
+    /* 0x14 */ s16 field_14;
+    /* 0x16 */ s16 field_16;
+    /* 0x18 */ s16 field_18;
+    /* 0x1A */ s16 field_1A;
+} Rec14CBC;
+
+/* Actor work block read by func_80014CBC. */
+typedef struct {
+    u8 _pad00[0x70];
+    /* 0x70 */ s32 field_70;
+    u8 _pad74[0x2C];
+    /* 0xA0 */ Rec14CBC *field_A0[3];
+    /* 0xAC */ s16 field_AC;
+} Wk14CBC;
+
+/* Object behind the D_80050720 pointer (func_80014CBC). */
+typedef struct {
+    u8 _pad00[0x08];
+    /* 0x08 */ s32 field_8;
+    u8 _pad0C[0x18];
+    /* 0x24 */ s16 field_24;
+    /* 0x26 */ s16 field_26;
+    /* 0x28 */ s16 field_28;
+    /* 0x2A */ s16 field_2A;
+} Obj50720;
+
 #endif /* MAIN_156C_H */
