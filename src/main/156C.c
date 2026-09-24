@@ -448,6 +448,7 @@ extern void (*D_80061BE4)(s16, s16, s32);
 extern void (*D_80061BE8)(s16, s16, s32);
 extern void (*D_80061BEC)(s16, s16, s32);
 extern void (*D_80061BF0)(s16, s16);
+extern void func_8001CAC4(Elem20 *);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -2076,7 +2077,7 @@ s32 func_8001A920(void) {
     return D_80054CD0.data[D_80054CD0.count];
 }
 
-extern void func_8001CB80(s32);
+extern Elem20 *func_8001CB80(s32);
 extern void func_8001107C(u32, s32 *, s32);
 extern s32 D_8005F788;
 
@@ -2373,13 +2374,76 @@ void func_8001CA3C(void) {
     }
 }
 
-s32 func_8001CAA0(void) {
+s32 func_8001CAA0() {
     return func_800239A0()->field_4 & 7;
 }
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CAC4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CB80);
+Elem20 *func_8001CB80(s32 id) {
+    Elem20 *e;
+    Elem20 *p;
+    s32 i;
+    u32 best;
+    s32 idx;
+    s32 n;
+    s32 tp;
+    s32 t;
+
+    p = D_8005CD60;
+    for (i = 0; i < 0x40; i++, p++) {
+        if (p->field_0 == -1) {
+            continue;
+        }
+        if (p->field_0 == -2) {
+            continue;
+        }
+        if (p->field_0 == id) {
+            p->field_4 = D_8005F770.field_0;
+            return p;
+        }
+    }
+    best = -1;
+    idx = 0;
+    if (func_8001CAA0(id)) {
+        n = 0x20;
+        tp = 1;
+    } else {
+        n = 0x40;
+        tp = 0;
+    }
+    e = D_8005CD60;
+    for (i = 0; i < n; i++, e++) {
+        if (e->field_0 == -1) {
+            continue;
+        }
+        if (e->field_0 == -2) {
+            continue;
+        }
+        if (e->field_0 == 0) {
+            idx = i;
+            break;
+        }
+        if (e->field_4 < best) {
+            best = e->field_4;
+            idx = i;
+        }
+    }
+    e = &D_8005CD60[idx];
+    e->field_0 = id;
+    e->field_4 = D_8005F770.field_0;
+    e->field_8 = tp;
+    t = e->field_14 & 2;
+    e->field_C = t == 0;
+    if (tp) {
+        e->field_C <<= 6;
+    } else {
+        e->field_C <<= 7;
+    }
+    e->field_10 = (tp << 7) | ((e->field_1C & 0x100) >> 4) | ((e->field_18 & 0x3FF) >> 6) | ((e->field_1C & 0x200) << 2);
+    func_8001CAC4(e);
+    return e;
+}
 
 void func_8001CD2C(s32 arg0) {
     s32 i;

@@ -1923,5 +1923,11 @@
       "web_realloc",
       "commutative_swap"
     ]
+  },
+  "func_8001CB80": {
+    "passes": [
+      "web_realloc",
+      "padnop"
+    ]
   }
 }
