@@ -737,7 +737,7 @@ typedef struct {
     /* 0x22 */ u8 field_22;
     /* 0x23 */ u8 field_23;
     /* 0x24 */ u8 field_24;
-    u8 _pad25[0x27];
+    /* 0x25 */ u8 field_25[0x27];
     /* 0x4C */ u8 field_4C[14];
     u8 _pad5A[0x2];
 } ElmE620; /* size 0x5C */
@@ -1701,5 +1701,39 @@ typedef struct {
     /* 0xAC */ Slot19BF4 field_AC[4];
     /* 0x114 */ s32 field_114;
 } Wk19BF4;
+
+/* One 0x1E-byte row of the func_8001DB18 table as func_8001DDA8 reads it
+   (rows start 8 bytes into the table; field_12 is a 4x3 byte matrix). */
+typedef struct {
+    /* 0x00 */ u16 field_0;
+    /* 0x02 */ u16 field_2;
+    /* 0x04 */ u16 field_4;
+    /* 0x06 */ s16 field_6;
+    /* 0x08 */ u16 field_8;
+    /* 0x0A */ u8 field_A;
+    /* 0x0B */ u8 field_B;
+    /* 0x0C */ u16 field_C;
+    /* 0x0E */ u8 field_E;
+    /* 0x0F */ u8 field_F;
+    /* 0x10 */ u8 field_10;
+    /* 0x11 */ u8 field_11;
+    /* 0x12 */ u8 field_12[4][3];
+} Row1DDA8; /* 0x1E */
+
+typedef struct {
+    u8 _pad00[0x8];
+    /* 0x08 */ Row1DDA8 rows[1];
+} Tbl1DDA8;
+
+/* Second output record of func_8001DDA8. */
+typedef struct {
+    /* 0x00 */ u16 field_0;
+    /* 0x02 */ u8 field_2;
+    /* 0x03 */ u8 field_3;
+    /* 0x04 */ u8 field_4;
+    /* 0x05 */ u8 field_5[4];
+    /* 0x09 */ u8 field_9[4];
+    /* 0x0D */ u8 field_D[4];
+} Out1DDA8;
 
 #endif /* MAIN_156C_H */

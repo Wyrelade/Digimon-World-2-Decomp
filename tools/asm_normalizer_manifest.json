@@ -1904,5 +1904,10 @@
   },
   "func_80019BF4": {
     "passes": []
+  },
+  "func_8001DDA8": {
+    "passes": [
+      "commutative_swap"
+    ]
   }
 }

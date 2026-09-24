@@ -2696,7 +2696,57 @@ void func_8001DC24(s32 a0, s32 a1, ElmE620 *e) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001DDA8);
+void func_8001DDA8(s32 a0, s32 a1, ElmE620 *e, Out1DDA8 *o) {
+    Tbl1DDA8 *t = (Tbl1DDA8 *)func_8001DB18(a0);
+    u8 *name;
+    s32 i;
+
+    if ((D_8005F788 & 0xFF00) == 0x500) {
+        if (a1 == 0) {
+            a1 = 1;
+        } else if (a1 == 1) {
+            a1 = 0;
+        }
+    }
+    e->field_0 = a1 + 3;
+    e->field_1 = t->rows[a1].field_0;
+    e->field_16 = e->field_14 = t->rows[a1].field_2;
+    e->field_1A = e->field_18 = t->rows[a1].field_4;
+    if (e->field_1 != 0) {
+        name = func_8001E758(e->field_1);
+        for (i = 0; i < 14; i++) {
+            e->field_4C[i] = name[i];
+        }
+        e->field_D = t->rows[a1].field_A;
+        e->field_10 = t->rows[a1].field_6;
+        e->field_1C = t->rows[a1].field_B;
+        e->field_1E = t->rows[a1].field_C;
+        e->field_20 = t->rows[a1].field_E;
+        e->field_22 = t->rows[a1].field_F;
+        e->field_23 = t->rows[a1].field_10;
+        e->field_24 = t->rows[a1].field_11;
+        for (i = 3; i < 12; i++) {
+            e->field_25[i - 3] = 0;
+        }
+        o->field_2 = t->rows[a1].field_F;
+        o->field_3 = t->rows[a1].field_10;
+        o->field_4 = t->rows[a1].field_11;
+        o->field_9[0] = t->rows[a1].field_12[0][1];
+        o->field_9[1] = t->rows[a1].field_12[1][1];
+        o->field_9[2] = t->rows[a1].field_12[2][1];
+        o->field_9[3] = t->rows[a1].field_12[3][1];
+        o->field_0 = t->rows[a1].field_8;
+        o->field_D[0] = t->rows[a1].field_12[0][2];
+        o->field_D[1] = t->rows[a1].field_12[1][2];
+        o->field_D[2] = t->rows[a1].field_12[2][2];
+        o->field_D[3] = t->rows[a1].field_12[3][2];
+        o->field_5[0] = t->rows[a1].field_12[0][0];
+        o->field_5[1] = t->rows[a1].field_12[1][0];
+        o->field_5[2] = t->rows[a1].field_12[2][0];
+        o->field_5[3] = t->rows[a1].field_12[3][0];
+    }
+}
+
 
 EntDFF4 *func_8001DFF4(arg0)
 s32 arg0;
