@@ -2083,7 +2083,8 @@ def const_remat_s(stext, want):
         if not src or src == _src_reg("$0"):
             continue
         k = _const_reaching(lines, ins, p, src)
-        if k is None or budget.get(k, 0) <= 0 or not -0x8000 <= k < 0x8000:
+        if k is None or budget.get(k, 0) <= 0 or not (-0x8000 <= k < 0x8000
+                                                     or (k & 0xFFFF) == 0):
             continue
         lines[li] = "%sli\t%s,%d" % (m.group(1), m.group(2), k)
         budget[k] -= 1
@@ -2101,6 +2102,11 @@ def zero_remat_pass(stext, tgt):
         m = _KTGT.match(dis.strip())
         if m:
             k = int(m.group(1), 0)
+            wk[k] = wk.get(k, 0) + 1
+        mu = re.match(r"lui\s+\S+\s*,\s*(.+)$", dis.strip())
+        if mu and "%hi" not in mu.group(1) and _sm_int(mu.group(1)) is not None:
+            k = (_sm_int(mu.group(1)) & 0xFFFF) << 16    # a 1-word li of K<<16
+            k = k - (1 << 32) if k & 0x80000000 else k
             wk[k] = wk.get(k, 0) + 1
     return const_remat_s(stext, wk)
 
