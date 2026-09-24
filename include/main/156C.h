@@ -1520,4 +1520,25 @@ typedef struct {
 /* Per-channel hook table D_80061CD0[ch][16] run by func_80033424. */
 typedef void (*Hook33424)(s16, s16, u8);
 
+/* DR_ENV packet built by func_800282CC: tag word (length byte at 3) then
+   up to 15 GPU command words, addressed as one word array. */
+typedef union {
+    /* 0x00 */ u32 w[16];
+    struct {
+        u8 _pad0[3];
+        /* 0x03 */ u8 len;
+    } h;
+} DrEnv282CC;
+
+/* Clip rect copied as two words into the DR_ENV fill command. */
+typedef union {
+    struct {
+        s16 x;
+        s16 y;
+        s16 w;
+        s16 h;
+    } r;
+    u32 w[2];
+} Rect282CC;
+
 #endif /* MAIN_156C_H */

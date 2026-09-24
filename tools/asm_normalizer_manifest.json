@@ -1792,5 +1792,12 @@
       "nosplit",
       "delay_fill"
     ]
+  },
+  "func_800282CC": {
+    "passes": [
+      "nosplit",
+      "commutative_swap",
+      "sched_match"
+    ]
   }
 }

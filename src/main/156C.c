@@ -4195,7 +4195,32 @@ void func_8002828C(Obj8228C *arg0, Pt8228C *arg1) {
     arg0->field_8 = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800282CC);
+void func_800282CC(DrEnv282CC *d, DrawEnv *env) {
+    Rect282CC rect;
+    s32 len;
+
+    d->w[1] = func_80028754(env->clip_x, env->clip_y);
+    d->w[2] = func_800287EC(env->clip_w + env->clip_x - 1, env->clip_y + env->clip_h - 1);
+    d->w[3] = func_80028884(env->ofs[0], env->ofs[1]);
+    d->w[4] = func_80028734(env->dfe, env->dtd, env->tpage);
+    d->w[5] = func_800288A0((Rect288A0 *)&env->tw_x);
+    d->w[6] = 0xE6000000;
+    len = 7;
+    if (env->isbg) {
+        rect.r.x = env->clip_x;
+        rect.r.y = env->clip_y;
+        rect.r.w = env->clip_w;
+        rect.r.h = env->clip_h;
+        rect.r.w = (rect.r.w < 0) ? 0 : ((rect.r.w > D_80048F10.field_4 - 1) ? D_80048F10.field_4 - 1 : rect.r.w);
+        rect.r.h = (rect.r.h < 0) ? 0 : ((rect.r.h > D_80048F10.field_6 - 1) ? D_80048F10.field_6 - 1 : rect.r.h);
+        rect.r.x -= env->ofs[0];
+        rect.r.y -= env->ofs[1];
+        d->w[len++] = 0x60000000 | (env->b0 << 16) | (env->g0 << 8) | env->r0;
+        d->w[len++] = rect.w[0];
+        d->w[len++] = rect.w[1];
+    }
+    d->h.len = len - 1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800284C4);
 
