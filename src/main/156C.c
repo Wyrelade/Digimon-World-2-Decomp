@@ -2491,7 +2491,59 @@ void func_8001CE80(s32 *arg0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CE9C);
+void func_8001CE9C(void *arg0, s32 arg1) {
+    Obj1CE9C *s = arg0;
+    Tag1CE9C *ot = (Tag1CE9C *)arg1;
+    Ent1CE9C *e;
+    Tex1CE9C *t;
+    Pkt1CE9C *p;
+    u16 tpage;
+    s32 y;
+
+    e = (Ent1CE9C *)func_800239A0(s->field_0);
+    t = (Tex1CE9C *)func_8001CB80(s->field_0 & 0xFFFF0000);
+    p = (Pkt1CE9C *)D_8005F79C;
+    for (; e->field_0 != 0xFF; e++) {
+        if (e->field_C != s->field_D) {
+            continue;
+        }
+        p->s.c = s->field_8;
+        p->s.tag.len = 4;
+        p->s.c.code = 0x64;
+        if (e->field_B & 0x80) {
+            p->s.c.code = 0x66;
+            tpage = t->field_10 + ((e->field_B & 3) << 5);
+        } else {
+            tpage = t->field_10;
+        }
+        p->s.x0 = e->field_2 + s->field_4;
+        p->s.u0 = e->field_0 + t->field_C;
+        p->s.w = e->field_8;
+        p->s.y0 = e->field_4 + s->field_6;
+        p->s.v0 = e->field_1;
+        p->s.h = e->field_9;
+        if (p->s.h == 0) {
+            p->s.h--;
+        }
+        if (t->field_8 != 0) {
+            y = t->field_14 + 0x1E0;
+            p->s.clut = (e->field_A + y + s->field_C) << 6;
+        } else {
+            p->s.clut = ((e->field_7 + t->field_1C + e->field_A + s->field_C) << 6) |
+                       (((e->field_6 + t->field_18) >> 4) & 0x3F);
+        }
+        p->s.tag.addr = ot->addr;
+        ot->addr = (u32)p;
+        p = (Pkt1CE9C *)(&p->s + 1);
+        p->t.tag.len = 1;
+        p->t.code = 0xE1000600 | (tpage & 0x9FF);
+        p->t.tag.addr = ot->addr;
+        ot->addr = (u32)p;
+        p = (Pkt1CE9C *)(&p->t + 1);
+    }
+    D_8005F79C = (s32)p;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D104);
 

@@ -1929,5 +1929,13 @@
       "web_realloc",
       "padnop"
     ]
+  },
+  "func_8001CE9C": {
+    "passes": [
+      "reg_realloc",
+      "web_realloc",
+      "save_slot",
+      "sched_match"
+    ]
   }
 }

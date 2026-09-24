@@ -1736,4 +1736,77 @@ typedef struct {
     /* 0x0D */ u8 field_D[4];
 } Out1DDA8;
 
+/* func_8001CE9C: sprite-list record (arg0), its 0x10-stride part list, the
+ * D_8005CD60 texture slot view and the SPRT + DR_TPAGE packets it emits. */
+typedef struct {
+    /* 0x0 */ u8 r;
+    /* 0x1 */ u8 g;
+    /* 0x2 */ u8 b;
+    /* 0x3 */ u8 code;
+} Col1CE9C;
+
+typedef struct {
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ u16 field_4;
+    /* 0x6 */ u16 field_6;
+    /* 0x8 */ Col1CE9C field_8;
+    /* 0xC */ u8 field_C;
+    /* 0xD */ u8 field_D;
+} Obj1CE9C;
+
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    /* 0x1 */ u8 field_1;
+    /* 0x2 */ u16 field_2;
+    /* 0x4 */ u16 field_4;
+    /* 0x6 */ u8 field_6;
+    /* 0x7 */ u8 field_7;
+    /* 0x8 */ u8 field_8;
+    /* 0x9 */ u8 field_9;
+    /* 0xA */ u8 field_A;
+    /* 0xB */ u8 field_B;
+    /* 0xC */ u8 field_C;
+    u8 _padD[3];
+} Ent1CE9C;
+
+typedef struct {
+    u8 _pad0[8];
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ u8 field_C;
+    u8 _padD[3];
+    /* 0x10 */ u16 field_10;
+    u8 _pad12[2];
+    /* 0x14 */ u16 field_14;
+    u8 _pad16[2];
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ u16 field_1C;
+} Tex1CE9C;
+
+typedef struct {
+    u32 addr : 24;
+    u32 len : 8;
+} Tag1CE9C;
+
+typedef struct {
+    /* 0x00 */ Tag1CE9C tag;
+    /* 0x04 */ Col1CE9C c;
+    /* 0x08 */ s16 x0;
+    /* 0x0A */ s16 y0;
+    /* 0x0C */ u8 u0;
+    /* 0x0D */ u8 v0;
+    /* 0x0E */ u16 clut;
+    /* 0x10 */ s16 w;
+    /* 0x12 */ s16 h;
+} Sprt1CE9C;
+
+typedef struct {
+    /* 0x0 */ Tag1CE9C tag;
+    /* 0x4 */ u32 code;
+} Tpage1CE9C;
+
+typedef union {
+    Sprt1CE9C s;
+    Tpage1CE9C t;
+} Pkt1CE9C;
+
 #endif /* MAIN_156C_H */
