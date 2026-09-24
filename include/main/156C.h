@@ -1614,4 +1614,29 @@ typedef struct {
     /* 0x2A */ s16 field_2A;
 } Obj50720;
 
+/* Record behind Ent17D84.field_4: an id byte at 0x01, a name at 0x4C. */
+typedef struct {
+    u8 _pad00[0x01];
+    /* 0x01 */ u8 field_1;
+    u8 _pad02[0x4A];
+    /* 0x4C */ u8 field_4C[4];
+} Sub17D84;
+
+/* 8-byte row of the list page func_80017D84 draws. */
+typedef struct {
+    /* 0x00 */ u8 field_0;
+    /* 0x01 */ u8 field_1;
+    u8 _pad02[0x02];
+    /* 0x04 */ Sub17D84 *field_4;
+} Ent17D84;
+
+/* List page: 16 sprite slots, first visible row at 0x68, rows from 0x6C. */
+typedef struct {
+    /* 0x00 */ s32 field_0[16];
+    u8 _pad40[0x28];
+    /* 0x68 */ s16 field_68;
+    u8 _pad6A[0x02];
+    /* 0x6C */ Ent17D84 field_6C[1];
+} Obj17D84;
+
 #endif /* MAIN_156C_H */

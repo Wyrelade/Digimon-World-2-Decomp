@@ -1394,7 +1394,56 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017944);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800179EC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017D84);
+void func_80017D84(Obj17D84 *a0, s32 a1) {
+    s32 i;
+    Ent17D84 *rec;
+    Src13470 st;
+
+    st.field_4 = 0;
+    st.field_10 = a1;
+    st.field_11 = 0;
+    for (i = 0; i < 16; i++) {
+        func_8001BB88(&a0->field_0[i]);
+    }
+    rec = &a0->field_6C[a0->field_68];
+    for (i = 0; i < 4; i++) {
+        switch (rec->field_0) {
+        case 0:
+            break;
+        case 1:
+            st.field_C = 109;
+            st.field_E = i * 33 + 62;
+            st.field_0 = (s32)func_800239A0(0x1FD0082);
+            func_80013470(&a0->field_0[i * 4], &st);
+            st.field_C = 208;
+            st.field_E = i * 33 + 62;
+            st.field_0 = (s32)func_800239A0(0x1FD00BB);
+            func_80013470(&a0->field_0[i * 4 + 1], &st);
+            st.field_C = 109;
+            st.field_E = i * 33 + 50;
+            st.field_0 = (s32)rec->field_4->field_4C;
+            func_80013470(&a0->field_0[i * 4 + 2], &st);
+            st.field_C = 208;
+            st.field_E = i * 33 + 50;
+            st.field_0 = (s32)func_8001E758(rec->field_4->field_1);
+            func_80013470(&a0->field_0[i * 4 + 3], &st);
+            break;
+        case 2:
+            st.field_C = 109;
+            st.field_E = i * 33 + 50;
+            st.field_0 = (s32)func_800239A0(rec->field_1 + 0x1FD00F5);
+            func_80013470(&a0->field_0[i * 4 + 2], &st);
+            break;
+        case 3:
+            st.field_C = 109;
+            st.field_E = i * 33 + 50;
+            st.field_0 = (s32)func_800239A0(0x1FD0114);
+            func_80013470(&a0->field_0[i * 4 + 2], &st);
+            break;
+        }
+        rec++;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017F6C);
 
