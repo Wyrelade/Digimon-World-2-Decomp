@@ -1982,5 +1982,10 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_800238E4": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }
