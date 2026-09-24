@@ -356,7 +356,7 @@ extern volatile s32 *D_8004EA70;
 extern volatile s32 *D_8004EA74;
 extern volatile s32 *D_8004EA78;
 extern volatile s32 *D_8004EA7C;
-extern void func_80027104(s32);
+extern s32 func_80027104(s32);
 extern void func_80027CB0(DispEnv *);
 extern DispEnv D_80061968;
 extern s32 D_80049060;
@@ -426,6 +426,11 @@ extern void (*D_80048E1C)(Obj25FBC *);
 extern Flags506C0 *D_800506C0;
 extern s32 D_800506DC;
 extern Obj50720 *D_80050720;
+extern char D_8001021C[];
+extern char D_8001023C[];
+extern char D_80048EC8[];
+extern u16 D_80048F90[][2];
+extern void func_8002A004(s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4273,7 +4278,32 @@ u8 *func_800270B4(u8 *dst, u8 *src) {
     return r;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027104);
+s32 func_80027104(s32 mode) {
+    Gpu48F10 *g;
+
+    switch (mode & 7) {
+    case 0:
+    case 3:
+        func_8002A014(D_8001021C, D_80048EC8, &D_80048F10);
+    case 5:
+        g = &D_80048F10;
+        func_80029FDC((u8 *)g, 0, 0x80);
+        func_80030CD4();
+        func_8002A004((s32)D_80048F08 & 0xFFFFFF);
+        g->field_0 = func_8002970C(mode);
+        g->field_1 = 1;
+        g->field_4 = D_80048F90[((volatile Gpu48F10 *)g)->field_0][0];
+        g->field_6 = D_80048F9C.field_0[g->field_0][0];
+        func_80029FDC(g->field_10, -1, 0x5C);
+        func_80029FDC(g->field_6C, -1, 0x14);
+        return g->field_0;
+    default:
+        if (D_80048F12 >= 2) {
+            D_80048F0C(D_8001023C, mode);
+        }
+        return D_80048F08->fn_34(1);
+    }
+}
 
 u8 func_80027278(u8 level) {
     s32 old = D_80048F10.field_2;
