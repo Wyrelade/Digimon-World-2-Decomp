@@ -490,6 +490,7 @@ extern u8 *D_8005076C;
 extern u8 *D_80050770;
 extern u8 *D_8005076C;
 extern void func_80015298(Actor *, s32);
+extern u8 *D_8005076C;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -1442,7 +1443,31 @@ void func_80014EA4(Actor *a0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80014F78);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80015298);
+void func_80015298(Actor *a0, s32 a1) {
+    Wk14EA4 *w = (Wk14EA4 *)a0->work;
+    s32 i;
+    s32 id;
+    s32 k;
+    s32 img;
+    Halves h;
+
+    for (i = 0; i < 20; i++) {
+        img = (s32)func_800239A0(0x1FD0098);
+        id = D_8005076C[i];
+        k = 0;
+        if (id != 0xFF && D_80050720->field_2C[id] != 0) {
+            img = func_8001E048(D_80050720->field_2C[id]);
+            if (D_80050720->field_52[id] != 0) {
+                k = 3;
+            }
+        }
+        h.lo = (i / w->field_8C[1]) * 98 + 0x88;
+        h.hi = (i % w->field_8C[1]) * 12 + 0x32;
+        func_800134F8(&w->field_0[i], img, a1, h);
+        func_8001BE74(w->field_0[i], k);
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800153F4);
 

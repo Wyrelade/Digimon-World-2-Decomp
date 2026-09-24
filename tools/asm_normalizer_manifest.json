@@ -2201,5 +2201,11 @@
     "passes": [
       "nodiv"
     ]
+  },
+  "func_80015298": {
+    "passes": [
+      "gp8_nosplit",
+      "nodiv"
+    ]
   }
 }
