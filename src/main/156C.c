@@ -4069,7 +4069,42 @@ void func_80022628(void) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800226AC);
+void func_800226AC(void) {
+    u16 *base = D_80050720->field_66;
+    u16 *pi;
+    s32 i;
+    s32 j;
+    s32 best;
+    s32 bestv;
+    s32 v;
+    u16 t;
+
+    func_80022628();
+    pi = base;
+    for (i = 0; i < 0x2F; i++, pi++) {
+        if (*pi == 0) {
+            return;
+        }
+        best = i;
+        bestv = func_8001E1D0(*pi);
+        for (j = i + 1; j < 0x30; j++) {
+            if (base[j] == 0) {
+                break;
+            }
+            v = func_8001E1D0(base[j]);
+            if (v < bestv) {
+                best = j;
+                bestv = v;
+            }
+        }
+        if (best != i) {
+            t = *pi;
+            *pi = base[best];
+            base[best] = t;
+        }
+    }
+}
+
 
 s32 func_800227A8(s32 id) {
     s32 i = func_800225C4();
