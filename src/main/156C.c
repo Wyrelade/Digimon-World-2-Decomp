@@ -3676,7 +3676,22 @@ u8 func_8001D9A8(void) {
     return func_8001D8C4()->field_2;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D9CC);
+s32 func_8001D9CC(s32 id, s32 k) {
+    switch (k) {
+    default:
+    case 0:
+        return func_8001D8C4(id)->u4.field_4h >> 12;
+    case 1:
+        return func_8001D8C4(id)->u6.field_6 & 0xF;
+    case 2:
+        return (func_8001D8C4(id)->u6.field_6h >> 4) & 0xF;
+    case 3:
+        return (func_8001D8C4(id)->u6.field_6h >> 8) & 0xF;
+    case 4:
+        return func_8001D8C4(id)->u6.field_6h >> 12;
+    }
+}
+
 
 u8 func_8001DA80(s32 id, s32 val) {
     EntD8C4 *e = func_8001D8C4(id);

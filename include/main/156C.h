@@ -349,7 +349,10 @@ typedef struct {
         /* 0x04 */ u8 field_4;
         /* 0x04 */ u16 field_4h;
     } u4;
-    u8 _pad06[0x02];
+    union {
+        /* 0x06 */ u8 field_6;
+        /* 0x06 */ u16 field_6h;
+    } u6;
     /* 0x08 */ u8 field_8[5];
     /* 0x0D */ u8 field_D[4];
     u8 _pad11;
