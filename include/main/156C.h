@@ -1375,11 +1375,13 @@ typedef struct {
 /* Map object walked by func_800166FC: cursor (0x54) and size (0x58) s16 pairs
  * index the cell grid at 0x72. */
 typedef struct {
-    u8 _pad00[0x44];
+    u8 _pad00[0x40];
+    /* 0x40 */ s32 field_40;
     /* 0x44 */ u8 field_44[0x10];
     /* 0x54 */ s16 field_54[2];
     /* 0x58 */ s16 field_58[2];
-    u8 _pad5C[0xA];
+    u8 _pad5C[0x8];
+    /* 0x64 */ s16 field_64;
     /* 0x66 */ s16 field_66;
     u8 _pad68[0xA];
     /* 0x72 */ Cell166FC field_72[1];

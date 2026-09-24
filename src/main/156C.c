@@ -477,6 +477,8 @@ extern void func_8001A410(s32);
 extern void func_80035C4C(s16 a0, s16 a1, s16 a2, s16 a3);
 extern void func_80034E04(s16, s16, s8, s16);
 extern void func_80035F04(s32);
+extern Halves D_80050704;
+extern Halves D_80050708;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -1567,7 +1569,21 @@ void func_80016834(Actor *a0, GridMenu *m) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800168F0);
+void func_800168F0(Actor *a0, Obj166FC *o) {
+    s32 idx;
+    u16 id;
+
+    idx = func_80013A70(o->field_54, o->field_58);
+    func_8001BB88(&o->field_40);
+    func_8001BB88((s32 *)o->field_44);
+    id = o->field_72[idx].field_0;
+    if (id != 0) {
+        if (o->field_64 != 5) {
+            func_800134F8(&o->field_40, func_8001E048(id), 0, D_80050708);
+        }
+        func_800134F8(o->field_44, func_8001E084(id), 0x80, D_80050704);
+    }
+}
 
 void func_800169D0(Actor *arg0, s16 arg1) {
     arg0->work->field_64 = arg1;
