@@ -3870,7 +3870,26 @@ u8 func_80022578(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800225C4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022628);
+void func_80022628(void) {
+    u16 *src;
+    u16 *dst;
+    s32 i;
+    s32 v;
+
+    src = D_80050720->field_66;
+    dst = src;
+    for (i = 0; i < 0x30; i++, src++) {
+        v = *src;
+        *src = 0;
+        if (((s32 (*)(s32))func_8001E108)(v & 0xFFFF) == 0) {
+            *dst = v;
+            if ((v & 0xFFFF) != 0) {
+                dst++;
+            }
+        }
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800226AC);
 

@@ -2002,5 +2002,10 @@
     "passes": [
       "gp8_nosplit"
     ]
+  },
+  "func_80022628": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }
