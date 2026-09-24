@@ -1202,7 +1202,42 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80015D30);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80015F68);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80016198);
+void func_80016198(Obj16198 *a0, s32 a1) {
+    s32 n;
+    s32 i;
+    s32 base;
+    s32 img;
+    Halves h;
+    Src16198 st;
+
+    base = a0->field_6E * 8;
+    n = a0->field_6C - base;
+    n = (n > 16) ? 16 : n;
+    for (i = 0; i < 16; i++) {
+        func_8001BB88(&a0->field_0[i]);
+    }
+    for (i = 0; i < n; i++) {
+        h.lo = (i / 8) * 113 + 30;
+        h.hi = (i % 8) * 12 + 71;
+        if (a0->field_72[base + i].field_0 == 0) {
+            img = (s32)func_800239A0(0x1FD0098);
+        } else {
+            img = func_8001E048(a0->field_72[base + i].field_0);
+        }
+        if (a0->field_72[base + i].field_0 != 0 && a0->field_72[base + i].field_2 != 0) {
+            st.field_C = h;
+            st.field_10 = a1;
+            st.field_11 = 0;
+            st.field_0 = (s32)func_800239A0(0x1FD0125);
+            st.field_4 = img;
+            st.field_8 = a0->field_702[i];
+            func_80013AFC(a0->field_702[i], a0->field_72[base + i].field_2, -2);
+            func_80013470(&a0->field_0[i], (Src13470 *)&st);
+        } else {
+            func_800134F8(&a0->field_0[i], img, a1, h);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80016394);
 

@@ -1541,4 +1541,30 @@ typedef union {
     u32 w[2];
 } Rect282CC;
 
+/* Icon grid page: 16 sprite slots, item count/page at 0x6C/0x6E, 6-byte
+   cells from 0x72 (id, count) and 4-byte count text buffers at 0x702. */
+typedef struct {
+    /* 0x000 */ s32 field_0[16];
+    u8 _pad40[0x2C];
+    /* 0x06C */ s16 field_6C;
+    /* 0x06E */ s16 field_6E;
+    u8 _pad70[0x2];
+    /* 0x072 */ struct {
+        u16 field_0;
+        s16 field_2;
+        u8 _pad4[0x2];
+    } field_72[280];
+    /* 0x702 */ u8 field_702[16][4];
+} Obj16198;
+
+/* Src13470 view with the position pair stored as one Halves. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ u8 *field_8;
+    /* 0x0C */ Halves field_C;
+    /* 0x10 */ u8 field_10;
+    /* 0x11 */ u8 field_11;
+} Src16198;
+
 #endif /* MAIN_156C_H */
