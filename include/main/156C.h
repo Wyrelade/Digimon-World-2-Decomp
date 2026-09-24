@@ -1070,7 +1070,7 @@ typedef struct {
 
 /* Object reached through D_80050768; func_800143CC clears field_35C. */
 typedef struct {
-    u8 _pad000[0x4];
+    /* 0x000 */ u32 field_0;
     /* 0x004 */ u32 field_4;
     u8 _pad008[0x100];
     /* 0x108 */ s16 field_108;
@@ -1082,6 +1082,8 @@ typedef struct {
     /* 0x128 */ s32 field_128;
     u8 _pad12C[0x230];
     /* 0x35C */ s16 field_35C;
+    u8 _pad35E[0x2];
+    /* 0x360 */ s16 field_360;
 } Obj50768;
 
 /* Record initialised by func_8002AAB4 (four halfwords from the arguments, the
@@ -1988,12 +1990,21 @@ typedef struct {
     /* 0x54 */ s32 field_54;
     /* 0x58 */ s32 field_58;
     /* 0x5C */ s32 field_5C;
-    u8 _pad60[0x28];
+    u8 _pad60[0x10];
+    /* 0x70 */ s32 field_70;
+    u8 _pad74[0x14];
     /* 0x88 */ s16 field_88[2];
     /* 0x8C */ s16 field_8C[2];
     u8 _pad90[0x8];
     /* 0x98 */ s16 field_98;
+    u8 _pad9A[0x2];
+    /* 0x9C */ s32 field_9C;
 } Wk14EA4;
+
+/* 12-byte menu layout record (func_800239A0(0x5130010)) copied over Wk14EA4 0x8C..0x97. */
+typedef struct {
+    s16 field_0[6];
+} Layout8C;
 
 /* Ordering-table entry (PsyQ P_TAG shape): 24-bit next address + length. */
 typedef struct {

@@ -495,6 +495,8 @@ extern char D_80010334[];
 extern s32 D_80048FBC;
 extern u32 D_80048FD0;
 extern Halves D_8005070C;
+extern void func_80014F78(Actor *);
+extern void func_800153F4(Actor *, s32);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -1066,7 +1068,7 @@ void func_8001361C(s32 *a0, Halves *a1, s32 *a2, u32 a3) {
     }
 }
 
-s32 func_800136A4(void) {
+s32 func_800136A4() {
     s32 result = func_8001BE08();
     if (result != 0) {
         result = func_80021E78(0x11) == 0 ? 1 : -1;
@@ -1203,8 +1205,8 @@ tail:
     return changed;
 }
 
-void func_80013A10(s32 arg0, s32 arg1) {
-    func_800138C0(arg0, arg1, 0);
+s32 func_80013A10(s32 arg0, s32 arg1) {
+    return func_800138C0(arg0, arg1, 0);
 }
 
 s32 func_80013A30(s32 *arg0, s32 arg1, s32 arg2) {
@@ -1546,7 +1548,134 @@ void func_80015770(Actor *a0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001588C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80015914);
+void func_80015914(Actor *a0) {
+    Wk14EA4 *w = (Wk14EA4 *)a0->work;
+    s32 r;
+    s32 id;
+    s32 next;
+
+    D_8005076C = (u8 *)func_800239A0(0x5130014);
+    D_80050770 = (u8 *)func_800239A0(0x5130015);
+    switch (a0->field_10) {
+    case 0:
+    default:
+        *(Layout8C *)w->field_8C = *(Layout8C *)func_800239A0(0x5130010);
+        func_8001C088(w->field_0, 0x22);
+        func_80011544(a0);
+        break;
+    case 1:
+        switch (a0->field_14) {
+        case 0:
+        default:
+            if (func_800136E4((s32)a0, &w->field_9C) != 0) {
+                break;
+            }
+            func_80013558(&w->field_70, (Key13558 *)func_800239A0(0x5130011), 2);
+            func_80015298(a0, 1);
+            if (D_80050768->field_0 & 1) {
+                func_800153F4(a0, 1);
+            }
+            func_80011564(a0);
+            break;
+        case 1:
+            switch (w->field_98) {
+            case 1:
+                func_800154F0(a0);
+                func_80011564(a0);
+                break;
+            case 2:
+                func_80015668(a0);
+                func_80014EA4(a0);
+                func_800115DC(a0, 3);
+                break;
+            case 3:
+                func_80015668(a0);
+                func_80011564(a0);
+                break;
+            case 4:
+                func_80015668(a0);
+                func_80014F78(a0);
+                func_800115DC(a0, 3);
+                break;
+            case 5:
+switch (func_80022518(0x10)) {
+case -1:
+id = 0x154;
+ next = 3;
+break;
+case 0:
+id = 0x153;
+ next = 3;
+break;
+default:
+id = 0x152;
+ next = 4;
+break;
+}
+                func_800134F8(&w->field_50, (s32)func_800239A0(id | 0x1FD0000), 0x82, D_80050700);
+                func_800115DC(a0, next);
+                break;
+            }
+            break;
+        case 2:
+            if (func_80013A10((s32)w->field_88, (s32)w->field_8C) == 0) {
+                if (D_8005F6F0[0].field_1C > 0) {
+                    func_8001A68C(0xB, 0);
+                    func_800115C0(a0, 2);
+                } else if (w->field_98 == 3) {
+                    func_80015770(a0);
+                }
+            } else {
+                func_8001A68C(0xD, 0);
+                func_800115DC(a0, 1);
+            }
+            break;
+        case 3:
+            switch (a0->field_18) {
+            case 0:
+                if (func_8001BE08(w->field_50) != 0) {
+                    func_80011580(a0);
+                }
+                break;
+            case 1:
+                if (D_8005F6F0[0].field_1C > 0 || D_8005F6F0[0].field_14 > 0 || a0->field_20++ >= 0x1F) {
+                    func_800115C0(a0, 2);
+                }
+                break;
+            }
+            break;
+        case 4:
+            r = func_800136A4(w->field_50);
+            switch (r) {
+            case 1:
+                func_8001C4F0(0x20);
+                D_80050768->field_360 = r;
+                func_800115C0(a0, 2);
+                break;
+            case -1:
+                func_800115C0(a0, 2);
+                break;
+            }
+            break;
+        }
+        break;
+    case 2:
+        switch (a0->field_14) {
+        case 0:
+        default:
+            func_8001C0B0(w->field_0, 0x22);
+            func_80011564(a0);
+            break;
+        case 1:
+            if (func_80013714((s32)a0, &w->field_9C) == 0) {
+                func_800115C0(a0, 3);
+            }
+            break;
+        }
+        break;
+    }
+}
+
 
 void func_80015D30(Actor *actor) {
     ActorWork *w = actor->work;
