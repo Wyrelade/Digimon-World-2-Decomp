@@ -4572,7 +4572,46 @@ void func_80023BF4(s32 id) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023C74);
+void func_80023C74(void) {
+    s32 started;
+    s32 busy;
+    s32 i;
+    Ent23A78 *p;
+
+    if (D_80050750 == 0) {
+        return;
+    }
+    if (func_80024220() != 0) {
+        return;
+    }
+    p = D_8005F8C8;
+    started = 0;
+    busy = 0;
+    for (i = 0; i < 0x50; i++, p++) {
+        if (p->field_4 == 0) {
+            continue;
+        }
+        if (p->field_0 != 1) {
+            if (p->field_0 == 2) {
+                p->field_0 = 3;
+                p->field_8 = D_8005F770.field_0;
+                busy = 1;
+            }
+        } else {
+            busy = 1;
+            if (started == 0) {
+                func_80024260(p->field_4, p->field_C);
+                p->field_0 = 2;
+                p->field_8 = D_8005F770.field_0;
+                started = busy;
+            }
+        }
+    }
+    if (busy == 0) {
+        D_80050750 = 0;
+    }
+}
+
 
 void func_80023D68(s32 arg0) {
     func_80023BF4(arg0);

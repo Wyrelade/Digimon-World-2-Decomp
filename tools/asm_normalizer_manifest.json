@@ -2151,5 +2151,10 @@
     "passes": [
       "gp8_nosplit"
     ]
+  },
+  "func_80023C74": {
+    "passes": [
+      "gp8"
+    ]
   }
 }
