@@ -2207,5 +2207,16 @@
       "gp8_nosplit",
       "nodiv"
     ]
+  },
+  "func_800278A4": {
+    "passes": [
+      "nosplit",
+      "reg_realloc",
+      "web_realloc",
+      "copy_use",
+      "save_slot",
+      "ra_restore_sink",
+      "sched_match"
+    ]
   }
 }

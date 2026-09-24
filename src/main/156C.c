@@ -491,6 +491,9 @@ extern u8 *D_80050770;
 extern u8 *D_8005076C;
 extern void func_80015298(Actor *, s32);
 extern u8 *D_8005076C;
+extern char D_80010334[];
+extern s32 D_80048FBC;
+extern u32 D_80048FD0;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -5712,7 +5715,22 @@ s32 func_800277EC(Rect2AB54 *rect, s32 x, s32 y) {
     return D_80048F08->fn_8((s32)D_80048F08->field_18, (s32)D_80048F9C.move, 0x14, 0);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800278A4);
+OTag *func_800278A4(OTag *ot, s32 n) {
+    u32 *term;
+
+    if (D_80048F12 >= 2) {
+        D_80048F0C(D_80010334, ot, n);
+    }
+    while (--n) {
+        ot->len = 0;
+        ot->addr = (u32)(ot + 1);
+        ot++;
+    }
+    term = &D_80048FD0;
+    *term = ((u32)&D_80048FBC & 0xFFFFFF) | 0x04000000;
+    *(u32 *)ot = (u32)term & 0xFFFFFF;
+    return ot;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002796C);
 

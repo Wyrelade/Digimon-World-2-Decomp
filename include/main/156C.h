@@ -1975,4 +1975,10 @@ typedef struct {
     /* 0x98 */ s16 field_98;
 } Wk14EA4;
 
+/* Ordering-table entry (PsyQ P_TAG shape): 24-bit next address + length. */
+typedef struct {
+    u32 addr : 24;
+    u32 len : 8;
+} OTag;
+
 #endif /* MAIN_156C_H */
