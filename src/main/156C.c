@@ -4161,7 +4161,26 @@ s32 func_80022910(s32 mode, ElmE620 **list) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800229F4);
+void func_800229F4(void) {
+    ElmE620 tmp;
+    ElmE620 *src;
+    ElmE620 *dst;
+    s32 i;
+
+    src = D_80050720->elems;
+    dst = src;
+    for (i = 0; i < 0x24; i++, src++) {
+        tmp = *src;
+        src->field_0 = 0;
+        if (tmp.field_0 != 0) {
+            *dst = tmp;
+            if (dst->field_0 != 0) {
+                dst++;
+            }
+        }
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022AE4);
 
