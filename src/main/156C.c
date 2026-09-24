@@ -375,6 +375,10 @@ extern void func_80029984(void);
 extern s32 D_80041570[][8];
 extern s32 D_800415F0[][8];
 extern Mode5CCF8 D_8005CCF8;
+extern s32 *D_80049028;
+extern s32 *D_8004902C;
+extern s32 *D_80049030;
+extern s32 *D_80049034;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4090,7 +4094,20 @@ s32 func_80028920(void) {
     return *D_80049018;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028938);
+s32 func_80028938(s32 *a0, s32 a1) {
+    *D_80049034 |= 0x08000000;
+    *D_80049030 = 0;
+    *D_80049028 = (s32)&a0[a1 - 1];
+    *D_8004902C = a1;
+    *D_80049030 = 0x11000002;
+    func_80029984();
+    while (*D_80049030 & 0x01000000) {
+        if (func_800299B8() != 0) {
+            return -1;
+        }
+    }
+    return a1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028A18);
 

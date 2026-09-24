@@ -1725,5 +1725,17 @@
       "ra_restore_sink",
       "padnop"
     ]
+  },
+  "func_80028938": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "reg_realloc",
+      "save_slot",
+      "sched_match",
+      "taken_fill",
+      "fallthrough_fill",
+      "padnop"
+    ]
   }
 }
