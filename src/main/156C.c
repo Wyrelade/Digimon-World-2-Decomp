@@ -1471,7 +1471,23 @@ void func_800154F0(Actor *a0) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80015668);
+void func_80015668(Actor *a0) {
+    Wk14EA4 *w = (Wk14EA4 *)a0->work;
+    Halves h;
+
+    func_8001BB88(&w->field_58);
+    func_8001BB88(&w->field_5C);
+    h.lo = 0xF;
+    h.hi = 0x32;
+    func_800134F8(&w->field_58, (s32)func_800239A0(0x1FD009B), 0, h);
+    h.lo = 0xF;
+    h.hi = 0x47;
+    func_800134F8(&w->field_5C, func_8001E048(D_80050768->field_108), 0, h);
+    if (w->field_98 == 3) {
+        func_800134F8(&w->field_50, (s32)func_800239A0(0x1FD00FB), 0x80, D_80050700);
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80015770);
 
