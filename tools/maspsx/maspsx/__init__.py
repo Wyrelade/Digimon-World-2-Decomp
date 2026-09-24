@@ -152,14 +152,14 @@ def uses_at(line: str) -> bool:
     line = strip_comments(line)
 
     # sw	$2,%lo(s_attr)($3)
-    if match := re.match(r"^s[wbh]\s+(\$[a-z0-9]+),\s*%lo\(([^(]+)\)\(([^)]+)\)", line):
+    if match := re.match(r"^s[wbh]\s+(\$[a-z0-9]+),\s*%(?:lo|gp_rel)\(([^(]+)\)\(([^)]+)\)", line):
         return False
 
     # lw	$2,%lo(s_attr)($3)
     # Same addressing mode as the store above, so likewise no $at expansion.
     # Verified against real ASPSX 2.77 (psyq4.3): this assembles to a single
     # 0x8C620000, while `lw $2,sym($3)` expands to lui/addu/lw via $at.
-    if match := re.match(r"^l[a-z]+\s+(\$[a-z0-9]+),\s*%lo\(([^(]+)\)\(([^)]+)\)", line):
+    if match := re.match(r"^l[a-z]+\s+(\$[a-z0-9]+),\s*%(?:lo|gp_rel)\(([^(]+)\)\(([^)]+)\)", line):
         return False
 
     # sw	$2,D_801813A4
@@ -191,7 +191,7 @@ def uses_at(line: str) -> bool:
 
 
 def parse_load_or_store(rest: str):
-    if match := re.match(r"(\$[a-z0-9]+),\s*%lo\(([^(]+)\)\(([^(]+)\)", rest):
+    if match := re.match(r"(\$[a-z0-9]+),\s*%(?:lo|gp_rel)\(([^(]+)\)\(([^(]+)\)", rest):
         r_dest, operand, r_source = match.group(1, 2, 3)
         needs_expanding = False
     elif match := re.match(r"(\$[a-z0-9]+),\s*([^(]+)\(([^)]+)\)", rest):
