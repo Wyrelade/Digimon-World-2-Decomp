@@ -1672,5 +1672,11 @@
       "nosplit",
       "taken_fill"
     ]
+  },
+  "func_80029C88": {
+    "passes": [
+      "nosplit",
+      "taken_fill"
+    ]
   }
 }

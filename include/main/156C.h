@@ -48,7 +48,7 @@ typedef struct {
     /* 0x10 */ void (*fn_10)(s32);
     /* 0x14 */ void (*fn_14)(u8 *, s32);
     /* 0x18 */ void (*field_18)(u32 *);
-    /* 0x1C */ s32 field_1C;
+    /* 0x1C */ s32 (*field_1C)(s32, s32);
     /* 0x20 */ void (*field_20)(s32, s32);
     u8 _pad24[0x14];
     /* 0x38 */ s32 (*fn)(void);
