@@ -435,7 +435,7 @@ extern s16 D_800624D0;
 extern s16 D_800624D2;
 extern s32 D_80061C48;
 extern s32 D_80060054;
-extern s32 func_80013854(void *, s32, s32);
+extern s32 func_80013854(Part28 *, s32, s32);
 extern u16 D_80040F98[];
 extern void (*D_80061BC8)(s16, s16, s32);
 extern void (*D_80061BCC)(s16, s16, s32);
@@ -1087,7 +1087,26 @@ void func_800137FC(Part28 *p, s32 mask, u16 *xy) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80013854);
+s32 func_80013854(Part28 *p, s32 mask, s32 n) {
+    Part28 *q;
+    s32 r = 0;
+
+    if (n <= 0) {
+        r = mask;
+    } else {
+        q = p;
+        if (p->field_0 != 0) {
+            do {
+                if (q->field_1C & mask) {
+                    q->field_C = (D_80050768->field_4 >> 2) & 3;
+                }
+                p++;
+                q++;
+            } while (p->field_0 != 0);
+        }
+    }
+    return r;
+}
 
 /* file-local views for func_800138C0 */
 typedef struct {

@@ -2075,5 +2075,10 @@
       "load_remat",
       "reorder_indep"
     ]
+  },
+  "func_80013854": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }

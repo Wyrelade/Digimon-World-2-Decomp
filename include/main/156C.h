@@ -1057,7 +1057,9 @@ typedef struct {
 
 /* Object reached through D_80050768; func_800143CC clears field_35C. */
 typedef struct {
-    u8 _pad000[0x108];
+    u8 _pad000[0x4];
+    /* 0x004 */ u32 field_4;
+    u8 _pad008[0x100];
     /* 0x108 */ s16 field_108;
     /* 0x10A */ s16 field_10A;
     u8 _pad10C[0x4];
