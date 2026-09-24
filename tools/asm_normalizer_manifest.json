@@ -2129,5 +2129,11 @@
     "passes": [
       "gp8"
     ]
+  },
+  "func_80022E90": {
+    "passes": [
+      "gp8_nosplit",
+      "label_nop"
+    ]
   }
 }

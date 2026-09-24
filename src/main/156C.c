@@ -4149,7 +4149,36 @@ void func_80022E60(Blk22E60 *heap, s32 size) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022E90);
+s32 func_80022E90(s32 arg0, s32 tag) {
+    u32 size = ((u32)(arg0 + 3) >> 2) << 2;
+    Blk22E60 *b = D_80050788;
+    Blk22E60 *n;
+    u32 avail;
+    u32 lim = size + 0x14;
+
+    if (b->field_8 != 1) {
+        do {
+            if (b->field_8 == 0) {
+                avail = (s32)b->field_4 - (s32)b - 0xC;
+                if (avail >= size) {
+                    if (lim < avail) {
+                        n = (Blk22E60 *)((u8 *)b + size + 0xC);
+                        n->field_0 = b;
+                        n->field_4 = b->field_4;
+                        n->field_8 = 0;
+                        b->field_4->field_0 = n;
+                        b->field_4 = n;
+                    }
+                    b->field_8 = tag;
+                    return (s32)(b + 1);
+                }
+            }
+            b = b->field_4;
+        } while (b->field_8 != 1);
+    }
+    return 0;
+}
+
 
 s32 func_80022F3C(s32 arg0, s32 arg1) {
     s32 r;
