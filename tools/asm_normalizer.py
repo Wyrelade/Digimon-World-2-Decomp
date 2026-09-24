@@ -3816,7 +3816,27 @@ def _strip_trailing_pad(words):
 
 
 def assemble_words(ctx, sfile, fn):
-    """gas .s -> maspsx --run-assembler -> objdump; return [(be_hex, disasm)] for fn."""
+    """gas .s -> maspsx --run-assembler -> objdump; return [(be_hex, disasm)] for fn.
+    Memoized on the file bytes (a search re-assembles identical text often: most
+    candidate passes do not fire)."""
+    import hashlib
+    with open(sfile, "rb") as f:
+        key = (hashlib.sha1(f.read()).hexdigest(), fn,
+               tuple(ctx["maspsx_flags"]), tuple(ctx["maspsx_as_flags"]))
+    if key in _ASM_CACHE:
+        return list(_ASM_CACHE[key]), None
+    words, err = _assemble_words(ctx, sfile, fn)
+    if err is None:
+        if len(_ASM_CACHE) > 4096:
+            _ASM_CACHE.clear()
+        _ASM_CACHE[key] = list(words)
+    return words, err
+
+
+_ASM_CACHE = {}
+
+
+def _assemble_words(ctx, sfile, fn):
     obj = sfile + ".asmnorm.o"
     cmd = ([ctx["python"], ctx["maspsx_py"]] + ctx["maspsx_flags"]
            + ["--gnu-as-path=%s" % ctx["as_bin"]] + ctx["maspsx_as_flags"]
