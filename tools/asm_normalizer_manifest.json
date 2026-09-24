@@ -1877,5 +1877,13 @@
       "nosplit",
       "delay_fill"
     ]
+  },
+  "func_800357E4": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "web_realloc",
+      "padnop"
+    ]
   }
 }

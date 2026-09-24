@@ -965,11 +965,18 @@ typedef struct {
     u8  field_1F;       /* 0x1F */
     u8  field_20;       /* 0x20 */
     u8  field_21;       /* 0x21 */
-    u8  _p22[0x4];      /* 0x22 */
+    s8  field_22;       /* 0x22 */
+    u8  field_23;       /* 0x23 */
+    u8  _p24[0x2];      /* 0x24 */
     s8  field_26;       /* 0x26 */
     u8  field_27[0x10]; /* 0x27 */
     u8  field_37[0x10]; /* 0x37 */
-    u8  _p47[0xB];      /* 0x47 */
+    u8  _p47[0x1];      /* 0x47 */
+    s16 field_48;       /* 0x48 */
+    s16 field_4A;       /* 0x4A */
+    s16 field_4C;       /* 0x4C */
+    s16 field_4E;       /* 0x4E */
+    u8  _p50[0x2];      /* 0x50 */
     s16 field_52;       /* 0x52 */
     s16 field_54;       /* 0x54 */
     s16 field_56;       /* 0x56 */
@@ -986,7 +993,11 @@ typedef struct {
     s32 field_90;       /* 0x90 */
     s32 field_94;       /* 0x94 */
     s32 field_98;       /* 0x98 */
-    u8  _p9C[0x14];     /* 0x9C -> size 0xB0 */
+    s32 field_9C;       /* 0x9C */
+    s32 field_A0;       /* 0xA0 */
+    s32 field_A4;       /* 0xA4 */
+    s32 field_A8;       /* 0xA8 */
+    s32 field_AC;       /* 0xAC -> size 0xB0 */
 } Elm354F4;
 
 /* Bit-flag block pointed to by D_8004FC68; D_8004FC70[] holds the masks

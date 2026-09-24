@@ -431,6 +431,9 @@ extern char D_8001023C[];
 extern char D_80048EC8[];
 extern u16 D_80048F90[][2];
 extern void func_8002A004(s32);
+extern s16 D_800624D0;
+extern s16 D_800624D2;
+extern s32 D_80061C48;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -1806,7 +1809,7 @@ typedef struct {
 extern DProp411FC D_800411FC;
 extern u8 D_80050A48;
 
-extern void func_800357E4(void *, s32, s32);
+extern void func_800357E4(void *, s16, s16);
 extern void func_80035A04(s32);
 extern void func_800352C4();
 extern void func_80035024(s16, s16);
@@ -6358,7 +6361,64 @@ void func_800356D4(s8 a0, s16 l, s16 r) {
     func_8003D124(&c);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800357E4);
+void func_800357E4(void *base, s16 rows, s16 cols) {
+    Elm354F4 *b = base;
+    Elm354F4 **pp;
+    s32 i;
+    s32 j;
+    s32 m1;
+    s32 k;
+    s32 n;
+
+    D_800624D0 = rows;
+    D_800624D2 = cols;
+    i = 0;
+    if (i < rows) {
+        n = cols;
+        pp = D_80061C50;
+        do {
+            *pp = &b[i * n];
+            pp++;
+        } while (++i < rows);
+    }
+    for (i = rows; i < 32; i++) {
+        D_80061C48 |= 1 << i;
+    }
+    i = 0;
+    if (i < D_800624D0) {
+        m1 = -1;
+        k = 0x7F;
+        pp = D_80061C50;
+        do {
+            Elm354F4 **q;
+
+            j = 0;
+            if (j < D_800624D2) {
+                q = pp;
+                do {
+                    (*q)[j].field_98 = 0;
+                    (*q)[j].field_22 = m1;
+                    (*q)[j].field_23 = 0;
+                    (*q)[j].field_48 = 0;
+                    (*q)[j].field_4A = 0;
+                    (*q)[j].field_9C = 0;
+                    (*q)[j].field_A0 = 0;
+                    (*q)[j].field_4C = 0;
+                    (*q)[j].field_AC = 0;
+                    (*q)[j].field_A8 = 0;
+                    (*q)[j].field_A4 = 0;
+                    (*q)[j].field_4E = 0;
+                    (*q)[j].field_58 = k;
+                    (*q)[j].field_5A = k;
+                    (*q)[j].field_5C = k;
+                    (*q)[j].field_5E = k;
+                } while (++j < D_800624D2);
+            }
+            pp++;
+        } while (++i < D_800624D0);
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035A04);
 
