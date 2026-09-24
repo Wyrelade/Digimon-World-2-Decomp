@@ -423,6 +423,7 @@ extern s32 D_80062F90;
 extern void func_80025CC8(Obj25FBC *a0);
 extern void func_80026568(Actor *arg0, u8 arg1);
 extern void (*D_80048E1C)(Obj25FBC *);
+extern Flags506C0 *D_800506C0;
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -6958,7 +6959,14 @@ s32 func_8003D7E8(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D850);
+s32 func_8003D850(void) {
+    Flags506C0 *p = D_800506C0;
+
+if (!((p->field_4 & 1) && (p->field_0 & 1))) {
+ return 0;
+ }
+ return 1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D894);
 

@@ -1574,4 +1574,10 @@ typedef struct {
     u8 _pad01[0x63];
 } Rec1DB18;
 
+/* Status word pair behind the D_800506C0 pointer (func_8003D850). */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+} Flags506C0;
+
 #endif /* MAIN_156C_H */

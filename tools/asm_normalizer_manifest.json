@@ -1831,5 +1831,14 @@
       "nosplit",
       "padnop"
     ]
+  },
+  "func_8003D850": {
+    "passes": [
+      "nosplit_nodb",
+      "exit_merge",
+      "taken_fill",
+      "dead_code",
+      "padnop"
+    ]
   }
 }
