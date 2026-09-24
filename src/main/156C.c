@@ -3901,7 +3901,16 @@ void func_800227F0(s32 i) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002281C);
+s32 func_8002281C(void) {
+    u16 v = D_80050720->field_34;
+    s32 r = v - 0x49;
+    s32 ret = 8;
+    if ((u32)(v - 0x4B) < 5) {
+        ret = r * 8;
+    }
+    return ret;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002284C);
 

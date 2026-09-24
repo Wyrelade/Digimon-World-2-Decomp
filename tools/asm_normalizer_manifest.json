@@ -2012,5 +2012,10 @@
     "passes": [
       "gp8_nosplit"
     ]
+  },
+  "func_8002281C": {
+    "passes": [
+      "gp8_nosplit"
+    ]
   }
 }
