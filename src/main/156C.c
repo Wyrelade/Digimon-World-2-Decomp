@@ -4102,7 +4102,19 @@ void func_80022D84(ActorWork *arg0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022DEC);
+void func_80022DEC(s32 tag) {
+    Blk22E60 *b = D_80050788;
+
+    if (b->field_8 != 1) {
+        do {
+            if (b->field_8 == tag) {
+                func_80022D84((ActorWork *)(b + 1));
+            }
+            b = b->field_4;
+        } while (b->field_8 != 1);
+    }
+}
+
 
 void func_80022E60(Blk22E60 *heap, s32 size) {
     Blk22E60 *end;
