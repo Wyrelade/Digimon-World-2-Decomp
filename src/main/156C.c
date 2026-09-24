@@ -1278,7 +1278,64 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001588C);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80015914);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80015D30);
+void func_80015D30(Actor *actor) {
+    ActorWork *w = actor->work;
+    s32 *p;
+    s32 *list;
+    void *obj;
+    s32 i;
+    s32 k;
+    s32 mask;
+
+    if (w->field_9C == 0) {
+        return;
+    }
+    p = (s32 *)func_800239A0(0x5130012);
+    if (*p == 0) {
+        return;
+    }
+    i = 0;
+    list = p;
+    do {
+        obj = func_800239A0(*list);
+        mask = 1 << i;
+        if (((s32 *)func_800239A0(0x5130013))[w->field_98 - 1] & mask) {
+            switch (i) {
+            case 0:
+            if (w->field_98 == 1 || w->field_98 == 3) {
+                func_8001373C(obj, 2, &w->field_88, &w->field_8C);
+                func_800137B8(obj, 2, (actor->field_28 >> 2) & 3);
+                func_8001D504(obj, 0);
+            } else {
+                func_8001D504(obj, 2);
+            }
+            func_8001D5B4(obj, 4, 4, D_80050720->field_26);
+            func_8001D5B4(obj, 8, 4, D_80050720->field_24);
+            func_8001D5B4(obj, 0x10, 4, D_80050720->field_2A);
+            func_8001D5B4(obj, 0x20, 4, D_80050720->field_28);
+                break;
+            case 1:
+            case 3:
+                k = 0;
+                if (w->field_98 == 5) {
+                    k = -1;
+                } else if (i == 3) {
+                    k = 4;
+                }
+                func_8001D504(obj, k);
+                break;
+            default:
+                func_8001D504(obj, 0);
+                break;
+            }
+            func_8001D550(obj, 0x1000, w->field_9C);
+            func_8001D884((s32)obj);
+        }
+        list++;
+        i++;
+    } while (*list != 0);
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80015F68);
 

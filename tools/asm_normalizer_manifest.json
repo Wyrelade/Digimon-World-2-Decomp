@@ -1890,5 +1890,11 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80015D30": {
+    "passes": [
+      "nosplit",
+      "sched_match"
+    ]
   }
 }

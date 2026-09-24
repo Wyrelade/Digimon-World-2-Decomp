@@ -29,7 +29,14 @@ typedef struct {
     /* 0x64 */ s16 field_64;
     u8 _pad66[0x06];
     /* 0x6C */ s16 field_6C;
-    u8 _pad6E[0x36];
+    u8 _pad6E[0x1A];
+    /* 0x88 */ s32 field_88;
+    /* 0x8C */ s16 field_8C;
+    u8 _pad8E[0x0A];
+    /* 0x98 */ s16 field_98;
+    u8 _pad9A[0x02];
+    /* 0x9C */ s32 field_9C;
+    u8 _padA0[0x04];
     /* 0xA4 */ s16 field_A4;
 } ActorWork;
 
