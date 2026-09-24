@@ -2723,21 +2723,43 @@ def web_realloc_pass(stext, tgt):
                              _wr_tok(cm, [r for r, _p in cr], sy[0] if sy else "", im)))
         sm = difflib.SequenceMatcher(None, [o[2] for o in ours], [t[0] for t in tk],
                                      autojunk=False)
-        want = {}
+        want, comm_ops = {}, []
+
+        def vote(w, t):
+            if w is not None:
+                cnt = want.setdefault(w, {})
+                cnt[t] = cnt.get(t, 0) + 1
         for a, b, size in sm.get_matching_blocks():
             for q in range(size):
                 n, cr, cm = ours[a + q]
                 treg = tk[b + q][1]
                 if len(treg) != len(cr):
                     continue
-                for (r, pos), t in zip(cr, treg):
+                comm = cm.split("|", 1)[0] in _COMMUTATIVE_ACC | {"mult", "multu"}
+                uses = []
+                for k, ((r, pos), t) in enumerate(zip(cr, treg)):
                     if pos is None:
                         continue
-                    for kd in ("d", "u"):
-                        w = occ.get((n, r, pos, kd))
-                        if w is not None:
-                            cnt = want.setdefault(w, {})
-                            cnt[t] = cnt.get(t, 0) + 1
+                    vote(occ.get((n, r, pos, "d")), t)
+                    if comm and (k > 0 or cm.startswith("mult")):
+                        uses.append((occ.get((n, r, pos, "u")), t))
+                    else:
+                        vote(occ.get((n, r, pos, "u")), t)
+                if len(uses) == 2:
+                    comm_ops.append(uses)
+                else:
+                    for w, t in uses:
+                        vote(w, t)
+        # commutative operands: pair them straight or crossed, whichever agrees
+        # better with the votes from everything else (straight on a tie)
+        base = {w: max(c.items(), key=lambda x: x[1])[0] for w, c in want.items()}
+        for (w1, t1), (w2, t2) in comm_ops:
+            st = (base.get(w1) == t1) + (base.get(w2) == t2)
+            cr_ = (base.get(w1) == t2) + (base.get(w2) == t1)
+            if cr_ > st:
+                t1, t2 = t2, t1
+            vote(w1, t1)
+            vote(w2, t2)
         # all wanted webs at once first (resolves swaps and cycles), then one
         # at a time
         cand = {}
