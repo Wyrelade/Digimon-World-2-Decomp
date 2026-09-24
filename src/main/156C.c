@@ -5402,7 +5402,19 @@ void func_80033804(s16 a0, s16 a1, s16 a2, HandlerArg arg) {
     func_80036594(a0, a1, a2, &arg);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033894);
+void func_80033894(s16 a0, s16 a1, s16 a2, HandlerArg arg) {
+    s32 v = arg.field_24;
+
+    func_80036164(a0, a1, a2, &arg);
+    arg.field_1 = v;
+    func_80036594(a0, a1, a2, &arg);
+    v &= 0xFF;
+    if (v == 0) {
+        func_80036554();
+    } else if (v == 4) {
+        func_80036574();
+    }
+}
 
 void func_80033954(s16 a0, s16 a1, s16 a2, HandlerArg d) {
     s32 flag = d.field_24;

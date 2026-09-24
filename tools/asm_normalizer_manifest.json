@@ -1716,5 +1716,14 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_80033894": {
+    "passes": [
+      "nosplit",
+      "reg_realloc",
+      "save_slot",
+      "ra_restore_sink",
+      "padnop"
+    ]
   }
 }

@@ -926,7 +926,8 @@ void func_8003B994(Cmd62C18 *cmd);
  * fields matched so far are named. */
 typedef struct {
     /* 0x00 */ u8 field_0;
-    u8 _pad01[0x05];
+    /* 0x01 */ u8 field_1;
+    u8 _pad02[0x04];
     /* 0x06 */ u8 field_6;
     /* 0x07 */ u8 field_7;
     u8 _pad08[0x01];
