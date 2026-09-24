@@ -371,6 +371,7 @@ extern void func_80029FB4(void);
 extern void func_80029FB4(void);
 extern s32 D_80062F70;
 extern s32 D_80062F74;
+extern void func_80029984(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -4135,7 +4136,37 @@ s32 func_8002970C(s32 mode) {
     return func_80029AFC(mode);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80029848);
+s32 func_80029848(s32 a0) {
+    s32 n;
+
+    if (a0 == 0) {
+        func_80029984();
+        while (D_80049038 != D_8004903C) {
+            func_800294AC();
+            if (func_800299B8() != 0) {
+                return -1;
+            }
+        }
+        while ((*D_80049024 & 0x1000000) || !(*D_80049018 & 0x4000000)) {
+            if (func_800299B8() != 0) {
+                return -1;
+            }
+        }
+        return 0;
+    }
+    n = (D_80049038 - D_8004903C) & 0x3F;
+    if (n != 0) {
+        func_800294AC();
+    }
+    if ((*D_80049024 & 0x1000000) || !(*D_80049018 & 0x4000000)) {
+        if (n != 0) {
+            return n;
+        }
+        return 1;
+    }
+    return n;
+}
+
 
 void func_80029984(void) {
     D_8004904C = func_80030AB4(-1) + 0xF0;

@@ -1685,5 +1685,12 @@
       "exit_merge",
       "dead_code"
     ]
+  },
+  "func_80029848": {
+    "passes": [
+      "nosplit",
+      "taken_fill",
+      "padnop"
+    ]
   }
 }
