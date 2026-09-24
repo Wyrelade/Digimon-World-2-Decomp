@@ -1956,5 +1956,12 @@
       "nosplit",
       "sched_match"
     ]
+  },
+  "func_800284C4": {
+    "passes": [
+      "nosplit",
+      "commutative_swap",
+      "sched_match"
+    ]
   }
 }
