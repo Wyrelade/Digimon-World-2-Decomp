@@ -450,6 +450,14 @@ extern void (*D_80061BEC)(s16, s16, s32);
 extern void (*D_80061BF0)(s16, s16);
 extern void func_8001CAC4(Elem20 *);
 extern s32 func_80025D4C(Obj25FBC *);
+extern s32 D_80061C44;
+extern void func_80036784(void);
+extern void func_80031AC4(s16, s16);
+extern void func_80035CE4(s16, s16);
+extern void func_80031CD4(s32 a0, s16 a1);
+extern void func_80032644(s16 a0, s16 a1);
+extern void func_800354F4(s32 arg0, s32 arg1);
+extern void func_80031D74(s16, s16);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -6321,7 +6329,61 @@ s32 func_80031838(void) {
 }
 __asm__(".word 0\n.word 0\n.word 0\n");
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031854);
+void func_80031854(void) {
+    s32 ch;
+    s32 i;
+    Elm354F4 **pp;
+    Elm354F4 **q;
+
+    if (D_80061C44 == 1) {
+        return;
+    }
+    D_80061C44 = 1;
+    func_80036784();
+    ch = 0;
+    if (ch < D_800624D0) {
+    pp = D_80061C50;
+    do {
+        s32 m = 1 << ch;
+
+        if (!(D_80061C48 & m)) {
+            continue;
+        }
+        i = 0;
+        if (i < D_800624D2) {
+        q = pp;
+        do {
+            if ((*q)[i].field_98 & 1) {
+                func_80031D74(ch, i);
+                if ((*q)[i].field_98 & 0x10) {
+                    func_80031AC4(ch, i);
+                }
+                if ((*q)[i].field_98 & 0x20) {
+                    func_80031AC4(ch, i);
+                }
+                if ((*q)[i].field_98 & 0x40) {
+                    func_80035CE4(ch, i);
+                }
+                if ((*q)[i].field_98 & 0x80) {
+                    func_80035CE4(ch, i);
+                }
+            }
+            if ((*q)[i].field_98 & 2) {
+                func_80031CD4((s16)ch, (s16)i);
+            }
+            if ((*q)[i].field_98 & 8) {
+                func_80032644((s16)ch, (s16)i);
+            }
+            if ((*q)[i].field_98 & 4) {
+                func_800354F4((s16)ch, (s16)i);
+                (*q)[i].field_98 = 0;
+            }
+        } while (++i < D_800624D2);
+        }
+    } while (pp++, ++ch < D_800624D0);
+    }
+    D_80061C44 = 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031AC4);
 

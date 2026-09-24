@@ -1963,5 +1963,11 @@
       "commutative_swap",
       "sched_match"
     ]
+  },
+  "func_80031854": {
+    "passes": [
+      "nosplit",
+      "zero_remat"
+    ]
   }
 }
