@@ -1094,7 +1094,10 @@ typedef struct {
 /* Sound state block at D_80062D18 (splat splits it into small byte symbols);
  * func_80037BD0 indexes the D_80062D08 table with field_7 * 16 + field_C. */
 typedef struct {
-    u8 _pad0[0x7];
+    /* 0x00 */ s8 field_0;
+    u8 _pad1[0x1];
+    /* 0x02 */ s8 field_2;
+    u8 _pad3[0x4];
     /* 0x07 */ s8 field_7;
     u8 _pad8[0x4];
     /* 0x0C */ u8 field_C;

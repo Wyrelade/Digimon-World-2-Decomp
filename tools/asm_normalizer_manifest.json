@@ -1840,5 +1840,15 @@
       "dead_code",
       "padnop"
     ]
+  },
+  "func_80039264": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "web_realloc",
+      "commutative_swap",
+      "sched_match",
+      "padnop"
+    ]
   }
 }

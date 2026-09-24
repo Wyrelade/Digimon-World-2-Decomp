@@ -6462,7 +6462,20 @@ void func_800391B4(s32 id) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039264);
+u8 func_80039264(u8 *idx, u8 *val) {
+    u8 n = 0;
+    s8 i;
+
+    for (i = 0; i < D_80062D18.field_0; i++) {
+        Rec62D08 *r = &D_80062D08[D_80062D18.field_7 * 16 + i];
+
+        if (D_80062D18.field_2 >= r->field_6 && D_80062D18.field_2 <= r->field_7) {
+            val[n] = r->field_16;
+            idx[n++] = i;
+        }
+    }
+    return n;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039334);
 
