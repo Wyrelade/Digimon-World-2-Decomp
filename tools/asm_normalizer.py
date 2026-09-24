@@ -4250,7 +4250,13 @@ def aspsx_label_nops(span):
             nb = lines[j].split("#", 1)[0].strip()
             # a direct `jal` reads no register when it issues (its delay slot
             # runs first); defs_uses models its argument registers as uses
-            uses = set() if re.match(r"jal\s", nb) else defs_uses(nb)[1]
+            # runs first); defs_uses models its argument registers as uses. An
+            # indirect `jal $31,$r` (cc1's jalr spelling) reads $r as it issues.
+            mi = re.match(r"jalr?\s+(?:\$\w+\s*,\s*)?(\$\w+)\s*$", nb)
+            if mi:
+                uses = {norm_reg(mi.group(1))}
+            else:
+                uses = set() if re.match(r"jal\s", nb) else defs_uses(nb)[1]
             if d & uses:
                 out.append(_src_indent(l) + "nop")
     return "\n".join(out)
