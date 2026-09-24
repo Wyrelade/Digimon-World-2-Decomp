@@ -1141,7 +1141,7 @@ def _sm_units(lines, ins, la_tmp=None):
                     and re.match(r"\s*lui\s+\$(?:1|at)\s*,\s*%hi\(", lines[grp[0]])):
                 ma = re.match(r"\s*addu\s+\$(?:1|at)\s*,\s*\$(?:1|at)\s*,\s*(\$\w+)\s*$",
                               lines[grp[1]].split("#", 1)[0])
-                m3 = re.match(r"\s*(lw|lh|lhu|lb|lbu)\s+(\$\w+)\s*,\s*%lo\(([A-Za-z_]\w*)\)"
+                m3 = re.match(r"\s*(lw|lh|lhu|lb|lbu|sw|sh|sb)\s+(\$\w+)\s*,\s*%lo\(([A-Za-z_]\w*(?:\+\d+)?)\)"
                               r"\(\$(?:1|at)\)\s*$", lines[grp[2]].split("#", 1)[0])
                 if ma and m3 and norm_reg(ma.group(1)) not in ("at", None):
                     cur.append((i, j, "%s\t%s,%s(%s)" % (m3.group(1), m3.group(2),
@@ -1206,15 +1206,29 @@ def _sm_units(lines, ins, la_tmp=None):
     return blocks
 
 
+def _sm_sym(s):
+    """`D_XXXXXXXX+k` -> the splat name of the address it resolves to."""
+    m = re.fullmatch(r"D_([0-9A-Fa-f]{8})\+(\d+)", s)
+    return "D_%08X" % (int(m.group(1), 16) + int(m.group(2))) if m else s
+
+
 def _sm_srckey(body):
     m = re.match(r"(\w+)\s+(\$\w+)\s*,\s*%lo\(([^)]+)\)\(\$(?:1|at)\)\s*$", body)
     if m:
-        return (m.group(1).lower(), norm_reg(m.group(2)), m.group(3))
-    # indexed symbolic load macro `op $d,S($b)`: gas expands it to
-    # `lui $d,%hi(S); addu $d,$d,$b; op $d,%lo(S)($d)`; keyed by its %lo word
-    m = re.match(r"(lw|lh|lhu|lb|lbu)\s+(\$\w+)\s*,\s*([A-Za-z_]\w*)\((\$\w+)\)\s*$", body)
+        return (m.group(1).lower(), norm_reg(m.group(2)), _sm_sym(m.group(3)))
+    # indexed symbolic access macro `op $d,S($b)`: gas expands it to
+    # `lui $d,%hi(S); addu $d,$d,$b; op $d,%lo(S)($d)` (a store through $at);
+    # keyed by its %lo word
+    m = re.match(r"(lw|lh|lhu|lb|lbu|sw|sh|sb)\s+(\$\w+)\s*,\s*([A-Za-z_]\w*(?:\+\d+)?)"
+                 r"\((\$\w+)\)\s*$", body)
     if m and norm_reg(m.group(2)) not in ("1", "at"):
-        return (m.group(1).lower(), norm_reg(m.group(2)), m.group(3))
+        return (m.group(1).lower(), norm_reg(m.group(2)), _sm_sym(m.group(3)))
+    # a 2-word `li` (lui [+ ori]) is keyed by its lui word
+    m = re.match(r"li\s+(\$\w+)\s*,\s*(-?(?:0x[0-9a-fA-F]+|\d+))\s*$", body)
+    if m:
+        v = int(m.group(2), 0)
+        if not (-0x8000 <= v <= 0xFFFF):
+            return ("lui", norm_reg(m.group(1)), (v >> 16) & 0xFFFF)
     return _sm_key(body, False)
 
 
@@ -2989,6 +3003,61 @@ def save_slot_pass(stext, tgt):
     return "\n".join(lines)
 
 
+# --------------------------------------------------------------------------
+# label_nop. aspsx_label_nops spells a load-delay nop right after a load that a
+# label separates from its consumer (`lw; nop; L: use`). Usually retail has it
+# there, but some retail branches land ON that nop (`lw; L: nop; use`), one
+# word earlier. Target-guided: list the target's load/nop sites next to a
+# branch-target label (label before or after the nop) and our `load; nop; L:`
+# sites in order; when the counts agree, move each label the target has
+# before its nop. Count-preserving: only which word a branch lands on changes,
+# and the nop is a no-op on every path.
+# --------------------------------------------------------------------------
+def label_nop_pass(stext, tgt):
+    m = re.search(r"^\s*\.ent\s+(\w+)", stext, re.M)
+    fa = re.search(r"_([0-9A-Fa-f]{8})$", m.group(1)) if m else None
+    if not fa or not tgt:
+        return stext
+    base = int(fa.group(1), 16)
+    targets = set()
+    for _w, d in tgt:
+        mt = re.search(r"\.L([0-9A-Fa-f]{8})\s*$", d)
+        if mt:
+            targets.add((int(mt.group(1), 16) - base) // 4)
+    flags = []
+    for i in range(1, len(tgt) - 1):
+        if is_nop(tgt[i][1]) and _is_load(tgt[i - 1][1]) and (i in targets or i + 1 in targets):
+            flags.append(i in targets)
+    if not any(flags):
+        return stext
+    lines = stext.split("\n")
+    ins = [(i, l) for i, l in enumerate(lines) if _s_is_insn(l)]
+    nr = _noreorder_lines(lines)
+    sites = []
+    for k in range(len(ins) - 1):
+        li, ll = ins[k]
+        ni, nl = ins[k + 1]
+        if li in nr or ni in nr or not _is_load(ll.split("#", 1)[0].strip()):
+            continue
+        if not _tf_is_nop(nl.split("#", 1)[0].strip()):
+            continue
+        nxt = ins[k + 2][0] if k + 2 < len(ins) else len(lines)
+        labs = [y for y in range(ni + 1, nxt) if re.match(r"\s*\$L\w*:", lines[y])
+                and _branch_target_label(lines, ins, lines[y])]
+        if labs:
+            sites.append((ni, labs))
+    if len(sites) != len(flags):
+        return stext
+    for (ni, labs), before in sorted(zip(sites, flags), key=lambda x: -x[0][0]):
+        if not before:
+            continue
+        moved = [lines[y] for y in labs]
+        for y in reversed(labs):
+            del lines[y]
+        lines[ni:ni] = moved
+    return "\n".join(lines)
+
+
 PASSES = {
     # reg_realloc is applied specially (it needs sigma from words); the ordered
     # list in the manifest still names it so the recipe is explicit and auditable.
@@ -3000,6 +3069,7 @@ PASSES = {
     "operand_recolor": operand_recolor_s,
     "web_realloc": web_realloc_pass,
     "save_slot": save_slot_pass,
+    "label_nop": label_nop_pass,
     "laform": laform_fold_pass,
     "base_cse_collapse": base_cse_collapse_pass,
     "shift_const_fold": shift_const_fold_pass,
