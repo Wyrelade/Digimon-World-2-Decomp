@@ -403,6 +403,7 @@ extern u8 D_8004E6E4;
 extern u8 *D_8004E98C;
 extern u8 *D_8004E99C;
 extern u8 *D_8004E990;
+extern Hook33424 D_80061CD0[][16];
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -5558,7 +5559,23 @@ void func_80033394(s16 a0, s16 a1, u8 a2) {
     e->field_90 = func_80032494(a0, a1);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033424);
+void func_80033424(s16 a0, s16 a1, u8 a2) {
+    Elm354F4 *e = &D_80061C50[a0][a1];
+    Hook33424 *row;
+
+    if (e->field_1B == 0x28) {
+        row = D_80061CD0[a0];
+        if (row[a1] != 0) {
+            row[a1](a0, a1, a2);
+        }
+    }
+    if (e->field_1B != 0x1E && e->field_1B != 0x14 && e->field_1B != 0x28) {
+        e->field_1A = a2;
+        e->field_1C = 0;
+        e->field_1F++;
+    }
+    e->field_90 = func_80032494(a0, a1);
+}
 
 void func_80033524(a0, a1, a2)
 s16 a0;

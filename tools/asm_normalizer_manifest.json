@@ -1779,5 +1779,12 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80033424": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "sched_match"
+    ]
   }
 }

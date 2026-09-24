@@ -1517,4 +1517,7 @@ typedef struct {
     /* 0x14C */ s32 field_14C;
 } Wk18BF8;
 
+/* Per-channel hook table D_80061CD0[ch][16] run by func_80033424. */
+typedef void (*Hook33424)(s16, s16, u8);
+
 #endif /* MAIN_156C_H */
