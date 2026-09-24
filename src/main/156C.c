@@ -4120,7 +4120,11 @@ void func_800238F4(void) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80023910);
+s32 func_80023910(void) {
+    func_800238F4();
+    return D_80041704[D_80050790];
+}
+
 
 u16 func_80023944(u32 arg0) {
     return D_80041704[arg0 & 0xFFF];
