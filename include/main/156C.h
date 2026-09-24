@@ -3,6 +3,12 @@
 
 #include "common.h"
 
+/* Two halfwords copied as one 4-byte value (lwl/lwr). */
+typedef struct {
+    /* 0x0 */ s16 field_0;
+    /* 0x2 */ s16 field_2;
+} Pair54;
+
 /* The struct reached through Actor.work (offset 0x2C). Field names are by byte
  * offset until the layout is understood; pads keep the known fields aligned.
  * Extend as more accessors are matched. */
@@ -25,11 +31,17 @@ typedef struct {
     /* 0x3C */ s16 field_3C;
     u8 _pad3E[0x02];
     /* 0x40 */ s32 field_40;
-    u8 _pad44[0x20];
+    u8 _pad44[0x10];
+    /* 0x54 */ Pair54 field_54;
+    /* 0x58 */ s16 field_58;
+    u8 _pad5A[0x0A];
     /* 0x64 */ s16 field_64;
-    u8 _pad66[0x06];
+    u8 _pad66[0x02];
+    /* 0x68 */ s32 field_68;
     /* 0x6C */ s16 field_6C;
-    u8 _pad6E[0x1A];
+    /* 0x6E */ s16 field_6E;
+    /* 0x70 */ s16 field_70;
+    u8 _pad72[0x16];
     /* 0x88 */ s32 field_88;
     /* 0x8C */ s16 field_8C;
     u8 _pad8E[0x0A];

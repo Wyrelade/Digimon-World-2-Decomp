@@ -435,6 +435,7 @@ extern s16 D_800624D0;
 extern s16 D_800624D2;
 extern s32 D_80061C48;
 extern s32 D_80060054;
+extern s32 func_80013854(void *, s32, s32);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
 
@@ -1427,7 +1428,69 @@ void func_800169D0(Actor *arg0, s16 arg1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800169DC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80016FDC);
+void func_80016FDC(Actor *actor) {
+    ActorWork *w = actor->work;
+    s32 *p;
+    s32 *list;
+    void *obj;
+    s32 i;
+    s32 k;
+    s32 f;
+    u16 m;
+    Pair54 tmp;
+
+    if (w->field_68 == 0) {
+        return;
+    }
+    p = (s32 *)func_800239A0(0x5130019);
+    if (*p == 0) {
+        return;
+    }
+    i = 0;
+    list = p;
+loop:
+        obj = func_800239A0(*list);
+        switch (i) {
+        case 0:
+            tmp = w->field_54;
+            f = w->field_54.field_0 + 1;
+            func_8001D5B4(obj, 0x10, 2, f ? f : 1);
+            func_8001D5B4(obj, 0x20, 2, w->field_58 ? w->field_58 : 1);
+            tmp.field_0 = w->field_54.field_0 - w->field_6E;
+            func_8001373C(obj, 2, (s32 *)&tmp, &w->field_58);
+            func_800137B8(obj, 2, (actor->field_28 >> 2) & 3);
+            f = func_80013854(obj, 8, w->field_6E);
+            f |= func_80013854(obj, 4, w->field_58 - w->field_6E - 2);
+            if (w->field_70 == 0) {
+                f |= 0xE;
+            }
+            func_8001D504(obj, f);
+            break;
+        case 1:
+            if (w->field_64 < 3) {
+                m = 2;
+            } else {
+                m = 0xFFFF;
+            }
+            func_8001D504(obj, m);
+            break;
+        case 3:
+            m = 0xFFFF;
+            if (w->field_64 == 3 || w->field_64 == 5) {
+                m = 1;
+            } else if (w->field_64 == 4) {
+                m = 2;
+            }
+            func_8001D504(obj, m);
+            break;
+        }
+        func_8001D550(obj, 0x1000, w->field_68);
+        list++;
+        func_8001D884((s32)obj);
+        i++;
+    if (*list != 0) goto loop;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017214);
 

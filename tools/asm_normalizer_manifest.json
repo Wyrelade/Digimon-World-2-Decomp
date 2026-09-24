@@ -1896,5 +1896,10 @@
       "nosplit",
       "sched_match"
     ]
+  },
+  "func_80016FDC": {
+    "passes": [
+      "web_realloc"
+    ]
   }
 }
