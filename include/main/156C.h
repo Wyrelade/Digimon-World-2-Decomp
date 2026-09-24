@@ -181,8 +181,21 @@ typedef struct {
 
 /* A 0x20 block copied verbatim from the const table D_80043714. */
 typedef struct {
-    s32 w[8];
-} Blk20; /* size 0x20 */
+    /* 0x0 */ s16 m[3][3];
+} Mat12; /* size 0x12 */
+
+/* A matrix block (rotation + translation). */
+typedef struct {
+    /* 0x00 */ Mat12 m;
+    u8 _pad12[0x02];
+    /* 0x14 */ s32 t[3];
+} Blk20;
+
+/* 0x18-byte part key: rotation plus a short translation. */
+typedef struct {
+    /* 0x00 */ Mat12 m;
+    /* 0x12 */ s16 t[3];
+} Rec18; /* size 0x20 */
 
 /* Stride-0x84 destination element func_8001F5E8 fills; the copied block lands
  * at offset 0x60. */
@@ -193,7 +206,7 @@ typedef struct {
     /* 0x3C */ s32 field_3C;
     u8 _pad40[0x20];
     /* 0x60 */ Blk20 field_60;
-    u8 _pad80[0x04];
+    /* 0x80 */ s32 field_80;
 } DstElem; /* size 0x84 */
 
 /* Object reached through Actor at 0x38 (overlaps the u8 field_38); func_8001EC10
@@ -242,12 +255,14 @@ typedef struct {
     u8 _pad40[0x08];
     /* 0x48 */ s32 field_48;
     /* 0x4C */ s32 field_4C;
-    /* 0x50 */ s32 field_50;
+    /* 0x50 */ s32 *field_50;
     /* 0x54 */ s32 field_54;
     /* 0x58 */ s32 field_58;
     /* 0x5C */ s32 field_5C;
     /* 0x60 */ s32 field_60;
-    u8 _pad64[0x14];
+    /* 0x64 */ s32 *field_64;
+    /* 0x68 */ s32 *field_68;
+    u8 _pad6C[0x0C];
     /* 0x78 */ DstElem *field_78;
 } Sub3C;
 

@@ -4311,7 +4311,71 @@ void func_8001F24C(Actor *arg0, s32 arg1, s32 arg2) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F274);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F320);
+void func_8001F320(Actor *a) {
+    Sub3C *s = a->field_3C;
+    s32 *data = (s32 *)func_80023A08(s->field_48);
+    s32 i;
+    s32 j;
+    s32 k;
+    DstElem *e;
+    u8 *f;
+    u8 *q;
+    s32 pos;
+    Rec18 *r;
+
+    if (data != s->field_50) {
+        s->field_50 = data;
+        s->field_68 = data + 1;
+        i = s->field_8 + 1;
+        s->field_64 = &data[i];
+    }
+    if (data[0] == 0) {
+        data[0] = 1;
+        for (k = 0; s->field_64[k] != 1; k++) {
+            if (s->field_64[k] != 0) {
+                s->field_64[k] += (s32)data;
+            }
+        }
+        for (k = 0; k < s->field_8; k++) {
+            s->field_68[k] += (s32)data;
+        }
+    }
+    s->field_5C += D_8005F770.field_8;
+    while (s->field_5C >= 2) {
+        s->field_5C -= 2;
+        e = s->field_78;
+        f = (u8 *)s->field_64[s->field_4C];
+        pos = s->field_58;
+        for (i = 0; i < s->field_8; i++) {
+            e->field_80 = f[s->field_58++];
+            e++;
+        }
+        q = &f[s->field_58];
+        if (*q & 0x80) {
+            switch (*q) {
+            case 0xFF:
+                s->field_60 = -1;
+                s->field_58 = pos;
+                goto done;
+            case 0xFE:
+                s->field_58 = (q[2] << 8) | q[1];
+                s->field_60 = -1;
+                break;
+            }
+        }
+    }
+done:
+    e = s->field_78;
+    for (i = 0; i < s->field_8; i++) {
+        r = &((Rec18 *)s->field_68[i])[e->field_80];
+        e->field_60.m = r->m;
+        for (j = 0; j < 3; j++) {
+            e->field_60.t[j] = r->t[j];
+        }
+        e++;
+    }
+}
+
 
 extern Blk20 D_80043714;
 

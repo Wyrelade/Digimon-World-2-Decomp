@@ -2259,5 +2259,12 @@
     "passes": [
       "reg_realloc"
     ]
+  },
+  "func_8001F320": {
+    "passes": [
+      "web_realloc",
+      "sched_match",
+      "fallthrough_fill"
+    ]
   }
 }
