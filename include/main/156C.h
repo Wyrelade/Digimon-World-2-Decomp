@@ -1160,7 +1160,8 @@ typedef struct {
     /* 0x14 */ s16 field_14;
     /* 0x16 */ s16 field_16;
     /* 0x18 */ s16 field_18;
-    u8 _pad1A[0x3];
+    /* 0x1A */ s16 field_1A;
+    u8 _pad1C[0x1];
     /* 0x1D */ u8 field_1D;
     /* 0x1E */ s16 field_1E;
     /* 0x20 */ s16 field_20;
@@ -1216,7 +1217,7 @@ typedef struct {
     /* 0x00 */ s8 field_0;
     /* 0x01 */ s8 field_1;
     /* 0x02 */ s8 field_2;
-    u8 _pad3[0x1];
+    /* 0x03 */ s8 field_3;
     /* 0x04 */ s8 field_4;
     /* 0x05 */ u8 field_5;
     /* 0x06 */ s8 field_6;
@@ -1227,11 +1228,13 @@ typedef struct {
     /* 0x0C */ u8 field_C;
     /* 0x0D */ s8 field_D;
     /* 0x0E */ u8 field_E;
-    u8 _padF[0x3];
+    /* 0x0F */ u8 field_F;
+    /* 0x10 */ u8 field_10;
+    /* 0x11 */ u8 field_11;
     /* 0x12 */ u8 field_12;
     u8 _pad13[0x1];
     /* 0x14 */ s16 field_14;
-    u8 _pad16[0x2];
+    /* 0x16 */ s16 field_16;
     /* 0x18 */ s16 field_18;
 } Snd62D18;
 
@@ -2373,7 +2376,9 @@ typedef struct {
 
 /* Sound master block reached through D_80062D04 (field_18 = master volume). */
 typedef struct {
-    u8 _pad00[0x18];
+    u8 _pad00[0x12];
+    /* 0x12 */ u16 field_12;
+    u8 _pad14[0x4];
     /* 0x18 */ u8 field_18;
 } Snd62D04;
 

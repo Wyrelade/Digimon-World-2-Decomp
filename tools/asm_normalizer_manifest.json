@@ -2463,5 +2463,14 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_80036FA4": {
+    "passes": [
+      "nosplit_hf",
+      "web_realloc",
+      "sched_match",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
