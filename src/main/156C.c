@@ -186,7 +186,7 @@ extern char D_80010250[];
 extern char D_80010290[];
 extern s32 *D_8004FE38;
 extern volatile u16 D_8004FE40;
-extern s32 func_8003A778();
+extern s32 func_8003A778(s32, ...);
 extern u32 func_8003AB24(s32, u32);
 extern Regs48E8C *D_80048E8C;
 extern void (*D_80048E40)(void);
@@ -675,6 +675,10 @@ extern char D_80010D18[];
 extern s32 func_8003EE14(s32 *st);
 extern u16 D_80050298[];
 extern u16 D_800502B0[];
+extern volatile s32 D_8004FE7C;
+extern s32 D_8004FE80;
+extern void func_8003AC84(void);
+extern void func_8003AC5C(void);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -12540,7 +12544,71 @@ void func_8003A6D0(s32 addr, u16 spuAddr, s32 blocks) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A778);
+s32 func_8003A778(s32 mode, ...) {
+    u32 *ap;
+    u32 t;
+    u16 m;
+    u32 i;
+    s32 c;
+
+    ap = (u32 *)(&mode + 1);
+    switch (mode) {
+    case 2:
+        t = *ap;
+        D_8004FE40 = t >> D_8004FE50;
+        ((volatile u16 *)D_8004FE28)[0xD3] = t >> D_8004FE50;
+        break;
+    case 1:
+        D_8004FE78 = 0;
+        i = 0;
+        while (((volatile u16 *)D_8004FE28)[0xD3] != *(u16 *)&D_8004FE40) {
+            if (++i > 0xF00) {
+                return -2;
+            }
+        }
+        ((volatile u16 *)D_8004FE28)[0xD5] = (((volatile u16 *)D_8004FE28)[0xD5] & ~0x30) | 0x20;
+        break;
+    case 0:
+        D_8004FE78 = 1;
+        i = 0;
+        while (((volatile u16 *)D_8004FE28)[0xD3] != *(u16 *)&D_8004FE40) {
+            if (++i > 0xF00) {
+                return -2;
+            }
+        }
+        ((volatile u16 *)D_8004FE28)[0xD5] |= 0x30;
+        break;
+    case 3:
+        m = 0x20;
+        if (D_8004FE78 == 1) {
+            m = 0x30;
+        }
+        i = 0;
+        while ((((volatile u16 *)D_8004FE28)[0xD5] & 0x30) != m) {
+            if (++i > 0xF00) {
+                return -2;
+            }
+        }
+        if (D_8004FE78 == 1) {
+            func_8003AC84();
+        } else {
+            func_8003AC5C();
+        }
+        ap++;
+        c = 0x1000201;
+        D_8004FE7C = ap[-1];
+        t = *ap;
+        D_8004FE80 = t / 64 + (t % 64 != 0);
+        *(volatile s32 *)D_8004FE2C = D_8004FE7C;
+        *(volatile s32 *)D_8004FE30 = (D_8004FE80 << 16) | 0x10;
+        if (D_8004FE78 == 1) {
+            c = 0x1000200;
+        }
+        *(volatile s32 *)D_8004FE34 = c;
+        break;
+    }
+    return 0;
+}
 
 s32 func_8003A9F8(s32 a0, u32 a1) {
     if (D_8004FE44 == 0) {

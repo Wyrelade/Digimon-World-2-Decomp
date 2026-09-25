@@ -3050,5 +3050,14 @@
       "web_realloc",
       "padnop"
     ]
+  },
+  "func_8003A778": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "sched_match",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
