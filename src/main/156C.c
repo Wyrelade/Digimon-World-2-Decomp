@@ -10205,7 +10205,43 @@ void func_80035330(void) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035384);
+typedef struct {
+    u8 _pad0[4];
+    /* 0x4 */ u16 field_4;
+    u8 _pad6[2];
+    /* 0x8 */ u16 field_8;
+    u8 _padA[6];
+} Ch35384;
+
+extern Ch35384 *D_8004FC6C;
+
+s32 func_80035384(s32 arg0, s32 arg1, s32 arg2) {
+    s32 ch = (u16)arg0;
+    s32 flags = 0x48;
+    if (ch >= 3) {
+        return 0;
+    }
+    D_8004FC6C[ch].field_4 = 0;
+    D_8004FC6C[ch].field_8 = arg1;
+    if (ch == 0 || ch == 1) {
+        if (arg2 & 0x10) {
+            flags = 0x49;
+        }
+        if (!(arg2 & 1)) {
+            flags |= 0x100;
+        }
+    } else if (ch == 2) {
+        if (!(arg2 & 1)) {
+            flags |= 0x200;
+        }
+    }
+    if (arg2 & 0x1000) {
+        flags |= 0x10;
+    }
+    D_8004FC6C[ch].field_4 = flags;
+    return 1;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035420);
 

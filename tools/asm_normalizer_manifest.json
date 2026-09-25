@@ -2579,5 +2579,12 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80035384": {
+    "passes": [
+      "exit_merge",
+      "web_realloc",
+      "sched_match"
+    ]
   }
 }
