@@ -2964,5 +2964,12 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_80025984": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "commutative_swap"
+    ]
   }
 }

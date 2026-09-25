@@ -2595,7 +2595,9 @@ typedef struct { B4_2DF74 tag; s32 val; } T40_2DF74;
 /* 0xF0-byte slots at Ent266D0.field_C; func_800267F0 hands slots 2 and 3 to the D_80048E30 callback. */
 typedef struct Slot267F0 {
     /* 0x00 */ Ent266D0 e;
-    u8 _pad48[0xA8];
+    u8 _pad48[0xA0];
+    /* 0xE8 */ u8 field_E8;
+    u8 _padE9[0x7];
 } Slot267F0; /* size 0xF0 */
 
 

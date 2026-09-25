@@ -7783,7 +7783,70 @@ s32 func_80025760(Ent266D0 *a0, s32 a1) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025984);
+s32 func_80025984(Ent266D0 *a0, s32 a1) {
+    s32 v;
+    s32 r;
+    s32 t;
+    s32 d;
+    s32 base;
+    s32 lim;
+    Regs48E8C *p;
+
+    d = *a0->field_3C;
+    if ((d >> 4) == 8 && a0->field_44 >= 9) {
+        v = 0x22;
+    } else {
+        v = 0x88;
+    }
+    while (!(D_80048E90->field_4 & 2)) {
+    }
+    func_80026610(0x190);
+    r = D_80048E90->field_0;
+    if (a0->field_44 != 0 || (r >> 4) != 8) {
+        *(volatile u16 *)&D_80048E90->field_E = v;
+    } else {
+        D_80048E90->field_E = 0x22;
+    }
+    if (!(D_80048E8C->field_0 & 0x80)) {
+        base = D_8006004C;
+        lim = D_80060050;
+        do {
+            *(volatile u16 *)0x1F801124;
+            t = *(volatile u16 *)0x1F801120;
+            if (t < base) {
+                if (*(volatile u16 *)0x1F801128 != 0) {
+                    t += *(volatile u16 *)0x1F801128;
+                } else {
+                    t += 0x10000;
+                }
+            }
+            if (*(volatile u16 *)0x1F801124 & 0x200) {
+                if (t - base >= lim) {
+                    return -2;
+                }
+            } else if (((t - base) >> 3) >= lim) {
+                return -2;
+            }
+        } while (!(D_80048E8C->field_0 & 0x80));
+    }
+    if (((Slot267F0 *)a0)->field_E8 != 8 && D_80048E5C == 2) {
+        func_80026610(0x3C);
+        while (func_80026630() == 0) {
+        }
+    }
+    D_80048E90->field_0 = a1;
+    if (D_80048E5C == 3 && r == 0x80) {
+        D_80048E8C->field_0 = -0x81;
+        D_80048E90->field_A |= 0x10;
+    }
+    a0->field_45++;
+    if (a0->field_44 != 0xFF) {
+        (*(u8 * volatile *)&a0->field_3C)[*(volatile u8 *)&a0->field_44] = r;
+    }
+    a0->field_44++;
+    return r;
+}
+
 
 s32 func_80025C00(void) {
     Regs48E8C *q = D_80048E8C;
