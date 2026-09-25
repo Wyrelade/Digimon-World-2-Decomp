@@ -2593,5 +2593,13 @@
       "web_realloc",
       "sched_match"
     ]
+  },
+  "func_8002DC04": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "taken_fill",
+      "delay_fill"
+    ]
   }
 }
