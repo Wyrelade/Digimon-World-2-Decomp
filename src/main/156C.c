@@ -12454,7 +12454,32 @@ s32 func_8003B794(s32 a0) {
     return D_8004FDBC;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B884);
+s32 func_8003B884(u32 addr) {
+    Hdr3AD44 *h;
+    u32 v;
+
+    if (D_8004FE90 == NULL) {
+        return 0;
+    }
+    h = D_8004FE90;
+    for (;; h++) {
+        v = h->field_0;
+        if (v & 0x80000000) {
+            continue;
+        }
+        if (v & 0x40000000) {
+            break;
+        }
+        v &= 0x0FFFFFFF;
+        if (v >= addr) {
+            return 1;
+        }
+        if (addr < v + h->field_4) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
 s32 func_8003B904(u32 a0) {
     Hdr3AD44 *p;

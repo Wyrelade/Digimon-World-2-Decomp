@@ -2935,5 +2935,17 @@
       "reorder_indep",
       "padnop"
     ]
+  },
+  "func_8003B884": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "slot_retake",
+      "sched_match",
+      "taken_fill",
+      "dead_code",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
