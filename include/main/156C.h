@@ -1994,6 +1994,8 @@ typedef struct {
     u8 _pad2C[0x04];
     /* 0x30 */ DrawEnv draw[2];
     /* 0xE8 */ DispEnv disp[2];
+    /* 0x110 */ s32 field_110;
+    /* 0x114 */ s32 field_114;
 } Db5F770;
 /* Load header filled by func_8002BBD4 (func_80023550 reads field_C). */
 typedef struct {

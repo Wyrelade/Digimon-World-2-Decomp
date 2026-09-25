@@ -3284,7 +3284,71 @@ void func_8001C1CC(void) {
     D_8005F770.field_48[1].field_0 = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C1E0);
+void func_8001C1E0(s32 w, s32 h, s32 mode, s32 inter) {
+    Db5F770 *g = (Db5F770 *)&D_8005F770;
+    s32 n = 0;
+    s32 hw = w / 2;
+    s32 hh = h / 2;
+
+    g->field_110 = hw;
+    g->field_114 = hh;
+    switch (mode) {
+    default:
+    case 0:
+        func_8002A9F4(&g->draw[0], 0, h, w, h);
+        func_8002A9F4(&g->draw[1], 0, 0, w, h);
+        func_8002AAB4(&g->disp[0], 0, 0, w, h);
+        func_8002AAB4(&g->disp[1], 0, h, w, h);
+        g->draw[0].ofs[0] = hw;
+        g->draw[0].ofs[1] = h + hh;
+        g->draw[1].ofs[0] = hw;
+        g->draw[1].ofs[1] = hh;
+        n = 0x40 - (w / 32) * 2;
+        break;
+    case 1:
+        func_8002A9F4(&g->draw[0], 0, 0, w, h);
+        func_8002A9F4(&g->draw[1], 0, 0, w, h);
+        func_8002AAB4(&g->disp[0], 0, 0, w, h);
+        func_8002AAB4(&g->disp[1], 0, 0, w, h);
+        g->draw[0].ofs[0] = hw;
+        g->draw[0].ofs[1] = hh;
+        g->draw[1].ofs[0] = hw;
+        g->draw[1].ofs[1] = hh;
+        n = 0x40 - (w / 32) * 2;
+        break;
+    case 2:
+        if (inter != 0) {
+            func_8002A9F4(&g->draw[0], 480, 0, 320, 480);
+            func_8002A9F4(&g->draw[1], 0, 0, 320, 480);
+            func_8002AAB4(&g->disp[0], 0, 0, 320, 480);
+            g->disp[0].isrgb24 = 1;
+            func_8002AAB4(&g->disp[1], 480, 0, 320, 480);
+            g->disp[1].isrgb24 = 1;
+            g->draw[0].dfe = 1;
+            g->draw[1].dfe = 1;
+            g->draw[0].ofs[0] = w + hw;
+            g->draw[0].ofs[1] = hh;
+            g->draw[1].ofs[0] = hw;
+            g->draw[1].ofs[1] = hh;
+        } else {
+            func_8002A9F4(&g->draw[0], w, 0, w, h);
+            func_8002A9F4(&g->draw[1], 0, 0, w, h);
+            func_8002AAB4(&g->disp[0], 0, 0, w, h);
+            func_8002AAB4(&g->disp[1], w, 0, w, h);
+            g->draw[0].dfe = 1;
+            g->draw[1].dfe = 1;
+            g->draw[0].ofs[0] = w + hw;
+            g->draw[0].ofs[1] = hh;
+            g->draw[1].ofs[0] = hw;
+            g->draw[1].ofs[1] = hh;
+            n = 0x40 - (w / 16) * 2;
+        }
+        break;
+    }
+    func_8001CD2C(n);
+    func_8002B4C4();
+    func_8002D6A4(0, 0);
+}
 
 void func_8001C4C8(s32 arg0) {
     D_80041564.field_8 = 0;
