@@ -2666,4 +2666,9 @@ typedef struct {
     u8 b[6];
 } Str3F518;
 
+
+static inline u32 gpu_draw_mode(u32 base, u32 dither, s32 tpage) {
+    return (base | (dither << 10)) | (tpage & 0x7FF);
+}
+
 #endif /* MAIN_156C_H */

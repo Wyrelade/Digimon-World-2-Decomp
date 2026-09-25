@@ -649,6 +649,10 @@ extern s32 D_8004FE4C;
 extern u32 D_8004FE54;
 extern u32 D_8004FE58;
 extern Str3F518 D_80010D38;
+extern u32 D_80060060[];
+extern u32 D_80060088[];
+extern void func_80029160(s32 arg0);
+extern s32 func_800291A8(s32 arg0);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -8442,7 +8446,35 @@ s32 func_80028938(s32 *a0, s32 a1) {
     return a1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028A18);
+s32 func_80028A18(Rect282CC *rect, s32 color) {
+    rect->r.w = (rect->r.w < 0) ? 0 : ((rect->r.w > D_80048F10.field_4 - 1) ? D_80048F10.field_4 - 1 : rect->r.w);
+    rect->r.h = (rect->r.h < 0) ? 0 : ((rect->r.h > D_80048F10.field_6 - 1) ? D_80048F10.field_6 - 1 : rect->r.h);
+    if ((rect->r.x & 0x3F) || (rect->r.w & 0x3F)) {
+        D_80060060[0] = ((u32)D_80060088 & 0xFFFFFF) | 0x08000000;
+        D_80060060[1] = 0xE3000000;
+        D_80060060[2] = 0xE4FFFFFF;
+        D_80060060[3] = 0xE5000000;
+        D_80060060[4] = 0xE6000000;
+        D_80060060[5] = gpu_draw_mode(0xE1000000, (u32)color >> 31, *D_80049018);
+        D_80060060[6] = (color & 0xFFFFFF) | 0x60000000;
+        D_80060060[7] = rect->w[0];
+        D_80060060[8] = rect->w[1];
+        D_80060088[0] = 0x03FFFFFF;
+        D_80060088[1] = func_800291A8(3) | 0xE3000000;
+        D_80060088[2] = func_800291A8(4) | 0xE4000000;
+        D_80060088[3] = func_800291A8(5) | 0xE5000000;
+    } else {
+        D_80060060[0] = 0x05FFFFFF;
+        D_80060060[1] = 0xE6000000;
+        D_80060060[2] = gpu_draw_mode(0xE1000000, (u32)color >> 31, *D_80049018);
+        D_80060060[3] = (color & 0xFFFFFF) | 0x02000000;
+        D_80060060[4] = rect->w[0];
+        D_80060060[5] = rect->w[1];
+    }
+    func_80029160((s32)D_80060060);
+    return 0;
+}
+
 
 s32 func_80028C48(Rect28C48 *rect, s32 *p) {
     s32 size;

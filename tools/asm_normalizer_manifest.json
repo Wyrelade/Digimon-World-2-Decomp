@@ -2848,5 +2848,15 @@
       "fallthrough_fill",
       "delay_fill"
     ]
+  },
+  "func_80028A18": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "commutative_swap",
+      "ra_restore_sink",
+      "sched_match",
+      "delay_fill"
+    ]
   }
 }
