@@ -2865,5 +2865,11 @@
       "web_realloc",
       "padnop"
     ]
+  },
+  "func_80026718": {
+    "passes": [
+      "nosplit",
+      "padnop"
+    ]
   }
 }

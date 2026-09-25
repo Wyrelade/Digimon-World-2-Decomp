@@ -891,11 +891,11 @@ typedef struct {
 } ObjDesc;
 
 /* Argument to func_80025FBC (byte/half fields deep in a large record). */
-typedef struct {
+typedef struct Obj25FBC {
     /* 0x00 */ s32 field_0;
     /* 0x04 */ s32 field_4;
     /* 0x08 */ s32 field_8;
-    u8 _pad0C[0x4];
+    /* 0x0C */ struct Obj25FBC *field_C;
     /* 0x10 */ void *field_10;
     /* 0x14 */ void (*field_14)(void *);
     /* 0x18 */ s32 (*field_18)(void *);

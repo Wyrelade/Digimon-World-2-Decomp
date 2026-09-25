@@ -154,7 +154,7 @@ extern void func_80023BF4(s32);
 extern Hooks4FC50 D_8004FC50;
 extern s32 D_80062F94;
 extern void func_8003F5A4(s32);
-extern s32 (*D_80048E30)(Ent266D0 *);
+extern s32 (*D_80048E30)();
 extern s32 D_80048E98;
 extern s32 func_80025760(Ent266D0 *, s32);
 extern void func_80038BE4(s16, s32, s32, s32);
@@ -653,6 +653,10 @@ extern u32 D_80060060[];
 extern u32 D_80060088[];
 extern void func_80029160(s32 arg0);
 extern s32 func_800291A8(s32 arg0);
+extern s32 D_80048E54;
+extern void (*D_80048E48)(void);
+extern void (*D_80048E44)(void);
+extern s32 func_80025984();
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -7893,7 +7897,22 @@ void func_800266D0(Ent266D0 *a0) {
     func_80025760(a0, -2);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026718);
+void func_80026718(Obj25FBC *a0) {
+    if (D_80048E58 == D_80048E68 && D_80048E54 != 0) {
+        D_80048E48();
+        D_80048E44();
+    }
+    if (D_80048E98 != 0) {
+        D_80048E30(a0->field_C);
+        D_80048E30(&a0->field_C[1]);
+    }
+    if (a0->field_37 == 0) {
+        func_80025984(a0, 0x42);
+    } else {
+        func_80025984(a0, a0->field_37);
+    }
+}
+
 
 s32 func_800267F0(Ent266D0 *a0) {
     s32 r;
