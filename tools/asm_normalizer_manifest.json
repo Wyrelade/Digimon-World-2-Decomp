@@ -2300,5 +2300,12 @@
       "offset_unfold",
       "reorder_indep"
     ]
+  },
+  "func_8002254C": {
+    "passes": [
+      "gp8_nosplit",
+      "offset_unfold",
+      "reorder_indep"
+    ]
   }
 }

@@ -5067,7 +5067,18 @@ s32 func_80022518(s32 i) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002254C);
+void func_8002254C(s32 i, s32 v) {
+    s32 r = 0;
+    Obj50720 *p = D_80050720;
+    u16 t = p->field_2C[i];
+    u8 *q = &p->field_52[i];
+
+    if (t != 0) {
+        r = v;
+    }
+    *q = r;
+}
+
 
 u8 func_80022578(void) {
     u8 result = 0;
