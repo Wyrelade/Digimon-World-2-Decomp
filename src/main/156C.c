@@ -523,6 +523,7 @@ extern s16 func_80039A44(s32 arg0, s16 arg1);
 extern s16 func_80039F44(s32 a0, s16 id);
 extern s16 func_8003A004(s16 a0);
 extern s16 func_80032954(s32, s16, s32);
+extern s16 D_80062D2C[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -9260,7 +9261,16 @@ s32 func_80038B74(s16 a0, s16 a1, s32 a2) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80038BE4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039150);
+s16 func_80039150(s32 a0, u16 *a1, u16 *a2) {
+    Elm354F4 *base = D_80061C50[a0 & 0xFF];
+    Elm354F4 *e;
+
+    D_80062D2C[0] = a0;
+    e = &base[(a0 & 0xFF00) >> 8];
+    *a1 = e->field_58;
+    *a2 = e->field_5A;
+    return D_80062D2C[0];
+}
 
 void func_800391B4(s32 id) {
     u8 i;
