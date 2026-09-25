@@ -3067,5 +3067,11 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8003FFAC": {
+    "passes": [
+      "nosplit",
+      "sched_match"
+    ]
   }
 }

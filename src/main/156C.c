@@ -14303,7 +14303,19 @@ void func_8003FEA4(void) {
     D_80063090 = D_80063094 = D_80063098 = D_8006309C = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003FFAC);
+s32 func_8003FFAC(void) {
+    s32 r;
+
+    do {
+        r = D_80063080 + D_80063084 * 2 + D_80063088 * 4 + D_8006308C * 8;
+    } while (r == 0);
+    func_8003C8B4(D_80063070);
+    func_8003C8B4(D_80063074);
+    func_8003C8B4(D_80063078);
+    func_8003C8B4(D_8006307C);
+    D_80063080 = D_80063084 = D_80063088 = D_8006308C = 0;
+    return r >> 1;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80040084);
 
