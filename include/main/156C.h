@@ -2186,4 +2186,15 @@ typedef struct Mdl1FDBC {
     /* 0x0C */ s32 field_C[1];
 } Mdl1FDBC;
 
+/* VRAM rectangle func_80028C48 uploads: four halfwords, sent to the GPU as two words. */
+typedef union {
+    struct {
+        /* 0x0 */ s16 x;
+        /* 0x2 */ s16 y;
+        /* 0x4 */ s16 w;
+        /* 0x6 */ s16 h;
+    } r;
+    /* 0x0 */ s32 word[2];
+} Rect28C48;
+
 #endif /* MAIN_156C_H */

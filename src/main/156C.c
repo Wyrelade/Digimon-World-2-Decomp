@@ -532,6 +532,7 @@ extern s32 D_80062C70[];
 extern Ent62CFC *D_80062C30[];
 extern s32 D_80062D04;
 extern void func_80022F8C(void *a0, s32 a1);
+extern s32 func_800299B8(void);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -6996,7 +6997,51 @@ s32 func_80028938(s32 *a0, s32 a1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028A18);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80028C48);
+s32 func_80028C48(Rect28C48 *rect, s32 *p) {
+    s32 size;
+    s32 n;
+    s32 blocks;
+    s32 clr;
+    s32 v;
+    s32 *g;
+
+    func_80029984();
+    clr = 0;
+    rect->r.w = (rect->r.w < 0) ? 0 : ((rect->r.w > D_80048F10.field_4) ? D_80048F10.field_4 : rect->r.w);
+    rect->r.h = (rect->r.h < 0) ? 0 : ((rect->r.h > D_80048F10.field_6) ? D_80048F10.field_6 : rect->r.h);
+    size = (rect->r.w * rect->r.h + 1) / 2;
+    if (size <= 0) {
+        return -1;
+    }
+    n = size % 16;
+    blocks = size / 16;
+    while (!(*D_80049018 & 0x4000000)) {
+        if (func_800299B8() != 0) {
+            return -1;
+        }
+    }
+    *D_80049018 = 0x4000000;
+    *D_80049014 = 0x1000000;
+    v = 0xA0000000;
+    g = D_80049014;
+    if (clr) {
+        v = 0xB0000000;
+    }
+    *g = v;
+    *D_80049014 = rect->word[0];
+    *D_80049014 = rect->word[1];
+    for (n--; n != -1; n--) {
+        *D_80049014 = *p++;
+    }
+    if (blocks != 0) {
+        *D_80049018 = 0x4000002;
+        *D_8004901C = (s32)p;
+        *D_80049020 = (blocks << 16) | 0x10;
+        *D_80049024 = 0x1000201;
+    }
+    return 0;
+}
+
 
 s32 func_80028E84(Rect28E84 *rect, s32 *p) {
     s32 size;
