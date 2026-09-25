@@ -2586,5 +2586,12 @@
       "web_realloc",
       "sched_match"
     ]
+  },
+  "func_800272D4": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "sched_match"
+    ]
   }
 }

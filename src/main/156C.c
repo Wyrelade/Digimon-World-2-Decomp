@@ -7563,7 +7563,22 @@ u8 func_80027278(u8 level) {
     return old;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800272D4);
+extern char D_8001027C[];
+
+s32 func_800272D4(s32 a0) {
+    s32 old = D_80048F10.field_1;
+
+    if (D_80048F10.field_2 >= 2) {
+        D_80048F0C(D_8001027C, a0);
+    }
+    if (a0 != D_80048F10.field_1) {
+        D_80048F08->fn_34(1);
+        D_80048F10.field_1 = a0;
+        func_80030D34(2, 0);
+    }
+    return old;
+}
+
 
 u8 func_80027378(void) {
     return D_80048F12;
