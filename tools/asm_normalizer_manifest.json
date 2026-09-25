@@ -2767,5 +2767,13 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_8003A6D0": {
+    "passes": [
+      "nosplit_nodb",
+      "sched_match",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
