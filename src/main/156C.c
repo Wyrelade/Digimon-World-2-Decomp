@@ -626,6 +626,9 @@ extern s8 D_80062D1F;
 extern u16 D_80062EE8[];
 extern u16 D_80050298[];
 extern u16 D_800502B0[];
+extern void func_8003F760(s32 *a0, s32 a1, s32 a2);
+s32 func_8003F864();
+extern s32 func_8003F924(s8 *a, s8 *b);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -12886,7 +12889,45 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F5A4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F5B4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F5C4);
+s32 func_8003F5C4(s8 *name, s32 a1) {
+    Dcb3F760 *e;
+    Dcb3F760 *base;
+    u32 n;
+    s8 *s;
+    s8 *d;
+    s32 found;
+
+    s = name;
+    d = D_80062FE8;
+    while (*s >= 0x3B) {
+        *d++ = *s++;
+    }
+    *d = 0;
+    n = *(u32 *)0x154 / 0x50;
+    base = *(Dcb3F760 **)0x150;
+    for (e = base; e < base + n; e++) {
+        if (e->field_0 != 0 && func_8003F924(e->field_0, D_80062FE8) == 0) {
+            D_80062FE0 = e->field_34;
+            found = 1;
+            goto done;
+        }
+    }
+    found = 0;
+done:
+    if (found == 0) {
+        return 0;
+    }
+    n = *(u32 *)0x154 / 0x50;
+    base = *(Dcb3F760 **)0x150;
+    for (e = base; e < base + n; e++) {
+        if (e->field_0 != 0 && func_8003F924(e->field_0, D_80062FE8) == 0) {
+            e->field_34 = func_8003F760;
+            break;
+        }
+    }
+    return func_8003F864(name, a1);
+}
+
 
 void func_8003F760(s32 *a0, s32 a1, s32 a2) {
     Dcb3F760 *e;

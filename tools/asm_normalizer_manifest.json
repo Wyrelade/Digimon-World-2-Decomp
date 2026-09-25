@@ -2708,5 +2708,13 @@
       "web_realloc",
       "redundant_skip"
     ]
+  },
+  "func_8003F5C4": {
+    "passes": [
+      "nosplit",
+      "taken_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
