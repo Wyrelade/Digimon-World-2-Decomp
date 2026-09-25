@@ -2775,5 +2775,16 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8002E0F4": {
+    "passes": [
+      "gp8",
+      "web_realloc",
+      "selfmove_nop",
+      "commutative_swap",
+      "sched_match",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

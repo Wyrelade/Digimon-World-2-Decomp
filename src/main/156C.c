@@ -9377,7 +9377,28 @@ void func_8002E064(s32 a0, s32 a1, s32 a2, s32 a3, s32 a4) {
     D_80061B54 = a4;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002E0F4);
+s32 func_8002E0F4(u32 *arg0) {
+    s32 idx;
+    s32 i;
+    s32 ret = 1;
+    u16 n;
+    Rec2DF74 *r;
+
+    idx = (arg0 - (u32 *)&((Rec2DF74 *)D_80061B38)[D_80061B3C]) / 504;
+    r = &((Rec2DF74 *)D_80061B38)[idx];
+    n = r->field_6;
+    if (r->field_0 != 4) {
+        goto end;
+    }
+    for (i = 0; i < (s16)n; i++) {
+        ((Rec2DF74 *)*(volatile s32 *)&D_80061B38)[i + idx].field_0 = 0;
+    }
+    D_80061B24 = i + idx;
+    ret = 0;
+end:
+    return ret;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002E1A4);
 

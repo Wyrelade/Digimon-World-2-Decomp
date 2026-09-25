@@ -2579,7 +2579,8 @@ typedef struct {
 } B4_2DF74;
 typedef struct {
     /* 0x00 */ s16 field_0;
-    u8 _pad02[0x6];
+    u8 _pad02[0x4];
+    /* 0x06 */ u16 field_6;
     /* 0x08 */ s32 field_8;
     u8 _pad0C[0x10];
     /* 0x1C */ B4_2DF74 field_1C;
