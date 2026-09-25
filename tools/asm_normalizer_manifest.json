@@ -2633,5 +2633,16 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8003F760": {
+    "passes": [
+      "nosplit_nodb",
+      "reg_realloc",
+      "save_slot",
+      "sched_match",
+      "taken_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

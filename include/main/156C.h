@@ -2551,4 +2551,13 @@ typedef struct {
     /* 0xE8 */ Area1C104 area[2];
 } View1C104;
 
+
+/* BIOS device control block (0x50 bytes), table at 0x150 / byte size at 0x154, scanned by func_8003F760. */
+typedef struct {
+    /* 0x00 */ s8 *field_0;
+    u8 _pad04[0x30];
+    /* 0x34 */ void (*field_34)(s32 *, s32, s32);
+    u8 _pad38[0x18];
+} Dcb3F760;
+
 #endif /* MAIN_156C_H */
