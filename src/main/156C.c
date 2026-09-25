@@ -950,7 +950,69 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001204C);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001236C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80012490);
+s32 func_80012490(s32 a0, s32 a1, s32 a2, s32 a3) {
+    Dg12490 *dg = (Dg12490 *)a3;
+    Rec12490 *rec;
+    s16 *p;
+    s32 d;
+    s32 n;
+    s32 inc;
+
+    rec = (Rec12490 *)func_80011F5C(a0);
+    if (dg->field_16 == 0) {
+        return 0;
+    }
+    switch (rec->field_1) {
+    case 9:
+        d = rec->field_2;
+        if (d > 0 && d + dg->field_E >= 100) {
+            return 0;
+        }
+        if (d < 0 && d + dg->field_E < 0) {
+            return 0;
+        }
+        dg->field_E += rec->field_2;
+        return 1;
+    case 10:
+        if (dg->field_10 == 99999999) {
+            return 0;
+        }
+        d = dg->field_10 += rec->field_2;
+        if (d > 99999999) {
+            d = 99999999;
+        }
+        dg->field_10 = d;
+        return 1;
+    case 4:
+    default:
+        p = &dg->field_14;
+        break;
+    case 5:
+        p = &dg->field_18;
+        break;
+    case 6:
+        p = &dg->field_1C;
+        break;
+    case 7:
+        p = &dg->field_1E;
+        break;
+    case 8:
+        p = &dg->field_20;
+        break;
+    }
+    if (*p == 999) {
+        return 0;
+    }
+    n = (func_80023910() & 0xFFF) * 100 / 0x21000;
+    inc = 3;
+    if (n < 3) {
+        inc = n + 1;
+    }
+    n = inc;
+    *p = (*p + n < 1000) ? (s16)(*p + n) : 999;
+    return 1;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80012640);
 

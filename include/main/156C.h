@@ -2057,4 +2057,24 @@ typedef struct {
     /* 0x34 */ s32 field_34;
 } Wk13C04;
 
+typedef struct {
+    /* 0x00 */ u8 field_0;
+    /* 0x01 */ u8 field_1;
+    /* 0x02 */ s16 field_2;
+} Rec12490;
+
+typedef struct {
+    u8 _pad00[0xE];
+    /* 0x0E */ u8 field_E;
+    u8 _pad0F;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s16 field_14;
+    /* 0x16 */ s16 field_16;
+    /* 0x18 */ s16 field_18;
+    /* 0x1A */ s16 field_1A;
+    /* 0x1C */ s16 field_1C;
+    /* 0x1E */ s16 field_1E;
+    /* 0x20 */ s16 field_20;
+} Dg12490;
+
 #endif /* MAIN_156C_H */
