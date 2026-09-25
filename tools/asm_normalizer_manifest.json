@@ -2546,5 +2546,11 @@
       "nosplit",
       "ra_restore_sink"
     ]
+  },
+  "func_80022038": {
+    "passes": [
+      "nosplit_nocse",
+      "sched_match"
+    ]
   }
 }

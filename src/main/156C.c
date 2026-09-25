@@ -5914,7 +5914,29 @@ s32 func_80021E78(s32 arg0) {
     return 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80022038);
+typedef struct {
+    s16 id;
+    s16 flag;
+} Ent22038;
+
+s32 func_80022038(Ent22038 *p) {
+    s32 i;
+    for (i = 0; i < 6; i++, p++) {
+        if (p->id != -1) {
+            if (p->flag != 0) {
+                if (func_80021E78(p->id) != 1) {
+                    return 0;
+                }
+            } else {
+                if (func_80021E78(p->id) != 0) {
+                    return 0;
+                }
+            }
+        }
+    }
+    return 1;
+}
+
 
 void func_800220D0(u8 *arg0, s32 arg1, s32 arg2) {
     s32 idx = arg1 >> 3;
