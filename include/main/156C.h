@@ -2535,4 +2535,17 @@ typedef struct {
     /* 0x10 */ s32 field_10;
 } Ent19E50;
 
+
+/* func_8001C104 reads two 0x14-stride display areas out of D_8005F770 at 0xE8
+ * (a Rect2AB54 at the head of each). */
+typedef struct {
+    /* 0x00 */ Rect2AB54 rect;
+    u8 _pad8[0xC];
+} Area1C104;
+
+typedef struct {
+    u8 _pad0[0xE8];
+    /* 0xE8 */ Area1C104 area[2];
+} View1C104;
+
 #endif /* MAIN_156C_H */

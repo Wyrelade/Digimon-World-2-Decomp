@@ -4075,7 +4075,18 @@ void func_8001C0B0(s32 *arg0, s32 arg1) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C104);
+void func_8001C104(void) {
+    Rect2AB54 r;
+    s32 i;
+
+    for (i = 0; i < 2; i++) {
+        r = ((View1C104 *)&D_8005F770)->area[i].rect;
+        func_80027104(1);
+        func_80027694((s32)&r, 0, 0, 0);
+        func_80027480(0);
+    }
+}
+
 
 void func_8001C194(s32 a0, s32 a1, s32 a2) {
     s32 i;
