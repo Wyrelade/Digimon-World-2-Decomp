@@ -555,6 +555,17 @@ extern void func_8002B334(s32, s32);
 extern u8 func_8001D934(void);
 extern s32 func_8001D958(void);
 extern s32 func_8001D980(void);
+extern s32 D_8004E88C[];
+extern s32 D_8004E78C[];
+extern s8 *D_8004E6EC[];
+extern s32 D_8004E6DC;
+extern u8 D_80061B68[];
+extern u8 D_80061B70[];
+extern u8 D_80061B78[];
+extern s8 D_8001087C[];
+extern s8 D_80010888[];
+extern s8 D_800108A4[];
+extern s8 D_800108B8[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -8439,7 +8450,103 @@ void func_8002EBE0(s32 *dst, s32 *src, u32 count) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002EC0C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002EDB4);
+extern u8 *D_8004E998;
+
+static inline void cd_memcpy2EDB4(u8 *dst, u8 *src, u32 n) {
+    if (dst != 0) {
+        while (n--) {
+            *dst++ = *src++;
+        }
+    }
+}
+
+s32 func_8002EDB4(void) {
+    volatile u8 r;
+    u8 result[8];
+    s32 i;
+    s32 j;
+    s32 err;
+
+    *D_8004E98C = 1;
+    r = *D_8004E990 & 7;
+    err = 0;
+    if (r == 0) {
+        return 0;
+    }
+    while (r != (*D_8004E990 & 7)) {
+        r = *D_8004E990 & 7;
+    }
+    for (i = 0; i < 8; i++) {
+        if (!(*D_8004E98C & 0x20)) {
+            break;
+        }
+        result[i] = *D_8004E998;
+    }
+    for (j = i; j < 8; j++) {
+        result[j] = 0;
+    }
+    *D_8004E98C = 1;
+    *D_8004E990 = 7;
+    *D_8004E99C = 7;
+    if (r != 3 || D_8004E88C[D_8004E6E5] != 0) {
+        if (!(D_8004E6D4 & 0x10) && (result[0] & 0x10)) {
+            D_8004E6DC++;
+        }
+        D_8004E6D4 = result[0] & 0xFF;
+        D_8004E6D8 = result[1];
+        err = D_8004E6D4 & 0x1D;
+    }
+    if (r == 5 && D_8004E6D0 >= 3) {
+        func_8002A014(D_8001087C);
+        if (D_8004E6D0 >= 3) {
+            func_8002A014(D_80010888, D_8004E6EC[D_8004E6E5], D_8004E6D4, D_8004E6D8);
+        }
+    }
+    switch (r) {
+    case 3:
+        if (err) {
+            ((volatile Cd4E9A4 *)&D_8004E9A4)->field_0 = 5;
+            cd_memcpy2EDB4(D_80061B68, result, 8);
+            return 2;
+        } else if (D_8004E78C[D_8004E6E5] != 0) {
+            ((volatile Cd4E9A4 *)&D_8004E9A4)->field_0 = 3;
+            cd_memcpy2EDB4(D_80061B68, result, 8);
+            return 1;
+        } else {
+            ((volatile Cd4E9A4 *)&D_8004E9A4)->field_0 = 2;
+            cd_memcpy2EDB4(D_80061B68, result, 8);
+            return 2;
+        }
+    case 2:
+        D_8004E9A4.field_0 = err ? 5 : 2;
+        cd_memcpy2EDB4(D_80061B68, result, 8);
+        return 2;
+    case 1:
+        if (err && i == 1) {
+            err = 0;
+        }
+        ((volatile Cd4E9A4 *)&D_8004E9A4)->field_1 = err ? 5 : 1;
+        cd_memcpy2EDB4(D_80061B70, result, 8);
+        *D_8004E98C = 0;
+        *D_8004E990 = 0;
+        return 4;
+    case 4:
+        ((volatile Cd4E9A4 *)&D_8004E9A4)->field_1 = ((volatile Cd4E9A4 *)&D_8004E9A4)->field_2 = 4;
+        cd_memcpy2EDB4(D_80061B78, result, 8);
+        cd_memcpy2EDB4(D_80061B70, result, 8);
+        return 4;
+    case 5:
+        ((volatile Cd4E9A4 *)&D_8004E9A4)->field_0 = ((volatile Cd4E9A4 *)&D_8004E9A4)->field_1 = 5;
+        cd_memcpy2EDB4(D_80061B68, result, 8);
+        cd_memcpy2EDB4(D_80061B70, result, 8);
+        return 6;
+    default:
+        func_80030334(D_800108A4);
+        func_8002A014(D_800108B8, r);
+        return 0;
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002F318);
 

@@ -2409,5 +2409,13 @@
       "reorder_indep",
       "padnop"
     ]
+  },
+  "func_8002EDB4": {
+    "passes": [
+      "nosplit",
+      "zext_keep",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
