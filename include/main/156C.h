@@ -472,7 +472,7 @@ typedef struct {
     /* 0x20 */ u32 field_20;
     /* 0x24 */ u32 field_24;
     /* 0x28 */ u32 field_28;
-    u8 _pad2C[0x18];    /* -> size 0x44 (table stride) */
+    /* 0x2C */ s16 field_2C[4][3]; /* -> size 0x44 (table stride) */
 } EntED40;
 
 /* Record returned by the func_8001DFF4 lookup; two 32-bit words read at both

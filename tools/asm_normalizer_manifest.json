@@ -2520,5 +2520,12 @@
   },
   "func_8001C104": {
     "passes": []
+  },
+  "func_8001EEA4": {
+    "passes": [
+      "reg_realloc",
+      "save_slot",
+      "ra_restore_sink"
+    ]
   }
 }
