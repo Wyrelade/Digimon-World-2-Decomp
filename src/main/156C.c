@@ -534,6 +534,19 @@ extern s32 D_80062D04;
 extern void func_80022F8C(void *a0, s32 a1);
 extern s32 func_800299B8(void);
 extern void func_8002D444(void *, SVec1D104 *, DVec1D104 *);
+extern s32 D_80062F58;
+extern s32 D_80062F5C;
+extern s32 D_80062F60;
+extern s32 D_80062F64;
+extern s32 D_80062F68;
+extern s32 func_80040198(void);
+extern void func_80040084(void);
+extern void func_8003F9A4(s32);
+extern void func_8003F994(s32);
+extern s32 func_8004015C(void);
+extern s32 func_8003FFAC(void);
+extern s32 func_8003F418(s32);
+extern s32 func_8003F9B4(s32 a0);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -10275,7 +10288,99 @@ s32 func_8003E134(s32 arg0) {
     return r;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003E19C);
+s32 func_8003E19C(s32 *st) {
+    s32 r;
+
+    switch (*st) {
+    case 0:
+        D_80062F5C = 0;
+        D_80062F60 = 0;
+        D_80062F58 = 0;
+        D_80062F68 = 0;
+        D_80062F64 = 0;
+        (*st)++;
+    case 1:
+        func_8003FA24(func_8003DE18);
+        *st = 10;
+        break;
+    case 10:
+        switch (D_80062F80.field_4) {
+        case 1:
+            return 1;
+        case 3:
+            {
+                volatile State62F80 *q = (volatile State62F80 *)&D_80062F80;
+                D_80062F68 = 1;
+                q->field_C = D_80062F80.field_C | (1 << D_80062F80.field_10);
+            }
+            func_8003FEA4();
+            func_8003F9B4(D_80062F80.field_10);
+            *st = 0x15;
+            break;
+        case 0:
+        set30:
+            *st = 30;
+            break;
+        default:
+            return 1;
+        }
+        break;
+    case 21:
+        if (func_80040198() == 0) {
+            return 0;
+        }
+        func_80040084();
+        *st = 30;
+    case 30:
+        func_8003FEA4();
+        func_8003F9A4(D_80062F90);
+        *st = *st + 1;
+        break;
+    case 31:
+        if (func_8004015C() == 0) {
+            return 0;
+        }
+        r = func_8003FFAC();
+        D_80062F64 = r;
+        switch (r) {
+        case 0:
+            ((volatile State62F80 *)&D_80062F80)->field_4 = D_80062F68 ? 3 : 0;
+            return 1;
+        case 4:
+            func_8003FEA4();
+            func_8003F994(D_80062F90);
+            *st = 0x32;
+            break;
+        case 2:
+            *st = 1;
+            return 0;
+        case 1:
+            if (++D_80062F5C < 17) {
+                goto set30;
+            }
+        default:
+            ((volatile State62F80 *)&D_80062F80)->field_4 = func_8003F418(D_80062F64);
+            return 1;
+        }
+        break;
+    case 50:
+        if (func_8004015C() == 0) {
+            return 0;
+        }
+        r = func_8003FFAC();
+        D_80062F64 = r;
+        if (r == 0) {
+            ((volatile State62F80 *)&D_80062F80)->field_4 = 4;
+            return 1;
+        }
+        *st = 1;
+        break;
+    default:
+        return 0;
+    }
+    return 0;
+}
+
 
 s32 func_8003E444(s32 a0, s32 a1, s32 a2) {
     s32 tries;

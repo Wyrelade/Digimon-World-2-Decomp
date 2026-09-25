@@ -2371,5 +2371,18 @@
   },
   "func_8001D104": {
     "passes": []
+  },
+  "func_8003E19C": {
+    "passes": [
+      "nosplit",
+      "reg_realloc",
+      "save_slot",
+      "ra_restore_sink",
+      "slot_unfill",
+      "sched_match",
+      "taken_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
