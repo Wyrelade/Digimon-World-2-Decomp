@@ -2606,4 +2606,57 @@ typedef struct {
     /* 0x02 */ s16 field_2;
 } Cfg12640;
 
+
+/* By-value struct arg spanning a3 + stack (0x28 bytes); only three fields
+   are touched here. func_80036164/func_80036594 receive its address. */
+typedef struct {
+    u8 pad0[0x10];
+    /* 0x10 */ u16 field_10;
+    /* 0x12 */ u16 field_12;
+    u8 pad1[0x24 - 0x14];
+    /* 0x24 */ u8 field_24;
+    u8 pad2[0x28 - 0x25];
+} Arg33;
+
+/* One text-command handler slot in the dialogue op table. */
+typedef void (*TextOp)();
+
+void func_800348D4(s32 a0, s32 a1, s32 a2, s32 a3);
+void func_800349B4(s16 arg0, s16 arg1, s16 arg2);
+void func_80034704(s16 a0, s16 a1);
+void func_80034424(s16 a0, s16 a1);
+void func_800344D4(s16 a0, s16 a1, s32 a2);
+void func_80032C54(s16 arg0, s16 arg1, s16 arg2);
+void func_80033054(s16 a0, s16 a1, u8 a2);
+void func_80033124(s16 a0, s16 a1, s32 a2);
+void func_800331F4(s16 a0, s16 a1, s32 a2);
+void func_800332E4(s16 a0, s16 a1, u8 a2);
+void func_80033424(s16 a0, s16 a1, u8 a2);
+void func_80033524();
+void func_80033664(s16 arg0, s16 arg1, s16 arg2);
+void func_800336D4(s16 arg0, s16 arg1, s16 arg2);
+void func_80033394(s16 a0, s16 a1, u8 a2);
+void func_80033744(s16 a0, s16 a1);
+void func_80032CD4();
+void func_80033804(s16 a0, s16 a1, s16 a2, HandlerArg arg);
+void func_80033894(s16 a0, s16 a1, s16 a2, HandlerArg arg);
+void func_80033954(s16 a0, s16 a1, s16 a2, HandlerArg d);
+void func_800339E4(s16 a0, s16 a1, s16 a2, HandlerArg d);
+void func_80033A74(s16 a0, s16 a1, s16 a2, Arg33 d);
+void func_80033C24(s16 a0, s16 a1, s16 a2, Arg33 d);
+void func_80033CE4(s16 a0, s16 a1, s16 a2, HandlerArg d);
+void func_80033D94(s16 a0, s16 a1, s16 a2, Arg33 d);
+void func_80033E44(s16 a0, s16 a1, s16 a2, Arg33 d);
+void func_80033EF4(s16 a0, s16 a1, s16 a2, Arg33 d);
+void func_80033FB4(s16 a0, s16 a1, s16 a2, Arg33 d);
+void func_80034064(s16 a0, s16 a1, s16 a2, Arg33 d);
+void func_80034114(s16 a0, s16 a1, s16 a2, HandlerArg d);
+void func_800341F4(s16 a0, s16 a1, s16 a2, HandlerArg d);
+void func_80034294(s16 a0, s16 a1, s16 a2, HandlerArg arg);
+void func_80034334(s16 arg0, s16 arg1, s16 arg2, HandlerArg arg);
+void func_80034364(s16 arg0, s16 arg1, s16 arg2, HandlerArg arg);
+void func_80034394(s16 arg0, s16 arg1, s16 arg2, HandlerArg arg);
+void func_800343C4(s16 arg0, s16 arg1, s16 arg2, HandlerArg arg);
+void func_800343F4(s16 arg0, s16 arg1, s16 arg2, HandlerArg arg);
+
 #endif /* MAIN_156C_H */

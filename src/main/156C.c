@@ -642,6 +642,9 @@ extern Mat1F668 D_80061A28;
 extern s32 func_8002281C(void);
 extern s32 func_8001E22C(s32 a0);
 extern s32 func_8001E0C0(s32 id);
+extern char D_80010A34[];
+extern TextOp D_80061BB0[37];
+extern s32 func_80034A24(s16, s16, s16, s32);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -10294,7 +10297,73 @@ void func_80032914(void) {
     func_80032874();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80032954);
+s16 func_80032954(s32 src, s16 arg1, s32 count) {
+    s16 code;
+    s32 i;
+    s16 j;
+    s32 r;
+    s32 m;
+
+    code = 0;
+    if (D_80061C48 == -1) {
+        func_8002A014(D_80010A34);
+        return -1;
+    }
+    D_80061BB0[0] = (TextOp)func_800348D4;
+    D_80061BB0[1] = (TextOp)func_800349B4;
+    D_80061BB0[3] = (TextOp)func_80034704;
+    D_80061BB0[2] = (TextOp)func_80034424;
+    D_80061BB0[4] = (TextOp)func_800344D4;
+    D_80061BB0[5] = (TextOp)func_80032C54;
+    D_80061BB0[7] = (TextOp)func_80033054;
+    D_80061BB0[8] = (TextOp)func_80033124;
+    D_80061BB0[9] = (TextOp)func_800331F4;
+    D_80061BB0[10] = (TextOp)func_800332E4;
+    D_80061BB0[11] = (TextOp)func_80033424;
+    D_80061BB0[12] = (TextOp)func_80033524;
+    D_80061BB0[13] = (TextOp)func_80033664;
+    D_80061BB0[14] = (TextOp)func_800336D4;
+    D_80061BB0[15] = (TextOp)func_80033394;
+    D_80061BB0[16] = (TextOp)func_80033744;
+    D_80061BB0[6] = (TextOp)func_80032CD4;
+    D_80061BB0[17] = (TextOp)func_80033804;
+    D_80061BB0[18] = (TextOp)func_80033894;
+    D_80061BB0[19] = (TextOp)func_80033954;
+    D_80061BB0[20] = (TextOp)func_800339E4;
+    D_80061BB0[21] = (TextOp)func_80033A74;
+    D_80061BB0[22] = (TextOp)func_80033C24;
+    D_80061BB0[23] = (TextOp)func_80033CE4;
+    D_80061BB0[24] = (TextOp)func_80033D94;
+    D_80061BB0[25] = (TextOp)func_80033E44;
+    D_80061BB0[26] = (TextOp)func_80033EF4;
+    D_80061BB0[27] = (TextOp)func_80033FB4;
+    D_80061BB0[28] = (TextOp)func_80034064;
+    D_80061BB0[29] = (TextOp)func_80034114;
+    D_80061BB0[30] = (TextOp)func_800341F4;
+    D_80061BB0[31] = (TextOp)func_80034294;
+    D_80061BB0[32] = (TextOp)func_80034334;
+    D_80061BB0[33] = (TextOp)func_80034364;
+    D_80061BB0[34] = (TextOp)func_80034394;
+    D_80061BB0[35] = (TextOp)func_800343C4;
+    D_80061BB0[36] = (TextOp)func_800343F4;
+    for (i = 0; i < 32; i++) {
+        m = 1 << i;
+        if (!(D_80061C48 & m)) {
+            code = i;
+            break;
+        }
+    }
+    D_80061C48 |= 1 << code;
+    for (j = 0; j < (s16)count; j++) {
+        r = func_80034A24(code, j, arg1, src);
+        src += r;
+        if (r == -1) {
+            return -1;
+        }
+    }
+    return code;
+}
+
 
 void func_80032C54(s16 arg0, s16 arg1, s16 arg2) {
     Elm354F4 *e = &D_80061C50[arg0][arg1];
@@ -10481,16 +10550,6 @@ void func_800339E4(s16 a0, s16 a1, s16 a2, HandlerArg d) {
     func_80036594(a0, a1, a2, &d);
 }
 
-/* By-value struct arg spanning a3 + stack (0x28 bytes); only three fields
-   are touched here. func_80036164/func_80036594 receive its address. */
-typedef struct {
-    u8 pad0[0x10];
-    /* 0x10 */ u16 field_10;
-    /* 0x12 */ u16 field_12;
-    u8 pad1[0x24 - 0x14];
-    /* 0x24 */ u8 field_24;
-    u8 pad2[0x28 - 0x25];
-} Arg33;
 
 extern s32 func_80036164();
 extern void func_80033B80();

@@ -2817,5 +2817,12 @@
       "nosplit",
       "label_nop"
     ]
+  },
+  "func_80032954": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
