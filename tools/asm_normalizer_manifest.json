@@ -2447,5 +2447,14 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80030690": {
+    "passes": [
+      "nosplit_hf",
+      "zero_remat",
+      "sched_match",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
