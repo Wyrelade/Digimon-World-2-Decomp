@@ -2832,7 +2832,25 @@ void func_80017884(Actor *a0) {
     func_80013470(w->field_40, (Src13470 *)&st);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017944);
+void func_80017944(Actor *a0) {
+    Work174F8 *w = (Work174F8 *)a0->work;
+    s32 k;
+    s32 c;
+
+    if (D_8005F704 > 0) {
+        k = func_80013A70(w->field_50, w->field_54);
+        if ((c = w->field_6C[k].field_0) == 1) {
+            D_80050768->field_110 = (u8 *)w->field_6C[k].field_4;
+            w->field_62 = 0;
+            func_800115DC(a0, 3);
+            D_80050768->field_35C = c;
+            func_8001A68C(0xE, 0);
+        } else {
+            func_8001A68C(0x10, 0);
+        }
+    }
+}
+
 
 void func_800179EC(Wk179EC *w) {
     Row179EC *r = w->rows;
