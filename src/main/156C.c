@@ -174,7 +174,7 @@ extern Blk5071C *D_8005071C;
 extern char D_8001031C[];
 extern void func_800274E8(char *, Rect2AB54 *);
 extern s8 D_80010974[];
-extern void func_8002A744(s32);
+extern void func_8002A744(s8);
 extern void (*volatile D_8004FE60)(void);
 extern s32 func_8003A9F8(s32, u32);
 extern Snd62D18 D_80062D18;
@@ -7181,7 +7181,30 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A054);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A6F4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A744);
+void func_8002A744(s8 c) {
+    switch (c) {
+    case 10:
+        func_8002A744(0xD);
+        D_80049060 = 0;
+        break;
+    case 9:
+        do {
+            func_8002A744(0x20);
+        } while (D_80049060 & 7);
+        return;
+    default:
+        if (D_80049071[(u8)c] & 0x97) {
+            D_80049060++;
+        }
+        break;
+    }
+    if (D_80049064 >= 0x20) {
+        func_8002A9A4(1, D_800618B0, D_80049064);
+        D_80049064 = 0;
+    }
+    D_800618B0[D_80049064++] = c;
+}
+
 
 void func_8002A840(void) {
     if (D_80049064 > 0) {

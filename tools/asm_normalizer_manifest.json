@@ -2339,5 +2339,11 @@
       "exit_merge",
       "padnop"
     ]
+  },
+  "func_8002A744": {
+    "passes": [
+      "nosplit",
+      "delay_fill"
+    ]
   }
 }
