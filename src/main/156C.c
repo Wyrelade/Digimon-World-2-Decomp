@@ -579,6 +579,7 @@ extern u16 D_800624E0;
 extern u16 D_800624E2;
 extern u16 D_80062A4A[];
 extern u16 D_80062A4C[];
+extern u16 D_80040F40[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -2903,7 +2904,98 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017F6C);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80018048);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800188BC);
+void func_800188BC(Actor *actor) {
+    Wk188BC *w = (Wk188BC *)actor->work;
+    s32 *p;
+    void *obj;
+    s32 i;
+    s32 j;
+    s32 f;
+    u16 m;
+    Row188BC *r;
+    Part188BC *e;
+    Pair54 tmp;
+
+    if (w->field_64 == 0) {
+        return;
+    }
+    p = (s32 *)func_800239A0(0x513001B);
+    if (*p == 0) {
+        return;
+    }
+    i = 0;
+    do {
+        obj = func_800239A0(p[i]);
+        switch (i) {
+        case 0:
+            if (w->field_6A != 0) {
+            tmp = w->field_50;
+            tmp.field_2 = w->field_50.field_2 - w->field_68;
+            func_8001373C(obj, 2, (s32 *)&tmp, &w->field_54);
+            func_800137B8(obj, 2, (actor->field_28 >> 2) & 3);
+            {
+                s32 fl = (w->field_68 < 1) << 2;
+                if (w->field_56 - w->field_68 - 4 <= 0) {
+                    fl |= 8;
+                }
+                func_8001D504(obj, fl);
+            }
+            func_8001D5B4(obj, 0x10, 2, w->field_50.field_2 + 1);
+            func_8001D5B4(obj, 0x20, 2, w->field_56);
+            } else {
+                func_8001D504(obj, -1);
+            }
+            break;
+        default:
+            f = w->field_68 - 1;
+            r = &w->rows[f + i];
+            j = i - 1;
+            if (j >= w->field_56) {
+                func_8001D504(obj, -1);
+                break;
+            }
+            func_8001D504(obj, 0);
+            f = 2;
+            if (w->field_6A != 0 && j == w->field_50.field_2 - w->field_68) {
+                f = 1;
+            }
+            switch (r->field_0) {
+            case 0:
+                func_8001D504(obj, f | 0xFE4);
+                break;
+            case 1:
+                e = (Part188BC *)r->field_4;
+                func_8001D504(obj, f | D_80040F40[r->field_2 - 1]);
+                func_8001D5B4(obj, 0x20, 3, e->field_14);
+                func_8001D5B4(obj, 0x40, 3, e->field_16);
+                func_8001D5B4(obj, 0x80, 3, e->field_18);
+                func_8001D5B4(obj, 0x100, 3, e->field_1A);
+                break;
+            case 2:
+            case 3:
+                func_8001D504(obj, -5);
+                break;
+            }
+            break;
+        case 5:
+            break;
+        case 6:
+            m = 0xFFFF;
+            if (w->field_60 == 7 || w->field_60 == 8) {
+                m = 1;
+                if (w->field_1A6 != 0) {
+                    m = 2;
+                }
+            }
+            func_8001D504(obj, m);
+            break;
+        }
+        func_8001D550(obj, 0x1000, w->field_64);
+        func_8001D884((s32)obj);
+        i++;
+    } while (p[i] != 0);
+}
+
 
 void func_80018BF8(Actor *a0, s16 a1) {
     Wk18BF8 *w;

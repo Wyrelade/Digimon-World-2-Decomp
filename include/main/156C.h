@@ -2400,4 +2400,40 @@ typedef struct {
     /* 0x42 */ u16 field_42;
 } Rev3B994; /* size 0x44 */
 
+
+/* Work block of the page func_800188BC redraws (same page as Wk179EC: rows at
+ * 0x6C, mode at 0x60, flag at 0x1A6); field_50 is the (col, row) cursor pair. */
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    /* 0x1 */ u8 field_1;
+    /* 0x2 */ u8 field_2;
+    u8 _pad3;
+    /* 0x4 */ void *field_4;
+} Row188BC;
+
+typedef struct {
+    u8 _pad00[0x50];
+    /* 0x050 */ Pair54 field_50;
+    /* 0x054 */ s16 field_54;
+    /* 0x056 */ s16 field_56;
+    u8 _pad58[0x8];
+    /* 0x060 */ u16 field_60;
+    u8 _pad62[0x2];
+    /* 0x064 */ s32 field_64;
+    /* 0x068 */ s16 field_68;
+    /* 0x06A */ s16 field_6A;
+    /* 0x06C */ Row188BC rows[0x26];
+    u8 _pad19C[0xA];
+    /* 0x1A6 */ s16 field_1A6;
+} Wk188BC;
+
+/* Record a func_800188BC row points at; four stat halfwords at 0x14. */
+typedef struct {
+    u8 _pad00[0x14];
+    /* 0x14 */ s16 field_14;
+    /* 0x16 */ s16 field_16;
+    /* 0x18 */ s16 field_18;
+    /* 0x1A */ s16 field_1A;
+} Part188BC;
+
 #endif /* MAIN_156C_H */

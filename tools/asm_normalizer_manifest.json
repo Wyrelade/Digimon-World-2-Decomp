@@ -2430,5 +2430,10 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_800188BC": {
+    "passes": [
+      "web_realloc"
+    ]
   }
 }
