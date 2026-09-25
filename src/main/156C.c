@@ -10758,7 +10758,16 @@ s32 func_80035488(u16 arg0) {
     return 1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800354BC);
+s32 func_800354BC(s32 arg0) {
+    s32 ch = arg0 & 0xFFFF;
+
+    if (ch >= 3) {
+        return 0;
+    }
+    D_8004FC6C[ch].field_0 = 0;
+    return 1;
+}
+
 
 extern void func_80036764(void);
 
