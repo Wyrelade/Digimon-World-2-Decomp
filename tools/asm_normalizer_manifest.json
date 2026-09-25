@@ -2901,5 +2901,14 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_8002BCC4": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "param_copy",
+      "reg_realloc",
+      "padnop"
+    ]
   }
 }

@@ -9323,7 +9323,33 @@ void func_8002BBD4(u32 *tim, TimInfo2BBD4 *out) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002BCC4);
+void func_8002BCC4(Mat1F668 *m, s16 s, s16 c, s8 axis) {
+    *m = D_80061A28;
+    switch (axis) {
+    case 'X':
+    case 'x':
+        m->m[1][1] = c;
+        m->m[2][2] = c;
+        m->m[1][2] = -s;
+        m->m[2][1] = s;
+        break;
+    case 'Y':
+    case 'y':
+        m->m[0][0] = c;
+        m->m[2][2] = c;
+        m->m[0][2] = s;
+        m->m[2][0] = -s;
+        break;
+    case 'Z':
+    case 'z':
+        m->m[0][0] = c;
+        m->m[1][1] = c;
+        m->m[0][1] = -s;
+        m->m[1][0] = s;
+        break;
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002BD94);
 
