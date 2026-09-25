@@ -144,7 +144,9 @@ def line_loads_from_reg(line: str, r_source: str) -> bool:
 
 def _branch_reads_div(line: str) -> bool:
     """aspsx does not pad between an expanded div/rem's mflo/mfhi and a
-    conditional branch reading the result (retail `mfhi v0; beqz v0,L; nop`)."""
+    conditional branch reading the result (retail `mfhi v0; beqz v0,L; nop`).
+    With the expansion on, no reader gets a pad at all (retail `mflo v1;
+    sh v1,0x54(a3)`): mflo has no load delay."""
     p = strip_comments(line).split(None, 1)
     return bool(p) and p[0] in branch_mnemonics | {"beqz", "bnez"}
 
@@ -1171,7 +1173,7 @@ class MaspsxProcessor:
                 extra_nops = self._handle_nop_before_next_instruction(
                     next_instruction, r_dest
                 )
-                if _branch_reads_div(next_instruction):
+                if self.expand_div or _branch_reads_div(next_instruction):
                     extra_nops = []
                 res.extend(extra_nops)
 
@@ -1217,7 +1219,7 @@ class MaspsxProcessor:
                 extra_nops = self._handle_nop_before_next_instruction(
                     next_instruction, r_dest
                 )
-                if _branch_reads_div(next_instruction):
+                if self.expand_div or _branch_reads_div(next_instruction):
                     extra_nops = []
                 res.extend(extra_nops)
 
