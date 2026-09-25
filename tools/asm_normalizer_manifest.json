@@ -2323,5 +2323,14 @@
       "sched_match",
       "epilogue_unfill"
     ]
+  },
+  "func_800398D4": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "taken_fill",
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }

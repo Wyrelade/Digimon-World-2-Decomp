@@ -1183,9 +1183,10 @@ typedef struct {
  * func_80037BD0 indexes the D_80062D08 table with field_7 * 16 + field_C. */
 typedef struct {
     /* 0x00 */ s8 field_0;
-    u8 _pad1[0x1];
+    /* 0x01 */ s8 field_1;
     /* 0x02 */ s8 field_2;
-    u8 _pad3[0x4];
+    u8 _pad3[0x3];
+    /* 0x06 */ s8 field_6;
     /* 0x07 */ s8 field_7;
     u8 _pad8[0x4];
     /* 0x0C */ u8 field_C;
@@ -1347,7 +1348,8 @@ typedef struct {
     /* 0x4 */ u8 field_4;
     u8 _pad05[0x1];
     /* 0x6 */ u16 field_6;
-    u8 _pad08[0x08];
+    /* 0x8 */ u8 field_8;
+    u8 _pad09[0x07];
 } Ent62CFC;
 
 /* s16 pair at D_80061900 filled by func_8002B4C4 and handed to func_8002B1A4. */
