@@ -1147,18 +1147,34 @@ typedef struct {
 /* Element of D_800624E8[] (stride 0x38); func_800382D4 clears a slot. */
 typedef struct {
     /* 0x00 */ s16 field_0;
-    u8 _pad02[0x02];
+    /* 0x02 */ s16 field_2;
     /* 0x04 */ s16 field_4;
-    u8 _pad06[0x8];
+    /* 0x06 */ s16 field_6;
+    /* 0x08 */ s16 field_8;
+    /* 0x0A */ u8 field_A;
+    u8 _pad0B;
+    /* 0x0C */ s16 field_C;
     /* 0x0E */ s16 field_E;
     /* 0x10 */ s16 field_10;
-    u8 _pad12[0x2];
+    /* 0x12 */ s16 field_12;
     /* 0x14 */ s16 field_14;
-    u8 _pad16[0x2];
+    /* 0x16 */ s16 field_16;
     /* 0x18 */ s16 field_18;
     u8 _pad1A[0x3];
     /* 0x1D */ u8 field_1D;
-    u8 _pad1E[0x1A];
+    /* 0x1E */ s16 field_1E;
+    /* 0x20 */ s16 field_20;
+    /* 0x22 */ s16 field_22;
+    /* 0x24 */ s16 field_24;
+    /* 0x26 */ s16 field_26;
+    u8 _pad28[0x2];
+    /* 0x2A */ s16 field_2A;
+    /* 0x2C */ s16 field_2C;
+    /* 0x2E */ s16 field_2E;
+    /* 0x30 */ s16 field_30;
+    /* 0x32 */ s16 field_32;
+    u8 _pad34[0x2];
+    /* 0x36 */ s16 field_36;
 } Elm624E8; /* size 0x38 */
 
 /* Hook pair at D_8004FC50; func_800352E4 calls the optional fn_4, then fn_0. */
@@ -2435,5 +2451,23 @@ typedef struct {
     /* 0x18 */ s16 field_18;
     /* 0x1A */ s16 field_1A;
 } Part188BC;
+
+
+/* SPU voice attribute block (libspu SpuVoiceAttr layout) func_80036C54 fills
+ * and hands to func_8003C904. */
+typedef struct {
+    /* 0x00 */ u32 voice;
+    /* 0x04 */ u32 mask;
+    /* 0x08 */ s16 vol_l;
+    /* 0x0A */ s16 vol_r;
+    u8 _pad0C[0x8];
+    /* 0x14 */ u16 pitch;
+    u8 _pad16[0x6];
+    /* 0x1C */ u32 addr;
+    u8 _pad20[0x1A];
+    /* 0x3A */ u16 adsr1;
+    /* 0x3C */ u16 adsr2;
+    u8 _pad3E[0x2];
+} VAttr36C54; /* size 0x40 */
 
 #endif /* MAIN_156C_H */

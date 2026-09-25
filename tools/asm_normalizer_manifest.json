@@ -2435,5 +2435,12 @@
     "passes": [
       "web_realloc"
     ]
+  },
+  "func_80036C54": {
+    "passes": [
+      "nosplit_hf",
+      "sched_match",
+      "delay_fill"
+    ]
   }
 }
