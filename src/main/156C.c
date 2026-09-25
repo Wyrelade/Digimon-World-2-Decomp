@@ -8556,7 +8556,25 @@ void func_8002B2B4(void) {
     func_80027AE4(dst);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B334);
+void func_8002B334(s32 a0, s32 a1) {
+    s32 x;
+    s32 y;
+
+    if (D_8006198E != 0) {
+        D_8006197E = 0;
+        D_8006197C = 0;
+        D_80061908.ofs[0] = D_800618F0[D_8006198C] + a0;
+        D_80061908.ofs[1] = D_800618F4[D_8006198C] + a1;
+        func_80027AE4(&D_80061908);
+    } else {
+        x = a0 + *(D_8006198C ? &D_800618F0[0] : &D_800618F0[1]);
+        y = a1 + *(D_8006198C ? &D_800618F4[0] : &D_800618F4[1]);
+        func_8002D6A4(x, y);
+        D_8006197C = x;
+        D_8006197E = y;
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B424);
 

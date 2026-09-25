@@ -2626,5 +2626,12 @@
       "nosplit",
       "padnop"
     ]
+  },
+  "func_8002B334": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
