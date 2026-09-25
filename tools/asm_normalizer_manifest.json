@@ -2664,5 +2664,11 @@
       "nosplit",
       "padnop"
     ]
+  },
+  "func_80037620": {
+    "passes": [
+      "nosplit",
+      "epilogue_unfill"
+    ]
   }
 }

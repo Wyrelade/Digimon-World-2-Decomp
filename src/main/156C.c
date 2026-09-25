@@ -621,6 +621,7 @@ extern void func_8002DD20(void);
 extern void (*D_80062FE0)(s32 *, s32, s32);
 extern s8 D_80062FE8[];
 extern s32 func_8002A9B4(s8 *);
+extern s32 func_80036FA4(s16 a0, s16 a1, s16 a2, u16 a3, u16 arg4, u16 arg5);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -10934,7 +10935,23 @@ s32 func_800374C0(s32 a0, s32 a1, s32 a2, s32 a3) {
     return n;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80037620);
+void func_80037620(s32 a0, s32 a1, s32 a2, s32 a3, u16 p4, u16 p5) {
+    u16 a;
+    u16 b;
+
+    if (p4 == p5) {
+        b = 0x40;
+        a = p4;
+    } else if (p5 < p4) {
+        b = (p5 << 6) / p4;
+        a = p4;
+    } else {
+        a = p5;
+        b = 0x7F - (p4 << 6) / p5;
+    }
+    func_80036FA4(0x21, (s16)a0, (s16)a1, (u16)a2, a, b);
+}
+
 
 void func_8003770C(s16 arg0, s16 arg1, u16 arg2) { func_800374C0(0x21, arg0, arg1, arg2); }
 
