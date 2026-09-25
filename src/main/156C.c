@@ -7803,7 +7803,23 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026FF4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027004);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027014);
+u8 *func_80027014(u8 *s, s32 n) {
+    u8 *r = 0;
+
+    if (s != 0) {
+        r = s;
+        if (n <= 0) {
+            r = 0;
+        } else {
+            while (n > 0) {
+                *s++ = 0;
+                n--;
+            }
+        }
+    }
+    return r;
+}
+
 
 u8 *func_80027044(u8 *dst, u8 *src, s32 n) {
     u8 *r = 0;

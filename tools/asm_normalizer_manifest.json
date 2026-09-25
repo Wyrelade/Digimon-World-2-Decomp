@@ -2729,5 +2729,11 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_80027014": {
+    "passes": [
+      "nosplit",
+      "exit_merge"
+    ]
   }
 }
