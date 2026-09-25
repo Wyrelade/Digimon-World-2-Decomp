@@ -2610,5 +2610,15 @@
       "dead_code",
       "padnop"
     ]
+  },
+  "func_8002CB30": {
+    "passes": [
+      "nosplit_nodb",
+      "exit_merge",
+      "taken_fill",
+      "fallthrough_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
