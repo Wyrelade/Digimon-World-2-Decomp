@@ -2598,4 +2598,12 @@ typedef struct Slot267F0 {
     u8 _pad48[0xA8];
 } Slot267F0; /* size 0xF0 */
 
+
+/* Stat-regen config returned by func_80011F5C, read by func_80012640. */
+typedef struct {
+    /* 0x00 */ u8 field_0;
+    /* 0x01 */ u8 field_1;
+    /* 0x02 */ s16 field_2;
+} Cfg12640;
+
 #endif /* MAIN_156C_H */

@@ -2786,5 +2786,11 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80012640": {
+    "passes": [
+      "nosplit",
+      "web_realloc"
+    ]
   }
 }

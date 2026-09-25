@@ -1201,7 +1201,45 @@ s32 func_80012490(s32 a0, s32 a1, s32 a2, s32 a3) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80012640);
+s32 func_80012640(s32 a0, s32 a1) {
+    ElmE620 *e = D_80050720->elems;
+    Cfg12640 *c = (Cfg12640 *)func_80011F5C(a0);
+    s32 n = 0;
+    s32 i;
+
+    for (i = 0; i < 0x24; i++, e++) {
+        s16 cur;
+        s16 max;
+        if (e->field_0 < 2) continue;
+        cur = e->field_16;
+        if (cur == 0) continue;
+        if (c->field_1 == 0 || c->field_1 == 2) {
+            max = e->field_14;
+            if (cur != max) {
+                if (c->field_2 == 0) {
+                    e->field_16 = max;
+                } else {
+                    e->field_16 = max < cur + c->field_2 ? max : e->field_16 + c->field_2;
+                }
+                n++;
+            }
+        }
+        if ((u8)(c->field_1 - 1) < 2) {
+            cur = e->field_1A;
+            max = e->field_18;
+            if (cur != max) {
+                if (c->field_2 == 0) {
+                    e->field_1A = max;
+                } else {
+                    e->field_1A = max < cur + c->field_2 ? max : e->field_1A + c->field_2;
+                }
+                n++;
+            }
+        }
+    }
+    return n != 0;
+}
+
 
 s32 func_80012778(s32 a0, s32 a1, s32 a2, s32 a3) {
     u8 *p;
