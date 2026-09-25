@@ -657,6 +657,7 @@ extern s32 D_80048E54;
 extern void (*D_80048E48)(void);
 extern void (*D_80048E44)(void);
 extern s32 func_80025984();
+extern Obj25FBC *D_80048E4C;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -7424,7 +7425,33 @@ void func_80024610(void) {
     func_80026FD4();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024654);
+void func_80024654(u8 *a0, u8 *a1) {
+    Obj25FBC *base;
+    Obj25FBC *p;
+    u8 *q;
+    s32 i;
+    s32 j;
+
+    D_80048E50 = 0;
+    D_80048E64 = 0;
+    func_80024704();
+    base = D_80048E4C;
+    base[0].field_30 = a0;
+    base[1].field_30 = a1;
+    p = base;
+    for (i = 0; i < 2; i++, p++) {
+        q = p->field_5D;
+        p->field_C = 0;
+        p->field_10 = p;
+        p->field_30[0] = 0xFF;
+        p->field_30[1] = 0;
+        for (j = 5; j >= 0; j--) {
+            *q++ = 0xFF;
+        }
+    }
+    D_80048E50 = 1;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024704);
 

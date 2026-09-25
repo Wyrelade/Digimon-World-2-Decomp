@@ -2871,5 +2871,12 @@
       "nosplit",
       "padnop"
     ]
+  },
+  "func_80024654": {
+    "passes": [
+      "nosplit",
+      "ra_restore_sink",
+      "padnop"
+    ]
   }
 }
