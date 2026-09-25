@@ -8519,7 +8519,25 @@ void func_8002B06C(u8 r, u8 g, u8 b, Db2B06C *db) {
     func_8002AAF4(db->ot, (unsigned int *)&D_800618D0[D_8006198C]);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B1A4);
+void func_8002B1A4() {
+    s32 x;
+    s32 y;
+
+    if (D_8006198E != 0) {
+        D_8006197E = 0;
+        D_8006197C = 0;
+        D_80061908.ofs[0] = D_80061900.field_0 + D_800618F0[D_8006198C];
+        D_80061908.ofs[1] = D_80061900.field_2 + D_800618F4[D_8006198C];
+        func_80027AE4(&D_80061908);
+    } else {
+        x = D_80061900.field_0 + *(D_8006198C ? &D_800618F0[0] : &D_800618F0[1]);
+        y = D_80061900.field_2 + *(D_8006198C ? &D_800618F4[0] : &D_800618F4[1]);
+        func_8002D6A4(x, y);
+        D_8006197C = x;
+        D_8006197E = y;
+    }
+}
+
 
 void func_8002B2B4(void) {
     DrawEnv *dst = &D_80061908;
