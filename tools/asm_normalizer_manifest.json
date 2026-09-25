@@ -2456,5 +2456,12 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_800315D0": {
+    "passes": [
+      "nosplit_hf",
+      "sched_match",
+      "padnop"
+    ]
   }
 }

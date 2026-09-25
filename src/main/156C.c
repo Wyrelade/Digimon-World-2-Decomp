@@ -589,6 +589,9 @@ extern void func_8003C904(VAttr36C54 *);
 extern void func_80038314(s32);
 extern s32 D_800506D0;
 extern s32 D_8004E9E0[];
+extern Dma4FBF4 *D_8004FBF4;
+extern char D_80010A04[];
+extern char D_80010A20[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -9043,7 +9046,28 @@ void *func_80031584(void) {
     return func_80031750;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800315D0);
+void func_800315D0(void) {
+    u32 mask;
+    s32 i;
+
+    while ((mask = (*(volatile u32 *)D_8004FBD0 >> 24) & 0x7F) != 0) {
+        for (i = 0; mask != 0 && i < 7; i++, mask >>= 1) {
+            if (mask & 1) {
+                *(volatile u32 *)D_8004FBD0 &= (1 << (i + 24)) | 0xFFFFFF;
+                if (((void (**)(void))D_8004FBD4)[i] != 0) {
+                    ((void (**)(void))D_8004FBD4)[i]();
+                }
+            }
+        }
+    }
+    if ((*(volatile u32 *)D_8004FBD0 & 0xFF000000) == 0x80000000 || (*(volatile u32 *)D_8004FBD0 & 0x8000)) {
+        func_8002A014(D_80010A04, *(volatile u32 *)D_8004FBD0);
+        for (i = 0; i < 7; i++) {
+            func_8002A014(D_80010A20, i, D_8004FBF4[i].madr);
+        }
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031750);
 

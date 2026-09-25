@@ -2470,4 +2470,12 @@ typedef struct {
     u8 _pad3E[0x2];
 } VAttr36C54; /* size 0x40 */
 
+/* One DMA channel register block (MADR, BCR, CHCR) at D_8004FBF4[ch]. */
+typedef struct {
+    /* 0x0 */ u32 madr;
+    /* 0x4 */ u32 bcr;
+    /* 0x8 */ u32 chcr;
+    u8 _padC[0x4];
+} Dma4FBF4;
+
 #endif /* MAIN_156C_H */
