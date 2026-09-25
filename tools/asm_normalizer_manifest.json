@@ -2274,5 +2274,8 @@
     "passes": [
       "gp8_nosplit_noskip"
     ]
+  },
+  "func_80012778": {
+    "passes": []
   }
 }

@@ -504,6 +504,10 @@ extern void func_8001C4C8(s32 arg0);
 extern void func_8001BE74(s32 a0, s32 a1);
 extern Halves D_80050714;
 extern void func_80019614(Actor194C8 *, s32);
+extern s32 func_8001204C(s32, s32, s32, s32);
+extern s32 func_8001236C(s32, s32, s32, s32);
+extern s32 func_80012490(s32, s32, s32, s32);
+extern s32 func_80012640(s32, s32);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -948,7 +952,35 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80012490);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80012640);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80012778);
+s32 func_80012778(s32 a0, s32 a1, s32 a2, s32 a3) {
+    u8 *p;
+    s32 r;
+
+    p = (u8 *)func_80011F5C(a0);
+    r = 0;
+    if (p != NULL) {
+        switch (*p) {
+        case 5:
+            r = func_8001204C(a0, a1, a2, a3);
+            break;
+        case 1:
+        case 3:
+            r = func_8001236C(a0, a1, a2, a3);
+            break;
+        case 4:
+            r = func_80012490(a0, a1, a2, a3);
+            break;
+        case 2:
+            r = func_80012640(a0, a1);
+            break;
+        }
+        if (r != 0) {
+            func_800227F0(a1);
+        }
+    }
+    return r;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001287C);
 
