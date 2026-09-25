@@ -187,7 +187,7 @@ extern char D_80010290[];
 extern s32 *D_8004FE38;
 extern volatile u16 D_8004FE40;
 extern s32 func_8003A778();
-extern u16 func_8003AB24(s32, u32);
+extern u32 func_8003AB24(s32, u32);
 extern Regs48E8C *D_80048E8C;
 extern void (*D_80048E40)(void);
 extern s32 D_8004FBC0;
@@ -645,6 +645,9 @@ extern s32 func_8001E0C0(s32 id);
 extern char D_80010A34[];
 extern TextOp D_80061BB0[37];
 extern s32 func_80034A24(s16, s16, s16, s32);
+extern s32 D_8004FE4C;
+extern u32 D_8004FE54;
+extern u32 D_8004FE58;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -12017,7 +12020,31 @@ void func_8003AAE0(s32 arg0, u32 arg1, s32 arg2) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003AB24);
+u32 func_8003AB24(s32 idx, u32 a1) {
+    u32 v;
+    u32 d;
+    u16 r;
+
+    if (D_8004FE4C != 0) {
+        d = D_8004FE54;
+        if (a1 % d) {
+            a1 += d;
+            a1 &= ~D_8004FE58;
+        }
+    }
+    v = a1 >> D_8004FE50;
+    r = v;
+    switch (idx) {
+    case -1:
+        return r;
+    case -2:
+        return a1;
+    default:
+        D_8004FE28[idx] = v;
+        return a1;
+    }
+}
+
 
 s32 func_8003ABC8(s32 a0, s32 a1) {
     u16 x = D_8004FE28[a0];

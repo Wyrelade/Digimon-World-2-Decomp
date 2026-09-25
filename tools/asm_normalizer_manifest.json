@@ -2824,5 +2824,13 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8003AB24": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "reg_realloc",
+      "padnop"
+    ]
   }
 }
