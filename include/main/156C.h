@@ -1711,7 +1711,7 @@ typedef struct {
     /* 0x068 */ s32 field_68;
     /* 0x06C */ s16 field_6C;
     /* 0x06E */ s16 field_6E;
-    u8 _pad70[0x2];
+    /* 0x070 */ s16 field_70;
     /* 0x072 */ Cell16198 field_72[280];
     /* 0x702 */ u8 field_702[16][4];
 } Obj16198;

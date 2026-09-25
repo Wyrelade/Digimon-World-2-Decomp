@@ -2811,5 +2811,11 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80015F68": {
+    "passes": [
+      "nosplit",
+      "label_nop"
+    ]
   }
 }

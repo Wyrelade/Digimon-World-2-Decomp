@@ -639,6 +639,9 @@ extern s32 *D_8004FE30;
 extern s32 *D_8004FE34;
 extern s32 D_800506D8;
 extern Mat1F668 D_80061A28;
+extern s32 func_8002281C(void);
+extern s32 func_8001E22C(s32 a0);
+extern s32 func_8001E0C0(s32 id);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -2785,7 +2788,59 @@ void func_80015D30(Actor *actor) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80015F68);
+void func_80015F68(Obj16198 *w) {
+    Cell16198 *c = w->field_72;
+    Cell16198 *q;
+    Cell16198 *p;
+    s32 i;
+    s32 id;
+
+    if (w->field_64 >= 6) {
+        goto party;
+    }
+    if (w->field_64 < 4) {
+    party:
+        i = 0;
+        w->field_6C = func_8002281C();
+        p = w->field_72;
+        for (; i < w->field_6C;) {
+            c->field_0 = D_80050720->field_66[i];
+            p->field_2 = 0;
+            p->field_4 = i++;
+            p++;
+            c++;
+        }
+        w->field_58.field_0[0] = w->field_6C / 8;
+        w->field_58.field_0[1] = w->field_6C >= 9 ? 8 : w->field_6C;
+    } else {
+        w->field_6C = 0;
+        q = w->field_72;
+        for (i = 1; i < 0x118; i++) {
+            id = func_8001E22C(i - 1);
+            if (w->field_64 == 4) {
+                if (func_8001E0C0(id) == 0x1F) {
+                    continue;
+                }
+            } else if (func_8001E0C0(id) != 0x1F) {
+                continue;
+            }
+            if (D_80050720->field_DD4[id] != 0) {
+                c->field_0 = id;
+                q->field_2 = D_80050720->field_DD4[id];
+                q->field_2 = q->field_2 >= 100 ? 99 : q->field_2;
+                q->field_2 = w->field_64 == 5 ? 0 : q->field_2;
+                q++;
+                c++;
+                w->field_6C++;
+            }
+        }
+        w->field_58.field_0[0] = w->field_6C / 8;
+        w->field_58.field_0[0] += (u16)w->field_6C % 8 != 0;
+        w->field_58.field_0[1] = w->field_6C >= 9 ? 8 : w->field_6C;
+    }
+    w->field_70 = w->field_6C != 0;
+}
+
 
 void func_80016198(Obj16198 *a0, s32 a1) {
     s32 n;
@@ -5297,8 +5352,8 @@ s32 func_8001E084(s32 arg0) {
     return func_8001DFF4(arg0)->field_C + base;
 }
 
-u8 func_8001E0C0(void) {
-    return func_8001DFF4()->u0.b0.field_2;
+s32 func_8001E0C0(s32 id) {
+    return func_8001DFF4(id)->u0.b0.field_2;
 }
 
 s32 func_8001E0E4(void) {
