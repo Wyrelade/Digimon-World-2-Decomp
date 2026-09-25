@@ -1258,7 +1258,246 @@ void func_8001291C(Actor *a, Pair1291C *v) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80012974);
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ s32 field_1C;
+    /* 0x20 */ s32 field_20;
+    /* 0x24 */ s32 field_24;
+    /* 0x28 */ s32 field_28;
+    /* 0x2C */ s16 field_2C;
+    /* 0x2E */ s16 field_2E;
+} Wk12974;
+
+typedef struct {
+    /* 0x00 */ u8 name[0x5C];
+} Nm12974;
+
+extern u8 D_8005E634[];
+extern u8 D_8005E6F1[];
+extern Nm12974 D_8005E750[];
+extern u16 D_8005F72C;
+extern u8 func_8001287C(Actor *);
+extern void func_8001A8BC(void);
+extern void func_8001A8D0(void);
+
+void func_80012974(Actor *a0) {
+    Wk12974 *w = (Wk12974 *)a0->work;
+    u8 *p;
+    u8 *src;
+    s32 i;
+    u16 k;
+    Arg1BC24 arg;
+    Arg1BC24 arg2;
+
+    switch (w->field_0) {
+    default:
+    case 0:
+        p = D_8005E750[w->field_4].name;
+        break;
+    case 1:
+        p = D_8005E634;
+        break;
+    case 2:
+        p = D_8005E6F1;
+        break;
+    }
+    switch (a0->field_10) {
+    case 0:
+        func_8001C088(&w->field_10, 5);
+        for (i = 0; i < w->field_8; i++) {
+            p[i] = 0xFD;
+        }
+        p[i] = 0xFF;
+        switch (w->field_0) {
+        default:
+        case 0:
+            src = func_8001E758(D_8005E620.elems[w->field_4].field_1);
+            for (i = 0; i < 14; i++) {
+                if (src[i] == 0xFF) {
+                    break;
+                }
+                p[i] = src[i];
+            }
+            break;
+        case 1:
+            p[0] = 0xA;
+            p[1] = 0x2E;
+            p[2] = 0x2C;
+            p[3] = 0x35;
+            p[4] = 0x24;
+            break;
+        case 2:
+            p[0] = 0x10;
+            p[1] = 0x38;
+            p[2] = 0x31;
+            p[3] = 0x31;
+            p[4] = 0x28;
+            p[5] = 0x35;
+            break;
+        }
+        func_8001A8BC();
+        func_8001A68C(0x22, 1);
+        w->field_C = 6;
+        func_80011544(a0);
+        break;
+    case 1:
+        switch (a0->field_14) {
+        case 0:
+        default:
+            func_8001BB88(&w->field_10);
+            func_8001BB88(&w->field_14);
+            func_8001BB88(&w->field_18);
+            func_8001BB88(&w->field_20);
+            arg.field_14 = (s32)func_800239A0(w->field_C + 0x1FD00D4);
+            arg.field_8 = 0x28;
+            arg.field_A = 0x42;
+            arg.field_C = 0x13;
+            arg.field_0 = 1;
+            arg.field_4 = 0;
+            arg.field_10 = 0x12;
+            arg.field_18 = 0;
+            func_8001BC24(&w->field_10, &arg);
+            arg.field_14 = (s32)func_800239A0(w->field_C + 0x1FD00D5);
+            arg.field_8 += 0x65;
+            func_8001BC24(&w->field_14, &arg);
+            arg.field_14 = (s32)func_800239A0(w->field_C + 0x1FD00D6);
+            arg.field_8 += 0x65;
+            func_8001BC24(&w->field_18, &arg);
+            arg.field_8 = 0x26;
+            arg.field_14 = (s32)p;
+            arg.field_A = 0x20;
+            arg.field_C = 0;
+            arg.field_10 = 0;
+            arg.field_18 = 0;
+            func_8001BC24(&w->field_20, &arg);
+            switch (w->field_0) {
+            default:
+            case 0:
+                arg2.field_14 = (s32)func_8001E758(D_8005E620.elems[w->field_4].field_1);
+                break;
+            case 1:
+                arg2.field_14 = (s32)func_800239A0(0x1FD0074);
+                break;
+            L34:
+                w->field_2C = 10;
+                w->field_2E = 7;
+                func_8001A68C(0x12, 0);
+                goto keys_done;
+            Lnone:
+                func_8001A68C(0x10, 0);
+                goto keys_done;
+            case 2:
+                arg2.field_14 = (s32)func_800239A0(0x1FD0072);
+                break;
+            }
+            arg2.field_4 = 4;
+            arg2.field_8 = 0x23;
+            arg2.field_0 = 0;
+            arg2.field_A = 0x13;
+            arg2.field_C = 0;
+            arg2.field_10 = 0;
+            arg2.field_18 = 0;
+            func_8001BC24(&w->field_1C, &arg2);
+            func_80011564(a0);
+        case 1:
+            k = D_8005F6F0[0].field_3C;
+            if (k & 0x2000) {
+                if (w->field_2C != 10) {
+                    if (++w->field_2C == 10) {
+                        w->field_2E = 7;
+                    }
+                    func_8001A68C(0x12, 0);
+                }
+            } else if (k & 0x8000) {
+                if (w->field_2C != 0) {
+                    w->field_2C--;
+                    func_8001A68C(0x12, 0);
+                }
+            } else if (k & 0x1000) {
+                if (w->field_2E != 0) {
+                    w->field_2E--;
+                    if (w->field_2C == 10) {
+                        w->field_2C--;
+                    }
+                    func_8001A68C(0x12, 0);
+                }
+            } else if (k & 0x4000) {
+                if (w->field_2E != 7) {
+                    w->field_2E++;
+                    func_8001A68C(0x12, 0);
+                }
+            } else if (D_8005F6F0[0].field_20 > 0) {
+                if (w->field_24 != w->field_8) {
+                    w->field_24++;
+                    func_8001A68C(0x12, 0);
+                }
+            } else if (D_8005F6F0[0].field_28 > 0) {
+                if (w->field_24 != 0) {
+                    w->field_24--;
+                    func_8001A68C(0x12, 0);
+                }
+            } else if (D_8005F6F0[0].field_1C > 0) {
+                if (w->field_24 != 0) {
+                    w->field_24--;
+                    p[w->field_24] = 0xFD;
+                    func_8001A68C(0xB, 0);
+                }
+            } else if (D_8005F6F0[0].field_34 > 0) {
+                goto L34;
+            } else if (D_8005F6F0[0].field_14 > 0) {
+                if (w->field_2C < 10 || w->field_2E < 4) {
+                    if (w->field_24 != w->field_8) {
+                        p[w->field_24] = func_8001287C(a0);
+                        w->field_24++;
+                        func_8001A68C(0xE, 0);
+                    }
+                } else if (w->field_2E == 7) {
+                    for (i = 0; i < w->field_8; i++) {
+                        if (p[i] != 0xFD) {
+                            break;
+                        }
+                    }
+                    if (i != w->field_8) {
+                        for (i = w->field_8 - 1; i >= 0; i--) {
+                            if (p[i] != 0xFD) {
+                                break;
+                            }
+                            p[i] = 0xFF;
+                        }
+                        func_80011544(a0);
+                        func_8001A68C(0xE, 0);
+                    } else {
+                        goto Lnone;
+                    }
+                }
+            }
+        keys_done:
+            if (w->field_24 == w->field_8) {
+                w->field_2C = 10;
+                w->field_2E = 7;
+            }
+            if (D_8005F72C & 0xF000) {
+                w->field_28 = 0;
+            }
+            break;
+        }
+        break;
+    case 2:
+        if (D_8005F788[0] != 0x500) {
+            func_8001A8D0();
+        }
+        func_8001C0B0(&w->field_10, 5);
+        func_80011544(a0);
+        break;
+    }
+}
+
 
 void func_8001309C(Actor *a) {
     ActorWork *w = a->work;

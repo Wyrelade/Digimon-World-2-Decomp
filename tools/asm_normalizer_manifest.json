@@ -2701,5 +2701,12 @@
       "web_realloc",
       "commutative_swap"
     ]
+  },
+  "func_80012974": {
+    "passes": [
+      "zero_cmp",
+      "web_realloc",
+      "redundant_skip"
+    ]
   }
 }
