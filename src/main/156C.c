@@ -248,7 +248,7 @@ extern char D_80010624[];
 extern void func_8002A014(char *, ...);
 extern void func_80038BE4(s16, s32, s32, s32);
 extern void func_8003A454(s32, s32);
-extern void func_80036164();
+extern s32 func_80036164();
 extern s32 func_80036594();
 extern void func_800391B4(s32);
 extern u8 D_80062D38[];
@@ -622,6 +622,7 @@ extern void (*D_80062FE0)(s32 *, s32, s32);
 extern s8 D_80062FE8[];
 extern s32 func_8002A9B4(s8 *);
 extern s32 func_80036FA4(s16 a0, s16 a1, s16 a2, u16 a3, u16 arg4, u16 arg5);
+extern s8 D_80062D1F;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -9999,7 +10000,7 @@ void func_80033954(s16 a0, s16 a1, s16 a2, HandlerArg d) {
     func_80036594(a0, a1, a2, &d);
 }
 
-extern void func_80036164();
+extern s32 func_80036164();
 extern s32 func_80036594();
 
 void func_800339E4(s16 a0, s16 a1, s16 a2, HandlerArg d) {
@@ -10021,7 +10022,7 @@ typedef struct {
     u8 pad2[0x28 - 0x25];
 } Arg33;
 
-extern void func_80036164();
+extern s32 func_80036164();
 extern void func_80033B80();
 extern s32 func_80036594();
 void func_80033B24(u32, u32, Out33B24 *);
@@ -10649,7 +10650,35 @@ s32 func_80036054(s16 a0, s16 a1, SlotHead8 *out) {
     return -1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80036164);
+s32 func_80036164(s32 a0, s32 a1, s32 a2, Rec62D08 *out) {
+    s32 k;
+
+    if (D_80062D38[(s16)a0] == 1) {
+        func_800398D4(a0, a1);
+        k = (s16)(a2 + D_80062D1F * 16);
+        out->field_0 = D_80062D08[k].field_0;
+        out->field_1 = D_80062D08[k].field_1;
+        out->field_2 = D_80062D08[k].field_2;
+        out->field_3 = D_80062D08[k].field_3;
+        out->field_4 = D_80062D08[k].field_4;
+        out->field_5 = D_80062D08[k].field_5;
+        out->field_7 = D_80062D08[k].field_7;
+        out->field_6 = D_80062D08[k].field_6;
+        out->field_8 = D_80062D08[k].field_8;
+        out->field_9 = D_80062D08[k].field_9;
+        out->field_A = D_80062D08[k].field_A;
+        out->field_B = D_80062D08[k].field_B;
+        out->field_C = D_80062D08[k].field_C;
+        out->field_D = D_80062D08[k].field_D;
+        out->field_10 = D_80062D08[k].field_10;
+        out->field_12 = D_80062D08[k].field_12;
+        out->field_14 = D_80062D08[k].field_14;
+        out->field_16 = D_80062D08[k].field_16;
+        return 0;
+    }
+    return -1;
+}
+
 
 void func_800363A4(s16 arg0) {
     D_80062C18.field_0 = 8;
