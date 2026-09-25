@@ -2947,5 +2947,14 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8002D704": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "copy_use",
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }

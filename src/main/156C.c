@@ -9516,7 +9516,30 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002D6C4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002D6D4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002D704);
+Obj2D704 *func_8002D704(Obj2D704 *src, Obj2D704 *dst) {
+    s32 a;
+    s32 b;
+    s32 c;
+    s32 e;
+    s32 x;
+
+    a = src->f0.w;
+    b = src->f4.w;
+    dst->f4.w = a;
+    dst->f0.w = b;
+    dst->f0.h = a;
+    c = src->f8.w;
+    e = src->fC.w;
+    dst->fC.w = c;
+    dst->f8.w = e;
+    dst->fC.h = b;
+    dst->f8.h = c;
+    x = src->f10;
+    dst->f4.h = e;
+    dst->f10 = x;
+    return dst;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002D744);
 

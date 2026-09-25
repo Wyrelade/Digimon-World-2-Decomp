@@ -2688,4 +2688,20 @@ typedef struct {
 } Sect2E1E4;
 extern s32 D_80061B2C;
 
+
+/* func_8002D704 (PsyQ TransposeMatrix shape): the 3x3 s16 matrix viewed as
+ * packed word pairs, so the transpose moves whole words then patches halves. */
+typedef union {
+    s32 w;
+    s16 h;
+} Half2D704;
+
+typedef struct {
+    /* 0x00 */ Half2D704 f0;
+    /* 0x04 */ Half2D704 f4;
+    /* 0x08 */ Half2D704 f8;
+    /* 0x0C */ Half2D704 fC;
+    /* 0x10 */ s16 f10;
+} Obj2D704;
+
 #endif /* MAIN_156C_H */
