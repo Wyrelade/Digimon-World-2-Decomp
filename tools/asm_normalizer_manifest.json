@@ -3030,5 +3030,13 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_8003F418": {
+    "passes": [
+      "nosplit",
+      "slot_unfill",
+      "taken_fill",
+      "padnop"
+    ]
   }
 }
