@@ -2659,4 +2659,11 @@ void func_80034394(s16 arg0, s16 arg1, s16 arg2, HandlerArg arg);
 void func_800343C4(s16 arg0, s16 arg1, s16 arg2, HandlerArg arg);
 void func_800343F4(s16 arg0, s16 arg1, s16 arg2, HandlerArg arg);
 
+
+/* func_8003F518: 6-byte text template (byte aligned) copied into the output
+ * before the two hex-ish digit bytes 2 and 3 are patched in. */
+typedef struct {
+    u8 b[6];
+} Str3F518;
+
 #endif /* MAIN_156C_H */

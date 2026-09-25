@@ -2832,5 +2832,12 @@
       "reg_realloc",
       "padnop"
     ]
+  },
+  "func_8003F518": {
+    "passes": [
+      "nosplit",
+      "param_copy",
+      "web_realloc"
+    ]
   }
 }
