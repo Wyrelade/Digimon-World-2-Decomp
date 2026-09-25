@@ -10527,7 +10527,110 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B904);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B994);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003BE74);
+void func_8003BE74(Rev3B994 *p) {
+    u32 mask;
+    s32 all;
+
+    mask = p->field_0;
+    all = mask == 0;
+    if (all || (mask & 0x1)) {
+        D_8004FE28[0xE0] = p->field_4;
+    }
+    if (all || (mask & 0x2)) {
+        D_8004FE28[0xE1] = p->field_6;
+    }
+    if (all || (mask & 0x4)) {
+        D_8004FE28[0xE2] = p->field_8;
+    }
+    if (all || (mask & 0x8)) {
+        D_8004FE28[0xE3] = p->field_A;
+    }
+    if (all || (mask & 0x10)) {
+        D_8004FE28[0xE4] = p->field_C;
+    }
+    if (all || (mask & 0x20)) {
+        D_8004FE28[0xE5] = p->field_E;
+    }
+    if (all || (mask & 0x40)) {
+        D_8004FE28[0xE6] = p->field_10;
+    }
+    if (all || (mask & 0x80)) {
+        D_8004FE28[0xE7] = p->field_12;
+    }
+    if (all || (mask & 0x100)) {
+        D_8004FE28[0xE8] = p->field_14;
+    }
+    if (all || (mask & 0x200)) {
+        D_8004FE28[0xE9] = p->field_16;
+    }
+    if (all || (mask & 0x400)) {
+        D_8004FE28[0xEA] = p->field_18;
+    }
+    if (all || (mask & 0x800)) {
+        D_8004FE28[0xEB] = p->field_1A;
+    }
+    if (all || (mask & 0x1000)) {
+        D_8004FE28[0xEC] = p->field_1C;
+    }
+    if (all || (mask & 0x2000)) {
+        D_8004FE28[0xED] = p->field_1E;
+    }
+    if (all || (mask & 0x4000)) {
+        D_8004FE28[0xEE] = p->field_20;
+    }
+    if (all || (mask & 0x8000)) {
+        D_8004FE28[0xEF] = p->field_22;
+    }
+    if (all || (mask & 0x10000)) {
+        D_8004FE28[0xF0] = p->field_24;
+    }
+    if (all || (mask & 0x20000)) {
+        D_8004FE28[0xF1] = p->field_26;
+    }
+    if (all || (mask & 0x40000)) {
+        D_8004FE28[0xF2] = p->field_28;
+    }
+    if (all || (mask & 0x80000)) {
+        D_8004FE28[0xF3] = p->field_2A;
+    }
+    if (all || (mask & 0x100000)) {
+        D_8004FE28[0xF4] = p->field_2C;
+    }
+    if (all || (mask & 0x200000)) {
+        D_8004FE28[0xF5] = p->field_2E;
+    }
+    if (all || (mask & 0x400000)) {
+        D_8004FE28[0xF6] = p->field_30;
+    }
+    if (all || (mask & 0x800000)) {
+        D_8004FE28[0xF7] = p->field_32;
+    }
+    if (all || (mask & 0x1000000)) {
+        D_8004FE28[0xF8] = p->field_34;
+    }
+    if (all || (mask & 0x2000000)) {
+        D_8004FE28[0xF9] = p->field_36;
+    }
+    if (all || (mask & 0x4000000)) {
+        D_8004FE28[0xFA] = p->field_38;
+    }
+    if (all || (mask & 0x8000000)) {
+        D_8004FE28[0xFB] = p->field_3A;
+    }
+    if (all || (mask & 0x10000000)) {
+        D_8004FE28[0xFC] = p->field_3C;
+    }
+    if (all || (mask & 0x20000000)) {
+        D_8004FE28[0xFD] = p->field_3E;
+    }
+    if (all || (mask & 0x40000000)) {
+        D_8004FE28[0xFE] = p->field_40;
+    }
+    if (all || (mask & 0x80000000)) {
+        D_8004FE28[0xFF] = p->field_42;
+    }
+}
+
 
 void func_8003C344(s32 arg0, s32 arg1) { func_8003B424(arg0, arg1, 0xCC, 0xCD); }
 

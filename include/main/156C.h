@@ -2361,4 +2361,43 @@ typedef struct {
     /* 0x18 */ u8 field_18;
 } Snd62D04;
 
+
+/* libspu reverb register image (0x44 bytes): func_8003B994 copies a preset
+ * from D_800503E8[] and patches it, func_8003BE74 writes it out. */
+typedef struct {
+    /* 0x00 */ u32 field_0;
+    /* 0x04 */ u16 field_4;
+    /* 0x06 */ u16 field_6;
+    /* 0x08 */ u16 field_8;
+    /* 0x0A */ u16 field_A;
+    /* 0x0C */ u16 field_C;
+    /* 0x0E */ u16 field_E;
+    /* 0x10 */ u16 field_10;
+    /* 0x12 */ u16 field_12;
+    /* 0x14 */ u16 field_14;
+    /* 0x16 */ u16 field_16;
+    /* 0x18 */ u16 field_18;
+    /* 0x1A */ u16 field_1A;
+    /* 0x1C */ u16 field_1C;
+    /* 0x1E */ u16 field_1E;
+    /* 0x20 */ u16 field_20;
+    /* 0x22 */ u16 field_22;
+    /* 0x24 */ u16 field_24;
+    /* 0x26 */ u16 field_26;
+    /* 0x28 */ u16 field_28;
+    /* 0x2A */ u16 field_2A;
+    /* 0x2C */ u16 field_2C;
+    /* 0x2E */ u16 field_2E;
+    /* 0x30 */ u16 field_30;
+    /* 0x32 */ u16 field_32;
+    /* 0x34 */ u16 field_34;
+    /* 0x36 */ u16 field_36;
+    /* 0x38 */ u16 field_38;
+    /* 0x3A */ u16 field_3A;
+    /* 0x3C */ u16 field_3C;
+    /* 0x3E */ u16 field_3E;
+    /* 0x40 */ u16 field_40;
+    /* 0x42 */ u16 field_42;
+} Rev3B994; /* size 0x44 */
+
 #endif /* MAIN_156C_H */
