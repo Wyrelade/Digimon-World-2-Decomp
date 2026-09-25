@@ -3043,5 +3043,12 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_8003CF04": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "padnop"
+    ]
   }
 }

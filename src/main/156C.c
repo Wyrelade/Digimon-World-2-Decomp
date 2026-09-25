@@ -673,6 +673,8 @@ extern char D_80010CBC[];
 extern char D_80010CE8[];
 extern char D_80010D18[];
 extern s32 func_8003EE14(s32 *st);
+extern u16 D_80050298[];
+extern u16 D_800502B0[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -13010,7 +13012,32 @@ s32 func_8003C8EC(void) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C904);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003CF04);
+u16 func_8003CF04(s32 cenHigh, s32 cenLow, s32 noteHigh, s32 noteLow) {
+    s16 fine;
+    s32 note;
+    s32 oct;
+    s16 key;
+    s16 shift;
+    u32 pitch;
+
+    fine = noteLow + cenLow;
+    note = (s16)(noteHigh + ((u16)fine >> 7) - cenHigh);
+    fine = (u16)fine % 128;
+    oct = note / 12;
+    shift = oct - 2;
+    key = note - oct * 12;
+    if (key < 0) {
+        key += 12;
+        shift = oct - 3;
+    }
+    pitch = (D_80050298[key] * D_800502B0[(u16)fine]) >> 16;
+    if (shift >= 0) {
+        pitch = 0x3FFF;
+    } else {
+        pitch = (pitch + (1 << (-shift - 1))) >> -shift;
+    }
+    return pitch;
+}
 
 s32 func_8003CFD4(s32 note, s32 fine, u16 pitch) {
     s32 i;
