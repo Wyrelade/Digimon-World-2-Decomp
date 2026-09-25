@@ -9311,7 +9311,30 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030F40);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031110);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031258);
+extern u16 *D_8004FB84;
+extern void func_800313C4();
+
+Obj4EAF8 *func_80031258(void) {
+    Obj4EAF8 *p = &D_8004EAF8;
+    volatile u16 *q;
+    u16 *r;
+
+    if (p->field_0 == 0) {
+        return 0;
+    }
+    func_80026FC4();
+    q = D_8004FB88;
+    p->field_32 = *q;
+    p->field_34 = *D_8004FB8C;
+    r = D_8004FB84;
+    *q = 0;
+    *r = *q;
+    *D_8004FB8C &= 0x77777777;
+    func_800313C4();
+    p->field_0 = 0;
+    return p;
+}
+
 
 Obj4EAF8 *func_800312F8(void) {
     Obj4EAF8 *p = &D_8004EAF8;

@@ -2569,5 +2569,10 @@
       "fallthrough_fill",
       "delay_fill"
     ]
+  },
+  "func_80031258": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
