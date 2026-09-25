@@ -2629,7 +2629,32 @@ void func_80015770(Actor *a0) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001588C);
+void func_8001588C(Actor *a, s16 arg) {
+    ActorWork *w = a->work;
+    s32 mode;
+    s32 k;
+
+    w->field_98 = arg;
+    mode = arg;
+    if (mode == 2) {
+        k = ((u8 *)func_80011F5C(D_80050768->field_108))[1];
+        if (k == 11) {
+            goto three;
+        }
+        if (k < 11) {
+            goto def;
+        }
+        if (k < 17) {
+            w->field_98 = 4;
+            return;
+        }
+    def:
+        w->field_98 = mode;
+        return;
+    three:
+        w->field_98 = 3;
+    }
+}
 
 void func_80015914(Actor *a0) {
     Wk14EA4 *w = (Wk14EA4 *)a0->work;

@@ -3038,5 +3038,10 @@
       "taken_fill",
       "padnop"
     ]
+  },
+  "func_8001588C": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }
