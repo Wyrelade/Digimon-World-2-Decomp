@@ -11228,9 +11228,31 @@ void func_800349B4(s16 arg0, s16 arg1, s16 arg2) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034A24);
 
+void func_80034E44(s16 a0, s16 a1, s8 a2, s16 a3);
+
 void func_80034E04(s16 arg0, s16 arg1, s8 arg2, s16 arg3) { func_80034E44(arg0, arg1, arg2, arg3); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034E44);
+void func_80034E44(s16 a0, s16 a1, s8 a2, s16 a3) {
+    Elm354F4 **p = &D_80061C50[a0];
+    Elm354F4 *e = &(*p)[a1];
+    s32 c;
+
+    e->field_0 = e->field_4;
+    e->field_8 = e->field_4;
+    e->field_C = e->field_4;
+    (*p)[a1].field_98 &= ~0x200;
+    c = a2;
+    (*p)[a1].field_98 &= ~4;
+    e->field_20 = a3;
+    if (c == 1) {
+        (*p)[a1].field_98 |= 1;
+        e->field_14 = c;
+        e->field_21 = 0;
+        func_80038BE4((s16)(a0 | (a1 << 8)), e->field_58, e->field_5A, 1);
+    } else if (c == 0) {
+        (*p)[a1].field_98 |= 2;
+    }
+}
 
 void func_80034F64(s8 a0, s8 a1, s8 a2) {
     Cmd3D124 c;

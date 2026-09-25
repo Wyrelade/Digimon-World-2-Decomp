@@ -3012,5 +3012,13 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80034E44": {
+    "passes": [
+      "nosplit",
+      "sched_match",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }
