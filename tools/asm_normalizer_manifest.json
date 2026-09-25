@@ -2971,5 +2971,15 @@
       "web_realloc",
       "commutative_swap"
     ]
+  },
+  "func_80031750": {
+    "passes": [
+      "nosplit_nodb",
+      "taken_fill",
+      "fallthrough_fill",
+      "dead_code",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
