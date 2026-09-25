@@ -1115,7 +1115,9 @@ typedef struct {
     /* 0x10A */ s16 field_10A;
     u8 _pad10C[0x4];
     /* 0x110 */ u8 *field_110;
-    u8 _pad114[0x10];
+    /* 0x114 */ u8 *field_114[3];
+    /* 0x120 */ s16 field_120;
+    /* 0x122 */ s16 field_122;
     /* 0x124 */ s16 field_124;
     /* 0x126 */ s16 field_126;
     /* 0x128 */ s32 field_128;
@@ -2312,5 +2314,32 @@ typedef struct {
     u8 _pad144[0x8];
     /* 0x14C */ s32 field_14C;
 } Wk18D78;
+
+/* One list row of the func_800179EC page (8 bytes). */
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    /* 0x1 */ u8 field_1;
+    /* 0x2 */ u8 field_2;
+    u8 _pad3;
+    /* 0x4 */ void *field_4;
+} Row179EC;
+
+/* Work block of the list page built by func_800179EC. */
+typedef struct {
+    u8 _pad00[0x52];
+    /* 0x052 */ s16 field_52;
+    /* 0x054 */ s16 field_54;
+    /* 0x056 */ s16 field_56;
+    u8 _pad58[0x8];
+    /* 0x060 */ s16 field_60;
+    u8 _pad62[0xA];
+    /* 0x06C */ Row179EC rows[0x26];
+    /* 0x19C */ s16 field_19C;
+    /* 0x19E */ s16 field_19E;
+    /* 0x1A0 */ s16 field_1A0;
+    /* 0x1A2 */ s16 field_1A2;
+    /* 0x1A4 */ s16 field_1A4;
+    /* 0x1A6 */ s16 field_1A6;
+} Wk179EC;
 
 #endif /* MAIN_156C_H */

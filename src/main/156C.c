@@ -2720,7 +2720,109 @@ void func_80017884(Actor *a0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017944);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800179EC);
+void func_800179EC(Wk179EC *w) {
+    Row179EC *r = w->rows;
+    ElmE620 *el = D_80050720->elems;
+    s32 n = 0;
+    s32 i;
+    s32 ok;
+    Row179EC *t;
+
+    t = r;
+    for (i = 0; i < 0x26; i++) {
+        t->field_2 = 0;
+        t->field_0 = 0;
+        t++;
+    }
+    w->field_54 = 1;
+    switch (w->field_60) {
+    default:
+        w->field_56 = func_80022578();
+        break;
+    case 2:
+        w->field_56 = 0x18;
+        break;
+    case 7:
+    case 8:
+        if (w->field_1A6 == 0) {
+            w->field_56 = func_80022578();
+        } else {
+            w->field_56 = 0x18;
+        }
+        if (w->field_60 == 8) {
+            w->field_56++;
+            n++;
+            r->field_0 = 3;
+            r->field_4 = 0;
+            r->field_2 = 0;
+            r++;
+            w->field_52++;
+        }
+        break;
+    case 6:
+        w->field_56 = D_80050768->field_120;
+        for (i = 0; i < D_80050768->field_120; i++) {
+            r->field_0 = 1;
+            r->field_4 = D_80050768->field_114[i];
+            r->field_2 = i + 3;
+            r++;
+        }
+        return;
+    }
+    for (i = 0; i < 0x24; i++, el++) {
+        if (el->field_0 != 0) {
+            ok = 0;
+            switch (w->field_60) {
+            default:
+                if (el->field_0 >= 2) ok = -1;
+                break;
+            case 5:
+                if (el->field_0 >= 2 && (s16)el->field_16 != 0) ok = -1;
+                break;
+            case 7:
+            case 8:
+                if (w->field_1A6 != 0) {
+                    if (el->field_0 == 1) ok = -1;
+                } else {
+                    if (el->field_0 >= 2) ok = -1;
+                }
+                break;
+            case 2:
+                if (el->field_0 == 1) ok = -1;
+                break;
+            }
+            if (ok) {
+                r->field_0 = 1;
+                r->field_4 = el;
+                r->field_2 = (w->field_60 == 5) ? 2 : el->field_0;
+                r++;
+                n++;
+            }
+        }
+    }
+    if (D_80050768->field_0 & 1) {
+        if (w->field_60 != 2 && w->field_60 != 5) {
+            r = &w->rows[w->field_56 - 1];
+            for (i = 0; i < D_8005071C->field_BA8; i++, r--) {
+                r->field_0 = 2;
+                r->field_1 = D_8005071C->field_BA9[i];
+            }
+        }
+    }
+    if (w->field_60 == 5) {
+        w->field_56 = n;
+        if (n < 4) {
+            w->field_19C = n;
+        } else {
+            w->field_19C = 3;
+        }
+        w->field_19E = 0;
+        w->field_1A4 = 0;
+        w->field_1A2 = 0;
+        w->field_1A0 = 0;
+    }
+}
+
 
 void func_80017D84(Obj17D84 *a0, s32 a1) {
     s32 i;

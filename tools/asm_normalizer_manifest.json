@@ -2399,5 +2399,15 @@
     "passes": [
       "gp8"
     ]
+  },
+  "func_800179EC": {
+    "passes": [
+      "nosplit",
+      "label_nop",
+      "slot_unfill",
+      "cross_jump",
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }
