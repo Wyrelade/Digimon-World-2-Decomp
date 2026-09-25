@@ -3470,13 +3470,28 @@ def offset_unfold_pass(stext, tgt):
 _SU_CONST = re.compile(r"^\s*(li|lui)\s+(\$\w+)\s*,\s*[-\w()%>< ]+\s*(#.*)?$")
 
 
+def _su_shape(key):
+    """An insn key with its registers masked (register names differ before
+    realloc)."""
+    if not isinstance(key, tuple):
+        return key
+    return tuple(k if i == 0 or not isinstance(k, str) else "r" for i, k in enumerate(key))
+
+
 def slot_unfill_pass(stext, tgt):
     lines = stext.split("\n")
-    tb = []
+    tb, tfall = [], []
     for k, (_w, d) in enumerate(tgt):
         mn = d.strip().split(None, 1)[0] if d.strip() else ""
         if mn in _COND_BR_MN:
             tb.append(is_nop(tgt[k + 1][1].strip()) if k + 1 < len(tgt) else False)
+            # keys of the target's straight-line fall-through after the slot
+            keys = set()
+            for _w2, d2 in tgt[k + 2:]:
+                if is_branch(d2.strip()):
+                    break
+                keys.add(_su_shape(_sm_key(d2.strip(), True)))
+            tfall.append(keys)
     ob = [j for j, l in enumerate(lines) if _s_is_insn(l)
           and not re.match(r"\s*\.", l) and _src_is_branch(l)
           and re.match(r"\s*(beq|bne|blez|bgtz|bltz|bgez|beqz|bnez)\b", l)]
@@ -3493,10 +3508,37 @@ def slot_unfill_pass(stext, tgt):
         if s is None or s not in nr:
             continue
         m = _SU_CONST.match(lines[s])
-        if not m:
-            continue
         body = lines[s].split("#", 1)[0].strip()
         d, u = defs_uses(body)
+        if not m:
+            # any other 1-word insn our reorg took from before the branch goes
+            # back right before it (the branch must not read what it writes)
+            bd, bu = defs_uses(lines[j].split("#", 1)[0].strip())
+            if (len(d) != 1 or set(d) & set(bu) or _src_is_branch(lines[s])
+                    or re.match(r"\s*(jalr?|nop)\b", lines[s]) or _ff_word_form(body) is None):
+                continue
+            ind = lines[s][:len(lines[s]) - len(lines[s].lstrip())]
+            ins_ = lines[s]
+            if _su_shape(_sm_key(body, False)) in tfall[n]:
+                # retail runs it on the fall-through path: stolen from there.
+                # It goes back to the head of that path (sched_match orders it)
+                at = s + 1
+                while at < len(lines) and lines[at].strip().startswith(".set"):
+                    at += 1
+                if at < len(lines) and _s_is_label(lines[at]) and \
+                        not lines[at].strip().startswith("LM"):
+                    continue
+                lines[s] = ind + "nop"
+                lines.insert(at, ins_)
+                changed = True
+                continue
+            at = j
+            while at > 0 and lines[at - 1].strip().startswith(".set"):
+                at -= 1
+            lines[s] = ind + "nop"
+            lines.insert(at, ins_)
+            changed = True
+            continue
         if u or len(d) != 1:
             continue
         x = next(iter(d))
