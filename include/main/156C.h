@@ -2492,4 +2492,19 @@ typedef struct {
     /* 0x6C */ volatile DispEnv field_6C; /* cached display environment */
 } Gpu48F10;
 
+
+/* SPU voice shadow at D_80062A28: per-voice dirty flags, then 0x10-byte
+ * register images (volume L/R at 0x0/0x2, pitch at 0x4). */
+typedef struct {
+    /* 0x0 */ u16 vol_l;
+    /* 0x2 */ u16 vol_r;
+    /* 0x4 */ u16 pitch;
+    u8 _pad6[0xA];
+} VReg62A48; /* size 0x10 */
+
+typedef struct {
+    /* 0x00 */ u8 flags[0x20];
+    /* 0x20 */ VReg62A48 regs[24];
+} Snd62A28;
+
 #endif /* MAIN_156C_H */

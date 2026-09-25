@@ -2481,5 +2481,14 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_80037D64": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "ra_restore_sink",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
