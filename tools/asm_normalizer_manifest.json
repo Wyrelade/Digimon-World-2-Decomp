@@ -2748,5 +2748,12 @@
       "zero_remat",
       "padnop"
     ]
+  },
+  "func_80035420": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "web_realloc"
+    ]
   }
 }

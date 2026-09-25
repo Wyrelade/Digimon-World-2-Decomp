@@ -10695,7 +10695,8 @@ void func_80035330(void) {
 }
 
 typedef struct {
-    u8 _pad0[4];
+    /* 0x0 */ u16 field_0;
+    u8 _pad2[2];
     /* 0x4 */ u16 field_4;
     u8 _pad6[2];
     /* 0x8 */ u16 field_8;
@@ -10732,7 +10733,18 @@ s32 func_80035384(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035420);
+s32 func_80035420(s32 arg0) {
+    s32 ch = arg0 & 0xFFFF;
+    s32 ret;
+
+    if (ch < 3) {
+        ret = D_8004FC6C[ch].field_0;
+    } else {
+        ret = 0;
+    }
+    return ret;
+}
+
 
 s32 func_80035458(u16 arg0) {
     s32 i = arg0;
