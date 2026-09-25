@@ -1054,7 +1054,7 @@ typedef struct {
     s16 field_4A;       /* 0x4A */
     s16 field_4C;       /* 0x4C */
     s16 field_4E;       /* 0x4E */
-    u8  _p50[0x2];      /* 0x50 */
+    s16 field_50;       /* 0x50 */
     s16 field_52;       /* 0x52 */
     s16 field_54;       /* 0x54 */
     s16 field_56;       /* 0x56 */

@@ -10260,7 +10260,32 @@ void func_800344D4(s16 a0, s16 a1, s32 a2) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80034704);
+void func_80034704(s16 a0, s16 a1) {
+    Elm354F4 *e = &D_80061C50[a0][a1];
+    s32 b0;
+    s32 b1;
+    s32 b2;
+    u32 t;
+    u32 r;
+
+    b0 = *e->field_0++;
+    b1 = *e->field_0++;
+    b2 = *e->field_0++;
+    e->field_94 = 60000000 / (b2 | ((b0 << 16) | (b1 << 8)));
+    t = e->field_50 * e->field_94;
+    if (t * 10 < D_80061C4C * 60) {
+        e->field_52 = D_80061C4C * 600 / t;
+        e->field_54 = D_80061C4C * 600 / t;
+    } else {
+        e->field_52 = -1;
+        e->field_54 = (u32)(e->field_50 * e->field_94 * 10) / (D_80061C4C * 60);
+        if (D_80061C4C * 30 < (u32)(e->field_50 * e->field_94 * 10) % (D_80061C4C * 60)) {
+            e->field_54 = e->field_54 + 1;
+        }
+    }
+    e->field_90 = func_80032494(a0, a1);
+}
+
 
 void func_800348D4(s32 a0, s32 a1, s32 a2, s32 a3) {
     Elm354F4 *e = &D_80061C50[(s16)a0][(s16)a1];
