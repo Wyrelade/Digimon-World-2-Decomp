@@ -2692,5 +2692,14 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_8003CFD4": {
+    "passes": [
+      "nosplit",
+      "reg_realloc",
+      "mask_reuse",
+      "web_realloc",
+      "commutative_swap"
+    ]
   }
 }

@@ -624,6 +624,8 @@ extern s32 func_8002A9B4(s8 *);
 extern s32 func_80036FA4(s16 a0, s16 a1, s16 a2, u16 a3, u16 arg4, u16 arg5);
 extern s8 D_80062D1F;
 extern u16 D_80062EE8[];
+extern u16 D_80050298[];
+extern u16 D_800502B0[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -11838,7 +11840,51 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C904);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003CF04);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003CFD4);
+s32 func_8003CFD4(s32 note, s32 fine, u16 pitch) {
+    s32 i;
+    s32 j;
+    s32 k;
+    s32 bit = 0;
+    s32 n;
+    s32 m;
+    s32 t;
+    u16 f;
+    u16 fn;
+    u16 nt;
+    u16 *p;
+    u16 *q;
+
+    if (pitch >= 0x4000) {
+        pitch = 0x3FFF;
+    }
+    for (i = 0; i < 14; i++) {
+        if ((pitch >> i) & 1) {
+            bit = i;
+        }
+    }
+    pitch = pitch << (15 - bit);
+    j = 11;
+    p = D_80050298;
+    for (; j >= 0; j--) {
+        if (pitch >= p[j]) {
+            n = j;
+            break;
+        }
+    }
+    f = ((u32)pitch << 15) / D_80050298[(u16)n];
+    for (k = 127, q = &D_800502B0[127]; k >= 0; k--, q--) {
+        if (f >= *q) {
+            m = k;
+            break;
+        }
+    }
+    t = m + 1;
+    m = fine + t;
+    fn = m;
+    note = note + (bit - 12) * 12 + n + (fn >> 7);
+    return ((u16)note << 8) | (fn & 0x7E);
+}
+
 
 void func_8003D104(s32 a0, u16 *a1) {
     *a1 = D_8004FE28[a0 * 8 + 6];
