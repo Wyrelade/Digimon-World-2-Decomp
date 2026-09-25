@@ -2571,4 +2571,22 @@ typedef struct {
 } V1004_21DC8;
 extern s32 D_8005F664;
 
+
+/* 4-byte unaligned tag and the 0x20-byte records at D_80061B38 (func_8002DF74). */
+typedef struct {
+    u8 b[4];
+} B4_2DF74;
+typedef struct {
+    /* 0x00 */ s16 field_0;
+    u8 _pad02[0x6];
+    /* 0x08 */ s32 field_8;
+    u8 _pad0C[0x10];
+    /* 0x1C */ B4_2DF74 field_1C;
+} Rec2DF74;
+extern s32 D_80061B40;
+extern s32 D_80061B44;
+typedef struct { s32 v; } W1_2DF74;
+typedef struct { void (*f)(void); } F1_2DF74;
+typedef struct { B4_2DF74 tag; s32 val; } T40_2DF74;
+
 #endif /* MAIN_156C_H */

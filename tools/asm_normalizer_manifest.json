@@ -2649,5 +2649,14 @@
     "passes": [
       "nosr"
     ]
+  },
+  "func_8002DF74": {
+    "passes": [
+      "nosplit",
+      "reg_realloc",
+      "ra_restore_sink",
+      "delay_fill",
+      "epilogue_unfill"
+    ]
   }
 }

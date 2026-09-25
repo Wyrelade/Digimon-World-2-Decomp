@@ -8985,7 +8985,21 @@ void func_8002DEF4(void) {
     func_80026FD4();
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DF74);
+void func_8002DF74(void) {
+    Rec2DF74 *r = &((Rec2DF74 *)D_80061B38)[D_80061B20];
+    void (*cb)(void);
+
+    r->field_0 = 2;
+    *(B4_2DF74 *)&D_80061B40 = r->field_1C;
+    D_80061B44 = r->field_8;
+    D_80061B20 = ((W1_2DF74 *)&D_80061B1C)->v;
+    cb = ((F1_2DF74 *)&D_80061B50)->f;
+    if (cb != 0) {
+        cb();
+    }
+    D_80061B14 = 0;
+}
+
 
 extern s32 D_80061B98;
 extern s32 D_80061B40;
