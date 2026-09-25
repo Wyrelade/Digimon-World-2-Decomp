@@ -3059,5 +3059,13 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80037B84": {
+    "passes": [
+      "nosplit_nodb",
+      "zext_keep",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

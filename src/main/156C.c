@@ -12088,7 +12088,14 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80037744);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800379B4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80037B84);
+u16 func_80037B84(void) {
+    u32 v = D_80062D18.field_11;
+
+    if (v >= 0x80) {
+        v = 0x7F;
+    }
+    return func_80037C38(D_80062D18.field_2, 0, D_80062D18.field_10, v);
+}
 
 u16 func_80037BD0(s16 a0, s16 a1) {
     s16 i = D_80062D18.field_7 * 16 + (s8)D_80062D18.field_C;
