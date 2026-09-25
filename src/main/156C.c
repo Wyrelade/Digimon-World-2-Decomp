@@ -9910,7 +9910,27 @@ void func_80033B24(u32 arg0, u32 arg1, Out33B24 *arg2) {
     arg2->field_8 = arg1 & 0x1F;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80033B80);
+void func_80033B80(Out33B24 *p, u16 *adsr1, u16 *adsr2) {
+    u16 c;
+    u16 a;
+    u16 m;
+    u16 r1;
+    u16 r2;
+    c = -(p->field_C != 0) & 0x8000;
+    a = -(p->field_A != 0) & 0x8000;
+    m = c;
+    if (p->field_10) {
+        m = c | 0x4000;
+    }
+    if (p->field_E) {
+        m |= 0x20;
+    }
+    r1 = a | ((p->field_0 << 8) & 0x7F00) | ((p->field_2 << 4) & 0xF0) | (p->field_4 & 0xF);
+    r2 = m | ((p->field_6 << 6) & 0x1FC0) | (p->field_8 & 0x1F);
+    *adsr1 = r1;
+    *adsr2 = r2;
+}
+
 
 void func_80033C24(s16 a0, s16 a1, s16 a2, Arg33 d) {
     Out33B24 buf;
