@@ -1262,20 +1262,6 @@ typedef struct {
     u8 _pad18[0x8];
 } Rec62D08;
 
-/* Graphics-debug state at D_80048F10 (func_80027278 / func_80027388): debug
- * type 0x0, level 0x2, reverse 0x3, and the saved word at 0xC. */
-typedef struct {
-    /* 0x00 */ u8 field_0;
-    /* 0x01 */ u8 field_1;
-    /* 0x02 */ u8 field_2;
-    /* 0x03 */ u8 field_3;
-    /* 0x04 */ s16 field_4;
-    /* 0x06 */ s16 field_6;
-    u8 _pad08[0x4];
-    /* 0x0C */ s32 field_C;
-    /* 0x10 */ u8 field_10[0x5C];
-    /* 0x6C */ u8 field_6C[0x14];
-} Gpu48F10;
 
 /* Two-word state func_8001291C copies into the head of an ActorWork. */
 typedef struct {
@@ -2482,5 +2468,28 @@ typedef struct {
     /* 0x8 */ u32 chcr;
     u8 _padC[0x4];
 } Dma4FBF4;
+
+
+/* Horizontal display range pair per video standard and width class,
+ * D_80048FE4[pad0][k] (func_80027CB0). */
+typedef struct {
+    /* 0x0 */ u16 lo;
+    /* 0x2 */ u16 hi;
+} Rng48FE4;
+
+/* Graphics-debug state at D_80048F10 (func_80027278 / func_80027388): debug
+ * type 0x0, level 0x2, reverse 0x3, and the saved word at 0xC. */
+typedef struct {
+    /* 0x00 */ u8 field_0;
+    /* 0x01 */ u8 field_1;
+    /* 0x02 */ u8 field_2;
+    /* 0x03 */ u8 field_3;
+    /* 0x04 */ s16 field_4;
+    /* 0x06 */ s16 field_6;
+    u8 _pad08[0x4];
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ u8 field_10[0x5C];
+    /* 0x6C */ volatile DispEnv field_6C; /* cached display environment */
+} Gpu48F10;
 
 #endif /* MAIN_156C_H */

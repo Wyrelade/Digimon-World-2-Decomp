@@ -2472,5 +2472,14 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80027CB0": {
+    "passes": [
+      "nosplit",
+      "slot_unfill",
+      "web_realloc",
+      "sched_match",
+      "padnop"
+    ]
   }
 }

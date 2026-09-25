@@ -357,7 +357,7 @@ extern volatile s32 *D_8004EA74;
 extern volatile s32 *D_8004EA78;
 extern volatile s32 *D_8004EA7C;
 extern s32 func_80027104(s32);
-extern void func_80027CB0(DispEnv *);
+extern DispEnv *func_80027CB0(DispEnv *);
 extern DispEnv D_80061968;
 extern s32 D_80049060;
 extern s8 D_80049071[];
@@ -599,6 +599,10 @@ extern void func_800379B4(void);
 extern u16 func_80037B84(void);
 extern void func_80037D64(u8);
 extern u8 func_80039264(u8 *idx, u8 *val);
+extern char D_800103AC[];
+extern u8 D_8004900C[];
+extern Rng48FE4 D_80048FE4[][5];
+extern s32 func_80031838(void);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -7350,7 +7354,7 @@ s32 func_80027104(s32 mode) {
         g->field_4 = D_80048F90[((volatile Gpu48F10 *)g)->field_0][0];
         g->field_6 = D_80048F9C.field_0[g->field_0][0];
         func_80029FDC(g->field_10, -1, 0x5C);
-        func_80029FDC(g->field_6C, -1, 0x14);
+        func_80029FDC((u8 *)&g->field_6C, -1, 0x14);
         return g->field_0;
     default:
         if (D_80048F12 >= 2) {
@@ -7392,7 +7396,7 @@ void func_800273E8(s32 a0) {
         D_80048F0C(D_800102AC, a0);
     }
     if (a0 == 0) {
-        func_80029FDC(D_80048F10.field_6C, -1, 0x14);
+        func_80029FDC((u8 *)&D_80048F10.field_6C, -1, 0x14);
     }
     D_80048F08->fn_10(a0 ? 0x03000000 : 0x03000001);
 }
@@ -7511,7 +7515,115 @@ s32 func_80027C7C(s32 arg0) {
     return arg0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80027CB0);
+DispEnv *func_80027CB0(DispEnv *e) {
+    DispEnv *env = e;
+    s32 mode;
+    s32 hs;
+    s32 he;
+    s32 vs;
+    s32 ve;
+    s32 k;
+    s32 w;
+    s32 t;
+    s32 y;
+    volatile DispEnv *d;
+
+    mode = 0x08000000;
+    if (D_80048F10.field_2 >= 2) {
+        D_80048F0C(D_800103AC, env);
+    }
+    D_80048F08->fn_10(0x05000000 | ((env->disp.y & 0x3FF) << 10) | (env->disp.x & 0x3FF));
+    d = &D_80048F10.field_6C;
+    if (*(volatile s32 *)&D_80048F10.field_6C.isinter != *(s32 *)&env->isinter
+        || d->disp.x != env->disp.x
+        || d->disp.y != env->disp.y
+        || d->disp.w != env->disp.w
+        || d->disp.h != env->disp.h) {
+        env->pad0 = func_80031838();
+        if (env->pad0 == 1) {
+            mode |= 0x08;
+        }
+        if (env->isrgb24) {
+            mode |= 0x10;
+        }
+        if (env->isinter) {
+            mode |= 0x20;
+        }
+        if (D_80048F10.field_3) {
+            mode |= 0x80;
+        }
+        if (env->disp.w > 280) {
+            if (env->disp.w <= 352) {
+                mode |= 0x01;
+            } else if (env->disp.w <= 400) {
+                mode |= 0x40;
+            } else if (env->disp.w <= 560) {
+                mode |= 0x02;
+            } else {
+                mode |= 0x03;
+            }
+        }
+        y = env->disp.h;
+        if (env->pad0 != 0) {
+            t = y < 289;
+        } else {
+            t = y < 257;
+        }
+        if (!t) {
+            mode |= 0x24;
+        }
+        D_80048F08->fn_10(mode);
+        env->pad0 = 8;
+    }
+    if (D_80048F10.field_6C.screen.x != env->screen.x
+        || D_80048F10.field_6C.screen.y != env->screen.y
+        || D_80048F10.field_6C.screen.w != env->screen.w
+        || D_80048F10.field_6C.screen.h != env->screen.h
+        || env->pad0 == 8) {
+        env->pad0 = func_80031838();
+        y = env->screen.y;
+        if (env->pad0 != 0) {
+            vs = y + 0x13;
+        } else {
+            vs = y + 0x10;
+        }
+        if (env->screen.h != 0) {
+            ve = vs + env->screen.h;
+        } else {
+            ve = vs + 0xF0;
+        }
+        if (env->disp.w <= 280) {
+            k = 0;
+        } else if (env->disp.w <= 352) {
+            k = 1;
+        } else if (env->disp.w <= 400) {
+            k = 2;
+        } else if (env->disp.w <= 560) {
+            k = 3;
+        } else {
+            k = 4;
+        }
+        hs = D_80048FE4[env->pad0][k].lo + env->screen.x * D_8004900C[k];
+        w = D_80048FE4[env->pad0][k].hi - D_80048FE4[env->pad0][k].lo;
+        he = hs + (env->screen.w != 0 ? (w * env->screen.w) >> 8 : w);
+        if (env->pad0 != 0) {
+            hs = hs < 0x21C ? 0x21C : (hs > 0xC94 ? 0xC94 : hs);
+            he = he < hs + D_8004900C[k] * 4 ? hs + D_8004900C[k] * 4 : (he > 0xCBC ? 0xCBC : he);
+            vs = vs < 0x13 ? 0x13 : (vs > 0x12F ? 0x12F : vs);
+            ve = ve < vs + 2 ? vs + 2 : (ve > 0x131 ? 0x131 : ve);
+        } else {
+            hs = hs < 0x1F4 ? 0x1F4 : (hs > 0xCB2 ? 0xCB2 : hs);
+            he = he < hs + D_8004900C[k] * 4 ? hs + D_8004900C[k] * 4 : (he > 0xCDA ? 0xCDA : he);
+            vs = vs < 0x10 ? 0x10 : (vs > 0x101 ? 0x101 : vs);
+            ve = ve < vs + 2 ? vs + 2 : (ve > 0x102 ? 0x102 : ve);
+        }
+        D_80048F08->fn_10(0x06000000 | ((he & 0xFFF) << 12) | (hs & 0xFFF));
+        D_80048F08->fn_10(0x07000000 | ((ve & 0x3FF) << 10) | (vs & 0x3FF));
+    }
+    func_80027044((u8 *)&D_80048F10.field_6C, (u8 *)env, 0x14);
+    return env;
+}
+
 
 s32 func_800281A8(s32 arg0) {
     func_80027044(arg0, D_80048F7C, 0x14);
