@@ -2079,4 +2079,45 @@ typedef struct {
     /* 0x20 */ s16 field_20;
 } Dg12490;
 
+/* Icon sheet layout (0x20 bytes) copied out by func_80011BEC; 0x18/0x1C are the
+ * VRAM base of the icon page. */
+typedef struct {
+    u8 _pad00[0xC];
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    u8 _pad14[0x4];
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ s32 field_1C;
+} Tex11BEC;
+
+/* One cached icon slot: resource id and last-use stamp. */
+typedef struct {
+    /* 0x0 */ s32 id;
+    /* 0x4 */ s32 t;
+} Slot11BEC;
+
+/* Icon cache (work of the type-10 actor): layout plus 18 VRAM slots. */
+typedef struct {
+    /* 0x00 */ Tex11BEC *field_0;
+    /* 0x04 */ Slot11BEC slot[18];
+} Tbl11BEC;
+
+/* TIM block: byte length, VRAM rectangle, pixel data. */
+typedef struct {
+    /* 0x0 */ s32 bnum;
+    /* 0x4 */ s16 x;
+    /* 0x6 */ s16 y;
+    /* 0x8 */ s16 w;
+    /* 0xA */ s16 h;
+    /* 0xC */ u32 data[1];
+} TimBlk11BEC;
+
+/* s16 coordinate pair written back by func_80011BEC. */
+typedef struct {
+    /* 0x0 */ s16 x;
+    /* 0x2 */ s16 y;
+} Pt11BEC;
+
+void func_80011BEC(s32 id, Tex11BEC *out, Pt11BEC *pos, Pt11BEC *clut);
+
 #endif /* MAIN_156C_H */

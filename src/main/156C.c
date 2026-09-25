@@ -510,6 +510,7 @@ extern s32 func_80012490(s32, s32, s32, s32);
 extern s32 func_80012640(s32, s32);
 extern s32 D_8004FC48[];
 extern s32 D_80061C4C;
+extern s16 D_80040DAC[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -886,7 +887,67 @@ void func_80011BB0(Actor *arg0) {
     func_80011170(arg0);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80011BEC);
+void func_80011BEC(s32 id, Tex11BEC *out, Pt11BEC *pos, Pt11BEC *clut) {
+    Tbl11BEC *t;
+    s32 i;
+    s32 k;
+    s32 *p;
+    Rect2AB54 r;
+    Rect2AB54 r2;
+
+    t = (Tbl11BEC *)func_80011510(10, -1, -1)->field_2C;
+    for (i = 0; i < 18; i++) {
+        if (t->slot[i].id == id) {
+            goto found;
+        }
+    }
+    for (i = 0; i < 18; i++) {
+        if (t->slot[i].id == 0) {
+            goto load;
+        }
+    }
+    {
+        s32 m = 0;
+        s32 bi = 0;
+        for (i = 0; i < 18; i++) {
+            if (m < t->slot[i].t) {
+                m = t->slot[i].t;
+                bi = i;
+            }
+        }
+        i = bi;
+    }
+load:
+    for (k = 0; D_80040DAC[k] != -1; k++) {
+        if (D_80040DAC[k] == id) {
+            break;
+        }
+    }
+    p = (s32 *)func_800239A0(k + 0x3250000);
+    p++;
+    if (*p++ & 8) {
+        r.x = t->field_0->field_18 + i / 16 * 16;
+        r.y = t->field_0->field_1C + 0xF0;
+        r.y += i % 16;
+        r.w = 16;
+        r.h = 1;
+        func_8002772C(&r, ((TimBlk11BEC *)p)->data);
+    }
+    p = (s32 *)((u8 *)p + *p);
+    r2.x = t->field_0->field_18 + i % 3 * 10;
+    r2.y = t->field_0->field_1C + i / 3 * 40;
+    r2.w = ((TimBlk11BEC *)p)->w;
+    r2.h = ((TimBlk11BEC *)p)->h;
+    func_8002772C(&r2, ((TimBlk11BEC *)p)->data);
+    t->slot[i].id = D_80040DAC[k];
+found:
+    t->slot[i].t = D_8005F774;
+    *out = *t->field_0;
+    pos->x = i % 3 * 40;
+    pos->y = i / 3 * 40;
+    clut->x = i / 16 * 16;
+    clut->y = i % 16 + 0xF0;
+}
 
 void func_80011F04(void) {
     s32 i;
