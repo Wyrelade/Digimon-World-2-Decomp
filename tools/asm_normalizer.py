@@ -1794,6 +1794,39 @@ def _tf_place(lines, start, form, d, u):
     return True
 
 
+def _tf_hi_key(body):
+    """(reg, address) for `lui R,%hi(SYM[+-k])`; SYM named D_<hex> resolves to
+    its address, other names stay symbolic. None otherwise."""
+    m = re.match(r"lui\s+(\$\w+)\s*,\s*%hi\(([A-Za-z_.$][\w.$]*)\s*([+-]\s*(?:0x[0-9a-fA-F]+|\d+))?\)\s*$",
+                 body.strip())
+    if not m:
+        return None
+    off = int(m.group(3).replace(" ", ""), 0) if m.group(3) else 0
+    ms = re.fullmatch(r"D_([0-9A-Fa-f]{8})", m.group(2))
+    where = int(ms.group(1), 16) + off if ms else (m.group(2), off)
+    return norm_reg(m.group(1)), where
+
+
+def _tf_sole_entrant(lines, label):
+    """`label` is referenced exactly once and nothing falls into it (the insn
+    before it is an unconditional transfer or that transfer's noreorder slot)."""
+    at = next((x for x, l in enumerate(lines) if l.strip() == label + ":"), None)
+    if at is None:
+        return False
+    pat = re.compile(re.escape(label) + r"(?![\w$])")
+    refs = sum(len(pat.findall(l.split("#", 1)[0])) for x, l in enumerate(lines) if x != at)
+    if refs != 1:
+        return False
+    nr = _noreorder_lines(lines)
+    prev = [x for x in range(at) if _s_is_insn(lines[x]) and not re.match(r"\s*\.", lines[x])]
+    if not prev:
+        return False
+    p = prev[-1]
+    if p in nr and len(prev) > 1 and prev[-2] in nr:
+        p = prev[-2]
+    return bool(re.match(r"\s*(j|b|jr)\s", lines[p]))
+
+
 def taken_fill_pass(stext, tgt):
     if not tgt:
         return stext
@@ -1952,7 +1985,8 @@ def taken_fill_pass(stext, tgt):
         if tk + 1 >= len(tgt):
             continue
         tkey = _sm_key(tgt[tk + 1][1].strip(), True)
-        if tkey in (None, "skip", ("nop",), nop_key):
+        thi = _tf_hi_key(tgt[tk + 1][1]) if tkey == "skip" else None
+        if tkey in (None, ("nop",), nop_key) or (tkey == "skip" and thi is None):
             continue
         slot = None
         if nr:
@@ -1964,10 +1998,25 @@ def taken_fill_pass(stext, tgt):
         if not lab:
             continue
         th = _tf_thread(lines, lab.group(1))
+        split_lo = None
+        if th is None and thi is not None:
+            # a symbolic load macro heads the taken path: retail's slot holds
+            # its `lui R,%hi(sym)` half; the `%lo` load stays at the target
+            at = next((x for x, l in enumerate(lines) if l.strip() == lab.group(1) + ":"), None)
+            xi = _tf_next_insn(lines, at) if at is not None else None
+            mm = re.match(r"(lw|lh|lhu|lb|lbu)\s+(\$\w+)\s*,\s*([A-Za-z_.$][\w.$]*(?:[+-]\d+)?)$",
+                          lines[xi].split("#", 1)[0].strip()) if xi is not None else None
+            if mm:
+                hi = "lui\t%s,%%hi(%s)" % (mm.group(2), mm.group(3))
+                if _tf_hi_key(hi) == thi:
+                    th = (xi, hi, None)
+                    split_lo = "%s\t%s,%%lo(%s)(%s)" % (mm.group(1), mm.group(2), mm.group(3),
+                                                       mm.group(2))
         if th is None:
             continue
         xi, form, thread_to = th
-        if form is None or _sm_key(form, False) != tkey:
+        if form is None or (_tf_hi_key(form) != thi if thi is not None
+                            else _sm_key(form, False) != tkey):
             continue
         d, u = defs_uses(form)
         if len(d) != 1:
@@ -1982,7 +2031,8 @@ def taken_fill_pass(stext, tgt):
         if not _ff_dead_on(probe, pins, "$Ltf_probe", reg):
             continue
         n_new += 1
-        newlab = thread_to or "$Ltf%d_%d" % (bi, n_new)
+        own = not thread_to and _tf_sole_entrant(lines, lab.group(1))
+        newlab = thread_to or ("%s" % lab.group(1) if own else "$Ltf%d_%d" % (bi, n_new))
         ind = _src_indent(lines[bi])
         nb = lines[bi][:lines[bi].rindex(lab.group(1))] + newlab
         if nr:
@@ -1993,8 +2043,19 @@ def taken_fill_pass(stext, tgt):
                                 ind + form, ind + ".set\tmacro", ind + ".set\treorder"]
             if xi > bi:
                 xi += 5
+        if own:
+            # own thread: the only way in is this branch, the head moves
+            if split_lo:
+                lines[xi] = _src_indent(lines[xi]) + split_lo
+            else:
+                del lines[xi]
+            continue
+        if split_lo:
+            lines[xi] = _src_indent(lines[xi]) + form
         if not thread_to:
             lines.insert(xi + 1, newlab + ":")
+        if split_lo:
+            lines.insert(xi + 2, _src_indent(lines[xi]) + split_lo)
     # Op G: the reverse of Op A. Our slot S was stolen from the taken path (the
     # branch goes past where S was) but retail fills the slot from the
     # fall-through head X and branches onto its own copy of S. Needs: the target
