@@ -2601,5 +2601,14 @@
       "taken_fill",
       "delay_fill"
     ]
+  },
+  "func_8003B904": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "taken_fill",
+      "dead_code",
+      "padnop"
+    ]
   }
 }

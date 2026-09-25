@@ -11387,7 +11387,43 @@ s32 func_8003B794(s32 a0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B884);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B904);
+s32 func_8003B904(u32 a0) {
+    Hdr3AD44 *p;
+    u32 v;
+    u32 m1;
+    u32 m2;
+    u32 m3;
+
+    a0 <<= D_8004FE50;
+    if (D_8004FE90 == 0) {
+        return 0;
+    }
+    m1 = 0x80000000;
+    m2 = 0x40000000;
+    m3 = 0xFFFFFFF;
+    p = D_8004FE90;
+    for (;;) {
+        v = p->field_0;
+        if (!(v & m1)) {
+            if (v & m2) {
+                goto zero;
+            }
+            v &= m3;
+            if (v < a0) {
+                if (a0 < v + p->field_4) {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        p++;
+    }
+    return 1;
+zero:
+    return 0;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B994);
 
