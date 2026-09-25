@@ -3020,5 +3020,15 @@
       "epilogue_unfill",
       "padnop"
     ]
+  },
+  "func_800326A4": {
+    "passes": [
+      "nosplit_hf",
+      "zero_remat",
+      "web_realloc",
+      "commutative_swap",
+      "sched_match",
+      "padnop"
+    ]
   }
 }

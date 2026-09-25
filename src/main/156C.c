@@ -10652,7 +10652,31 @@ void func_80032644(s16 a0, s16 a1) {
     D_80061C50[a0][a1].field_98 &= ~8;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800326A4);
+void func_800326A4(s16 id) {
+    s32 i;
+    Elm354F4 **pp;
+
+    func_80038BE4(id, 0, 0, 1);
+    func_800391B4(id);
+    D_80061C48 &= ~(1 << id);
+    for (i = 0; i < D_800624D2; i++) {
+        pp = &D_80061C50[id];
+        (*pp)[i].field_98 = 0;
+        (*pp)[i].field_22 = -1;
+        (*pp)[i].field_23 = 0;
+        (*pp)[i].field_48 = 0;
+        (*pp)[i].field_4A = 0;
+        (*pp)[i].field_9C = 0;
+        (*pp)[i].field_A0 = 0;
+        (*pp)[i].field_4C = 0;
+        (*pp)[i].field_AC = 0;
+        (*pp)[i].field_A8 = 0;
+        (*pp)[i].field_A4 = 0;
+        (*pp)[i].field_4E = 0;
+        (*pp)[i].field_58 = 0x7F;
+        (*pp)[i].field_5A = 0x7F;
+    }
+}
 
 void func_80032820(s16 arg0) { func_800326A4(arg0); }
 
