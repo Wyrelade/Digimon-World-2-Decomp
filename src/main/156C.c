@@ -4788,7 +4788,32 @@ s32 func_8001CAA0() {
     return func_800239A0()->field_4 & 7;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001CAC4);
+void func_8001CAC4(Elem20 *a0) {
+    u32 *p;
+    u32 flags;
+    Rect2AB54 clut;
+    Rect2AB54 img;
+
+    p = (u32 *)func_800239A0(a0->field_0);
+    p++;
+    flags = *p++;
+    if (flags & 8) {
+        if (flags & 7) {
+            clut.x = 0;
+            clut.y = a0->field_14 + 0x1E0;
+            clut.w = 0x100;
+            clut.h = 1;
+            func_8002772C((s32)&clut, (s32)((TimBlk *)p + 1));
+        }
+        p = (u32 *)((u8 *)p + *p);
+    }
+    img.x = a0->field_18;
+    img.y = a0->field_1C;
+    img.w = ((TimBlk *)p)->rect.w;
+    img.h = ((TimBlk *)p)->rect.h;
+    func_8002772C((s32)&img, (s32)((TimBlk *)p + 1));
+}
+
 
 Elem20 *func_8001CB80(s32 id) {
     Elem20 *e;

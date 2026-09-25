@@ -3073,5 +3073,13 @@
       "nosplit",
       "sched_match"
     ]
+  },
+  "func_8001CAC4": {
+    "passes": [
+      "nosplit_nodb",
+      "web_realloc",
+      "fallthrough_fill",
+      "delay_fill"
+    ]
   }
 }

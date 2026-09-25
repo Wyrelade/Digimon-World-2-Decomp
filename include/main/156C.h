@@ -2706,4 +2706,11 @@ typedef struct {
     /* 0x10 */ s16 f10;
 } Obj2D704;
 
+/* TIM file block header (CLUT or pixel block): byte length incl. this header,
+   then the VRAM rectangle; the block's data follows. */
+typedef struct {
+    /* 0x0 */ u32 bnum;
+    /* 0x4 */ Rect2AB54 rect;
+} TimBlk;
+
 #endif /* MAIN_156C_H */
