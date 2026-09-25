@@ -2361,5 +2361,12 @@
       "fallthrough_fill",
       "padnop"
     ]
+  },
+  "func_80014984": {
+    "passes": [
+      "nosplit",
+      "taken_fill",
+      "label_nop"
+    ]
   }
 }

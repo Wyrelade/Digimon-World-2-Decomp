@@ -1800,7 +1800,81 @@ void func_80014978(Actor *arg0, s16 arg1) {
     arg0->work->field_6C = arg1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80014984);
+void func_80014984(Actor *a0) {
+    Wk14CBC *w = (Wk14CBC *)a0->work;
+    s32 i;
+    s32 v;
+    s32 id;
+    s32 *p;
+    s16 *tbl;
+    Halves *h;
+
+    switch (a0->field_10) {
+    case 0:
+    default:
+        w->field_AC = func_80022910(3, (ElmE620 **)w->field_A0);
+        func_8001C088(w, 0x1A);
+        func_80011544(a0);
+        break;
+    case 1:
+        switch (a0->field_14) {
+        case 0:
+        default:
+            if (func_800136E4((s32)a0, &w->field_70) != 0) {
+                break;
+            }
+            func_80013558(w->field_0, (Key13558 *)func_800239A0(0x513000B), 2);
+            w->field_74[0] = (s32)D_80050720->field_14;
+            tbl = (s16 *)func_800239A0(0x513000F);
+            w->field_74[1] = (s32)func_800239A0(tbl[D_80050720->field_11 * 11 + D_80050720->field_12] + 0x1FD0000);
+            w->field_74[2] = (s32)D_80050720->field_D1;
+            p = &w->field_74[3];
+            for (i = 0; i < w->field_AC; i++) {
+                *p++ = (s32)w->field_A0[i]->field_4C;
+            }
+            *p = 0;
+            func_8001361C(w->field_40, (Halves *)func_800239A0(0x513000C), w->field_74, 2);
+            if (D_80050768->field_0 & 1) {
+                h = (Halves *)func_800239A0(0x513000D);
+                for (i = 0; i < 4; i++) {
+                    v = (i == 3) ? func_80021D60() : D_8005071C->field_BA5[i];
+                    if (v != 0) {
+                        id = v + 0x1FD00EC;
+                        func_800134F8(&w->field_58[i], (s32)func_800239A0(i * 3 + id), 1, h[i]);
+                    }
+                }
+            }
+            for (i = w->field_AC; i < 3; i++) {
+                func_8001BB88(&w->field_0[i * 3 + 7]);
+                func_8001BB88(&w->field_0[i * 3 + 8]);
+                func_8001BB88(&w->field_0[i * 3 + 9]);
+            }
+            func_80011564(a0);
+            break;
+        case 1:
+            if (D_8005F6F0[0].field_1C > 0) {
+                func_8001A68C(0xB, 0);
+                func_800115C0(a0, 2);
+            }
+            break;
+        }
+        break;
+    case 2:
+        switch (a0->field_14) {
+        case 0:
+        default:
+            func_8001C0B0(w, 0x1A);
+            func_80011564(a0);
+            break;
+        case 1:
+            if (func_80013714((s32)a0, &w->field_70) == 0) {
+                func_800115C0(a0, 3);
+            }
+            break;
+        }
+        break;
+    }
+}
 
 void func_80014CBC(Actor *actor) {
     Wk14CBC *w = (Wk14CBC *)actor->work;

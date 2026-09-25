@@ -1185,7 +1185,8 @@ typedef struct {
 /* Block reached through D_8005071C; func_80011F04 compacts the 12 slot bytes at
  * 0xBA9 (nonzero entries moved to the front, the rest cleared). */
 typedef struct {
-    u8 _pad000[0xBA8];
+    u8 _pad000[0xBA5];
+    /* 0xBA5 */ u8 field_BA5[3];
     /* 0xBA8 */ u8 field_BA8;
     /* 0xBA9 */ u8 field_BA9[12];
 } Blk5071C;
@@ -1716,13 +1717,26 @@ typedef struct {
     /* 0x16 */ s16 field_16;
     /* 0x18 */ s16 field_18;
     /* 0x1A */ s16 field_1A;
+    u8 _pad1C[0x30];
+    /* 0x4C */ u8 field_4C[14];
 } Rec14CBC;
+
+/* Three sprite slots cleared together by func_80014984. */
+typedef struct {
+    /* 0x0 */ s32 a;
+    /* 0x4 */ s32 b;
+    /* 0x8 */ s32 c;
+} Trip14984;
 
 /* Actor work block read by func_80014CBC. */
 typedef struct {
-    u8 _pad00[0x70];
+    /* 0x00 */ s32 field_0[7];
+    /* 0x1C */ Trip14984 field_1C[3];
+    /* 0x40 */ s32 field_40[6];
+    /* 0x58 */ s32 field_58[4];
+    u8 _pad68[0x08];
     /* 0x70 */ s32 field_70;
-    u8 _pad74[0x2C];
+    /* 0x74 */ s32 field_74[11];
     /* 0xA0 */ Rec14CBC *field_A0[3];
     /* 0xAC */ s16 field_AC;
 } Wk14CBC;
@@ -1732,7 +1746,11 @@ typedef struct {
     /* 0x00 */ u8 field_0;
     u8 _pad01[0x07];
     /* 0x08 */ s32 field_8;
-    u8 _pad0C[0x18];
+    u8 _pad0C[0x05];
+    /* 0x11 */ u8 field_11;
+    /* 0x12 */ u8 field_12;
+    u8 _pad13[0x01];
+    /* 0x14 */ u8 field_14[0x10];
     /* 0x24 */ s16 field_24;
     /* 0x26 */ s16 field_26;
     /* 0x28 */ s16 field_28;
@@ -1742,7 +1760,8 @@ typedef struct {
     u8 _pad36[0x1C];
     /* 0x52 */ u8 field_52[0x14];
     /* 0x66 */ u16 field_66[0x30];
-    u8 _padC6[0x1E];
+    u8 _padC6[0x0B];
+    /* 0xD1 */ u8 field_D1[0x13];
     /* 0xE4 */ ElmE620 elems[0x24];
     /* 0xDD4 */ u16 field_DD4[0x100];
 } Obj50720;
