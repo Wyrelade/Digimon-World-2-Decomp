@@ -2552,5 +2552,13 @@
       "nosplit_nocse",
       "sched_match"
     ]
+  },
+  "func_8002ABB4": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "reg_realloc",
+      "padnop"
+    ]
   }
 }

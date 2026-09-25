@@ -8393,7 +8393,27 @@ void func_8002AB54(DrMove2AB54 *p, Rect2AB54 *r, s32 x, s32 y) {
     p->code[4] = *(u32 *)&r->w;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002ABB4);
+typedef struct {
+    s16 x, y, w, h;
+} Rect2ABB4;
+
+typedef struct {
+    u8 addr[3];
+    u8 len;
+    u32 code[2];
+} DrMode2ABB4;
+
+void func_8002ABB4(DrMode2ABB4 *p, s32 dfe, s32 dtd, s32 tpage, Rect2ABB4 *tw) {
+    p->len = 2;
+    p->code[0] = 0xE1000000 | (dtd ? 0x200 : 0) | (dfe ? 0x400 : 0) | (tpage & 0x9FF);
+    if (tw) {
+        p->code[1] = 0xE2000000 | (((tw->y & 0xFF) >> 3) << 15) | (((tw->x & 0xFF) >> 3) << 10)
+            | ((((-tw->h) & 0xFF) >> 3) << 5) | (((-tw->w) & 0xFF) >> 3);
+    } else {
+        p->code[1] = 0;
+    }
+}
+
 
 void func_8002AC54(u16 a0, u16 a1, u16 a2, u16 a3, u16 a4) {
     func_8002ACC8(a0, a1, a2, a3, a4);
