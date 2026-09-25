@@ -3676,6 +3676,82 @@ def cross_jump_pass(stext, tgt):
         changed = True
     return "\n".join(lines) if changed else stext
 
+# --------------------------------------------------------------------------
+# zext-keep: retail keeps a redundant zero-extend `andi R,R,0xff` (0xffff)
+# of a value just loaded with lbu (lhu); our combine drops it. Target-guided by
+# load ordinal: the k-th lbu/lhu of the target whose register is next read by
+# such an andi gets one in ours, right before our first reader of it. The andi
+# is a no-op on a zero-extended load. Count-changing (PRE_SIGMA).
+# --------------------------------------------------------------------------
+_ZX_LOAD = re.compile(r"^\s*(lbu|lhu)\s+(\$\w+)\s*,")
+
+
+def _zx_target(tgt):
+    out = []
+    for k, (_w, d) in enumerate(tgt):
+        p = d.strip().split(None, 1)
+        if not p or p[0].lower() not in ("lbu", "lhu"):
+            continue
+        r = norm_reg(split_ops(p[1])[0])
+        mask = 0xff if p[0].lower() == "lbu" else 0xffff
+        hit = False
+        for _w2, d2 in tgt[k + 1:k + 6]:
+            dd, uu = defs_uses(d2.strip())
+            q = d2.strip().split(None, 1)
+            if q and q[0].lower() == "andi":
+                ops = split_ops(q[1])
+                if (len(ops) == 3 and norm_reg(ops[0]) == r and norm_reg(ops[1]) == r
+                        and _sm_int(ops[2]) == mask):
+                    hit = True
+                    break
+            if r in uu or r in dd or is_branch(d2.strip()):
+                break
+        out.append(hit)
+    return out
+
+
+def zext_keep_pass(stext, tgt):
+    want = _zx_target(tgt)
+    if not any(want):
+        return stext
+    lines = stext.split("\n")
+    loads = [j for j, l in enumerate(lines) if _s_is_insn(l) and _ZX_LOAD.match(l)]
+    if len(loads) != len(want):
+        return stext
+    changed = False
+    for n in range(len(loads) - 1, -1, -1):
+        if not want[n]:
+            continue
+        j = loads[n]
+        m = _ZX_LOAD.match(lines[j])
+        r = norm_reg(m.group(2))
+        mask = "0x00ff" if m.group(1) == "lbu" else "0xffff"
+        at = None
+        for x in range(j + 1, len(lines)):
+            l = lines[x]
+            if _s_is_label(l) and not l.strip().startswith("LM"):
+                break
+            if not _s_is_insn(l) or re.match(r"\s*\.", l):
+                continue
+            dd, uu = defs_uses(l.split("#", 1)[0].strip())
+            if r in uu:
+                at = x
+                break
+            if r in dd or _src_is_branch(l) or re.match(r"\s*jalr?\b", l):
+                break
+        if at is None:
+            continue
+        mm = re.match(r"\s*andi\s+(\$\w+)\s*,\s*(\$\w+)\s*,\s*(\w+)", lines[at])
+        if mm and norm_reg(mm.group(1)) == r and norm_reg(mm.group(2)) == r and \
+                _sm_int(mm.group(3)) == int(mask, 16):
+            continue
+        while at > j + 1 and lines[at - 1].strip() in ("#nop", ""):
+            at -= 1
+        ind = lines[j][:len(lines[j]) - len(lines[j].lstrip())]
+        lines.insert(at, "%sandi\t%s,%s,%s" % (ind, m.group(2), m.group(2), mask))
+        changed = True
+    return "\n".join(lines) if changed else stext
+
 
 PASSES = {
     # reg_realloc is applied specially (it needs sigma from words); the ordered
@@ -3704,6 +3780,7 @@ PASSES = {
     "offset_unfold": offset_unfold_pass,
     "slot_unfill": slot_unfill_pass,
     "cross_jump": cross_jump_pass,
+    "zext_keep": zext_keep_pass,
 }
 
 # Passes that CHANGE the instruction count and so must run BEFORE sigma is derived
@@ -3712,7 +3789,7 @@ PASSES = {
 # manifest order; the rest keep their listed order after sigma.
 PRE_SIGMA_PASSES = ("un_hi_cse", "un_hi_cse_store", "exit_merge", "base_cse_collapse",
                     "shift_const_fold", "zero_remat", "load_remat", "nodiv",
-                    "offset_unfold")
+                    "offset_unfold", "zext_keep")
 
 # --------------------------------------------------------------------------
 # WORD-LEVEL passes. The original PSY-Q assembler (aspsx) scheduled branch and
