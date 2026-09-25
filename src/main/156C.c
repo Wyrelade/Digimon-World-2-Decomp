@@ -5859,7 +5859,27 @@ void func_8001F24C(Actor *arg0, s32 arg1, s32 arg2) {
     p->field_60 = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F274);
+s32 func_8001F274(Actor *a0, s32 n) {
+    Sub3C *sub = a0->field_3C;
+    s32 id;
+    s32 k;
+    s32 *p;
+
+    if (n < 10) {
+        k = 0;
+        n = k;
+        id = func_8001E728(a0->field_C, k);
+    } else if (n < 20) {
+        id = func_8001E728(a0->field_C, 1);
+        n -= 10;
+    } else {
+        id = func_8001E728(a0->field_C, 2);
+        n -= 20;
+    }
+    p = (s32 *)(func_80023A08(id) + ((sub->field_8 + 1) << 2));
+    sub->field_64 = p;
+    return p[n] != 0;
+}
 
 void func_8001F320(Actor *a) {
     Sub3C *s = a->field_3C;

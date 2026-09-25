@@ -3003,5 +3003,14 @@
       "fallthrough_fill",
       "delay_fill"
     ]
+  },
+  "func_8001F274": {
+    "passes": [
+      "nosplit_nodb",
+      "copy_swap",
+      "fallthrough_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
