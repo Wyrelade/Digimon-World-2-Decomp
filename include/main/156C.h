@@ -2677,4 +2677,15 @@ typedef struct {
     u8 _pad4[0x1C];
 } Slot2E1A4;
 
+/* Stream sector ring (func_8002DBD4 sets base D_80061B38 and count D_80061B3C):
+   `count` 0x20-byte slot headers, then `count` 0x7E0-byte sector payloads. */
+typedef struct {
+    /* 0x00 */ u16 status;
+    u8 _pad02[0x1E];
+} Slot2E1E4;
+typedef struct {
+    /* 0x000 */ u8 data[0x7E0];
+} Sect2E1E4;
+extern s32 D_80061B2C;
+
 #endif /* MAIN_156C_H */

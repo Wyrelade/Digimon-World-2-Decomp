@@ -9701,7 +9701,25 @@ void func_8002E1A4(s32 first, s32 n) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002E1E4);
+s32 func_8002E1E4(Sect2E1E4 **a0, u16 **a1) {
+    u16 *s;
+
+    s = &((Slot2E1E4 *)D_80061B38)[D_80061B24].status;
+    if (*s == 1) {
+        D_80061B24 = 0;
+        if (D_80061B2C != 0) {
+            *s = 0;
+        }
+        s = &((Slot2E1E4 *)D_80061B38)[D_80061B24].status;
+    }
+    if (*(volatile u16 *)s != 2) {
+        return 1;
+    }
+    *s = 4;
+    *a0 = &((Sect2E1E4 *)&((Slot2E1E4 *)D_80061B38)[D_80061B3C])[D_80061B24];
+    *a1 = s;
+    return 0;
+}
 
 extern s32 D_80061B30, D_80061B0C, D_80061B2C;
 void func_8002E2A4(s32 a0, s32 a1, s32 a2) {
