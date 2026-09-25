@@ -533,6 +533,7 @@ extern Ent62CFC *D_80062C30[];
 extern s32 D_80062D04;
 extern void func_80022F8C(void *a0, s32 a1);
 extern s32 func_800299B8(void);
+extern void func_8002D444(void *, SVec1D104 *, DVec1D104 *);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -3877,7 +3878,87 @@ void func_8001CE9C(void *arg0, s32 arg1) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D104);
+void func_8001D104(void *arg0, void *arg1, s32 arg2, s32 arg3) {
+    Ent1CE9C *e;
+    Tex1CE9C *t;
+    Poly1D104 *p;
+    DVec1D104 out;
+    SVec1D104 sv[4];
+    s32 i;
+    s32 u;
+    s32 y;
+
+    e = (Ent1CE9C *)func_800239A0(((Obj1CE9C *)arg0)->field_0);
+    t = (Tex1CE9C *)func_8001CB80(((Obj1CE9C *)arg0)->field_0 & 0xFFFF0000);
+    p = (Poly1D104 *)D_8005F79C;
+    for (; e->field_0 != 0xFF; e++) {
+        if (e->field_C != ((Obj1CE9C *)arg0)->field_D) {
+            continue;
+        }
+        p->c = ((Obj1CE9C *)arg0)->field_8;
+        p->tag.len = 9;
+        p->c.code = 0x2C;
+        if (e->field_B & 0x80) {
+            p->c.code = 0x2E;
+            p->v[1].extra = t->field_10 | ((e->field_B & 3) << 5);
+        } else {
+            p->v[1].extra = t->field_10;
+        }
+        sv[0].vx = sv[2].vx = e->field_2;
+        sv[1].vx = sv[3].vx = e->field_2 + e->field_8;
+        sv[0].vy = sv[1].vy = e->field_4;
+        if (e->field_9) sv[2].vy = sv[3].vy = e->field_4 + e->field_9; else sv[2].vy = sv[3].vy = e->field_4 + 0xFF;
+        sv[0].vz = sv[1].vz = sv[2].vz = sv[3].vz = 0;
+        for (i = 0; i < 4; i++) {
+            func_8002D444(arg1, &sv[i], &out);
+            p->v[i].x = out.vx + ((Obj1CE9C *)arg0)->field_4;
+            p->v[i].y = out.vy + ((Obj1CE9C *)arg0)->field_6;
+        }
+        u = e->field_0 + t->field_C;
+        p->v[0].u = p->v[2].u = u;
+        u += e->field_8;
+        p->v[1].u = p->v[3].u = u;
+        if (((Obj1CE9C *)arg0)->field_10 < 0) {
+            p->v[1].u = p->v[3].u = u - 1;
+        }
+        if (p->v[1].u == 0) {
+            p->v[1].u = p->v[3].u = 0xFF;
+        }
+        p->v[0].v = p->v[1].v = e->field_1;
+        u = e->field_1 + e->field_9;
+        p->v[2].v = p->v[3].v = u;
+        if (((Obj1CE9C *)arg0)->field_14 < 0) {
+            p->v[2].v = p->v[3].v = u - 1;
+        }
+        if (p->v[2].v == 0) {
+            p->v[2].v = p->v[3].v = 0xFF;
+        }
+        if (t->field_8 != 0) {
+            y = t->field_14 + 0x1E0;
+            p->v[0].extra = (e->field_A + y + ((Obj1CE9C *)arg0)->field_C) << 6;
+        } else {
+            p->v[0].extra = ((e->field_7 + t->field_1C + e->field_A + ((Obj1CE9C *)arg0)->field_C) << 6) |
+                            (((e->field_6 + t->field_18) >> 4) & 0x3F);
+        }
+        if (arg3 & 1) {
+            p->v[0].x *= 2;
+            p->v[1].x *= 2;
+            p->v[2].x *= 2;
+            p->v[3].x *= 2;
+        }
+        if (arg3 & 2) {
+            p->v[0].y *= 2;
+            p->v[1].y *= 2;
+            p->v[2].y *= 2;
+            p->v[3].y *= 2;
+        }
+        p->tag.addr = ((Tag1CE9C *)arg2)->addr;
+        ((Tag1CE9C *)arg2)->addr = (u32)p;
+        p++;
+    }
+    D_8005F79C = (s32)p;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D504);
 

@@ -1866,6 +1866,9 @@ typedef struct {
     /* 0x8 */ Col1CE9C field_8;
     /* 0xC */ u8 field_C;
     /* 0xD */ u8 field_D;
+    u8 _padE[2];
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
 } Obj1CE9C;
 
 typedef struct {
@@ -2215,5 +2218,34 @@ typedef union {
     } r;
     /* 0x0 */ s32 word[2];
 } Rect28C48;
+
+
+/* func_8001D104: POLY_FT4 packet (four 8-byte x/y/u/v/clut-or-tpage vertices)
+ * and the SVECTOR/DVECTOR pair it feeds func_8002D444. */
+typedef struct {
+    /* 0x0 */ u16 x;
+    /* 0x2 */ u16 y;
+    /* 0x4 */ u8 u;
+    /* 0x5 */ u8 v;
+    /* 0x6 */ u16 extra;
+} Vtx1D104;
+
+typedef struct {
+    /* 0x00 */ Tag1CE9C tag;
+    /* 0x04 */ Col1CE9C c;
+    /* 0x08 */ Vtx1D104 v[4];
+} Poly1D104;
+
+typedef struct {
+    s16 vx;
+    s16 vy;
+    s16 vz;
+    s16 pad;
+} SVec1D104;
+
+typedef struct {
+    s16 vx;
+    s16 vy;
+} DVec1D104;
 
 #endif /* MAIN_156C_H */
