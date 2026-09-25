@@ -2530,5 +2530,10 @@
   },
   "func_8001BB88": {
     "passes": []
+  },
+  "func_8001287C": {
+    "passes": [
+      "web_realloc"
+    ]
   }
 }

@@ -604,6 +604,8 @@ extern u8 D_8004900C[];
 extern Rng48FE4 D_80048FE4[][5];
 extern s32 func_80031838(void);
 extern void func_8003B744(s32);
+extern s32 D_80040E38[];
+extern s32 D_80040E44[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -1200,7 +1202,23 @@ s32 func_80012778(s32 a0, s32 a1, s32 a2, s32 a3) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001287C);
+u8 func_8001287C(Actor *a0) {
+    ActorWork *w;
+    s32 base;
+    s32 k;
+    u8 *p;
+
+    w = a0->work;
+    base = w->field_C;
+    base += 0x1FD00D4;
+    k = w->field_2C >= 10;
+    if (w->field_2C >= 5) {
+        k++;
+    }
+    p = (u8 *)func_800239A0(base + k);
+    return p[w->field_2E * D_80040E38[k] + w->field_2C - D_80040E44[k]];
+}
+
 
 void func_8001291C(Actor *a, Pair1291C *v) {
     ActorWork *w = a->work;
