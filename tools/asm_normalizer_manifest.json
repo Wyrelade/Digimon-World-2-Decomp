@@ -2293,5 +2293,12 @@
   },
   "func_80011BEC": {
     "passes": []
+  },
+  "func_800224EC": {
+    "passes": [
+      "gp8_nosplit",
+      "offset_unfold",
+      "reorder_indep"
+    ]
   }
 }

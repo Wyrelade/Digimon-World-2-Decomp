@@ -511,6 +511,7 @@ extern s32 func_80012640(s32, s32);
 extern s32 D_8004FC48[];
 extern s32 D_80061C4C;
 extern s16 D_80040DAC[];
+extern Obj50720 *D_80050720;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -5044,7 +5045,18 @@ void func_80022468(void) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800224EC);
+void func_800224EC(s32 i, s32 v, s32 flag) {
+    Obj50720 *p = D_80050720;
+    u8 *q = &p->field_52[i];
+
+    p->field_2C[i] = v;
+    if (v != 0) {
+        *q = flag;
+        return;
+    }
+    *q = 1;
+}
+
 
 s32 func_80022518(s32 i) {
     Obj50720 *p = D_80050720;
