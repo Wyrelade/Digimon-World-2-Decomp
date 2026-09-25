@@ -678,6 +678,8 @@ typedef struct {
     /* 0x08 */ s32 field_8;
     u8 _pad0C[0x20];
     /* 0x2C */ Rec34 *field_2C;
+    u8 _pad30[4];
+    /* 0x34 */ Actor **field_34;
 } Ent11440;
 
 /* 0x10-stride record; D_800416CC array, per-slot init by func_8001F90C. */

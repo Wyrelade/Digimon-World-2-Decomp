@@ -3922,7 +3922,30 @@ void func_8001A958(Actor *a0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A9C8);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001BB88);
+void func_8001BB88(s32 *slot) {
+    Ent11440 *e;
+    Actor *a;
+    s32 i;
+    Rec34 *r;
+    Actor **q;
+
+    if (*slot == -1) {
+        return;
+    }
+    e = func_80011510(9, -1, -1);
+    if (e != 0) {
+        i = *slot;
+        r = &e->field_2C[i];
+        q = &e->field_34[i];
+        r->field_0 = 0;
+        a = q[1];
+        if (a != 0) {
+            func_800115C0(a, 3);
+        }
+        *slot = -1;
+    }
+}
+
 
 void func_8001BC24(void *arg0, Arg1BC24 *arg1) {
     SrcBC24 *src = (SrcBC24 *)arg1;
