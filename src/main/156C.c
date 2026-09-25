@@ -508,6 +508,8 @@ extern s32 func_8001204C(s32, s32, s32, s32);
 extern s32 func_8001236C(s32, s32, s32, s32);
 extern s32 func_80012490(s32, s32, s32, s32);
 extern s32 func_80012640(s32, s32);
+extern s32 D_8004FC48[];
+extern s32 D_80061C4C;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -8680,7 +8682,68 @@ void func_800357E4(void *base, s16 rows, s16 cols) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035A04);
+void func_80035A04(s32 arg) {
+    s32 mode;
+
+    mode = func_80031838();
+    if (arg & 0x1000) {
+        D_8004FC48[1] = 1;
+        D_8004FC48[0] = arg & 0xFFF;
+    } else {
+        D_8004FC48[1] = 0;
+        D_8004FC48[0] = arg;
+    }
+    if (D_8004FC48[0] < 6) {
+        switch (D_8004FC48[0]) {
+        case 4:
+            D_80061C4C = 0x32;
+            if (mode == 1) {
+                D_8004FC48[0] = 5;
+            } else {
+                D_8004FC48[0] = 0x32;
+            }
+            break;
+        case 1:
+            D_80061C4C = 0x3C;
+            if (mode == 0) {
+                D_8004FC48[0] = 5;
+            } else {
+                D_8004FC48[0] = 0x3C;
+            }
+            break;
+        case 3:
+            D_80061C4C = 0x78;
+            break;
+        case 2:
+            D_80061C4C = 0xF0;
+            break;
+        case 5:
+            if (mode == 0) {
+                D_80061C4C = 0x3C;
+            } else if (mode == 1) {
+                D_80061C4C = 0x32;
+            } else {
+                D_80061C4C = 0x3C;
+            }
+            break;
+        case 0:
+            if (mode == 0) {
+                D_80061C4C = 0x3C;
+            } else if (mode == 1) {
+                D_80061C4C = 0x32;
+            } else {
+                D_80061C4C = 0x3C;
+            }
+            break;
+        default:
+            D_80061C4C = 0x3C;
+            break;
+        }
+    } else {
+        D_80061C4C = D_8004FC48[0];
+    }
+}
+
 
 void func_80035B54(s32 a0, s16 a1, s16 a2, s16 a3) {
     Elm354F4 *e = &D_80061C50[(s16)a0][a1];

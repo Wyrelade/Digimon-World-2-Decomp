@@ -2277,5 +2277,12 @@
   },
   "func_80012778": {
     "passes": []
+  },
+  "func_80035A04": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
