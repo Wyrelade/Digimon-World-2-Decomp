@@ -2671,4 +2671,10 @@ static inline u32 gpu_draw_mode(u32 base, u32 dither, s32 tpage) {
     return (base | (dither << 10)) | (tpage & 0x7FF);
 }
 
+/* 0x20-byte slot of the table D_80061B38 points at (word view of Rec2DF74, set by func_8002DBD4). */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    u8 _pad4[0x1C];
+} Slot2E1A4;
+
 #endif /* MAIN_156C_H */

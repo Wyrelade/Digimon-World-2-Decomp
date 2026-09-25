@@ -9662,7 +9662,15 @@ end:
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002E1A4);
+void func_8002E1A4(s32 first, s32 n) {
+    u32 i;
+    s32 *w;
+
+    for (i = 0; i < (u32)n; i++) {
+        w = &((Slot2E1A4 *)D_80061B38)[i + first].field_0;
+        *w = 0;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002E1E4);
 
