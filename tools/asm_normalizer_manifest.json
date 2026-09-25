@@ -2560,5 +2560,14 @@
       "reg_realloc",
       "padnop"
     ]
+  },
+  "func_8002CBC4": {
+    "passes": [
+      "nosplit_nodb",
+      "exit_merge",
+      "taken_fill",
+      "fallthrough_fill",
+      "delay_fill"
+    ]
   }
 }

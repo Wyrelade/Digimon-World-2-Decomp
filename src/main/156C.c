@@ -8687,7 +8687,27 @@ s32 func_8002CAF4(s32 arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002CB30);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002CBC4);
+extern s16 D_80047910[];
+extern s16 D_80048910[];
+extern s16 D_80049110[];
+
+s32 func_8002CBC4(s32 a) {
+    if (a < 0) {
+        a = -a;
+    }
+    a &= 0xFFF;
+    if (a <= 0x800) {
+        if (a <= 0x400) {
+            return D_80049110[0x400 - a];
+        }
+        return -D_80048910[a];
+    }
+    if (a <= 0xC00) {
+        return -D_80049110[0xC00 - a];
+    }
+    return D_80047910[a];
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002CC64);
 
