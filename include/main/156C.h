@@ -2015,13 +2015,13 @@ typedef struct {
 } Mat1F668; /* size 0x20 */
 
 /* Coordinate system func_8002B424 initialises (PsyQ GsCOORDINATE2 shape). */
-typedef struct {
+typedef struct Coord1F668 {
     /* 0x00 */ s32 flg;
     /* 0x04 */ Mat1F668 coord;
     /* 0x24 */ Mat1F668 workm;
     /* 0x44 */ s32 param;
-    /* 0x48 */ s32 super;
-    u8 _pad4C[0x4];
+    /* 0x48 */ struct Coord1F668 *super;
+    /* 0x4C */ struct Coord1F668 *sub;
 } Coord1F668; /* size 0x50 */
 
 /* Actor work view used by func_800141D4 (part list animation). */

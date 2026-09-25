@@ -383,7 +383,7 @@ extern Prm1C D_80040F64;
 extern s32 func_8001E704(s32 id);
 extern s32 func_8001E728(s32 arg0, s32 arg1);
 extern void func_80020C40(ContC40 *a0, s32 *a1, u16 a2);
-extern void func_8002B424(s32, s32 *);
+extern void func_8002B424(Coord1F668 *, Coord1F668 *);
 extern s16 D_8005E6E4;
 extern void func_800226AC(void);
 extern void func_80066F34(s32, s32);
@@ -638,6 +638,7 @@ extern s32 *D_8004FE2C;
 extern s32 *D_8004FE30;
 extern s32 *D_8004FE34;
 extern s32 D_800506D8;
+extern Mat1F668 D_80061A28;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -3434,7 +3435,7 @@ void func_80018BF8(Actor *a0, s16 a1) {
     w->field_C8 = 0;
     w->field_14C = 0;
     w->field_CC = D_80040F64;
-    func_8002B424(0, &w->field_E8);
+    func_8002B424(0, (Coord1F668 *)&w->field_E8);
     w->field_148 = 1;
     w->field_142 = 11;
     w->field_140 = 0;
@@ -5864,7 +5865,7 @@ void func_8001F668(Col1F668 *col, SVec1F668 *v, s32 flags, s32 idx) {
     s32 *ot;
     Actor *g;
 
-    func_8002B424(0, (s32 *)&coord);
+    func_8002B424(0, &coord);
     func_8002BD94(&coord, &m);
     func_8002B494(&m);
     g = &D_8005F770;
@@ -8996,7 +8997,15 @@ void func_8002B334(s32 a0, s32 a1) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B424);
+void func_8002B424(Coord1F668 *super, Coord1F668 *c) {
+    c->coord = D_80061A28;
+    c->super = super;
+    c->flg = 0;
+    if ((u32)super >= 2) {
+        c->super->sub = c;
+    }
+}
+
 
 extern void func_8002D5E4();
 extern s32 func_8002D644();

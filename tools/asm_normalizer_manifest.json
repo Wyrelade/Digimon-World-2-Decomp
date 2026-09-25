@@ -2801,5 +2801,15 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8002B424": {
+    "passes": [
+      "nosplit_nodb",
+      "param_copy",
+      "reg_realloc",
+      "web_realloc",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
