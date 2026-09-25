@@ -2722,5 +2722,12 @@
       "nosplit_hf",
       "param_copy"
     ]
+  },
+  "func_8002A014": {
+    "passes": [
+      "nosplit",
+      "epilogue_unfill",
+      "padnop"
+    ]
   }
 }

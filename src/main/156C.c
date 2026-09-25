@@ -161,7 +161,7 @@ extern void func_80038BE4(s16, s32, s32, s32);
 extern s32 D_80063010[4][4];
 extern s32 (*D_80063050[4])(s32 *);
 extern char D_80010D44[];
-extern void func_8002A014(char *, ...);
+extern void func_8002A014();
 extern s32 func_8003B794(s32);
 extern void func_80030554(s32, u8 *, s32);
 extern void func_8002DF74(void);
@@ -194,7 +194,7 @@ extern s32 D_8004FBC0;
 extern char D_80010B74[];
 extern s32 func_8003E19C(s32 *);
 extern void func_8003FA24(s32 (*)(s32 *));
-extern void func_8002A014(char *, ...);
+extern void func_8002A014();
 extern s16 D_8006198C;
 extern void func_8002ACC8(u16, u16, u16, u16, u16);
 extern void func_8002BB84(void);
@@ -245,7 +245,7 @@ extern s32 D_80061998;
 extern s32 D_8006199C;
 extern s32 D_800619A0;
 extern char D_80010624[];
-extern void func_8002A014(char *, ...);
+extern void func_8002A014();
 extern void func_80038BE4(s16, s32, s32, s32);
 extern void func_8003A454(s32, s32);
 extern s32 func_80036164();
@@ -631,6 +631,7 @@ s32 func_8003F864();
 extern s32 func_8003F924(s8 *a, s8 *b);
 extern Stat48E90 *D_80048E00;
 extern s32 D_80048E70[];
+extern s32 func_8002A054(s32, char *, char *);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -8577,7 +8578,14 @@ void func_80029FDC(u8 *arg0, s32 arg1, u32 arg2) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A004);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A014);
+void func_8002A014(fmt, a1, a2, a3) char *fmt; s32 a1; s32 a2; s32 a3; {
+    char **fp = &fmt;
+    s32 *ap = &a1;
+    ap[1] = a2;
+    ap[2] = a3;
+    func_8002A054(1, *fp, (char *)ap);
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A054);
 
