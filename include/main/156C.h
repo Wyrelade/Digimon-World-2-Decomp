@@ -1200,11 +1200,23 @@ typedef struct {
     /* 0x00 */ s8 field_0;
     /* 0x01 */ s8 field_1;
     /* 0x02 */ s8 field_2;
-    u8 _pad3[0x3];
+    u8 _pad3[0x1];
+    /* 0x04 */ s8 field_4;
+    /* 0x05 */ u8 field_5;
     /* 0x06 */ s8 field_6;
     /* 0x07 */ s8 field_7;
-    u8 _pad8[0x4];
+    u8 _pad8[0x2];
+    /* 0x0A */ s8 field_A;
+    /* 0x0B */ u8 field_B;
     /* 0x0C */ u8 field_C;
+    /* 0x0D */ s8 field_D;
+    /* 0x0E */ u8 field_E;
+    u8 _padF[0x3];
+    /* 0x12 */ u8 field_12;
+    u8 _pad13[0x1];
+    /* 0x14 */ s16 field_14;
+    u8 _pad16[0x2];
+    /* 0x18 */ s16 field_18;
 } Snd62D18;
 
 /* 0x20-byte record in the table D_80062D08 points at. */
@@ -2341,5 +2353,12 @@ typedef struct {
     /* 0x1A4 */ s16 field_1A4;
     /* 0x1A6 */ s16 field_1A6;
 } Wk179EC;
+
+
+/* Sound master block reached through D_80062D04 (field_18 = master volume). */
+typedef struct {
+    u8 _pad00[0x18];
+    /* 0x18 */ u8 field_18;
+} Snd62D04;
 
 #endif /* MAIN_156C_H */

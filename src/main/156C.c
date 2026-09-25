@@ -566,6 +566,19 @@ extern s8 D_8001087C[];
 extern s8 D_80010888[];
 extern s8 D_800108A4[];
 extern s8 D_800108B8[];
+extern s16 D_80062CF8;
+extern u16 D_80062A48[];
+extern u8 D_80062A28[];
+extern u16 D_80062C10;
+extern u16 D_80062C12;
+extern u16 D_800624D8;
+extern u16 D_800624DA;
+extern u16 D_800624DC;
+extern u16 D_800624DE;
+extern u16 D_800624E0;
+extern u16 D_800624E2;
+extern u16 D_80062A4A[];
+extern u16 D_80062A4C[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -10074,7 +10087,86 @@ void func_800382D4(u8 arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80038314);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800383D4);
+void func_800383D4(u8 a0, u16 a1) {
+    u32 vol;
+    u32 l;
+    u32 r;
+    u16 k;
+    s32 lo;
+    s32 hi;
+    Elm354F4 *e;
+    u8 pan;
+    u32 l2;
+    u32 r2;
+
+    k = D_80062D18.field_18 * 8;
+    vol = ((Snd62D04 *)D_80062D04)->field_18 * 0x3FFF;
+    vol = D_80062D18.field_4 * (s32)vol / 0x3F01;
+    vol = vol * D_80062D18.field_A * D_80062D18.field_D / 0x3F01;
+    e = &D_80061C50[D_80062D18.field_14 & 0xFF][(D_80062D18.field_14 & 0xFF00) >> 8];
+    l = r = vol;
+    if (D_80062D18.field_14 != 0x21) {
+        l = vol * e->field_58 / 127;
+        r = vol * e->field_5A / 127;
+    }
+    pan = D_80062D18.field_E;
+    if (pan < 0x40) {
+        r2 = r * pan / 63;
+        l2 = l;
+    } else {
+        l2 = l * (0x7F - pan) / 63;
+        r2 = r;
+    }
+    pan = D_80062D18.field_B;
+    if (pan < 0x40) {
+        r2 = r2 * pan / 63;
+    } else {
+        l2 = l2 * (0x7F - pan) / 63;
+    }
+    pan = D_80062D18.field_5;
+    if (pan < 0x40) {
+        r2 = r2 * pan / 63;
+    } else {
+        l2 = l2 * (0x7F - pan) / 63;
+    }
+    if (D_80062CF8 == 1) {
+        if (l2 < r2) {
+            l2 = r2;
+        } else {
+            r2 = l2;
+        }
+    }
+    if (D_80062D18.field_14 != 0x21) {
+        l2 = l2 * l2 / 0x3FFF;
+        r2 = r2 * r2 / 0x3FFF;
+    }
+    D_80062A4C[k] = a1;
+    D_80062A48[k] = l2;
+    D_80062A4A[k] = r2;
+    D_80062A28[D_80062D18.field_18] |= 7;
+    D_800624E8[D_80062D18.field_18].field_4 = a1;
+    if (D_80062D18.field_18 < 16) {
+        lo = 1 << D_80062D18.field_18;
+        hi = 0;
+    } else {
+        lo = 0;
+        hi = 1 << (D_80062D18.field_18 - 16);
+    }
+    if (D_80062D18.field_12 & 4) {
+        D_800624DC |= lo;
+        D_800624DE |= hi;
+    } else {
+        D_800624DC &= ~lo;
+        D_800624DE &= ~hi;
+    }
+    D_800624E0 &= ~lo;
+    D_800624E2 &= ~hi;
+    D_800624D8 |= lo;
+    D_800624DA |= hi;
+    D_80062C10 &= ~D_800624D8;
+    D_80062C12 &= ~D_800624DA;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800388A4);
 
