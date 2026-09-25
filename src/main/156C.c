@@ -662,6 +662,8 @@ extern s32 (*D_80048E34)(void);
 extern void func_800260C8(Actor *a);
 extern s32 func_80026170();
 extern void func_8003B074();
+extern u16 D_8004FC88[12];
+extern u16 D_8004FCA0[128];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -11761,7 +11763,37 @@ u16 func_80037BD0(s16 a0, s16 a1) {
     return func_80037C38(a0, a1, D_80062D08[i].field_4, D_80062D08[i].field_5);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80037C38);
+s32 func_80037C38(s32 note, s32 fine, s32 center, s32 shift) {
+    s16 f = (u8)shift + fine;
+    s16 n;
+    s16 fr;
+    s16 oct;
+    s16 idx;
+    u32 p;
+
+    n = note + f / 128 - (u8)center;
+    fr = f % 128;
+    if (fr < 0) {
+        fr += 128;
+        n--;
+        n += fr / 128;
+    }
+    oct = n / 12 - 2;
+    idx = n % 12;
+    if (idx < 0) {
+        idx += 12;
+        oct = n / 12 - 3;
+    }
+    p = (D_8004FC88[idx] * D_8004FCA0[fr]) >> 16;
+    if (oct >= 0) {
+        p = 0x3FFF;
+    } else {
+        p += 1 << (-oct - 1);
+        p >>= -oct;
+    }
+    return (u16)p;
+}
+
 
 void func_80037D64(u8 a0) {
     u32 vol;

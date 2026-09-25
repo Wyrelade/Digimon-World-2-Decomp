@@ -2910,5 +2910,11 @@
       "reg_realloc",
       "padnop"
     ]
+  },
+  "func_80037C38": {
+    "passes": [
+      "nosplit",
+      "padnop"
+    ]
   }
 }
