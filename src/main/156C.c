@@ -11281,7 +11281,154 @@ void func_8003D104(s32 a0, u16 *a1) {
     *a1 = D_8004FE28[a0 * 8 + 6];
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003D124);
+void func_8003D124(Cmd3D124 *a0) {
+    s32 mask;
+    s32 all;
+    s32 mode;
+    u16 vl;
+    u16 vr;
+    u16 *r;
+    u16 v;
+
+    vl = 0;
+    mask = a0->field_0;
+    vr = 0;
+    all = mask == 0;
+    if (all || (mask & 1)) {
+        if (all || (mask & 4)) {
+            switch (a0->field_8) {
+            case 1:
+                mode = 0x8000;
+                break;
+            case 2:
+                mode = 0x9000;
+                break;
+            case 3:
+                mode = 0xA000;
+                break;
+            case 4:
+                mode = 0xB000;
+                break;
+            case 5:
+                mode = 0xC000;
+                break;
+            case 6:
+                mode = 0xD000;
+                break;
+            case 7:
+                mode = 0xE000;
+                break;
+            case 0:
+            default:
+                vl = a0->field_4;
+                mode = 0;
+                break;
+            }
+        } else {
+            vl = a0->field_4;
+            mode = 0;
+        }
+        if (mode != 0) {
+            if (a0->field_4 >= 0x80) {
+                vl = 0x7F;
+            } else if (a0->field_4 < 0) {
+                vl = 0;
+            } else {
+                vl = a0->field_4;
+            }
+        }
+        D_8004FE28[0xC0] = (vl & 0x7FFF) | mode;
+    }
+    if (all || (mask & 2)) {
+        if (all || (mask & 8)) {
+            switch (a0->field_A) {
+            case 1:
+                mode = 0x8000;
+                break;
+            case 2:
+                mode = 0x9000;
+                break;
+            case 3:
+                mode = 0xA000;
+                break;
+            case 4:
+                mode = 0xB000;
+                break;
+            case 5:
+                mode = 0xC000;
+                break;
+            case 6:
+                mode = 0xD000;
+                break;
+            case 7:
+                mode = 0xE000;
+                break;
+            case 0:
+            default:
+                vr = a0->field_6;
+                mode = 0;
+                break;
+            }
+        } else {
+            vr = a0->field_6;
+            mode = 0;
+        }
+        if (mode != 0) {
+            if (a0->field_6 >= 0x80) {
+                vr = 0x7F;
+            } else if (a0->field_6 < 0) {
+                vr = 0;
+            } else {
+                vr = a0->field_6;
+            }
+        }
+        D_8004FE28[0xC1] = (vr & 0x7FFF) | mode;
+    }
+    if (all || (mask & 0x40)) {
+        D_8004FE28[0xD8] = a0->field_10;
+    }
+    if (all || (mask & 0x80)) {
+        D_8004FE28[0xD9] = a0->field_12;
+    }
+    if (all || (mask & 0x400)) {
+        D_8004FE28[0xDA] = a0->field_1C;
+    }
+    if (all || (mask & 0x800)) {
+        D_8004FE28[0xDB] = a0->field_1E;
+    }
+    if (all || (mask & 0x100)) {
+        if (a0->field_14 == 0) {
+            D_8004FE28[0xD5] &= ~4;
+        } else {
+            D_8004FE28[0xD5] |= 4;
+        }
+    }
+    if (all || (mask & 0x200)) {
+        if (a0->field_18 == 0) {
+            D_8004FE28[0xD5] &= ~1;
+        } else {
+            D_8004FE28[0xD5] |= 1;
+        }
+    }
+    if (all || (mask & 0x1000)) {
+        if (a0->field_20 == 0) {
+            D_8004FE28[0xD5] &= ~8;
+        } else {
+            D_8004FE28[0xD5] |= 8;
+        }
+    }
+    if (all || (mask & 0x2000)) {
+        if (a0->field_24 == 0) {
+            r = D_8004FE28;
+            v = r[0xD5] & ~2;
+        } else {
+            r = D_8004FE28;
+            v = r[0xD5] | 2;
+        }
+        r[0xD5] = v;
+    }
+}
+
 
 void func_8003D4A4(void) {
     func_8003D504();

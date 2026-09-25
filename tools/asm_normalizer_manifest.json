@@ -2503,5 +2503,13 @@
       "commutative_swap",
       "padnop"
     ]
+  },
+  "func_8003D124": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "web_realloc",
+      "padnop"
+    ]
   }
 }

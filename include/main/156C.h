@@ -1315,7 +1315,9 @@ typedef struct {
     /* 0x00 */ s32 field_0;
     /* 0x04 */ s16 field_4;
     /* 0x06 */ s16 field_6;
-    u8 _pad08[0x08];
+    /* 0x08 */ s16 field_8;
+    /* 0x0A */ s16 field_A;
+    u8 _pad0C[0x04];
     /* 0x10 */ s16 field_10;
     /* 0x12 */ s16 field_12;
     /* 0x14 */ s32 field_14;
