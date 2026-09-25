@@ -629,6 +629,8 @@ extern u16 D_800502B0[];
 extern void func_8003F760(s32 *a0, s32 a1, s32 a2);
 s32 func_8003F864();
 extern s32 func_8003F924(s8 *a, s8 *b);
+extern Stat48E90 *D_80048E00;
+extern s32 D_80048E70[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -7340,7 +7342,32 @@ void func_800247F4(Obj25FBC *a0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002485C);
+void func_8002485C(s32 code) {
+    Obj25FBC *o;
+    s32 done;
+
+    do {
+        o = &((Obj25FBC *)D_8005FDD8)[D_80048E58];
+        if (code != -9) {
+            if (code == 0) {
+                *(D_80048E70 + D_80048E58) = 0;
+            } else {
+                func_80025034(o);
+                func_80024950((Actor *)o);
+            }
+        }
+        D_80048E5C = 0;
+        D_80048E00->field_A = 0;
+        D_80048E58++;
+        if (D_80048E58 <= D_80048E6C) {
+            done = func_8002533C(&((Obj25FBC *)D_8005FDD8)[D_80048E58]);
+        } else {
+            done = 1;
+        }
+        code = 0xFFFF;
+    } while (done == 0);
+}
+
 
 s32 func_80024950(Actor *arg0) {
     s32 tmp = arg0->u34.b.field_37;
