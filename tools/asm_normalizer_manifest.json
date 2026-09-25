@@ -2676,5 +2676,14 @@
       "nosplit",
       "padnop"
     ]
+  },
+  "func_8003C554": {
+    "passes": [
+      "gp8_nosplit",
+      "exit_merge",
+      "web_realloc",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

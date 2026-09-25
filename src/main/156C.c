@@ -623,6 +623,7 @@ extern s8 D_80062FE8[];
 extern s32 func_8002A9B4(s8 *);
 extern s32 func_80036FA4(s16 a0, s16 a1, s16 a2, u16 a3, u16 arg4, u16 arg5);
 extern s8 D_80062D1F;
+extern u16 D_80062EE8[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -11684,7 +11685,58 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C3A4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C544);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C554);
+void func_8003C554(s32 on_off, u32 voice_bit) {
+    u32 hi;
+    s32 t;
+    volatile u16 *p;
+
+    voice_bit &= 0xFFFFFF;
+    hi = voice_bit >> 16;
+    switch (on_off) {
+    case 1:
+        if (D_8004FE14 & 1) {
+            p = D_80062EE8;
+            p[0] = voice_bit;
+            p[1] = hi;
+            *(volatile s32 *)&D_8004FDE0 |= 1;
+            *(volatile s32 *)&D_8004FDDC |= voice_bit;
+            if (p[2] & voice_bit) {
+                p[2] &= ~voice_bit;
+            }
+            if (p[3] & hi) {
+                p[3] &= ~hi;
+            }
+        } else {
+            D_8004FE28[0xC4] = voice_bit;
+            D_8004FE28[0xC5] = hi;
+            t = D_8004FDB4 | voice_bit;
+            goto store;
+        }
+        break;
+    case 0:
+        if (D_8004FE14 & 1) {
+            p = D_80062EE8;
+            p[2] = voice_bit;
+            p[3] = hi;
+            *(volatile s32 *)&D_8004FDE0 |= 1;
+            *(volatile s32 *)&D_8004FDDC &= ~voice_bit;
+            if (p[0] & voice_bit) {
+                p[0] &= ~voice_bit;
+            }
+            if (p[1] & hi) {
+                p[1] &= ~hi;
+            }
+        } else {
+            ((volatile u16 *)D_8004FE28)[0xC6] = voice_bit;
+            ((volatile u16 *)D_8004FE28)[0xC7] = hi;
+            t = *(volatile s32 *)&D_8004FDB4 & ~voice_bit;
+        store:
+            D_8004FDB4 = t;
+        }
+        break;
+    }
+}
+
 
 u32 func_8003C714(s32 a0, u32 n) {
     if (n > 0x7EFF0) {
