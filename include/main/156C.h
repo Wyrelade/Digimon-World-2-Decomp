@@ -1506,7 +1506,9 @@ typedef struct {
 /* One selectable entry of the Work174F8 menu (8 bytes). */
 typedef struct {
     /* 0x0 */ u8 field_0;
-    u8 _pad1[0x3];
+    u8 _pad1[0x1];
+    /* 0x2 */ u8 field_2;
+    u8 _pad3[0x1];
     /* 0x4 */ s32 field_4;
 } Sel174F8;
 
@@ -1520,7 +1522,10 @@ typedef struct {
     u8 _pad58[0x0A];
     /* 0x62 */ s16 field_62;
     u8 _pad64[0x08];
-    /* 0x6C */ Sel174F8 field_6C[1];
+    /* 0x6C */ Sel174F8 field_6C[38];
+    /* 0x19C */ s16 field_19C;
+    /* 0x19E */ s16 field_19E;
+    /* 0x1A0 */ s16 field_1A0[1];
 } Work174F8;
 
 /* 0x10-byte state block at D_8004FDCC cleared by func_8003A054. */

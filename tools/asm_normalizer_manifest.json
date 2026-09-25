@@ -2495,5 +2495,13 @@
     "passes": [
       "nosplit_nosr"
     ]
+  },
+  "func_80017594": {
+    "passes": [
+      "web_realloc",
+      "self_move",
+      "commutative_swap",
+      "padnop"
+    ]
   }
 }
