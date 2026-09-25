@@ -2560,4 +2560,15 @@ typedef struct {
     u8 _pad38[0x18];
 } Dcb3F760;
 
+
+/* file-local view over D_8005E620 for func_80021DC8 */
+typedef struct {
+    u8 _p[0x1004];
+    /* 0x1004 */ u8 a[0x20];
+    /* 0x1024 */ u8 b[0x8];
+    /* 0x102C */ u8 c[0x8];
+    /* 0x1034 */ u8 d[0x10];
+} V1004_21DC8;
+extern s32 D_8005F664;
+
 #endif /* MAIN_156C_H */

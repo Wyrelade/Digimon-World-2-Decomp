@@ -2644,5 +2644,10 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80021DC8": {
+    "passes": [
+      "nosr"
+    ]
   }
 }

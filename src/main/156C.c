@@ -5851,7 +5851,37 @@ s32 func_80021D60(void) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80021DC8);
+void func_80021DC8(void) {
+    s32 i;
+    V1004_21DC8 *p;
+
+    i = 0x1F;
+    p = (V1004_21DC8 *)((u8 *)&D_8005E620 + i);
+    do {
+        p->a[0] = 0;
+        p = (V1004_21DC8 *)((u8 *)p - 1);
+    } while (--i >= 0);
+    i = 7;
+    p = (V1004_21DC8 *)((u8 *)&D_8005E620 + i);
+    do {
+        p->b[0] = 0;
+        p = (V1004_21DC8 *)((u8 *)p - 1);
+    } while (--i >= 0);
+    i = 7;
+    p = (V1004_21DC8 *)((u8 *)&D_8005E620 + i);
+    do {
+        p->c[0] = 0;
+        p = (V1004_21DC8 *)((u8 *)p - 1);
+    } while (--i >= 0);
+    i = 0xF;
+    p = (V1004_21DC8 *)((u8 *)&D_8005E620 + i);
+    do {
+        p->d[0] = 0;
+        p = (V1004_21DC8 *)((u8 *)p - 1);
+    } while (--i >= 0);
+    D_8005F664 = 0;
+}
+
 
 s32 func_80021E54(u8 *arg0, s32 arg1) {
     s32 i = arg1 >> 3;
