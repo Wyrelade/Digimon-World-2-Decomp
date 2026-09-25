@@ -549,6 +549,12 @@ extern s32 func_8003F418(s32);
 extern s32 func_8003F9B4(s32 a0);
 extern void func_8001C088(s32 *arg0, s32 arg1);
 extern void func_8001C0B0(s32 *arg0, s32 arg1);
+extern void func_8001C088(s32 *arg0, s32 arg1);
+extern void func_8001C0B0(s32 *arg0, s32 arg1);
+extern void func_8002B334(s32, s32);
+extern u8 func_8001D934(void);
+extern s32 func_8001D958(void);
+extern s32 func_8001D980(void);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -2810,7 +2816,111 @@ void func_80018BF8(Actor *a0, s16 a1) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80018D78);
+void func_80018D78(Actor *a) {
+    Wk18D78 *w = (Wk18D78 *)a->work;
+    Halves *h;
+    Rec18D78 *r;
+    u8 **q;
+    s32 i;
+    Actor *t[1];
+    s16 *p;
+    s16 *s;
+    Elm6F0 *d;
+
+    switch (a->field_10) {
+    default:
+    case 0:
+        w->blk = *(Blk18D78 *)func_800239A0(0x513001C);
+        func_8001C088(w, 0x1B);
+        func_8002B334(-0xA0, 0xB4);
+        t[0] = a;
+        func_8001107C(6, (s32 *)a->u34.field_34, (s32)t);
+        a->field_30 = 0;
+        func_80011544(a);
+        break;
+    case 1:
+        switch (a->field_14) {
+        default:
+        case 0:
+            h = (Halves *)func_800239A0(0x513001E);
+            (*(Actor **)a->u34.field_34)->field_3C->field_3C = 4;
+            if (func_800136E4((s32)a, &w->field_80) != 0) {
+                break;
+            }
+            func_80013558((s32 *)w, (Key13558 *)func_80013AB0(0x513001D, 0), 1);
+            r = w->field_84;
+            func_800134F8(&w->field_50, (s32)r->field_4C, 0x81, h[0]);
+            w->field_88 = func_8001E758(r->field_1);
+            w->field_8C = func_800239A0(((s32 (*)(s32))func_8001D934)(r->field_1) + 0x1FD00C3);
+            w->field_90 = func_800239A0(((s32 (*)(s32))func_8001D958)(r->field_1) + 0x1FD00C6);
+            w->field_94 = func_800239A0(((s32 (*)(s32))func_8001D980)(r->field_1) + 0x1FD00CA);
+            q = w->field_98;
+            for (i = 0; i < 2; i++) {
+                if (r->field_47[i] != 0) {
+                    *q++ = func_8001E758(r->field_47[i]);
+                }
+            }
+            *q = 0;
+            func_8001361C(&w->field_54, &h[1], (s32 *)&w->field_88, 1);
+            func_80011564(a);
+            break;
+        case 1:
+            w->field_C8 = 1;
+            func_8002B334(-0xA0, w->field_138[0] * 80 / 682 + 180);
+            func_80011564(a);
+            break;
+        case 2:
+            func_800136E4((s32)a, &w->field_14C);
+            p = w->field_138;
+            s = w->field_140;
+            a->field_30 = 1;
+            p[1] += s[1];
+            if (D_8005F6F0[0].field_4 != 0) {
+                s[1] = (s[1] - 5 < -0x22) ? -0x22 : s[1] - 5;
+            }
+            if (D_8005F6F0[0].field_0 != 0) {
+                s[1] = (s[1] + 5 >= 0x23) ? 0x22 : s[1] + 5;
+            }
+            if (D_8005F6F0[0].field_C != 0) {
+                p[0] = (p[0] + 0xB > 0) ? 0 : p[0] + 0xB;
+            }
+            if (D_8005F6F0[0].field_8 != 0) {
+                p[0] = (p[0] - 0xB < -0x2AA) ? -0x2AA : p[0] - 0xB;
+            }
+            func_8002B334(-0xA0, p[0] * 80 / 682 + 180);
+            d = D_8005F6F0;
+            if (d->field_1C > 0 || d->field_10 > 0) {
+                func_800115C0(a, 2);
+                if (d->field_10 > 0) {
+                    D_80050768->field_35E = -1;
+                    func_8001A68C(0xE, 0);
+                } else {
+                    D_80050768->field_35E = 0;
+                    func_8001A68C(0xB, 0);
+                }
+            }
+            break;
+        }
+        break;
+    case 2:
+        switch (a->field_14) {
+        default:
+        case 0:
+            func_8001C0B0(w, 0x1B);
+            func_80011564(a);
+            break;
+        case 1:
+            func_80013714((s32)a, &w->field_14C);
+            if (func_80013714((s32)a, &w->field_80) == 0) {
+                func_8002B334(0, 0);
+                func_800115C0(a, 3);
+            }
+            break;
+        }
+        break;
+    }
+}
+
 
 /* View of Actor.work used by func_80019214 (fields 0x80..0x14C). */
 typedef struct {

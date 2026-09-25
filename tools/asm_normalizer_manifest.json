@@ -2394,5 +2394,10 @@
       "ra_restore_sink",
       "padnop"
     ]
+  },
+  "func_80018D78": {
+    "passes": [
+      "gp8"
+    ]
   }
 }

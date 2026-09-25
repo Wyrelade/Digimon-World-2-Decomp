@@ -325,7 +325,7 @@ typedef struct {
     u8 _pad25[0x03];
     /* 0x28 */ s32 field_28;
     /* 0x2C */ ActorWork *work;
-    u8 _pad30[0x04];
+    /* 0x30 */ s32 field_30;
     /* 0x34 read as a word by func_8001A958, or as the two bytes 0x36/0x37 elsewhere. */
     union {
         /* 0x34 */ s32 field_34;
@@ -2271,5 +2271,46 @@ typedef struct {
     u8 _pad3E[0x02];
     /* 0x40 */ s32 field_40;
 } Wk14400;
+
+
+/* func_80018D78: 12-byte window rect record (same shape as Blk14400). */
+typedef struct {
+    s16 field_0[6];
+} Blk18D78;
+
+/* Partner record reached through Wk18D78.field_84 (D_80050768->field_110). */
+typedef struct {
+    u8 _pad00[0x1];
+    /* 0x01 */ u8 field_1;
+    u8 _pad02[0x45];
+    /* 0x47 */ u8 field_47[2];
+    u8 _pad49[0x3];
+    /* 0x4C */ u8 field_4C[4];
+} Rec18D78;
+
+/* func_80018D78 view of Actor.work (fields 0x50..0x14C). */
+typedef struct {
+    u8 _pad00[0x50];
+    /* 0x50 */ s32 field_50;
+    /* 0x54 */ s32 field_54;
+    u8 _pad58[0x18];
+    /* 0x70 */ Blk18D78 blk;
+    u8 _pad7C[0x4];
+    /* 0x80 */ s32 field_80;
+    /* 0x84 */ Rec18D78 *field_84;
+    /* 0x88 */ u8 *field_88;
+    /* 0x8C */ void *field_8C;
+    /* 0x90 */ void *field_90;
+    /* 0x94 */ void *field_94;
+    /* 0x98 */ u8 *field_98[3];
+    u8 _padA4[0x24];
+    /* 0xC8 */ s32 field_C8;
+    u8 _padCC[0x6C];
+    /* 0x138 */ s16 field_138[2];
+    u8 _pad13C[0x4];
+    /* 0x140 */ s16 field_140[2];
+    u8 _pad144[0x8];
+    /* 0x14C */ s32 field_14C;
+} Wk18D78;
 
 #endif /* MAIN_156C_H */
