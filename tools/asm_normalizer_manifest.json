@@ -2442,5 +2442,10 @@
       "sched_match",
       "delay_fill"
     ]
+  },
+  "func_8003E6C8": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }

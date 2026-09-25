@@ -587,6 +587,7 @@ extern u8 D_80062D48;
 extern s32 D_80062D10;
 extern void func_8003C904(VAttr36C54 *);
 extern void func_80038314(s32);
+extern s32 D_800506D0;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -11303,7 +11304,60 @@ s32 func_8003E610(s32 a0, s32 a1, s32 a2) {
     return 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003E6C8);
+s32 func_8003E6C8(s32 *state) {
+    s32 r;
+
+    switch (*state) {
+    case 0:
+        D_800506D0 = 0;
+        *state = 10;
+        func_8003FA24(func_8003DE18);
+        return 0;
+    case 10:
+        if (D_80062F80.field_4 != 0) {
+            return 1;
+        }
+        while (func_8003F584(D_80062F80.field_14, D_80062F80.field_18, 0) != D_80062F80.field_18) {
+        }
+        func_8003FEA4();
+        while (func_8003F594(D_80062F80.field_14, D_80062F80.field_20, D_80062F80.field_1C) != 0) {
+        }
+        *state = 30;
+        break;
+    case 30:
+        if (func_8004015C() == 0) {
+            return 0;
+        }
+        r = func_8003FFAC();
+        if (r == 0) {
+            goto fail;
+        }
+        if (++D_800506D0 < 4) {
+            *state = 10;
+            break;
+        }
+        if (r == 4) {
+            func_8003FEA4();
+            func_8003F9B4(D_80062F90);
+            *state = 32;
+            break;
+        }
+    fail:
+        ((volatile State62F80 *)&D_80062F80)->field_4 = func_8003F418(r);
+        return 1;
+    case 32:
+        if (func_80040198() == 0) {
+            return 0;
+        }
+        func_80040084();
+        *state = 0;
+        break;
+    default:
+        return 0;
+    }
+    return 0;
+}
+
 
 s32 func_8003E878(s32 a0, s32 a1, s32 a2) {
     char *msg;
