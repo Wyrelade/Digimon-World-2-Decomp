@@ -2332,5 +2332,12 @@
       "reorder_indep",
       "padnop"
     ]
+  },
+  "func_8002BBD4": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "padnop"
+    ]
   }
 }

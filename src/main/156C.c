@@ -7468,7 +7468,42 @@ void func_8002BB84(void) {
     D_8006197C = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002BBD4);
+void func_8002BBD4(u32 *tim, TimInfo2BBD4 *out) {
+    u32 flag = *tim;
+    u32 *p;
+
+    out->mode = flag;
+    if ((flag >> 3) & 1) {
+        tim++;
+        p = tim + (*tim >> 2);
+        tim++;
+        out->crect.x = ((TimHalves *)tim)->lo;
+        out->crect.y = ((TimHalves *)tim)->hi;
+        tim++;
+        out->crect.w = ((TimHalves *)tim)->lo;
+        out->crect.h = ((TimHalves *)tim)->hi;
+        tim++;
+        out->caddr = tim;
+        p++;
+        out->prect.x = ((TimHalves *)p)->lo;
+        out->prect.y = ((TimHalves *)p)->hi;
+        p++;
+        out->prect.w = ((TimHalves *)p)->lo;
+        out->prect.h = ((TimHalves *)p)->hi;
+        p++;
+        out->paddr = p;
+    } else {
+        tim += 2;
+        out->prect.x = ((TimHalves *)tim)->lo;
+        out->prect.y = ((TimHalves *)tim)->hi;
+        tim++;
+        out->prect.w = ((TimHalves *)tim)->lo;
+        out->prect.h = ((TimHalves *)tim)->hi;
+        tim++;
+        out->paddr = tim;
+    }
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002BCC4);
 

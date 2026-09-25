@@ -2132,4 +2132,18 @@ typedef struct {
     /* 0x08 */ s32 field_8[1];
 } Rec41194;
 
+/* One 32-bit TIM header word read as two halves. */
+typedef struct {
+    u16 lo;
+    u16 hi;
+} TimHalves;
+/* TIM info filled by func_8002BBD4: pixel rect/data then CLUT rect/data. */
+typedef struct {
+    /* 0x00 */ u32 mode;
+    /* 0x04 */ Rect23550 prect;
+    /* 0x0C */ u32 *paddr;
+    /* 0x10 */ Rect23550 crect;
+    /* 0x18 */ u32 *caddr;
+} TimInfo2BBD4;
+
 #endif /* MAIN_156C_H */
