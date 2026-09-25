@@ -512,6 +512,17 @@ extern s32 D_8004FC48[];
 extern s32 D_80061C4C;
 extern s16 D_80040DAC[];
 extern Obj50720 *D_80050720;
+extern Rec41194 *D_80041194[];
+extern s32 D_800411FC[3];
+extern s32 func_80023B70(s32 arg0);
+extern s32 func_80023DB0(s32 arg0);
+extern void func_80023E78(s32 a0);
+extern void func_80023EB8(s32 a0);
+extern s32 func_800239E4(s32 arg0, s32 *arg1);
+extern s16 func_80039A44(s32 arg0, s16 arg1);
+extern s16 func_80039F44(s32 a0, s16 id);
+extern s16 func_8003A004(s16 a0);
+extern s16 func_80032954(s32, s16, s32);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -2958,7 +2969,84 @@ void func_80019FB4(Actor *arg0) {
     func_8001D884((s32)e);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001A01C);
+void func_8001A01C(void) {
+    s32 i;
+    Ent54C48 *e;
+    u32 n;
+    u32 k;
+    s32 *src;
+    s32 *dst;
+    s32 p;
+    s32 j;
+
+    for (i = 0; i < 3; i++) {
+        e = &D_80054C48[i];
+        switch (e->field_4) {
+        case 0:
+            break;
+        case 1:
+            if (e->field_0 == 0) {
+                e->field_4 = 0;
+                break;
+            }
+            e->field_20 = D_80041194[e->field_0]->field_0 >> 16;
+            e->field_24 = D_80041194[e->field_0]->field_4 >> 16;
+            func_80023BF4(e->field_24);
+            e->field_4++;
+            break;
+        case 2:
+            if (func_80023B70(e->field_24) == 3) {
+                src = (s32 *)func_80023DB0(e->field_24);
+                n = D_800411FC[i];
+                dst = e->field_28;
+                if ((u32)src + n > 0x801FFFFF) {
+                    n = 0x801FFFFC - (u32)src;
+                }
+                n >>= 2;
+                for (k = 0; k < n; k++) {
+                    *dst++ = *src++;
+                }
+                e->field_4++;
+            }
+            break;
+        case 3:
+            func_80023BF4(e->field_20);
+            e->field_4++;
+            break;
+        case 4:
+            e->field_8 = func_80039A44(func_800239E4(D_80041194[e->field_0]->field_4, e->field_28), i);
+            e->field_4++;
+            break;
+        case 5:
+            if (func_80023B70(e->field_20) == 3) {
+                func_80023E78(e->field_20);
+                e->field_8 = func_80039F44((s32)func_800239A0(D_80041194[e->field_0]->field_0), e->field_8);
+                e->field_4++;
+            }
+            break;
+        case 6:
+            e->field_A = 0;
+            e->field_4++;
+        case 7:
+            j = e->field_A;
+            p = *(j + D_80041194[e->field_0]->field_8);
+            if (p != 0) {
+                e->field_C[j] = func_80032954(func_800239E4(p, e->field_28), e->field_8, 0x10);
+                e->field_A++;
+            } else {
+                e->field_4++;
+            }
+            break;
+        default:
+            if (func_8003A004(0)) {
+                func_80023EB8(e->field_20);
+                e->field_4 = 0;
+            }
+            break;
+        }
+    }
+}
+
 
 s32 func_8001A300(void) {
     s32 found = 0;
@@ -3072,13 +3160,6 @@ typedef struct {
     /* 0x28 */ s32 field_28;
 } Ew54C48; /* 0x2C */
 
-typedef struct {
-    /* 0x00 */ s32 field_0;
-    /* 0x04 */ s32 field_4;
-    /* 0x08 */ s32 field_8;
-} DProp411FC;
-
-extern DProp411FC D_800411FC;
 extern u8 D_80050A48;
 
 extern void func_800357E4(void *, s16, s16);
@@ -3109,12 +3190,12 @@ void func_8001A75C(void) {
     func_800363E4(0, 0);
     func_80036574();
 
-    v0 = func_80022F3C(D_800411FC.field_0 + D_800411FC.field_4 + D_800411FC.field_8, 4);
+    v0 = func_80022F3C(D_800411FC[0] + D_800411FC[1] + D_800411FC[2], 4);
     e = (Ew54C48 *)D_80054C48;
     e[0].field_28 = v0;
-    v0 += D_800411FC.field_0;
+    v0 += D_800411FC[0];
     e[1].field_28 = v0;
-    v0 += D_800411FC.field_4;
+    v0 += D_800411FC[1];
     e[2].field_28 = v0;
     for (i = 0; i < 3; i++) {
         e[i].field_4 = 0;
@@ -5788,7 +5869,7 @@ void func_80023E20(void) {
     }
 }
 
-void func_80023E78(void) {
+void func_80023E78(s32 a0) {
     Ent23A78 *p = func_80023A78();
     if (p != 0) {
         if (p->field_0 == 3) {
@@ -5797,7 +5878,7 @@ void func_80023E78(void) {
     }
 }
 
-void func_80023EB8(void) {
+void func_80023EB8(s32 a0) {
     Ent23A78 *p = func_80023A78();
     if (p != 0) {
         if (p->field_0 == 3) {

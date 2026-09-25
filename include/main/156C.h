@@ -528,8 +528,10 @@ typedef struct {
     /* 0x04 */ s32 field_4;
     /* 0x08 */ s16 field_8;
     /* 0x0A */ s16 field_A;
-    /* 0x0C */ s16 field_C[0xE];
-    /* 0x28 */ s32 field_28;
+    /* 0x0C */ s16 field_C[0xA];
+    /* 0x20 */ s32 field_20;
+    /* 0x24 */ s32 field_24;
+    /* 0x28 */ s32 *field_28;
 } Ent54C48; /* 0x2C */
 
 /* Args to func_8002828C: a record it stamps (field_3/field_4/field_8) and a
@@ -2119,5 +2121,13 @@ typedef struct {
 } Pt11BEC;
 
 void func_80011BEC(s32 id, Tex11BEC *out, Pt11BEC *pos, Pt11BEC *clut);
+
+/* Sound-bank record in the D_80041194 pointer table (high halves of field_0 /
+ * field_4 are resource ids, field_8 is a zero-ended list). */
+typedef struct {
+    /* 0x00 */ u32 field_0;
+    /* 0x04 */ u32 field_4;
+    /* 0x08 */ s32 field_8[1];
+} Rec41194;
 
 #endif /* MAIN_156C_H */
