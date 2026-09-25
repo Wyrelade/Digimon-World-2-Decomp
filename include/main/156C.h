@@ -248,9 +248,18 @@ typedef struct {
  * func_8001F24C / func_8001F5E8 are known so far: field_8 is a signed count and
  * field_78 an array of DstElem. */
 typedef struct {
-    u8 _pad00[0x8];
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ struct Mdl1FDBC *field_4;
     /* 0x08 */ s32 field_8;
-    u8 _pad0C[0x30];
+    /* 0x0C */ s16 **field_C;
+    /* 0x10 */ s16 **field_10;
+    /* 0x14 */ struct Sec1FDBC20 **field_14;
+    /* 0x18 */ s32 *field_18;
+    /* 0x1C */ s32 *field_1C;
+    /* 0x20 */ s32 field_20;
+    /* 0x24 */ s32 field_24;
+    /* 0x28 */ s32 field_28;
+    u8 _pad2C[0x10];
     /* 0x3C */ s32 field_3C;
     u8 _pad40[0x08];
     /* 0x48 */ s32 field_48;
@@ -262,7 +271,9 @@ typedef struct {
     /* 0x60 */ s32 field_60;
     /* 0x64 */ s32 *field_64;
     /* 0x68 */ s32 *field_68;
-    u8 _pad6C[0x0C];
+    /* 0x6C */ s32 *field_6C;
+    /* 0x70 */ s32 *field_70;
+    /* 0x74 */ s32 *field_74;
     /* 0x78 */ DstElem *field_78;
 } Sub3C;
 
@@ -2145,5 +2156,34 @@ typedef struct {
     /* 0x10 */ Rect23550 crect;
     /* 0x18 */ u32 *caddr;
 } TimInfo2BBD4;
+
+
+/* Section header inside a func_8001FDBC model: a count then 20-byte entries. */
+typedef struct {
+    /* 0x00 */ s32 v[5];
+} Ent1FDBC20;
+
+typedef struct Sec1FDBC20 {
+    /* 0x00 */ s32 n;
+    /* 0x04 */ Ent1FDBC20 e[1];
+} Sec1FDBC20;
+
+typedef struct {
+    /* 0x00 */ s32 v[4];
+} Ent1FDBC16;
+
+typedef struct {
+    /* 0x00 */ s32 n;
+    /* 0x04 */ Ent1FDBC16 e[1];
+} Sec1FDBC16;
+
+/* Model file func_8001FDBC binds: field_4 is set once the offset tables are
+ * relocated; field_C starts three count-long offset tables (then a fourth). */
+typedef struct Mdl1FDBC {
+    u8 _pad00[0x04];
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C[1];
+} Mdl1FDBC;
 
 #endif /* MAIN_156C_H */

@@ -2345,5 +2345,8 @@
       "nosplit",
       "delay_fill"
     ]
+  },
+  "func_8001FDBC": {
+    "passes": []
   }
 }

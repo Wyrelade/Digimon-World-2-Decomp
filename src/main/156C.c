@@ -531,6 +531,7 @@ extern Rec62D08 *D_80062CB8[];
 extern s32 D_80062C70[];
 extern Ent62CFC *D_80062C30[];
 extern s32 D_80062D04;
+extern void func_80022F8C(void *a0, s32 a1);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -4784,7 +4785,73 @@ s32 func_8001F970(s32 arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F9AC);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001FDBC);
+Sub3C *func_8001FDBC(Actor *a0, s32 id) {
+    s32 fresh = 0;
+    Mdl1FDBC *m = (Mdl1FDBC *)func_80023A08(id);
+    Mdl1FDBC *base = m;
+    Sub3C *t = a0->field_3C;
+    Sub3C *s;
+    s32 i;
+    Sec1FDBC20 *p;
+    Sec1FDBC20 *q;
+    Sec1FDBC16 *r;
+    s32 v;
+    Ent1FDBC20 *e;
+
+    if (t == NULL) {
+        a0->field_3C = (Sub3C *)func_80022F3C(0x7C, 2);
+        func_80022F8C(a0->field_3C, 0x7C);
+        fresh = 1;
+    } else if (t->field_4 == m && m->field_4 != 0) {
+        return t;
+    }
+    s = a0->field_3C;
+    s->field_0 = id;
+    s->field_4 = base;
+    s->field_8 = m->field_8;
+    s->field_C = (s16 **)base->field_C;
+    s->field_10 = s->field_C + s->field_8;
+    s->field_14 = (Sec1FDBC20 **)(s->field_10 + s->field_8);
+    s->field_18 = (s32 *)(s->field_14 + s->field_8);
+    s->field_1C = s->field_18 + s->field_8;
+    if (m->field_4 == 0) {
+        for (i = 0; i < s->field_8; i++) {
+            s->field_C[i] = (s16 *)((s32)s->field_C[i] + (s32)base);
+            s->field_10[i] = (s16 *)((s32)s->field_10[i] + (s32)base);
+            s->field_14[i] = (Sec1FDBC20 *)((s32)s->field_14[i] + (s32)base);
+        }
+        m->field_4 = 1;
+    }
+    if (fresh) {
+        s->field_20 = 0;
+        s->field_24 = 0;
+        for (i = 0; i < s->field_8; i++) {
+            if (s->field_20 < *s->field_C[i]) {
+                s->field_20 = *s->field_C[i];
+            }
+            if (s->field_24 < *s->field_10[i]) {
+                s->field_24 = *s->field_10[i];
+            }
+        }
+        s->field_28 = 0;
+        for (i = 0; i < s->field_8; i++) {
+            p = s->field_14[i];
+            e = p->e;
+            q = (Sec1FDBC20 *)(e + p->n);
+            e = q->e;
+            r = (Sec1FDBC16 *)(e + q->n);
+            v = r->e[r->n].v[0];
+            if (s->field_28 < v) {
+                s->field_28 = v;
+            }
+        }
+        s->field_78 = (DstElem *)func_80022F3C(s->field_8 * sizeof(DstElem), 2);
+        s->field_6C = (s32 *)func_80022F3C(s->field_20 * 4, 2);
+        s->field_70 = (s32 *)func_80022F3C(s->field_20 * 4, 2);
+        s->field_74 = (s32 *)func_80022F3C(s->field_24 * 4, 2);
+    }
+    return s;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800200D0);
 
