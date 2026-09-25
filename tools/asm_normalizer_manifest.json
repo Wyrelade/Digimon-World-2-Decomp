@@ -2490,5 +2490,10 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8001D504": {
+    "passes": [
+      "nosplit_nosr"
+    ]
   }
 }

@@ -1979,7 +1979,7 @@ void func_80014400(Actor *a) {
 
 extern void func_8001373C(void *, s32, s32 *, s16 *);
 extern void func_800137B8(Part28 *, s32, s32);
-extern void func_8001D504(void *, s32);
+extern void func_8001D504(Obj1D504 *, s32);
 
 void func_80014870(Actor *actor) {
     ActorWork *w = actor->work;
@@ -4470,7 +4470,18 @@ void func_8001D104(void *arg0, void *arg1, s32 arg2, s32 arg3) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001D504);
+void func_8001D504(Obj1D504 *p, s32 mask) {
+    if (p->field_0 != 0) {
+        do {
+            if (p->field_1C & mask) {
+                p->field_F = 0;
+            } else {
+                p->field_F = 1;
+            }
+            p++;
+        } while (p->field_0 != 0);
+    }
+}
 
 void func_8001D550(Ent1D550 *p, s32 a1, s32 a2) {
     if (p->field_0 == 0) {

@@ -2507,4 +2507,15 @@ typedef struct {
     /* 0x20 */ VReg62A48 regs[24];
 } Snd62A28;
 
+/* 0x28-stride zero-terminated list func_8001D504 walks (func_80014870 passes it
+ * the func_800239A0 lookups); field_F is set to 0 or 1 from field_1C & mask. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    u8 _pad04[0xB];
+    /* 0x0F */ u8 field_F;
+    u8 _pad10[0xC];
+    /* 0x1C */ s32 field_1C;
+    u8 _pad20[0x8];
+} Obj1D504;
+
 #endif /* MAIN_156C_H */
