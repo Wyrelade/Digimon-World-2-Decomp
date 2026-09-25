@@ -661,6 +661,7 @@ extern Obj25FBC *D_80048E4C;
 extern s32 (*D_80048E34)(void);
 extern void func_800260C8(Actor *a);
 extern s32 func_80026170();
+extern void func_8003B074();
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -12259,7 +12260,22 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003ADA4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B074);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B374);
+void func_8003B374(s32 id) {
+    s32 i;
+    u32 w;
+
+    for (i = 0; i < D_8004FE88; i++) {
+        w = D_8004FE90[i].field_0;
+        if (w & 0x40000000) {
+            break;
+        }
+        if (w == id) {
+            D_8004FE90[i].field_0 = id | 0x80000000;
+            break;
+        }
+    }
+    func_8003B074();
+}
 
 void func_8003B3F4(s32 arg0, s32 arg1) { func_8003B424(arg0, arg1, 0xCA, 0xCB); }
 
