@@ -142,6 +142,13 @@ def line_loads_from_reg(line: str, r_source: str) -> bool:
     return False
 
 
+def _branch_reads_div(line: str) -> bool:
+    """aspsx does not pad between an expanded div/rem's mflo/mfhi and a
+    conditional branch reading the result (retail `mfhi v0; beqz v0,L; nop`)."""
+    p = strip_comments(line).split(None, 1)
+    return bool(p) and p[0] in branch_mnemonics | {"beqz", "bnez"}
+
+
 def is_number(value: str) -> bool:
     if re.match(r"^-?\d+$", value) or re.match(r"^-?0x[A-Fa-f0-9]+$", value):
         return True
@@ -1164,6 +1171,8 @@ class MaspsxProcessor:
                 extra_nops = self._handle_nop_before_next_instruction(
                     next_instruction, r_dest
                 )
+                if _branch_reads_div(next_instruction):
+                    extra_nops = []
                 res.extend(extra_nops)
 
         elif op in ("divu", "remu"):
@@ -1208,6 +1217,8 @@ class MaspsxProcessor:
                 extra_nops = self._handle_nop_before_next_instruction(
                     next_instruction, r_dest
                 )
+                if _branch_reads_div(next_instruction):
+                    extra_nops = []
                 res.extend(extra_nops)
 
         elif op == "sltu":
