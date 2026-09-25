@@ -2858,5 +2858,12 @@
       "sched_match",
       "delay_fill"
     ]
+  },
+  "func_80026630": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "padnop"
+    ]
   }
 }

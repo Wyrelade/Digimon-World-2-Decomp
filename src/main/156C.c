@@ -7863,7 +7863,29 @@ void func_80026610(s32 arg0) {
     D_8006004C = *(volatile u16 *)0x1F801120;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026630);
+s32 func_80026630(void) {
+    u16 c = *(volatile u16 *)0x1F801120;
+    s32 t = c;
+    s32 d;
+    s32 lim;
+
+    if (t < D_8006004C) {
+        if (*(volatile u16 *)0x1F801128 != 0) {
+            t += *(volatile u16 *)0x1F801128;
+        } else {
+            t += 0x10000;
+        }
+    }
+    if (!(*(volatile u16 *)0x1F801124 & 0x200)) {
+        d = (t - D_8006004C) >> 3;
+        lim = D_80060050;
+    } else {
+        d = t - D_8006004C;
+        lim = D_80060050;
+    }
+    return d >= lim;
+}
+
 
 void func_800266D0(Ent266D0 *a0) {
     D_80048E98 = D_80048E30(a0);
