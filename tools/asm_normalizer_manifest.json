@@ -2925,5 +2925,15 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80035CE4": {
+    "passes": [
+      "gp8",
+      "slot_unfill",
+      "web_realloc",
+      "sched_match",
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }
