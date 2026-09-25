@@ -547,6 +547,8 @@ extern s32 func_8004015C(void);
 extern s32 func_8003FFAC(void);
 extern s32 func_8003F418(s32);
 extern s32 func_8003F9B4(s32 a0);
+extern void func_8001C088(s32 *arg0, s32 arg1);
+extern void func_8001C0B0(s32 *arg0, s32 arg1);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -1775,7 +1777,150 @@ void func_800143CC(Actor *arg0, s16 arg1) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80014400);
+void func_80014400(Actor *a) {
+    Wk14400 *w = (Wk14400 *)a->work;
+    s32 *p = (s32 *)a->u34.field_34;
+    Pair54 *tbl;
+    Pair54 *e;
+    s32 idx;
+
+    switch (a->field_10) {
+    default:
+    case 0:
+        w->u2C.blk = ((Blk14400 *)func_800239A0(0x5130007))[w->field_38 - 1];
+        func_8001C088(w, 0xA);
+        func_80011544(a);
+        break;
+    case 1:
+        tbl = (Pair54 *)func_80013AB0(0x513000A, w->field_38 - 1);
+        switch (a->field_14) {
+        default:
+        case 0:
+            if (func_800136E4((s32)a, &w->field_40) == 0) {
+                func_80013558((s32 *)w, (Key13558 *)func_80013AB0(0x5130008, w->field_38 - 1), 2);
+                switch (w->field_38) {
+                case 5:
+                case 6:
+                    func_800115DC(a, 2);
+                    break;
+                default:
+                    func_80011564(a);
+                    break;
+                }
+            }
+            break;
+        case 1:
+            if (((s32 (*)(s16 *, s16 *))func_80013A10)(w->field_28, w->u2C.field_2C) == 0) {
+            if (D_8005F6F0[0].field_14 > 0) {
+                idx = func_80013A70(w->field_28, w->u2C.field_2C);
+                if (tbl[idx].field_0 == -1) {
+                    break;
+                }
+                w->field_3A = idx;
+                func_8001A68C(0xA, 0);
+                switch (w->field_38) {
+                case 7:
+                case 8:
+                    D_80050768->field_124 = w->field_28[0];
+                    func_80011564(a);
+                    break;
+                case 4:
+                    func_800115DC(a, 3);
+                    break;
+                default:
+                    func_80011564(a);
+                    break;
+                }
+            } else if (D_8005F6F0[0].field_1C > 0) {
+                func_8001A68C(0xB, 0);
+                func_800115C0(a, 2);
+            }
+            } else {
+                func_8001A68C(0xC, 0);
+            }
+            break;
+        case 2:
+            switch (a->field_18) {
+            default:
+            case 0:
+                e = &tbl[w->field_3A];
+                func_8001107C(e->field_0, p, e->field_2);
+                func_80011580(a);
+                break;
+            case 1:
+                if (w->field_38 == 3) {
+                    switch (D_80050768->field_35C) {
+                    case 1:
+                        func_8001C0B0(w->field_4, 9);
+                        w->field_3C = 1;
+                        break;
+                    case 2:
+                        func_8001C0B0(w, 0xA);
+                        func_80013558((s32 *)w, (Key13558 *)func_80013AB0(0x5130008, w->field_38 - 1), 0);
+                        w->field_3C = 0;
+                        break;
+                    }
+                    D_80050768->field_35C = 0;
+                }
+                if (*p == 0) {
+                    switch (w->field_38) {
+                    default:
+                        func_800115DC(a, 1);
+                        break;
+                    case 5:
+                    case 6:
+                        func_800115C0(a, 2);
+                        break;
+                    }
+                }
+                break;
+            }
+            break;
+        case 3: {
+            s32 *q = (s32 *)a->u34.field_34;
+            switch (a->field_18) {
+            default:
+            case 0:
+                func_8001C0B0(w, 0xA);
+                func_80011580(a);
+                break;
+            case 1:
+                if (func_80013714((s32)a, &w->field_40) == 0) {
+                    func_80011580(a);
+                }
+                break;
+            case 2:
+                e = &tbl[w->field_3A];
+                func_8001107C(e->field_0, q, e->field_2);
+                func_80011580(a);
+                break;
+            case 3:
+                if (*q == 0) {
+                    func_800115DC(a, 0);
+                }
+                break;
+            }
+            break;
+        }
+        }
+        break;
+    case 2:
+        switch (a->field_14) {
+        default:
+        case 0:
+            func_8001C0B0(w, 0xA);
+            func_80011564(a);
+            break;
+        case 1:
+            if (func_80013714((s32)a, &w->field_40) == 0) {
+                func_800115C0(a, 3);
+            }
+            break;
+        }
+        break;
+    }
+}
+
 
 extern void func_8001373C(void *, s32, s32 *, s16 *);
 extern void func_800137B8(Part28 *, s32, s32);

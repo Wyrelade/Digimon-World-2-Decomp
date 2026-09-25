@@ -2384,5 +2384,15 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80014400": {
+    "passes": [
+      "gp8",
+      "reg_realloc",
+      "save_slot",
+      "commutative_swap",
+      "ra_restore_sink",
+      "padnop"
+    ]
   }
 }

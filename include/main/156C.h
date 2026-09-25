@@ -1115,7 +1115,8 @@ typedef struct {
     /* 0x10A */ s16 field_10A;
     u8 _pad10C[0x4];
     /* 0x110 */ u8 *field_110;
-    u8 _pad114[0x12];
+    u8 _pad114[0x10];
+    /* 0x124 */ s16 field_124;
     /* 0x126 */ s16 field_126;
     /* 0x128 */ s32 field_128;
     u8 _pad12C[0x230];
@@ -2247,5 +2248,28 @@ typedef struct {
     s16 vx;
     s16 vy;
 } DVec1D104;
+
+
+/* func_80014400: 12-byte window rect record copied into Wk14400.blk. */
+typedef struct {
+    s16 field_0[6];
+} Blk14400;
+
+/* func_80014400 view of Actor.work: cursor/dims pairs at 0x28/0x2C (the dims
+ * pair heads the 12-byte block), selection state at 0x38..0x40. */
+typedef struct {
+    u8 _pad00[0x04];
+    /* 0x04 */ u8 field_4[0x24];
+    /* 0x28 */ s16 field_28[2];
+    union {
+        /* 0x2C */ s16 field_2C[2];
+        Blk14400 blk;
+    } u2C;
+    /* 0x38 */ s16 field_38;
+    /* 0x3A */ s16 field_3A;
+    /* 0x3C */ s16 field_3C;
+    u8 _pad3E[0x02];
+    /* 0x40 */ s32 field_40;
+} Wk14400;
 
 #endif /* MAIN_156C_H */
