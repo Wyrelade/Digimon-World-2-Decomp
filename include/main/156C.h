@@ -2525,4 +2525,14 @@ typedef struct {
     u8 _pad20[0x8];
 } Obj1D504;
 
+
+/* Variable-size entry list returned by func_80023A08 for func_80019E50: ends
+ * at field_0 == -1, field_C is the byte size of the entry. */
+typedef struct {
+    /* 0x00 */ s32 field_0;
+    u8 _pad4[8];
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+} Ent19E50;
+
 #endif /* MAIN_156C_H */

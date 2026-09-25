@@ -3569,7 +3569,30 @@ void func_80019E40(Actor *arg0, s32 *arg1) {
     arg0->work->field_0 = *arg1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019E50);
+void func_80019E50(Actor *a0) {
+    Ent19E50 *p;
+    s32 *slot;
+    s32 end = -1;
+    s32 *s;
+
+    if (a0->field_10 != 0) {
+        return;
+    }
+    s = (s32 *)a0->u34.field_34;
+    p = (Ent19E50 *)func_80023A08(a0->work->field_0);
+    slot = s;
+loop:
+    if (p->field_0 == end) {
+        goto done;
+    }
+    func_8001107C(p->field_0, slot, (s32)&p->field_10);
+    slot++;
+    p = (Ent19E50 *)((u8 *)p + p->field_C);
+    goto loop;
+done:
+    func_80011544(a0);
+}
+
 
 void func_80019EE0(Actor *arg0, s32 arg1) {
     arg0->field_8 = arg1;
