@@ -2956,5 +2956,13 @@
       "reorder_indep",
       "padnop"
     ]
+  },
+  "func_80031AC4": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "sched_match",
+      "padnop"
+    ]
   }
 }

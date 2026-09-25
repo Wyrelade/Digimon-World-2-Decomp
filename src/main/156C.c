@@ -664,6 +664,7 @@ extern s32 func_80026170();
 extern void func_8003B074();
 extern u16 D_8004FC88[12];
 extern u16 D_8004FCA0[128];
+extern s16 func_80039150(s32 a0, u16 *a1, u16 *a2);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -10358,7 +10359,48 @@ void func_80031854(void) {
     D_80061C44 = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031AC4);
+void func_80031AC4(s16 a0, s16 a1) {
+    Elm354F4 **pp = &D_80061C50[a0];
+    Elm354F4 *e = &(*pp)[a1];
+    u16 vol[2];
+    s32 t;
+    s32 d;
+    s32 l;
+    s32 r;
+
+    t = e->field_A0 + 1;
+    e->field_A0 = t;
+    if (e->field_9C < t) {
+        (*pp)[a1].field_98 &= ~0x10;
+    } else {
+        d = e->field_48 * t / e->field_9C;
+        d -= e->field_4A;
+        if (d != 0) {
+            e->field_4A += d;
+            func_80039150((s16)(a0 | (a1 << 8)), &vol[0], &vol[1]);
+            l = vol[0] + d;
+            if (l >= 0x80) {
+                l = 0x7F;
+            }
+            if (l < 0) {
+                l = 0;
+            }
+            r = vol[1] + d;
+            if (r >= 0x80) {
+                r = 0x7F;
+            }
+            if (r < 0) {
+                r = 0;
+            }
+            func_80038BE4((s16)(a0 | (a1 << 8)), (u16)l, (u16)r, 1);
+            if ((l == 0x7F && r == l) || (l == 0 && r == 0)) {
+                D_80061C50[a0][a1].field_98 &= ~0x10;
+            }
+        }
+    }
+    func_80039150((s16)(a0 | (a1 << 8)), (u16 *)&e->field_5C, (u16 *)&e->field_5E);
+}
+
 
 void func_80031CD4(s32 a0, s16 a1) {
     Elm354F4 *e = &D_80061C50[(s16)a0][a1];
