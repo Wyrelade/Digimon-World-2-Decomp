@@ -2658,5 +2658,11 @@
       "delay_fill",
       "epilogue_unfill"
     ]
+  },
+  "func_8003F874": {
+    "passes": [
+      "nosplit",
+      "padnop"
+    ]
   }
 }

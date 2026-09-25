@@ -415,7 +415,7 @@ extern int func_8003FBB0(void);
 extern void func_8003FEA4(void);
 extern char D_80010C70[];
 extern void func_8003F518(s32, u8 *);
-extern void func_8003F874(u8 *, s32);
+extern s8 *func_8003F874(s8 *, s8 *);
 extern s32 func_8003F574(u8 *, s32);
 extern s32 func_8003F18C(s32 wait, s32 *a1, s32 *a2);
 extern void func_8003FEA4(void);
@@ -620,6 +620,7 @@ extern void func_8002DCF8(void);
 extern void func_8002DD20(void);
 extern void (*D_80062FE0)(s32 *, s32, s32);
 extern s8 D_80062FE8[];
+extern s32 func_8002A9B4(s8 *);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -12503,7 +12504,27 @@ void func_8003F760(s32 *a0, s32 a1, s32 a2) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F864);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F874);
+s8 *func_8003F874(s8 *dst, s8 *src) {
+    s8 *ret;
+    s32 c;
+
+    if (dst == 0 || src == 0) {
+        return 0;
+    }
+    if (dst + func_8002A9B4(dst) != src + func_8002A9B4(src)) {
+        ret = dst;
+        while (*dst++ != 0) {
+        }
+        dst--;
+        do {
+            c = *(u8 *)src++;
+            *dst++ = c;
+        } while (c != 0);
+        return ret;
+    }
+    return 0;
+}
+
 
 s32 func_8003F924(s8 *a, s8 *b) {
     if (a == 0 || b == 0) {
