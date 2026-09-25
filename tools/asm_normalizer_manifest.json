@@ -2315,5 +2315,13 @@
     "passes": [
       "nosplit"
     ]
+  },
+  "func_80032874": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "sched_match",
+      "epilogue_unfill"
+    ]
   }
 }

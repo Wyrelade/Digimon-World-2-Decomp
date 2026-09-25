@@ -524,6 +524,8 @@ extern s16 func_80039F44(s32 a0, s16 id);
 extern s16 func_8003A004(s16 a0);
 extern s16 func_80032954(s32, s16, s32);
 extern s16 D_80062D2C[];
+extern u16 D_8004FC24[];
+extern void func_80036C54(s8);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -8309,7 +8311,27 @@ void func_80032820(s16 arg0) { func_800326A4(arg0); }
 
 void func_80032844(s16 arg0) { func_800326A4(arg0); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80032874);
+void func_80032874(void) {
+    volatile u16 *dst = (volatile u16 *)0x1F801D80;
+    u16 *src = D_8004FC24;
+    s32 i;
+    s32 j;
+
+    for (i = 0; i < 16; i++) {
+        *dst++ = *src++;
+    }
+    func_80036C54(0x18);
+    for (i = 0; i < 32; i++) {
+        Hook33424 *row = D_80061CD0[i];
+        for (j = 15; j >= 0; j--) {
+            row[j] = 0;
+        }
+    }
+    D_80061C4C = 0x3C;
+    D_80061C48 = 0;
+    D_80061C44 = 0;
+}
+
 
 void func_80032914(void) {
     func_80030CD4();
