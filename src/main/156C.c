@@ -8745,7 +8745,38 @@ void func_8002A014(fmt, a1, a2, a3) char *fmt; s32 a1; s32 a2; s32 a3; {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A054);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A6F4);
+u8 *func_8002A6F4(u8 *p, s32 c, s32 n) {
+    u8 *r = 0;
+
+    if (p == 0) {
+        goto end;
+    }
+    if (n <= 0) {
+        goto end;
+    }
+    n--;
+    goto test;
+found:
+    r = p - 1;
+    goto end;
+test:
+    if (n < 0) {
+        r = 0;
+        goto end;
+    }
+    c &= 0xFF;
+loop:
+    if (*p++ == c) {
+        goto found;
+    }
+    if (--n >= 0) {
+        goto loop;
+    }
+    r = 0;
+end:
+    return r;
+}
+
 
 void func_8002A744(s8 c) {
     switch (c) {

@@ -2839,5 +2839,14 @@
       "param_copy",
       "web_realloc"
     ]
+  },
+  "func_8002A6F4": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "taken_fill",
+      "fallthrough_fill",
+      "delay_fill"
+    ]
   }
 }
