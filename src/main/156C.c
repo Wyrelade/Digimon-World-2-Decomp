@@ -1432,7 +1432,24 @@ s32 func_80013714(s32 arg0, s32 *arg1) {
     return 1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001373C);
+void func_8001373C(void *arg0, s32 mask, s32 *arg2, s16 *arg3) {
+    Part28 *p = arg0;
+    Part28 *q = p;
+    s32 x = arg3[2] + ((s16 *)arg2)[0] * arg3[4];
+    s32 y = arg3[3] + ((s16 *)arg2)[1] * arg3[5];
+
+    if (p->field_0 != 0) {
+        do {
+            if (q->field_1C & mask) {
+                q->field_4 = x;
+                q->field_6 = y;
+            }
+            p++;
+            q++;
+        } while (p->field_0 != 0);
+    }
+}
+
 
 void func_800137B8(Part28 *p, s32 mask, s32 v) {
     Part28 *q = p;
