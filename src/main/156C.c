@@ -658,6 +658,9 @@ extern void (*D_80048E48)(void);
 extern void (*D_80048E44)(void);
 extern s32 func_80025984();
 extern Obj25FBC *D_80048E4C;
+extern s32 (*D_80048E34)(void);
+extern void func_800260C8(Actor *a);
+extern s32 func_80026170();
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -7827,7 +7830,25 @@ s32 func_80025FBC(Obj25FBC *arg0) {
     return a + b + arg0->field_EC;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025FF4);
+s32 func_80025FF4(Obj25FBC *a0, s32 a1) {
+    s32 n;
+
+    if (a1 == 0 || a0->field_4 != 0 || D_80048E34() != 0) {
+        return 0;
+    }
+    a0->field_49 = 4;
+    a0->field_46 = 1;
+    a0->field_14 = (s32)func_800260C8;
+    a0->field_18 = (s32)func_80026170;
+    n = (a1 + 3) >> 2 << 2;
+    a0->field_0 = n;
+    a0->field_47 = 0;
+    n += (a0->field_E3 + 1) / 2 * 4;
+    a0->field_4 = n;
+    n += (a0->field_E9 * 5 + 3) & 0xFFC;
+    a0->field_8 = n;
+    return 1;
+}
 
 void func_800260C8(Actor *a) {
     switch (a->field_46) {

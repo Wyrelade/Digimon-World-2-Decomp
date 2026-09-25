@@ -2878,5 +2878,15 @@
       "ra_restore_sink",
       "padnop"
     ]
+  },
+  "func_80025FF4": {
+    "passes": [
+      "nosplit",
+      "shift_const_fold",
+      "zero_remat",
+      "slot_retake",
+      "sched_match",
+      "padnop"
+    ]
   }
 }
