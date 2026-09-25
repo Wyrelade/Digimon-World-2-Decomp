@@ -2735,5 +2735,11 @@
       "nosplit",
       "exit_merge"
     ]
+  },
+  "func_80027084": {
+    "passes": [
+      "nosplit",
+      "exit_merge"
+    ]
   }
 }
