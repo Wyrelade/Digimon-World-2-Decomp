@@ -2762,5 +2762,10 @@
       "exit_merge",
       "padnop"
     ]
+  },
+  "func_800267F0": {
+    "passes": [
+      "nosplit"
+    ]
   }
 }

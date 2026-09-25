@@ -1190,7 +1190,8 @@ typedef struct {
 /* Object passed to the D_80048E30 callback by func_800266D0; field_3C points at
  * a status byte cleared after the call. */
 typedef struct {
-    u8 _pad00[0x10];
+    u8 _pad00[0xC];
+    /* 0x0C */ struct Slot267F0 *field_C;
     /* 0x10 */ void *field_10;
     u8 _pad14[0x1C];
     /* 0x30 */ u8 *field_30;
@@ -2588,5 +2589,12 @@ extern s32 D_80061B44;
 typedef struct { s32 v; } W1_2DF74;
 typedef struct { void (*f)(void); } F1_2DF74;
 typedef struct { B4_2DF74 tag; s32 val; } T40_2DF74;
+
+
+/* 0xF0-byte slots at Ent266D0.field_C; func_800267F0 hands slots 2 and 3 to the D_80048E30 callback. */
+typedef struct Slot267F0 {
+    /* 0x00 */ Ent266D0 e;
+    u8 _pad48[0xA8];
+} Slot267F0; /* size 0xF0 */
 
 #endif /* MAIN_156C_H */
