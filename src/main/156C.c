@@ -8693,7 +8693,19 @@ flush:
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A9A4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002A9B4);
+s32 func_8002A9B4(s8 *s) {
+    s32 n = 0;
+    s32 r = 0;
+
+    if (s != 0) {
+        while (*s++ != 0) {
+            n++;
+        }
+        r = n;
+    }
+    return r;
+}
+
 
 DrawEnv *func_8002A9F4(DrawEnv *env, s32 x, s32 y, s32 w, s32 h) {
     s32 mode = func_80031838();

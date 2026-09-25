@@ -2741,5 +2741,12 @@
       "nosplit",
       "exit_merge"
     ]
+  },
+  "func_8002A9B4": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "padnop"
+    ]
   }
 }
