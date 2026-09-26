@@ -3240,5 +3240,12 @@
       "sched_match",
       "padnop"
     ]
+  },
+  "func_8003B744": {
+    "passes": [
+      "nosplit",
+      "param_copy",
+      "padnop"
+    ]
   }
 }

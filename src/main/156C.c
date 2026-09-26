@@ -603,7 +603,7 @@ extern char D_800103AC[];
 extern u8 D_8004900C[];
 extern Rng48FE4 D_80048FE4[][5];
 extern s32 func_80031838(void);
-extern void func_8003B744(s32);
+extern s32 func_8003B744(s32);
 extern s32 D_80040E38[];
 extern s32 D_80040E44[];
 extern s32 D_80062F00;
@@ -13385,7 +13385,20 @@ s32 func_8003B714(s32 a0, s32 a1) {
     return r[a0] | hi;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B744);
+s32 func_8003B744(s32 arg0) {
+    s32 v;
+
+    if (arg0 < 0) {
+        v = 0;
+    } else {
+        v = arg0;
+        if (v >= 0x40) {
+            v = 0x3F;
+        }
+    }
+    D_8004FE28[0xD5] = (D_8004FE28[0xD5] & 0xC0FF) | ((v & 0x3F) << 8);
+    return v;
+}
 
 s32 func_8003B794(s32 a0) {
     u16 r;
