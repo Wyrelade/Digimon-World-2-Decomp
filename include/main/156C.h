@@ -1488,7 +1488,7 @@ typedef struct {
 /* Global D_8004EAF8: one-shot stream state opened by func_800312F8. */
 typedef struct {
     /* 0x00 */ u16 field_0;
-    u8 _pad02[0x2];
+    /* 0x02 */ u16 field_2;
     /* 0x04 */ s32 field_4[11];
     /* 0x30 */ u16 field_30;
     /* 0x32 */ u16 field_32;

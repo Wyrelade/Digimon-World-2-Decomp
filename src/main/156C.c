@@ -752,6 +752,11 @@ extern volatile Reg2EC0C *D_8004E68C;
 extern volatile u32 *D_8004E688;
 extern volatile u8 *D_8004E670;
 extern u16 func_8003CF04(s32 cenHigh, s32 cenLow, s32 noteHigh, s32 noteLow);
+extern u16 *D_8004FB84;
+extern s32 D_8004FB90;
+extern char D_800109C8[];
+extern char D_800109E4[];
+extern void func_800313B4(void);
 s16 func_800388A4(s16, s16, s16, s16, u16);
 void func_80021DC8(void);
 
@@ -11163,7 +11168,37 @@ int func_80030E50(int a0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030E68);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030F40);
+void func_80030F40(void) {
+    s32 i;
+    u16 mask;
+
+    if (D_8004EAF8.field_0 == 0) {
+        func_8002A014(D_800109C8, *D_8004FB84);
+        func_800313B4();
+    }
+    D_8004EAF8.field_2 = 1;
+    while ((mask = (D_8004EAF8.field_30 & *(volatile u16 *)D_8004FB84) & *(volatile u16 *)D_8004FB88) != 0) {
+        for (i = 0; mask != 0 && i < 11; i++, mask >>= 1) {
+            if (mask & 1) {
+                *D_8004FB84 = ~(1 << i);
+                if (((void (**)(void))D_8004EAF8.field_4)[i] != 0) {
+                    ((void (**)(void))D_8004EAF8.field_4)[i]();
+                }
+            }
+        }
+    }
+    if (*D_8004FB84 & *(volatile u16 *)D_8004FB88) {
+        if (D_8004FB90++ > 0x800) {
+            func_8002A014(D_800109E4, *D_8004FB84, *(volatile u16 *)D_8004FB88);
+            D_8004FB90 = 0;
+            *D_8004FB84 = 0;
+        }
+    } else {
+        D_8004FB90 = 0;
+    }
+    D_8004EAFA = 0;
+    func_800313B4();
+}
 
 s32 func_80031110(s32 ch, s32 val) {
     s32 *arr = D_8004EAF8.field_4;

@@ -3408,5 +3408,14 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80030F40": {
+    "passes": [
+      "nosplit",
+      "slot_unfill",
+      "web_resched",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
