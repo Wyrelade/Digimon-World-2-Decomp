@@ -690,6 +690,11 @@ extern char D_80010D18[];
 extern s32 D_8004E9E0[];
 extern s32 func_8002F860();
 extern s32 func_8002F318();
+extern s32 D_80062F54;
+extern s32 D_80062F50;
+extern u32 D_800506C8;
+extern s32 D_800506CC;
+extern char D_80010B9C[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -13703,11 +13708,11 @@ void func_8003DD00(void) {
     p->field_0 = 0;
     p->field_4 = 0;
     p->field_8 = 0;
-    p->field_54 = 0;
+    ((volatile State62F80 *)p)->field_50[1] = 0;
     p->field_14 = -1;
-    p->field_4C = 1;
-    p->field_48 = 1;
-    p->field_50 = p->field_54;
+    p->field_48[1] = 1;
+    p->field_48[0] = 1;
+    p->field_50[0] = ((volatile State62F80 *)p)->field_50[1];
     func_8003FBF4();
     func_80030D98(7, (s32)func_8003F46C);
 }
@@ -13738,7 +13743,103 @@ s32 func_8003DDB0(s32 arg0) {
     return r;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003DE18);
+s32 func_8003DE18(s32 *st) {
+    s32 r;
+    volatile State62F80 *q;
+    s32 m;
+    s32 v;
+    s32 *e;
+    s32 *tbl;
+    s32 k;
+    s32 c;
+    s32 w;
+    s32 *pt;
+    s32 k2;
+
+    switch (*st) {
+    case 0:
+        D_80062F54 = 0;
+        D_80062F50 = 0;
+        *st = 10;
+        e = &D_80062F80.field_50[D_80062F80.field_10 >> 4];
+        v = *e;
+        *e = 0;
+        D_800506C8 = v;
+    case 10:
+        func_8003FEA4();
+        func_8003F994(D_80062F80.field_10);
+        *st = *st + 1;
+        break;
+    case 11:
+        if (func_8004015C() == 0) {
+            return 0;
+        }
+        r = func_8003FFAC();
+        D_80062F54 = r;
+        k = D_80062F80.field_10;
+        tbl = D_80062F80.field_48;
+        e = &tbl[k >> 4];
+        D_800506CC = *e;
+        switch (r) {
+        case 4:
+            if (D_800506CC == 0 && D_800506C8 < 0x80) {
+                func_8003FEA4();
+                func_8003F9B4(D_80062F80.field_10);
+                *st = 0x15;
+                break;
+            }
+            k = D_80062F80.field_10;
+            tbl = D_80062F80.field_48;
+            tbl[k >> 4] = 1;
+            ((volatile State62F80 *)&D_80062F80)->field_4 = func_8003F418(D_80062F54);
+            return 1;
+        case 0:
+            c = D_80062F80.field_C;
+            m = 1 << k;
+            if (!(c & m)) {
+                D_80062F54 = 4;
+            }
+            w = D_80062F54;
+            *e = 0;
+            ((volatile State62F80 *)&D_80062F80)->field_4 = func_8003F418(w);
+            return 1;
+        case 2:
+            if (++D_80062F50 < 3) {
+                *st = 10;
+                break;
+            }
+            *e = 1;
+            ((volatile State62F80 *)&D_80062F80)->field_4 = func_8003F418(2);
+            return 1;
+        case 1:
+            if (++D_80062F50 < 17) {
+                *st = 10;
+                break;
+            }
+            ((volatile State62F80 *)&D_80062F80)->field_4 = func_8003F418(1);
+            tbl[D_80062F80.field_10 >> 4] = 0;
+            return 1;
+        default:
+            ((volatile State62F80 *)&D_80062F80)->field_4 = func_8003F418(D_80062F54);
+            pt = D_80062F80.field_48;
+            pt[D_80062F80.field_10 >> 4] = 0;
+            return 1;
+        }
+        break;
+    case 21:
+        if (func_80040198() == 0) {
+            return 0;
+        }
+        func_80040084();
+        *st = 0;
+        break;
+    default:
+        func_8002A014(D_80010B9C);
+        break;
+    }
+    return 0;
+}
+
 
 s32 func_8003E134(s32 arg0) {
     s32 r;

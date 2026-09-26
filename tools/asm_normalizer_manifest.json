@@ -3149,5 +3149,17 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8003DE18": {
+    "passes": [
+      "nosplit_nodb",
+      "sreg_perm",
+      "copy_use",
+      "save_slot",
+      "web_resched",
+      "taken_fill",
+      "fallthrough_fill",
+      "delay_fill"
+    ]
   }
 }

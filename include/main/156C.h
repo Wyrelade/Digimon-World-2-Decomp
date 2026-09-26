@@ -1317,10 +1317,8 @@ typedef struct {
     /* 0x20 */ s32 field_20;
     /* 0x24 */ u8 field_24[0x20];
     /* 0x44 */ s32 field_44;
-    /* 0x48 */ s32 field_48;
-    /* 0x4C */ s32 field_4C;
-    /* 0x50 */ s32 field_50;
-    /* 0x54 */ volatile s32 field_54;
+    /* 0x48 */ s32 field_48[2];
+    /* 0x50 */ s32 field_50[2];
 } State62F80;
 
 /* Stack command block passed to func_8003D124 (built by func_80034F64 /
