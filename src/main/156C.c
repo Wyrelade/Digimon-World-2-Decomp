@@ -14613,7 +14613,85 @@ s32 func_8003ADA4(s32 size) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B074);
+void func_8003B074(void) {
+    Hdr3AD44 *e;
+    Hdr3AD44 *o;
+    s32 i;
+    s32 j;
+    u32 t;
+    s32 v;
+    s32 n;
+    Hdr3AD44 *tab;
+    Hdr3AD44 *p;
+
+    i = 0;
+    if (D_8004FE8C >= 0) {
+        n = D_8004FE8C;
+        tab = D_8004FE90;
+        do {
+            if (tab[i].field_0 & 0x80000000) {
+                j = i + 1;
+                p = &tab[j];
+            scan:
+                if ((p++)->field_0 == 0x2FFFFFFF) {
+                    j++;
+                    goto scan;
+                }
+                if ((tab[j].field_0 & 0x80000000)
+                    && (tab[j].field_0 & 0x0FFFFFFF) == (tab[i].field_0 & 0x0FFFFFFF) + tab[i].field_4) {
+                    tab[j].field_0 = 0x2FFFFFFF;
+                    tab[i].field_4 += tab[j].field_4;
+                    continue;
+                }
+            }
+            i++;
+        } while (i <= n);
+    }
+    for (i = 0; i <= D_8004FE8C; i++) {
+        if (D_8004FE90[i].field_4 == 0) {
+            D_8004FE90[i].field_0 = 0x2FFFFFFF;
+        }
+    }
+    for (i = 0; i <= D_8004FE8C; i++) {
+        if (D_8004FE90[i].field_0 & 0x40000000) {
+            break;
+        }
+        for (j = i + 1; j <= D_8004FE8C; j++) {
+            if (D_8004FE90[j].field_0 & 0x40000000) {
+                break;
+            }
+            if ((D_8004FE90[j].field_0 & 0x0FFFFFFF) < (D_8004FE90[i].field_0 & 0x0FFFFFFF)) {
+                t = D_8004FE90[i].field_0;
+                D_8004FE90[i].field_0 = D_8004FE90[j].field_0;
+                v = D_8004FE90[i].field_4;
+                D_8004FE90[i].field_4 = D_8004FE90[j].field_4;
+                D_8004FE90[j].field_0 = t;
+                D_8004FE90[j].field_4 = v;
+            }
+        }
+    }
+    for (i = 0; i <= D_8004FE8C; i++) {
+        if (D_8004FE90[i].field_0 & 0x40000000) {
+            break;
+        }
+        if (D_8004FE90[i].field_0 == 0x2FFFFFFF) {
+            D_8004FE90[i].field_0 = D_8004FE90[D_8004FE8C].field_0;
+            D_8004FE90[i].field_4 = D_8004FE90[D_8004FE8C].field_4;
+            D_8004FE8C = i;
+            break;
+        }
+    }
+    for (i = D_8004FE8C - 1; i >= 0; i--) {
+        e = &D_8004FE90[i];
+        if (!(e->field_0 & 0x80000000)) {
+            break;
+        }
+        e->field_0 = (e->field_0 & 0x0FFFFFFF) | 0x40000000;
+        e->field_4 += D_8004FE90[D_8004FE8C].field_4;
+        D_8004FE8C = i;
+    }
+}
+
 
 void func_8003B374(s32 id) {
     s32 i;

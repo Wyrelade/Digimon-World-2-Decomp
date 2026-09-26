@@ -3508,5 +3508,13 @@
       "fallthrough_fill",
       "padnop"
     ]
+  },
+  "func_8003B074": {
+    "passes": [
+      "nosplit",
+      "commutative_swap",
+      "web_resched",
+      "fallthrough_fill"
+    ]
   }
 }
