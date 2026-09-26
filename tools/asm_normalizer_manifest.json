@@ -3389,5 +3389,14 @@
       "nosplit_hf",
       "padnop"
     ]
+  },
+  "func_80038A90": {
+    "passes": [
+      "nosplit_hf",
+      "reg_realloc",
+      "save_slot",
+      "block_iso",
+      "padnop"
+    ]
   }
 }

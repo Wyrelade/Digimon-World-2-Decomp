@@ -751,6 +751,7 @@ extern char D_800106F4[];
 extern volatile Reg2EC0C *D_8004E68C;
 extern volatile u32 *D_8004E688;
 extern volatile u8 *D_8004E670;
+s16 func_800388A4(s16, s16, s16, s16, u16);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -13426,7 +13427,20 @@ void func_800383D4(u8 a0, u16 a1) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800388A4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80038A90);
+s32 func_80038A90(s16 a0, s16 a1, s16 a2, s32 a3) {
+    s16 i;
+    s32 sum;
+
+    func_800398D4(a1, a2);
+    i = 0;
+    D_80062D2C[0] = a0;
+    sum = 0;
+    for (; i < D_80062D0C; i++) {
+        sum += func_800388A4(i, a0, a1, a2, a3);
+    }
+    return sum;
+}
+
 
 s32 func_80038B74(s16 a0, s16 a1, s32 a2) {
     if (func_800398D4(a0, a1) != 0) {

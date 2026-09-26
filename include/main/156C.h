@@ -2844,4 +2844,7 @@ typedef union {
     u8 b[4];
 } Reg2EC0C;
 
+
+s32 func_80038A90(s16 a0, s16 a1, s16 a2, s32 a3);
+
 #endif /* MAIN_156C_H */
