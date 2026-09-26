@@ -694,7 +694,13 @@ typedef struct {
 
 /* 0x10-stride record; D_800416CC array, per-slot init by func_8001F90C. */
 typedef struct {
-    u8 data[0x10];
+    /* 0x00 */ s32 x;
+    /* 0x04 */ s32 y;
+    /* 0x08 */ s32 z;
+    /* 0x0C */ u8 r;
+    /* 0x0D */ u8 g;
+    /* 0x0E */ u8 b;
+    u8 _pad0F;
 } Blk16;
 
 /* 0xC-stride record returned by the func_8001E5E8 getter (base is the
@@ -2954,5 +2960,9 @@ typedef struct {
     /* 0x000 */ s32 field_0[64];
     /* 0x100 */ s32 field_100[64];
 } CdTbl4E80C;
+
+
+/* GTE color / light matrix (func_8002BA80 reads, func_8002BA1C sets the color one). */
+typedef Mat1F668 S32;
 
 #endif /* MAIN_156C_H */

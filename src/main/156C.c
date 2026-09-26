@@ -78,7 +78,7 @@ extern void *func_80030514(void *);
 extern void func_800240E8();
 extern void func_8001F320(Actor *);
 extern Blk16 D_800416CC[];
-extern void func_8002B564(s32, Blk16 *);
+extern s32 func_8002B564(s32, Blk16 *);
 extern void func_8002BB54(s32, s32, s32);
 extern void func_8002BAD4(s32);
 extern s32 func_8001E134(void);
@@ -765,6 +765,8 @@ extern char D_800108F4[];
 extern char D_80010904[];
 extern u8 D_8004E6E0[];
 extern CdTbl4E80C D_8004E80C;
+extern Mat1F668 D_800619A8;
+extern s32 func_8002CEE4(s32);
 s16 func_800388A4(s16, s16, s16, s16, u16);
 void func_80021DC8(void);
 
@@ -10219,11 +10221,55 @@ void func_8002B4C4(void) {
 
 void func_8002B544(s32 arg0) { func_8002D6C4(); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002B564);
+s32 func_8002B564(s32 idx, Blk16 *src) {
+    S32 lm;
+    S32 cm;
+    s32 r;
+    s32 g;
+    s32 b;
+    s32 len;
 
-typedef struct {
-    s32 w[8];
-} S32;
+    r = src->r;
+    g = src->g;
+    b = src->b;
+    lm = D_800619A8;
+    func_8002BA80(&cm);
+    len = func_8002CEE4(src->x * src->x + src->y * src->y + src->z * src->z);
+    if (len == 0) {
+        return -1;
+    }
+    switch (idx) {
+    case 0:
+        lm.m[0][0] = -src->x * 4096 / len;
+        lm.m[0][1] = -src->y * 4096 / len;
+        lm.m[0][2] = -src->z * 4096 / len;
+        cm.m[0][0] = (r << 12) / 255;
+        cm.m[1][0] = (g << 12) / 255;
+        cm.m[2][0] = (b << 12) / 255;
+        break;
+    case 1:
+        lm.m[1][0] = -src->x * 4096 / len;
+        lm.m[1][1] = -src->y * 4096 / len;
+        lm.m[1][2] = -src->z * 4096 / len;
+        cm.m[0][1] = (r << 12) / 255;
+        cm.m[1][1] = (g << 12) / 255;
+        cm.m[2][1] = (b << 12) / 255;
+        break;
+    case 2:
+        lm.m[2][0] = -src->x * 4096 / len;
+        lm.m[2][1] = -src->y * 4096 / len;
+        lm.m[2][2] = -src->z * 4096 / len;
+        cm.m[0][2] = (r << 12) / 255;
+        cm.m[1][2] = (g << 12) / 255;
+        cm.m[2][2] = (b << 12) / 255;
+        break;
+    }
+    D_800619A8 = lm;
+    func_8002BA1C(&cm);
+    return 0;
+}
+
+
 extern S32 D_800619C8;
 extern void func_8002D614(S32 *);
 

@@ -3491,5 +3491,11 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8002B564": {
+    "passes": [
+      "nosplit",
+      "reg_realloc"
+    ]
   }
 }
