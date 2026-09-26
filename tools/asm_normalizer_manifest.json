@@ -3081,5 +3081,14 @@
       "fallthrough_fill",
       "delay_fill"
     ]
+  },
+  "func_8003A454": {
+    "passes": [
+      "nosplit",
+      "undo_drop",
+      "sched_match",
+      "web_resched",
+      "delay_fill"
+    ]
   }
 }

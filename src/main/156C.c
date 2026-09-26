@@ -247,7 +247,7 @@ extern s32 D_800619A0;
 extern char D_80010624[];
 extern void func_8002A014();
 extern void func_80038BE4(s16, s32, s32, s32);
-extern void func_8003A454(s32, s32);
+extern void func_8003A454(u16 *, u32);
 extern s32 func_80036164();
 extern s32 func_80036594();
 extern void func_800391B4(s32);
@@ -679,6 +679,9 @@ extern volatile s32 D_8004FE7C;
 extern s32 D_8004FE80;
 extern void func_8003AC84(void);
 extern void func_8003AC5C(void);
+extern char D_80010AA4[];
+extern char D_80010AC4[];
+extern char D_80010AD8[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -12538,7 +12541,45 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A1C4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A1D4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A454);
+void func_8003A454(u16 *addr, u32 size) {
+    u16 status;
+    s32 wsize;
+    s32 i;
+    u32 count;
+
+    ((volatile u16 *)D_8004FE28)[0xD3] = D_8004FE40;
+    status = ((volatile u16 *)D_8004FE28)[0xD7] & 0x7FF;
+    func_8003ACAC();
+    while (size != 0) {
+        wsize = 0x40;
+        if (size <= 0x40) {
+            wsize = size;
+        }
+        for (i = 0; i < wsize; i += 2) {
+            ((volatile u16 *)D_8004FE28)[0xD4] = *addr++;
+        }
+        ((volatile u16 *)D_8004FE28)[0xD5] = (((volatile u16 *)D_8004FE28)[0xD5] & ~0x30) | 0x10;
+        func_8003ACAC();
+        count = 0;
+        while (((volatile u16 *)D_8004FE28)[0xD7] & 0x400) {
+            if (++count > 0xF00) {
+                func_8002A014(D_80010AA4, D_80010AC4);
+                break;
+            }
+        }
+        func_8003ACAC();
+        func_8003ACAC();
+        size -= wsize;
+    }
+    ((volatile u16 *)D_8004FE28)[0xD5] &= ~0x30;
+    count = 0;
+    while ((((volatile u16 *)D_8004FE28)[0xD7] & 0x7FF) != status) {
+        if (++count > 0xF00) {
+            func_8002A014(D_80010AA4, D_80010AD8);
+            break;
+        }
+    }
+}
 
 void func_8003A614(void) {
     volatile u16 *r;
