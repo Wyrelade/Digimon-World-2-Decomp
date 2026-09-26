@@ -686,6 +686,7 @@ extern char D_80010D18[];
 extern s32 func_800401E4(void);
 extern s32 func_8003F418(s32 a0);
 extern u8 *func_80027014(u8 *s, s32 n);
+extern char D_80010D18[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -14167,7 +14168,45 @@ s32 func_8003F18C(s32 wait, s32 *a1, s32 *a2) {
     return 1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003F2A8);
+s32 func_8003F2A8(s32 a0, s32 a1, s32 a2) {
+    u8 buf[0x20];
+    s32 r;
+
+    if (D_80062F80.field_0 == 0) {
+        goto work;
+    }
+    func_8002A014(D_80010D18);
+    return -1;
+e1:
+    return 7;
+e2:
+    return 4;
+e3:
+    return 6;
+work:
+    func_8003F518(a0, buf);
+    func_8003F874(buf, a1);
+    D_80062F80.field_C |= 1 << a0;
+    r = func_800405B4(a0, a1, a2);
+    if (r == 0) {
+        goto e0;
+    }
+    if (r == -1) {
+        goto e1;
+    }
+    if (r == -2) {
+        goto e2;
+    }
+    if (r == -3) {
+        goto e3;
+    }
+    if (r == 4) {
+        return 2;
+    }
+    return func_8003F418(r);
+e0:
+    return 0;
+}
 
 s32 func_8003F3A4(void) {
     State62F80 *s = &D_80062F80;

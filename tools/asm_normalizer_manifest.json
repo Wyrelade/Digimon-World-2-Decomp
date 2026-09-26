@@ -3122,5 +3122,19 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8003F2A8": {
+    "passes": [
+      "nosplit_nodb",
+      "arg_unprop",
+      "sched_pre",
+      "sreg_perm",
+      "save_slot",
+      "sched_match",
+      "taken_fill",
+      "fallthrough_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
