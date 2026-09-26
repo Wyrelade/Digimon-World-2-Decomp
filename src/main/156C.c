@@ -303,7 +303,7 @@ extern s32 *D_80049034;
 extern volatile s32 D_80049038;
 extern volatile s32 D_8004903C;
 extern s32 D_80049048;
-extern u8 D_800600B0[];
+extern Que291FC D_800600B0[];
 extern s32 *D_8004E994;
 extern volatile Cd4E9A4 D_8004E9A4;
 extern s32 D_80048E50;
@@ -742,6 +742,7 @@ extern void func_80024DC8(Obj25FBC *a0);
 extern s32 func_80025114(Obj25FBC *p);
 extern volatile s8 D_80062D27;
 extern u8 D_80050760;
+extern s32 D_80049040;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -9334,7 +9335,46 @@ s32 func_800291A8(s32 arg0) {
 
 void func_800291D8(s32 arg0, s32 arg1, s32 arg2) { func_800291FC(arg0, arg1, 0, arg2); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800291FC);
+s32 func_800291FC(void (*func)(s32 *, s32), s32 *param, s32 n, s32 x) {
+    s32 i;
+    Gpu48F10 *g;
+
+    func_80029984();
+    while (((D_80049038 + 1) & 0x3F) == D_8004903C) {
+        if (func_800299B8() != 0) {
+            return -1;
+        }
+        func_800294AC();
+    }
+    D_80049040 = func_80030E50(0);
+    g = &D_80048F10;
+    g->field_8 = 1;
+    if (g->field_1 == 0 ||
+        (D_80049038 == D_8004903C && !(*D_80049024 & 0x1000000) && g->field_C == 0)) {
+        while (!(*(volatile s32 *)D_80049018 & 0x4000000)) {
+        }
+        func(param, x);
+        func_80030E50(D_80049040);
+        return 0;
+    }
+    func_80030D34(2, func_800294AC);
+    if (n != 0) {
+        for (i = 0; i < n / 4; i++) {
+            volatile s32 *d = D_800600B0[D_80049038].param;
+            d[i] = param[i];
+        }
+        D_800600B0[D_80049038].ptr = D_800600B0[D_80049038].param;
+    } else {
+        D_800600B0[D_80049038].ptr = param;
+    }
+    D_800600B0[D_80049038].x = x;
+    D_800600B0[D_80049038].func = func;
+    D_80049038 = (D_80049038 + 1) & 0x3F;
+    func_80030E50(D_80049040);
+    func_800294AC();
+    return (D_80049038 - D_8004903C) & 0x3F;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800294AC);
 
@@ -9347,7 +9387,7 @@ s32 func_8002970C(s32 mode) {
         *D_80049024 = 0x401;
         *D_80049034 |= 0x800;
         *D_80049018 = 0;
-        func_80029FDC(D_800600B0, 0, 0x1800);
+        func_80029FDC((u8 *)D_800600B0, 0, 0x1800);
         break;
     case 1:
     case 3:

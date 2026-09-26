@@ -3340,5 +3340,16 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_800291FC": {
+    "passes": [
+      "nosplit",
+      "sched_match",
+      "web_resched",
+      "block_iso",
+      "taken_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

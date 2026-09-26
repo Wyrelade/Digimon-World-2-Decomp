@@ -2508,7 +2508,7 @@ typedef struct {
     /* 0x03 */ u8 field_3;
     /* 0x04 */ s16 field_4;
     /* 0x06 */ s16 field_6;
-    u8 _pad08[0x4];
+    /* 0x08 */ s32 field_8;
     /* 0x0C */ s32 field_C;
     /* 0x10 */ u8 field_10[0x5C];
     /* 0x6C */ volatile DispEnv field_6C; /* cached display environment */
@@ -2785,5 +2785,13 @@ typedef struct {
     u8 _pad6C[0x13A];
     /* 0x1A6 */ s16 parity;
 } ModeWork17F6C;
+
+/* GPU command queue entry at D_800600B0 (stride 0x60, 64 entries). */
+typedef struct {
+    /* 0x00 */ void (*func)(s32 *, s32);
+    /* 0x04 */ s32 *ptr;
+    /* 0x08 */ s32 x;
+    /* 0x0C */ s32 param[21];
+} Que291FC; /* size 0x60 */
 
 #endif /* MAIN_156C_H */
