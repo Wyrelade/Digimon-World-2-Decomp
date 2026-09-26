@@ -3351,5 +3351,13 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80035074": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

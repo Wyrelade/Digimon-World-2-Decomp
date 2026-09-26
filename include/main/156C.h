@@ -2794,4 +2794,16 @@ typedef struct {
     /* 0x0C */ s32 param[21];
 } Que291FC; /* size 0x60 */
 
+
+/* Stream state block at D_8004FC48 (mode, busy flag, two hooks, three flag bytes), read by func_80035074. */
+typedef struct {
+    /* 0x00 */ s32 mode;
+    /* 0x04 */ s32 flag;
+    /* 0x08 */ void (*fn_0)(void);
+    /* 0x0C */ void (*fn_4)(void);
+    /* 0x10 */ s8 b0;
+    /* 0x11 */ s8 b1;
+    /* 0x12 */ s8 b2;
+} Cd4FC48;
+
 #endif /* MAIN_156C_H */

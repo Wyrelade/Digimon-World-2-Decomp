@@ -508,7 +508,7 @@ extern s32 func_8001204C(s32, s32, s32, s32);
 extern s32 func_8001236C(s32, s32, s32, s32);
 extern s32 func_80012490(s32, s32, s32, s32);
 extern s32 func_80012640(s32, s32);
-extern s32 D_8004FC48[];
+extern Cd4FC48 D_8004FC48;
 extern s32 D_80061C4C;
 extern s16 D_80040DAC[];
 extern Obj50720 *D_80050720;
@@ -743,6 +743,10 @@ extern s32 func_80025114(Obj25FBC *p);
 extern volatile s8 D_80062D27;
 extern u8 D_80050760;
 extern s32 D_80049040;
+extern s32 func_800354BC(s32 arg0);
+extern s32 func_80035384(s32 arg0, s32 arg1, s32 arg2);
+extern void func_800352E4(void);
+extern void func_80035330(void);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -12108,7 +12112,70 @@ void func_80035024(s16 a0, s16 a1) {
     func_8003D124(&c);
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035074);
+void func_80035074(s32 a0) {
+    s32 i;
+    s32 cmd;
+    u16 rate;
+
+    i = 0x3E7;
+    do {
+        i--;
+    } while (i >= 0);
+    cmd = 0xF2000002;
+    rate = 0x44E8;
+    D_8004FC48.b0 = 0;
+    D_8004FC48.b1 = 0;
+    D_8004FC48.b2 = 6;
+    D_8004FC48.fn_4 = 0;
+    switch (D_8004FC48.mode) {
+    case 0:
+        D_8004FC48.b2 = 0x7F;
+        return;
+    case 5:
+        D_8004FC48.b2 = 0;
+        if (a0 == 0) {
+            D_8004FC48.b0 = 1;
+        } else {
+            cmd = 0xF2000003;
+            rate = 1;
+        }
+        break;
+    case 3:
+        rate = 0x89D0;
+        break;
+    case 2:
+        break;
+    default:
+        if (D_8004FC48.flag != 0) {
+            return;
+        }
+        if (D_8004FC48.mode < 0x46) {
+            rate = 0x204CC0 / D_8004FC48.mode;
+            D_8004FC48.b1++;
+        } else {
+            rate = 0x409980 / D_8004FC48.mode;
+        }
+        break;
+    }
+    if (D_8004FC48.b0 != 0) {
+        func_80026FC4();
+        func_80030D64((s32)D_8004FC48.fn_0);
+    } else {
+        func_80026FC4();
+        func_800354BC(cmd);
+        func_80035384(cmd, (u16)rate, 0x1000);
+        if (D_8004FC48.b2 == 0) {
+            D_8004FC48.fn_4 = ((void (*(*)(s32, void (*)(void)))(void))func_80030D04)(0, 0);
+            func_80030D04(D_8004FC48.b2, func_800352E4);
+        } else if (D_8004FC48.b1 != 0) {
+            func_80030D04(D_8004FC48.b2, func_80035330);
+        } else {
+            func_80030D04(D_8004FC48.b2, D_8004FC48.fn_0);
+        }
+    }
+    func_80026FD4();
+}
+
 
 void func_800352A4(void) { func_80035074(1); }
 
@@ -12347,28 +12414,28 @@ void func_80035A04(s32 arg) {
 
     mode = func_80031838();
     if (arg & 0x1000) {
-        D_8004FC48[1] = 1;
-        D_8004FC48[0] = arg & 0xFFF;
+        D_8004FC48.flag = 1;
+        D_8004FC48.mode = arg & 0xFFF;
     } else {
-        D_8004FC48[1] = 0;
-        D_8004FC48[0] = arg;
+        D_8004FC48.flag = 0;
+        D_8004FC48.mode = arg;
     }
-    if (D_8004FC48[0] < 6) {
-        switch (D_8004FC48[0]) {
+    if (D_8004FC48.mode < 6) {
+        switch (D_8004FC48.mode) {
         case 4:
             D_80061C4C = 0x32;
             if (mode == 1) {
-                D_8004FC48[0] = 5;
+                D_8004FC48.mode = 5;
             } else {
-                D_8004FC48[0] = 0x32;
+                D_8004FC48.mode = 0x32;
             }
             break;
         case 1:
             D_80061C4C = 0x3C;
             if (mode == 0) {
-                D_8004FC48[0] = 5;
+                D_8004FC48.mode = 5;
             } else {
-                D_8004FC48[0] = 0x3C;
+                D_8004FC48.mode = 0x3C;
             }
             break;
         case 3:
@@ -12400,7 +12467,7 @@ void func_80035A04(s32 arg) {
             break;
         }
     } else {
-        D_80061C4C = D_8004FC48[0];
+        D_80061C4C = D_8004FC48.mode;
     }
 }
 
