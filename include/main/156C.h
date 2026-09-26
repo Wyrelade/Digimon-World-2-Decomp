@@ -2776,4 +2776,14 @@ typedef struct {
 
 typedef struct { s32 x[8]; s32 y[8]; } XY2CC64;
 
+/* func_80017F6C view of an actor work block: mode at 0x60, s16 flag at 0x6A, parity at 0x1A6. */
+typedef struct {
+    u8 _pad00[0x60];
+    /* 0x60 */ s16 mode;
+    u8 _pad62[0x08];
+    /* 0x6A */ s16 flag6A;
+    u8 _pad6C[0x13A];
+    /* 0x1A6 */ s16 parity;
+} ModeWork17F6C;
+
 #endif /* MAIN_156C_H */

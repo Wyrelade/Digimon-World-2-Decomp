@@ -3320,5 +3320,12 @@
       "reorder_indep",
       "padnop"
     ]
+  },
+  "func_80017F6C": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

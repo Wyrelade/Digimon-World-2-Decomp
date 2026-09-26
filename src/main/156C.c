@@ -3556,7 +3556,28 @@ void func_80017D84(Obj17D84 *a0, s32 a1) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80017F6C);
+void func_80017F6C(Actor *a, s16 mode) {
+    ModeWork17F6C *w = (ModeWork17F6C *)a->work;
+
+    w->mode = mode;
+    if (mode == 3 && ((Rec11F5C *)func_80011F5C(D_80050768->field_108))->field_0 == 2) {
+        w->mode = 4;
+    }
+    w->flag6A = 1;
+    switch (w->mode) {
+    default:
+        w->flag6A = 1;
+        break;
+    case 4:
+    case 6:
+        w->flag6A = 0;
+        break;
+    case 7:
+    case 8:
+        { s16 t = D_80050768->field_124 - 7; w->parity = (w->mode + t) & 1; }
+        break;
+    }
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80018048);
 
