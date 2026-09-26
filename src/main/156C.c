@@ -707,6 +707,7 @@ extern char D_80010AA4[];
 extern char D_80010AB4[];
 extern void func_8003ACAC(void);
 extern s32 func_80025FF4(Obj25FBC *a0, s32 a1);
+extern s16 D_8004DDC0[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -9912,7 +9913,47 @@ Obj2D704 *func_8002D704(Obj2D704 *src, Obj2D704 *dst) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002D744);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002D944);
+s32 func_8002D944(s32 y, s32 x) {
+    s32 c;
+    s32 r;
+    s32 s1 = 0;
+    s32 s2 = 0;
+
+    if (x < 0) {
+        s1 = 1;
+        x = -x;
+    }
+    if (y < 0) {
+        s2 = 1;
+        y = -y;
+    }
+    if (x == 0 && y == 0) {
+        return 0;
+    }
+    if (y < x) {
+        if (y & 0x7FE00000) {
+            c = y / (x >> 10);
+        } else {
+            c = (y << 10) / x;
+        }
+        c = D_8004DDC0[c];
+    } else {
+        if (x & 0x7FE00000) {
+            c = x / (y >> 10);
+        } else {
+            c = (x << 10) / y;
+        }
+        c = 0x400 - D_8004DDC0[c];
+    }
+    if (s1) {
+        c = 0x800 - c;
+    }
+    if (s2) {
+        c = -c;
+    }
+    return c;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002DAC4);
 
