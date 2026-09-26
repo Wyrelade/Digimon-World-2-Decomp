@@ -348,7 +348,11 @@ typedef struct {
     /* 0x46 */ u8 field_46;
     /* 0x47 */ u8 field_47;
     /* 0x48 */ ActorSub5C field_48[2];
-    u8 _pad100[0x18];
+    u8 _pad100[0x10];
+    /* 0x110 */ u16 field_110;
+    u8 _pad112[0x02];
+    /* 0x114 */ u16 field_114;
+    u8 _pad116[0x02];
     /* 0x118 */ s32 field_118[8];
     /* 0x138 */ s32 *field_138[8];
 } Actor;
@@ -2807,5 +2811,29 @@ typedef struct {
     /* 0x11 */ s8 b1;
     /* 0x12 */ s8 b2;
 } Cd4FC48;
+
+/* Screen fade packet func_8001C584 writes at D_8005F770.work: a flat
+ * semi-transparent quad (POLY_F4 layout) followed by a draw-mode word pair. */
+typedef struct {
+    /* 0x00 */ Tag1CE9C t;
+    /* 0x04 */ u32 mode;
+} Fade1C584Mode;
+
+typedef struct {
+    /* 0x00 */ Tag1CE9C t;
+    /* 0x04 */ u8 r;
+    /* 0x05 */ u8 g;
+    /* 0x06 */ u8 b;
+    /* 0x07 */ u8 code;
+    /* 0x08 */ s16 x0;
+    /* 0x0A */ s16 y0;
+    /* 0x0C */ s16 x1;
+    /* 0x0E */ s16 y1;
+    /* 0x10 */ s16 x2;
+    /* 0x12 */ s16 y2;
+    /* 0x14 */ s16 x3;
+    /* 0x16 */ s16 y3;
+    /* 0x18 */ Fade1C584Mode m;
+} Fade1C584;
 
 #endif /* MAIN_156C_H */

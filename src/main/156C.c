@@ -4991,7 +4991,79 @@ void func_8001C56C(void) {
     D_80041564.field_0 = 1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001C584);
+void func_8001C584(void) {
+    Fade1C584 *p;
+    Fade1C584Mode *q;
+    Tag1CE9C *ot;
+    s32 w;
+    s32 h;
+    u8 c;
+    s32 abr;
+
+    if (D_8005F770.work == 0) {
+        return;
+    }
+    for (;;) {
+        switch (D_80041564.field_0) {
+        default:
+        case 0:
+            D_8005F770.field_10 = 0;
+            return;
+        case 1:
+            D_8005F770.field_10 = 0xFF;
+            goto check;
+        case 2:
+            D_8005F770.field_10 -= D_80041564.field_4;
+            if (D_8005F770.field_10 > 0) {
+                goto draw;
+            }
+            D_8005F770.field_10 = 0;
+            D_80041564.field_0 = 0;
+            continue;
+        case 3:
+            D_8005F770.field_10 += D_80041564.field_4;
+            if (D_8005F770.field_10 < 0xFF) {
+                goto check;
+            }
+            D_8005F770.field_10 = 0xFF;
+            D_80041564.field_0 = 1;
+            continue;
+        }
+    }
+check:
+    if (D_8005F780 == 0) {
+        return;
+    }
+draw:
+    abr = 2;
+    q = (Fade1C584Mode *)D_8005F770.work;
+    p = (Fade1C584 *)q;
+    ot = (Tag1CE9C *)D_8005F770.field_138[0];
+    p->t.len = 5;
+    p->code = 0x2A;
+    c = D_8005F770.field_10;
+    p->g = c;
+    p->b = c;
+    p->r = c;
+    w = D_8005F770.field_110;
+    p->x0 = p->x2 = -w;
+    p->x1 = p->x3 = w;
+    h = D_8005F770.field_114;
+    p->y0 = p->y1 = -h;
+    p->y2 = p->y3 = h;
+    p->t.addr = ot->addr;
+    ot->addr = (u32)p;
+    q = &p->m;
+    if (D_80041564.field_8 != 0) {
+        abr = 1;
+    }
+    q->t.len = 1;
+    q->mode = (abr << 5) | 0xE1000400;
+    p->m.t.addr = ot->addr;
+    ot->addr = (u32)q;
+    q = (Fade1C584Mode *)(p + 1);
+    D_8005F770.work = (ActorWork *)q;
+}
 
 void func_8001C760(void) {
     s32 i;
