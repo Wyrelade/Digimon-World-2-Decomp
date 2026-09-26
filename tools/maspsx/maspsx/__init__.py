@@ -1007,17 +1007,33 @@ class MaspsxProcessor:
             else:
                 if r_source and (int(operand) > 32767 or int(operand) < -32768):
                     # e.g. lhu	$2,49344($2)
-                    res.extend(
-                        [
-                            "# EXPAND_AT START",
-                            ".set\tnoat",
-                            f"lui\t$at,%hi({operand})",
-                            f"addu\t$at,{r_source},$at",
-                            f"{op}\t{r_dest},%lo({operand})($at)",
-                            ".set\tat",
-                            "# EXPAND_AT END",
-                        ]
-                    )
+                    # aspsx uses the load's own destination as the address temp
+                    # when it is not the base register (lui d; addu d,d,b), and
+                    # $at otherwise (lui at; addu at,at,b).
+                    if (
+                        r_dest != r_source
+                        and r_dest not in ("$0", "$zero", "$at", "$1")
+                        and op not in ("lwl", "lwr")
+                    ):
+                        res.extend(
+                            [
+                                f"lui\t{r_dest},%hi({operand})",
+                                f"addu\t{r_dest},{r_dest},{r_source}",
+                                f"{op}\t{r_dest},%lo({operand})({r_dest})",
+                            ]
+                        )
+                    else:
+                        res.extend(
+                            [
+                                "# EXPAND_AT START",
+                                ".set\tnoat",
+                                f"lui\t$at,%hi({operand})",
+                                f"addu\t$at,$at,{r_source}",
+                                f"{op}\t{r_dest},%lo({operand})($at)",
+                                ".set\tat",
+                                "# EXPAND_AT END",
+                            ]
+                        )
                 else:
                     # e.g. lhu	$2,528482304
                     res.append(line)
