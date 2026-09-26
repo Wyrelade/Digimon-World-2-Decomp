@@ -3327,5 +3327,11 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8001204C": {
+    "passes": [
+      "gp8",
+      "web_realloc"
+    ]
   }
 }

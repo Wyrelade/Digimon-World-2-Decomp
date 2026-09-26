@@ -741,6 +741,7 @@ extern s32 func_80024CB8(Obj25FBC *a0);
 extern void func_80024DC8(Obj25FBC *a0);
 extern s32 func_80025114(Obj25FBC *p);
 extern volatile s8 D_80062D27;
+extern u8 D_80050760;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -1237,7 +1238,117 @@ s32 func_80011FE4(s32 arg0) {
     return r;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001204C);
+s32 func_8001204C(s32 a0, s32 a1, s32 a2, s32 a3) {
+    Rec11F5C *rec;
+    s32 r;
+    s16 *p;
+    s16 *q;
+    u8 v;
+    s32 c;
+    s32 i;
+    s32 j;
+    s32 best;
+    s32 max;
+    s32 n;
+    s32 cnt;
+
+    rec = (Rec11F5C *)func_80011F5C(a0);
+    r = 0;
+    switch (rec->field_1) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 0xA:
+    default:
+        if (rec->field_1 == 0) {
+            p = &D_80050720->field_24;
+            q = &D_80050720->field_26;
+        } else {
+            p = &D_80050720->field_28;
+            q = &D_80050720->field_2A;
+        }
+        if (*p >= *q) {
+            return r;
+        }
+        *p = (*q < *p + rec->field_2) ? *q : (s16)(*p + rec->field_2);
+        r = 1;
+        break;
+    case 0xB:
+        if (func_80022518(a2) < 0) {
+            func_8002254C(a2, 0);
+            r = 1;
+        }
+    case 0xC:
+    case 0xD:
+    case 0xE:
+        c = D_8005071C->field_BA5[rec->field_1 - 0xC];
+        v = c;
+        if (c != 0) {
+            r = 2;
+            if (rec->field_2 >= v) {
+                D_8005071C->field_BA5[rec->field_1 - 0xC] = 0;
+                r = 1;
+            }
+        }
+        break;
+    case 0xF:
+        if (D_8005071C->field_BA8 != 0) {
+            best = -1;
+            max = 0;
+            for (j = 0; j < D_8005071C->field_BA8; j++) {
+                v = D_8005071C->field_BA9[j];
+                if (rec->field_2 >= v && max < v) {
+                    best = j;
+                    max = v;
+                }
+            }
+            r = 1;
+            if (best == -1) {
+                goto none;
+            }
+            D_8005071C->field_BA8--;
+            D_8005071C->field_BA9[best] = 0;
+            func_80011F04();
+            D_80050760 = max;
+            break;
+        }
+        break;
+    case 0x10:
+        if (D_8005071C->field_BA5[0] + D_8005071C->field_BA5[1] + D_8005071C->field_BA5[2] + D_8005071C->field_BA8 != 0) {
+            cnt = 0;
+            for (i = 0; i < 3; i++) {
+                if (D_8005071C->field_BA5[i] != 0 && rec->field_2 >= D_8005071C->field_BA5[i]) {
+                    D_8005071C->field_BA5[i] = 0;
+                    cnt++;
+                }
+            }
+            n = D_8005071C->field_BA8;
+            for (i = 0; i < n; i++) {
+                if (rec->field_2 >= D_8005071C->field_BA9[i]) {
+                    D_8005071C->field_BA9[i] = 0;
+                    D_8005071C->field_BA8--;
+                    cnt++;
+                }
+            }
+            func_80011F04();
+            r = 1;
+            if (cnt == 0) {
+            none:
+                r = 2;
+            }
+        }
+        break;
+    }
+    return r;
+}
+
 
 s32 func_8001236C(s32 a0, s32 a1, s32 a2, s32 a3) {
     Obj1236C *o = (Obj1236C *)a3;
