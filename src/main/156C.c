@@ -727,6 +727,19 @@ extern s32 func_8003FFAC(void);
 extern s32 func_8003F9B4(s32 a0);
 extern s32 func_80040198(void);
 extern void func_80040084(void);
+extern s32 func_80024960(Ent266D0 *, s32);
+extern s32 (*D_80048E3C)(Actor *);
+extern void (*D_80048E38)(Obj25FBC *);
+extern u8 D_8005FFB8[];
+extern u8 D_80060000[];
+extern void func_8002485C(s32 code);
+extern void func_800247F4(Obj25FBC *a0);
+extern s32 func_80024950(Actor *arg0);
+extern void func_80024A1C(Obj25FBC *a0);
+extern u8 *func_80024C98(s32 arg0);
+extern s32 func_80024CB8(Obj25FBC *a0);
+extern void func_80024DC8(Obj25FBC *a0);
+extern s32 func_80025114(Obj25FBC *p);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -7693,7 +7706,25 @@ void func_80024654(u8 *a0, u8 *a1) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024704);
+void func_80024704(void) {
+    Obj25FBC *o = (Obj25FBC *)D_8005FDD8;
+
+    func_80027014((u8 *)o, 0x1E0);
+    o[0].field_3C = D_8005FFB8;
+    o[0].field_40 = D_80060000;
+    o[1].field_3C = &D_8005FFB8[0x23];
+    D_80048E18 = func_8002485C;
+    D_80048E1C = func_800247F4;
+    D_80048E20 = func_80024960;
+    D_80048E24 = (void (*)(Ent266D0 *))func_80024A1C;
+    D_80048E2C = (Obj25FBC *(*)(void))func_80024C98;
+    D_80048E3C = func_80024950;
+    D_80048E30 = func_80024CB8;
+    D_80048E34 = (s32 (*)(void))func_80025114;
+    D_80048E4C = o;
+    o[1].field_40 = &D_80060000[0x23];
+    D_80048E38 = func_80024DC8;
+}
 
 void func_800247F4(Obj25FBC *a0) {
     u8 *p;

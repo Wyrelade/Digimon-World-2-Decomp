@@ -3285,5 +3285,12 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80024704": {
+    "passes": [
+      "nosplit_nos2",
+      "block_iso",
+      "padnop"
+    ]
   }
 }
