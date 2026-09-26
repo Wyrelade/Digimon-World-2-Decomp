@@ -3209,5 +3209,14 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80040C74": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "zero_remat",
+      "slot_unsteal",
+      "padnop"
+    ]
   }
 }
