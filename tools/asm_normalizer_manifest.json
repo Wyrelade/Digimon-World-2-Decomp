@@ -3247,5 +3247,18 @@
       "param_copy",
       "padnop"
     ]
+  },
+  "func_800153F4": {
+    "passes": [
+      "nosplit_nodb",
+      "sched_pre",
+      "commutative_swap",
+      "web_resched",
+      "taken_fill",
+      "fallthrough_fill",
+      "label_nop",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

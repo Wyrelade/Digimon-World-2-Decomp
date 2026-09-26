@@ -2603,7 +2603,30 @@ void func_80015298(Actor *a0, s32 a1) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800153F4);
+void func_800153F4(Actor *a0, s32 a1) {
+    HudSlots153F4 *w = (HudSlots153F4 *)a0->work;
+    Halves *h;
+    s32 i;
+    s32 id;
+    s32 v;
+
+    h = (Halves *)func_800239A0(0x5130016);
+    for (i = 0; i < 4; i++) {
+        if (i == 3) {
+            v = func_80021D60();
+        } else {
+            v = D_8005071C->field_BA5[i];
+        }
+        if (v != 0) {
+            id = v + 0x1FD00EC;
+            id = i * 3 + id;
+            func_800134F8(&w->slot[i], (s32)func_800239A0(id), a1, *h);
+        } else {
+            func_8001BB88(&w->slot[i]);
+        }
+        h++;
+    }
+}
 
 void func_800154F0(Actor *a0) {
     Wk14EA4 *w = (Wk14EA4 *)a0->work;

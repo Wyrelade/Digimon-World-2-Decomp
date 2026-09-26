@@ -2748,4 +2748,10 @@ typedef struct {
     /* 0x0E */ u16 vagHi;
 } Prog39B54;
 
+/* func_800153F4 view of an actor work block: four hud slot words at 0x60 (overlaps ActorWork fields 0x64..0x6C). */
+typedef struct {
+    u8 _pad00[0x60];
+    /* 0x60 */ s32 slot[4];
+} HudSlots153F4;
+
 #endif /* MAIN_156C_H */
