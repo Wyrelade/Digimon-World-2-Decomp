@@ -3180,5 +3180,12 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80025D4C": {
+    "passes": [
+      "nosplit",
+      "web_realloc",
+      "padnop"
+    ]
   }
 }

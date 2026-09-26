@@ -706,6 +706,7 @@ extern u16 D_80062EE8[];
 extern char D_80010AA4[];
 extern char D_80010AB4[];
 extern void func_8003ACAC(void);
+extern s32 func_80025FF4(Obj25FBC *a0, s32 a1);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -8108,7 +8109,92 @@ void func_80025CC8(Obj25FBC *a0) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80025D4C);
+s32 func_80025D4C(Obj25FBC *a0) {
+    u8 *p;
+    s32 v;
+
+    switch (a0->field_46) {
+
+    case 2:
+        p = *(u8 *volatile *)&a0->field_3C;
+        if (p[7] != 0) {
+            goto ret0;
+        }
+        if (a0->field_E3 == p[3] && a0->field_E4 == p[4] && a0->field_E9 == p[5] && a0->field_EA == p[6]) {
+            a0->field_EE = 0;
+        } else {
+            a0->field_EE = 0xFFFF;
+        }
+        a0->field_E3 = (*(u8 *volatile *)&a0->field_3C)[3];
+        a0->field_E4 = (*(u8 *volatile *)&a0->field_3C)[4];
+        a0->field_E6 = 0;
+        a0->field_E9 = (*(u8 *volatile *)&a0->field_3C)[5];
+        a0->field_EA = (*(u8 *volatile *)&a0->field_3C)[6];
+        a0->field_EC = 0;
+        if (a0->field_EE != 0) {
+            goto ret0;
+        }
+        a0->field_EB = 0;
+        break;
+
+    case 3:
+        p = *(u8 *volatile *)&a0->field_3C;
+        if (p[2] != 0) {
+            goto ret0;
+        }
+        if (p[3] != 0) {
+            goto ret0;
+        }
+        v = p[5] + (p[4] << 8);
+        a0->field_E6 = v;
+        if (a0->field_EE != (u16)v) {
+            a0->field_EE = v;
+        ret0:
+            return 0;
+        }
+        a0->field_EE = 0xFFFF;
+        a0->field_EB = 0;
+        a0->field_47 = 0;
+        break;
+
+    case 4:
+        p = *(u8 *volatile *)&a0->field_3C;
+        if (p[2] != 0) {
+            goto ret0;
+        }
+        if (p[3] != 0) {
+            goto ret0;
+        }
+        v = a0->field_EC;
+        v += 8;
+        v += (p[4] + 3) & 0x1FC;
+        a0->field_EC = v;
+        if (++a0->field_47 < a0->field_EA) {
+            goto ret0;
+        }
+        if (func_80025FBC(a0) > 0x80) {
+            D_80048E1C(a0);
+            a0->field_46 = 0xFE;
+            a0->field_49 = 2;
+            goto ret0;
+        }
+        if (a0->field_EE != a0->field_EC) {
+            a0->field_EE = a0->field_EC;
+            a0->field_47 = 0;
+            a0->field_EC = 0;
+            return 0;
+        }
+        a0->field_EE = 0;
+        a0->field_EB = 0;
+        a0->field_46 = 0xFF;
+        func_80025FF4(a0, a0->field_63);
+        a0->field_46 = 2;
+        goto ret0;
+
+    }
+    return 1;
+}
+
 
 s32 func_80025FBC(Obj25FBC *arg0) {
     s32 a = ((arg0->field_E3 + 1) >> 1) << 2;

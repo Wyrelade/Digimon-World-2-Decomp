@@ -932,7 +932,7 @@ typedef struct Obj25FBC {
     u8 _pad51[0x6];
     /* 0x57 */ u8 field_57[6];
     /* 0x5D */ u8 field_5D[6];
-    u8 _pad63[0x80];
+    /* 0x63 */ u8 field_63[0x80];
     /* 0xE3 */ u8 field_E3;
     /* 0xE4 */ u8 field_E4;
     u8 _padE5[0x1];
@@ -940,8 +940,9 @@ typedef struct Obj25FBC {
     /* 0xE8 */ u8 field_E8;
     /* 0xE9 */ u8 field_E9;
     /* 0xEA */ u8 field_EA;
-    u8 _padEB[0x1];
+    /* 0xEB */ u8 field_EB;
     /* 0xEC */ u16 field_EC;
+    /* 0xEE */ u16 field_EE;
 } Obj25FBC;
 
 /* Stride-0x28 array element written by func_8001D550: a flag byte at 0xE plus
