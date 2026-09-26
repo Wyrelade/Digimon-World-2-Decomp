@@ -3260,5 +3260,15 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8002796C": {
+    "passes": [
+      "nosplit_nodb",
+      "sched_pre",
+      "web_realloc",
+      "copy_use",
+      "sched_match",
+      "delay_fill"
+    ]
   }
 }

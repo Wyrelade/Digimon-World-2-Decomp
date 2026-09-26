@@ -49,7 +49,7 @@ extern EntE620 D_8005E620;
 extern s32 D_80062FD8;
 extern void func_8001DC24(s32, s32, ElmE620 *);
 extern void func_80022AE4(void);
-extern void func_8002796C(Blk54CF8 *, s32);
+extern Blk54CF8 *func_8002796C(Blk54CF8 *, s32);
 extern void func_8001A68C(s32, s32);
 extern s32 func_80027A74(void *);
 extern s32 func_80026FC4(void);
@@ -718,6 +718,7 @@ extern char *D_8004E76C[];
 extern s32 *D_8004E9C0;
 extern u8 D_8004FE98[];
 extern void func_8003C544(s32);
+extern char D_8001034C[];
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -8647,7 +8648,18 @@ OTag *func_800278A4(OTag *ot, s32 n) {
     return ot;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002796C);
+Blk54CF8 *func_8002796C(Blk54CF8 *ot, s32 n) {
+    u32 *term;
+
+    if (D_80048F12 >= 2) {
+        D_80048F0C(D_8001034C, ot, n);
+    }
+    D_80048F08->fn_2C(ot->field_0, n);
+    term = &D_80048FD0;
+    *term = ((u32)&D_80048FBC & 0xFFFFFF) | 0x4000000;
+    ot->field_0[0] = (u32)term & 0xFFFFFF;
+    return ot;
+}
 
 void func_80027A18(Ent27A18 *a0) {
     s32 n = a0->field_3;
