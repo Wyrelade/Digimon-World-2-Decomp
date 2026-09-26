@@ -1512,6 +1512,7 @@ typedef struct {
     /* 0x00 */ u8 field_0;
     /* 0x01 */ u8 field_1;
     /* 0x02 */ u8 field_2;
+    /* 0x03 */ u8 field_3[6];
 } Cd4E9A4;
 
 /* Word pair at *D_80048DF0: func_80024544 writes -2 to 0x0 and sets bit 0 of 0x4. */

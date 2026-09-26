@@ -757,6 +757,7 @@ extern s32 D_8004FB90;
 extern char D_800109C8[];
 extern char D_800109E4[];
 extern void func_800313B4(void);
+extern char D_800108D8[];
 s16 func_800388A4(s16, s16, s16, s16, u16);
 void func_80021DC8(void);
 
@@ -10769,7 +10770,65 @@ s32 func_8002EDB4(void) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002F318);
+s32 func_8002F318(a0, a1)
+    s32 a0;
+    u8 *a1;
+{
+    s32 r;
+    s32 n;
+    s32 e;
+    s32 t;
+    u8 s;
+    s32 two;
+    char **p0;
+    s8 **com;
+    char **intr;
+
+    D_80061B80 = func_80030AB4(-1) + 0x3C0;
+    com = D_8004E6EC;
+    intr = D_8004E76C;
+    two = 2;
+    D_80061B84 = 0;
+    D_80061B88 = D_800108D8;
+    do {
+        if (D_80061B80 < func_80030AB4(-1) || (n = D_80061B84++, n > 0x3C0000)) {
+            func_80030334(D_80010850);
+            p0 = &intr[D_8004E9A4.field_0];
+            func_8002A014(D_80010860, D_80061B88, *(s8 * volatile *)&com[D_8004E6E5], *(char * volatile *)p0, intr[D_8004E9A4.field_1]);
+            func_8002FCF4();
+            r = -1;
+        } else {
+            r = 0;
+        }
+        if (r != 0) {
+            return -1;
+        }
+        if (func_80030E28() != 0) {
+            s = *D_8004E98C & 3;
+            while ((e = func_8002EDB4()) != 0) {
+                if (e & 4) {
+                    if (D_8004E6CC != 0) {
+                        ((void (*)(s32, u8 *))D_8004E6CC)(D_8004E9A4.field_1, D_80061B70);
+                    }
+                }
+                if (e & 2) {
+                    if (D_8004E6C8 != 0) {
+                        ((void (*)(s32, u8 *))D_8004E6C8)(D_8004E9A4.field_0, D_80061B68);
+                    }
+                }
+            }
+            *D_8004E98C = s;
+        }
+        t = D_8004E9A4.field_0;
+        if (t == two || t == 5) {
+            D_8004E9A4.field_0 = two;
+            cd_memcpy2EDB4(a1, D_80061B68, 8);
+            return t;
+        }
+    } while (a0 == 0);
+    return 0;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002F598);
 
