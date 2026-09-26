@@ -137,7 +137,7 @@ extern void func_80032874();
 extern Elm624E8 D_800624E8[];
 extern s32 D_80049064;
 extern u8 D_800618B0[];
-extern void func_8002A9A4(s32, u8 *, s32);
+extern s32 func_8002A9A4(s32, u8 *, s32);
 extern s32 D_8004E6D8;
 extern s32 D_8004E6D4;
 extern void func_80030258();
@@ -719,6 +719,14 @@ extern s32 *D_8004E9C0;
 extern u8 D_8004FE98[];
 extern void func_8003C544(s32);
 extern char D_8001034C[];
+extern s32 D_800506D4;
+extern s32 func_8003F584(s32, s32, s32);
+extern void func_8003FEA4(void);
+extern s32 func_8004015C(void);
+extern s32 func_8003FFAC(void);
+extern s32 func_8003F9B4(s32 a0);
+extern s32 func_80040198(void);
+extern void func_80040084(void);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -14669,7 +14677,61 @@ s32 func_8003E878(s32 a0, s32 a1, s32 a2) {
     return 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003E930);
+s32 func_8003E930(s32 *st) {
+    s32 r;
+
+    switch (*st) {
+    case 0:
+        D_800506D4 = 0;
+        func_8003FA24(func_8003DE18);
+        *st = 10;
+        break;
+    case 10:
+        if (D_80062F80.field_4 != 0) {
+            return 1;
+        }
+        while (func_8003F584(D_80062F80.field_14, D_80062F80.field_18, 0) != D_80062F80.field_18) {
+        }
+        func_8003FEA4();
+        while (func_8002A9A4(D_80062F80.field_14, (u8 *)D_80062F80.field_20, D_80062F80.field_1C) != 0) {
+        }
+        *st = 30;
+        break;
+    case 30:
+        if (!func_8004015C()) {
+            return 0;
+        }
+        r = func_8003FFAC();
+        if (r != 0) {
+            if (++D_800506D4 < 4) {
+                *st = 10;
+                break;
+            }
+            if (r == 4) {
+                func_8003FEA4();
+                func_8003F9B4(D_80062F80.field_10);
+                *st = 32;
+                break;
+            }
+        }
+        {
+            State62F80 *g = &D_80062F80;
+
+            g->field_4 = func_8003F418(r);
+        }
+        return 1;
+    case 32:
+        if (!func_80040198()) {
+            return 0;
+        }
+        func_80040084();
+        *st = 0;
+        break;
+    default:
+        return 0;
+    }
+    return 0;
+}
 
 s32 func_8003EADC(s32 a0, s32 a1, s32 a2, s32 a3, s32 a4) {
     if (D_80062F80.field_0 > 0) {

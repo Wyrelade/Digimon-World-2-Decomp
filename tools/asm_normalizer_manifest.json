@@ -3277,5 +3277,13 @@
       "web_realloc",
       "padnop"
     ]
+  },
+  "func_8003E930": {
+    "passes": [
+      "nosplit",
+      "la_unfold_st",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
