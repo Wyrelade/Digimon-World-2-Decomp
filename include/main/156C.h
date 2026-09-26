@@ -2756,4 +2756,22 @@ typedef struct {
     /* 0x60 */ s32 slot[4];
 } HudSlots153F4;
 
+/* 4-byte record returned (as s32 *) by the func_80011F5C id lookup. */
+typedef struct {
+    /* 0x00 */ u8 field_0;
+    /* 0x01 */ u8 field_1;
+    /* 0x02 */ s16 field_2;
+} Rec11F5C;
+
+/* Object stepped by func_8001236C: two value/limit s16 pairs at 0x14..0x1A. */
+typedef struct {
+    u8 _pad00[0x1];
+    /* 0x01 */ u8 field_1;
+    u8 _pad02[0x12];
+    /* 0x14 */ s16 field_14;
+    /* 0x16 */ s16 field_16;
+    /* 0x18 */ s16 field_18;
+    /* 0x1A */ s16 field_1A;
+} Obj1236C;
+
 #endif /* MAIN_156C_H */

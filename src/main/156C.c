@@ -1217,7 +1217,44 @@ s32 func_80011FE4(s32 arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001204C);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001236C);
+s32 func_8001236C(s32 a0, s32 a1, s32 a2, s32 a3) {
+    Obj1236C *o = (Obj1236C *)a3;
+    Rec11F5C *r = (Rec11F5C *)func_80011F5C(a0);
+    s16 *cur;
+    s16 *lim;
+    s16 step;
+
+    if (r->field_0 == 3 && r->field_2 != ((s32 (*)(s32))func_8001D934)(o->field_1)) {
+        return 0;
+    }
+    if (r->field_1 == 3) {
+        if (o->field_16 != 0) {
+            return 0;
+        }
+        o->field_16 = o->field_14;
+        return 1;
+    }
+    if (o->field_16 == 0) {
+        return 0;
+    }
+    if (r->field_1 == 0) {
+        cur = &o->field_16;
+        lim = &o->field_14;
+    } else {
+        cur = &o->field_1A;
+        lim = &o->field_18;
+    }
+    if (*cur == *lim) {
+        return 0;
+    }
+    if (r->field_0 == 3) {
+        step = *lim - *cur;
+    } else {
+        step = r->field_2;
+    }
+    *cur = (*lim < *cur + step) ? *lim : (s16)(*cur + step);
+    return 1;
+}
 
 s32 func_80012490(s32 a0, s32 a1, s32 a2, s32 a3) {
     Dg12490 *dg = (Dg12490 *)a3;

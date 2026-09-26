@@ -3270,5 +3270,12 @@
       "sched_match",
       "delay_fill"
     ]
+  },
+  "func_8001236C": {
+    "passes": [
+      "reg_realloc",
+      "web_realloc",
+      "padnop"
+    ]
   }
 }
