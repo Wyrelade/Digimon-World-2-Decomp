@@ -695,6 +695,10 @@ extern s32 D_80062F50;
 extern u32 D_800506C8;
 extern s32 D_800506CC;
 extern char D_80010B9C[];
+extern volatile s32 *D_8004EA88;
+extern volatile s32 *D_8004EA8C;
+extern volatile s32 D_8004EA90;
+extern s32 D_8004EA94;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -10394,7 +10398,46 @@ int func_80030A64(int a0) {
 
 void func_80030A84(s32 arg0) { func_80030D34(3, arg0); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030AB4);
+s32 func_80030AB4(s32 mode) {
+    volatile s32 buf;
+    s32 status;
+    s32 count;
+    s32 v;
+    s32 w;
+    s32 m;
+
+    status = *D_8004EA88;
+    do {
+        buf = *D_8004EA8C;
+    } while (buf != *D_8004EA8C);
+    count = (buf - D_8004EA90) & 0xFFFF;
+    if (mode < 0) {
+        return D_8004FBC0;
+    }
+    if (mode == 1) {
+        return count;
+    }
+    m = mode;
+    if (m > 0) {
+        w = D_8004EA94 - 1;
+        v = w + m;
+    } else {
+        v = D_8004EA94;
+    }
+    func_80030C2C(v, m > 0 ? m - 1 : 0);
+    status = *D_8004EA88;
+    func_80030C2C(D_8004FBC0 + 1, 1);
+    if (status & 0x400000) {
+        while (((status ^ *D_8004EA88) & 0x80000000) == 0) {
+        }
+    }
+    D_8004EA94 = D_8004FBC0;
+    do {
+        D_8004EA90 = *D_8004EA8C;
+    } while (D_8004EA90 != *D_8004EA8C);
+    return count;
+}
+
 
 void func_80030C2C(s32 a0, s32 a1) {
     volatile s32 n = a1 << 15;

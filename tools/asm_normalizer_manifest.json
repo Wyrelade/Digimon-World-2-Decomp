@@ -3161,5 +3161,14 @@
       "fallthrough_fill",
       "delay_fill"
     ]
+  },
+  "func_80030AB4": {
+    "passes": [
+      "nosplit",
+      "shift_const_fold",
+      "sched_match",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
