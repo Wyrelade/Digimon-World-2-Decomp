@@ -685,6 +685,7 @@ extern char D_80010AD8[];
 extern char D_80010D18[];
 extern s32 func_800401E4(void);
 extern s32 func_8003F418(s32 a0);
+extern u8 *func_80027014(u8 *s, s32 n);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -7659,7 +7660,74 @@ s32 func_80024950(Actor *arg0) {
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024960);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024A1C);
+void func_80024A1C(Obj25FBC *a0) {
+    s32 n;
+    s32 i;
+    s32 j;
+    s32 found;
+    s32 mask;
+    s32 s;
+    u8 *p;
+    u8 *q;
+
+    func_80027014(a0->field_57, 6);
+    if (a0->field_E6 != 0 && a0->field_28 != 0) {
+        n = 6;
+        if (a0->field_34 < 7) {
+            n = a0->field_34;
+        }
+        for (i = 0; i < a0->field_E9; i++) {
+            found = 0;
+            mask = 1;
+            if (a0->field_4[i].field_2 != 0) {
+                mask = 0xFF;
+            }
+            p = a0->field_5D;
+            q = a0->field_28;
+            for (j = 0; j < n; p++, j++, q++) {
+                if (*p == i && (*q & mask)) {
+                    found = 1;
+                    break;
+                }
+            }
+            if (found) {
+                s = D_80048E60 + a0->field_4[i].field_3;
+                if (s < 0x3D) {
+                    D_80048E60 = s;
+                } else {
+                    found = 0;
+                }
+                if (found) {
+                    p = a0->field_5D;
+                    q = a0->field_57;
+                    for (j = 0; j < n; j++, q++) {
+                        if (*p++ == i) {
+                            *q = 1;
+                        }
+                    }
+                }
+            }
+        }
+        return;
+    }
+    if ((a0->field_E8 - 4U < 2 || a0->field_E8 == 7) && a0->field_E6 == 0 && a0->field_34 >= 2) {
+        if ((a0->field_28[0] & 0xC0) == 0x40 && (a0->field_28[1] & 1) && D_80048E60 + 10 < 0x3D) {
+            a0->field_57[1] = 1;
+            a0->field_57[0] = 1;
+            D_80048E60 += 10;
+        }
+        return;
+    }
+    if (*(volatile u8 *)&a0->field_E8 == 3) {
+        a0->field_57[0] = 1;
+        return;
+    }
+    if (a0->field_E6 == 0) {
+        for (i = 0; i < 6; i++) {
+            a0->field_57[i] = 1;
+        }
+    }
+}
 
 u8 *func_80024C98(s32 arg0) {
     u8 *p = D_8005FDD8;

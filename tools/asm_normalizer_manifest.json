@@ -3110,5 +3110,17 @@
       "ra_restore_sink",
       "padnop"
     ]
+  },
+  "func_80024A1C": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "reg_realloc",
+      "const_fold",
+      "web_realloc",
+      "fallthrough_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

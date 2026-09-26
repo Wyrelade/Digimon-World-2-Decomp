@@ -889,18 +889,28 @@ typedef struct {
     /* 0x14 */ s32 field_14;
 } ObjDesc;
 
+/* 5-byte slot descriptor walked by func_80024A1C (Obj25FBC field_4). */
+typedef struct {
+    u8 _pad0[2];
+    /* 0x02 */ u8 field_2;
+    /* 0x03 */ u8 field_3;
+    u8 _pad4;
+} Slot24A1C;
+
 /* Argument to func_80025FBC (byte/half fields deep in a large record). */
 typedef struct Obj25FBC {
     /* 0x00 */ s32 field_0;
-    /* 0x04 */ s32 field_4;
+    /* 0x04 */ Slot24A1C *field_4;
     /* 0x08 */ s32 field_8;
     /* 0x0C */ struct Obj25FBC *field_C;
     /* 0x10 */ void *field_10;
     /* 0x14 */ void (*field_14)(void *);
     /* 0x18 */ s32 (*field_18)(void *);
-    u8 _pad1C[0x14];
+    u8 _pad1C[0xC];
+    /* 0x28 */ u8 *field_28;
+    u8 _pad2C[0x4];
     /* 0x30 */ u8 *field_30;
-    u8 _pad34[0x1];
+    /* 0x34 */ u8 field_34;
     /* 0x35 */ u8 field_35;
     u8 _pad36[0x1];
     /* 0x37 */ u8 field_37;
@@ -919,7 +929,8 @@ typedef struct Obj25FBC {
     u8 _pad4B[0x1];
     /* 0x4C */ s32 field_4C;
     /* 0x50 */ u8 field_50;
-    u8 _pad51[0xC];
+    u8 _pad51[0x6];
+    /* 0x57 */ u8 field_57[6];
     /* 0x5D */ u8 field_5D[6];
     u8 _pad63[0x80];
     /* 0xE3 */ u8 field_E3;
