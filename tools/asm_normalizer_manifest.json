@@ -3136,5 +3136,18 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_800307C4": {
+    "passes": [
+      "nosplit_hf",
+      "zero_remat",
+      "sched_pre",
+      "sreg_perm",
+      "web_realloc",
+      "save_slot",
+      "sched_match",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
