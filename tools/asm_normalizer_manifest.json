@@ -3398,5 +3398,15 @@
       "block_iso",
       "padnop"
     ]
+  },
+  "func_8003C904": {
+    "passes": [
+      "nosplit",
+      "reg_realloc",
+      "save_slot",
+      "block_iso",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

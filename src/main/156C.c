@@ -751,6 +751,7 @@ extern char D_800106F4[];
 extern volatile Reg2EC0C *D_8004E68C;
 extern volatile u32 *D_8004E688;
 extern volatile u8 *D_8004E670;
+extern u16 func_8003CF04(s32 cenHigh, s32 cenLow, s32 noteHigh, s32 noteLow);
 s16 func_800388A4(s16, s16, s16, s16, u16);
 void func_80021DC8(void);
 
@@ -14505,7 +14506,194 @@ s32 func_8003C8EC(void) {
     return (D_8004FE5C ^ 1) != 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C904);
+void func_8003C904(VAttr36C54 *arg) {
+    s32 ch;
+    s32 ch8;
+    u32 mask;
+    s32 all;
+    s32 vol;
+    s32 vmode;
+    u32 v;
+    s32 m;
+    volatile s32 i;
+    volatile s32 w;
+
+    mask = arg->mask;
+    all = mask == 0;
+    for (ch = 0; ch < 24; ch++) {
+        if (!(arg->voice & (1 << ch))) {
+            continue;
+        }
+        ch8 = ch << 3;
+        if (all || (mask & 0x10)) {
+            D_8004FE28[(ch << 3) + 2] = arg->pitch;
+        }
+        if (all || (mask & 0x40)) {
+            D_8004FDE4[ch] = arg->sample_note;
+        }
+        if (all || (mask & 0x20)) {
+            D_8004FE28[ch8 + 2] = func_8003CF04(D_8004FDE4[ch] >> 8, D_8004FDE4[ch] & 0xFF,
+                                                arg->note >> 8, arg->note & 0xFF);
+        }
+        if (all || (mask & 0x1)) {
+            vmode = 0;
+            vol = arg->vol_l & 0x7FFF;
+            if (all || (mask & 0x4)) {
+                switch (arg->volmode_l) {
+                case 1:
+                    vmode = 0x8000;
+                    break;
+                case 2:
+                    vmode = 0x9000;
+                    break;
+                case 3:
+                    vmode = 0xA000;
+                    break;
+                case 4:
+                    vmode = 0xB000;
+                    break;
+                case 5:
+                    vmode = 0xC000;
+                    break;
+                case 6:
+                    vmode = 0xD000;
+                    break;
+                case 7:
+                    vmode = 0xE000;
+                    break;
+                }
+            }
+            if (vmode != 0) {
+                if (arg->vol_l >= 0x80) {
+                    vol = 0x7F;
+                } else if (arg->vol_l < 0) {
+                    vol = 0;
+                }
+            }
+            D_8004FE28[ch8] = vol | vmode;
+        }
+        if (all || (mask & 0x2)) {
+            vmode = 0;
+            vol = arg->vol_r & 0x7FFF;
+            if (all || (mask & 0x8)) {
+                switch (arg->volmode_r) {
+                case 1:
+                    vmode = 0x8000;
+                    break;
+                case 2:
+                    vmode = 0x9000;
+                    break;
+                case 3:
+                    vmode = 0xA000;
+                    break;
+                case 4:
+                    vmode = 0xB000;
+                    break;
+                case 5:
+                    vmode = 0xC000;
+                    break;
+                case 6:
+                    vmode = 0xD000;
+                    break;
+                case 7:
+                    vmode = 0xE000;
+                    break;
+                }
+            }
+            if (vmode != 0) {
+                if (arg->vol_r >= 0x80) {
+                    vol = 0x7F;
+                } else if (arg->vol_r < 0) {
+                    vol = 0;
+                }
+            }
+            D_8004FE28[ch8 + 1] = vol | vmode;
+        }
+        if (all || (mask & 0x80)) {
+            func_8003AB24(ch8 | 3, arg->addr);
+        }
+        if (all || (mask & 0x10000)) {
+            func_8003AB24(ch8 | 7, arg->loop_addr);
+        }
+        if (all || (mask & 0x20000)) {
+            D_8004FE28[ch8 + 4] = arg->adsr1;
+        }
+        if (all || (mask & 0x40000)) {
+            D_8004FE28[ch8 + 5] = arg->adsr2;
+        }
+        if (all || (mask & 0x800)) {
+            v = arg->ar;
+            if (v >= 0x80) {
+                v = 0x7F;
+            }
+            m = 0;
+            if (all || (mask & 0x100)) {
+                if (arg->a_mode == 5) {
+                    m = 0x80;
+                }
+            }
+            D_8004FE28[ch8 + 4] = (((volatile u16 *)D_8004FE28)[ch8 + 4] & 0xFF) | ((v | m) << 8);
+        }
+        if (all || (mask & 0x1000)) {
+            v = arg->dr;
+            if (v >= 0x10) {
+                v = 0xF;
+            }
+            D_8004FE28[ch8 + 4] = (((volatile u16 *)D_8004FE28)[ch8 + 4] & 0xFF0F) | (v << 4);
+        }
+        if (all || (mask & 0x2000)) {
+            v = arg->sr;
+            if (v >= 0x80) {
+                v = 0x7F;
+            }
+            m = 0x100;
+            if (all || (mask & 0x200)) {
+                switch (arg->s_mode) {
+                case 1:
+                    m = 0;
+                    break;
+                case 5:
+                    m = 0x200;
+                    break;
+                case 7:
+                    m = 0x300;
+                    break;
+                }
+            }
+            D_8004FE28[ch8 + 5] = (((volatile u16 *)D_8004FE28)[ch8 + 5] & 0x3F) | ((v | m) << 6);
+        }
+        if (all || (mask & 0x4000)) {
+            v = arg->rr;
+            if (v >= 0x20) {
+                v = 0x1F;
+            }
+            m = 0;
+            if (all || (mask & 0x400)) {
+                switch (arg->r_mode) {
+                case 3:
+                    m = 0;
+                    break;
+                case 7:
+                    m = 0x20;
+                    break;
+                }
+            }
+            D_8004FE28[ch8 + 5] = (((volatile u16 *)D_8004FE28)[ch8 + 5] & 0xFFC0) | (v | m);
+        }
+        if (all || (mask & 0x8000)) {
+            v = arg->sl;
+            if (v >= 0x10) {
+                v = 0xF;
+            }
+            D_8004FE28[ch8 + 4] = (((volatile u16 *)D_8004FE28)[ch8 + 4] & 0xFFF0) | v;
+        }
+    }
+    w = 1;
+    for (i = 0; i < 2; i++) {
+        w *= 13;
+    }
+}
+
 
 u16 func_8003CF04(s32 cenHigh, s32 cenLow, s32 noteHigh, s32 noteLow) {
     s16 fine;
