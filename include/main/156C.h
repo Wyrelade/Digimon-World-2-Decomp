@@ -910,11 +910,11 @@ typedef struct Obj25FBC {
     /* 0x18 */ s32 (*field_18)(void *);
     u8 _pad1C[0xC];
     /* 0x28 */ u8 *field_28;
-    u8 _pad2C[0x4];
+    /* 0x2C */ u8 *field_2C;
     /* 0x30 */ u8 *field_30;
     /* 0x34 */ u8 field_34;
     /* 0x35 */ u8 field_35;
-    u8 _pad36[0x1];
+    /* 0x36 */ u8 field_36;
     /* 0x37 */ u8 field_37;
     /* 0x38 */ u8 field_38;
     /* 0x39 */ u8 field_39;
@@ -922,7 +922,7 @@ typedef struct Obj25FBC {
     /* 0x3C */ volatile u8 *field_3C;
     /* 0x40 */ u8 *field_40;
     /* 0x44 */ volatile u8 field_44;
-    u8 _pad45[0x1];
+    /* 0x45 */ u8 field_45;
     /* 0x46 */ u8 field_46;
     /* 0x47 */ u8 field_47;
     u8 _pad48[0x1];

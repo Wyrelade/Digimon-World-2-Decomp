@@ -7790,7 +7790,32 @@ s32 func_80024950(Actor *arg0) {
     return tmp;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80024960);
+s32 func_80024960(Ent266D0 *e, s32 a1) {
+    Obj25FBC *a0 = (Obj25FBC *)e;
+    s32 i = a0->field_45 - 3;
+
+    switch (a0->field_37) {
+    case 0:
+        if (i < 6 && a0->field_57[i] == 0) {
+            return 0;
+        }
+        if (i < a0->field_34) {
+            return a0->field_28[i];
+        }
+        return 0;
+    case 0x4D:
+        if (i < a0->field_36) {
+            return a0->field_2C[i];
+        }
+        return 0xFF;
+    default:
+        if (i < a0->field_36) {
+            return a0->field_2C[i];
+        }
+        return 0;
+    }
+}
+
 
 void func_80024A1C(Obj25FBC *a0) {
     s32 n;

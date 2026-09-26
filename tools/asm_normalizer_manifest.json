@@ -3302,5 +3302,14 @@
       "block_iso",
       "padnop"
     ]
+  },
+  "func_80024960": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "taken_fill",
+      "dead_code",
+      "padnop"
+    ]
   }
 }
