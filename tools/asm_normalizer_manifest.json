@@ -3090,5 +3090,16 @@
       "web_resched",
       "delay_fill"
     ]
+  },
+  "func_8003F3A4": {
+    "passes": [
+      "nosplit_nodb",
+      "la_unfold",
+      "sched_match",
+      "taken_fill",
+      "fallthrough_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
