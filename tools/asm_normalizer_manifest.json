@@ -3465,5 +3465,18 @@
       "taken_fill",
       "padnop"
     ]
+  },
+  "func_8003EF1C": {
+    "passes": [
+      "nosplit_nodb",
+      "zero_remat",
+      "sreg_swap",
+      "save_slot",
+      "sched_match",
+      "taken_fill",
+      "fallthrough_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

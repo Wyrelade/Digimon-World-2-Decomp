@@ -540,7 +540,7 @@ extern s32 D_80062F60;
 extern s32 D_80062F64;
 extern s32 D_80062F68;
 extern s32 func_80040198(void);
-extern void func_80040084(void);
+extern s32 func_80040084(void);
 extern void func_8003F9A4(s32);
 extern void func_8003F994(s32);
 extern s32 func_8004015C(void);
@@ -726,7 +726,7 @@ extern s32 func_8004015C(void);
 extern s32 func_8003FFAC(void);
 extern s32 func_8003F9B4(s32 a0);
 extern s32 func_80040198(void);
-extern void func_80040084(void);
+extern s32 func_80040084(void);
 extern s32 func_80024960(Ent266D0 *, s32);
 extern s32 (*D_80048E3C)(Actor *);
 extern void (*D_80048E38)(Obj25FBC *);
@@ -759,6 +759,7 @@ extern char D_800109E4[];
 extern void func_800313B4(void);
 extern char D_800108D8[];
 extern u8 *D_80060048;
+extern s32 func_8003F5B4(Ent3EF1C *);
 s16 func_800388A4(s16, s16, s16, s16, u16);
 void func_80021DC8(void);
 
@@ -16012,7 +16013,78 @@ s32 func_8003EE14(s32 *st) {
     return 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003EF1C);
+s32 func_8003EF1C(s32 a0_arg, s8 *a1, Ent3EF1C *out_arg, s32 *count_arg, s32 skip, s32 n) {
+    s32 a0 = a0_arg;
+    Ent3EF1C *out = out_arg;
+    s32 *count_out = count_arg;
+    s8 buf[0x20];
+    Ent3EF1C ent;
+    s32 st;
+    s32 tries;
+    s32 i;
+    s32 count;
+    s32 r;
+    s32 ret;
+
+    if (D_80062F80.field_0 != 0) {
+        func_8002A014(D_80010D18);
+        ret = -1;
+        goto end;
+    }
+    func_8003F518(a0, buf);
+    func_8003F874(buf, a1);
+    tries = 0;
+    i = 0;
+    st = 0;
+    D_80062F80.field_C |= 1 << a0;
+    count = 0;
+    for (; i < skip + n; i++) {
+        if (i == 0) {
+            do {
+                func_8003FEA4();
+                r = func_8003F5C4(buf, (s32)&ent);
+                if (r != 0) {
+                    goto have;
+                }
+                st = func_8003F418(func_80040084());
+                if (st == 0) {
+                    goto have;
+                }
+            } while (++tries < 4);
+            D_80062FD8 = func_8003F178(0);
+            if (D_80062F80.field_0 > 0) {
+                func_8002A014(D_80010B74);
+            } else {
+                D_80062F80.field_0 = 2;
+                D_80062F80.field_4 = 0;
+                D_80062F80.field_8 = 0;
+                D_80062F90 = a0;
+                func_8003FA24(func_8003E19C);
+            }
+            func_8003F18C(0, NULL, &st);
+            func_8003F178(D_80062FD8);
+            ret = st;
+            goto end;
+        } else {
+            r = func_8003F5B4(&ent);
+        }
+    have:
+        if (r == 0) {
+            break;
+        }
+        if (i >= skip && out != NULL) {
+            out[count] = ent;
+            count++;
+        }
+    }
+    ret = 0;
+    if (count_out != NULL) {
+        *count_out = count;
+    }
+end:
+    return ret;
+}
+
 
 int func_8003F178(int a0) {
     int old = D_80062FC4;

@@ -2944,4 +2944,8 @@ typedef struct {
     /* 0xEE */ u16 field_EE;
 } Obj26170;
 
+typedef struct {
+    /* 0x00 */ s32 field_0[10];
+} Ent3EF1C;
+
 #endif /* MAIN_156C_H */
