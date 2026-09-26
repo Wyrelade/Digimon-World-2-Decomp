@@ -3292,5 +3292,15 @@
       "block_iso",
       "padnop"
     ]
+  },
+  "func_8002CC64": {
+    "passes": [
+      "nosplit_nosr",
+      "commutative_swap",
+      "web_resched",
+      "licm_li",
+      "block_iso",
+      "padnop"
+    ]
   }
 }

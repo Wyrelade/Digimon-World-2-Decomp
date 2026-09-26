@@ -2774,4 +2774,6 @@ typedef struct {
     /* 0x1A */ s16 field_1A;
 } Obj1236C;
 
+typedef struct { s32 x[8]; s32 y[8]; } XY2CC64;
+
 #endif /* MAIN_156C_H */

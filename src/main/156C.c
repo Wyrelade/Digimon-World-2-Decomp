@@ -9945,7 +9945,60 @@ s32 func_8002CBC4(s32 a) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002CC64);
+s32 func_8002CC64(s32 a) {
+    s32 v[2][8];
+    s32 i;
+    s32 *yb;
+    s32 *p;
+    s32 *q;
+    s32 xx, yy, nx, ny;
+
+    i = 1;
+    yb = &v[1][1];
+    q = &v[1][2];
+    p = &v[0][1];
+    v[0][1] = a + 0x5D50AD;
+    v[1][1] = a - 0x5D50AD;
+    for (; i < 7; q++, i++, p++) {
+        if (i != 4) {
+            if (p[8] >= 0) {
+                p[1] = p[0] - (p[8] >> i);
+                *q = p[8] - (p[0] >> i);
+            } else {
+                p[1] = p[0] + (p[8] >> i);
+                yb[i] = p[8] + (p[0] >> i);
+            }
+        } else {
+            yy = v[1][4];
+            if (yy >= 0) {
+                nx = v[0][4] - (yy >> 4);
+                ny = yy - (v[0][4] >> 4);
+                v[0][4] = nx;
+                v[1][4] = ny;
+                if (ny >= 0) {
+                    v[0][5] = nx - (ny >> 4);
+                    v[1][5] = ny - (nx >> 4);
+                } else {
+                    v[0][5] = nx + (ny >> 4);
+                    v[1][5] = ny + (nx >> 4);
+                }
+            } else {
+                nx = v[0][4] + (yy >> 4);
+                ny = yy + (v[0][4] >> 4);
+                v[0][4] = nx;
+                v[1][4] = ny;
+                if (ny >= 0) {
+                    v[0][5] = nx - (ny >> 4);
+                    v[1][5] = ny - (nx >> 4);
+                } else {
+                    v[0][5] = nx + (ny >> 4);
+                    v[1][5] = ny + (nx >> 4);
+                }
+            }
+        }
+    }
+    return v[0][7];
+}
 
 extern s32 func_8002DBB4(s32);
 extern s32 func_8002CC64(s32);
