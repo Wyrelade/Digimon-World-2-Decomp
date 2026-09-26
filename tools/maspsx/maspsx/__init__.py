@@ -45,6 +45,7 @@ single_reg_loads = {
     "nor",
 }
 double_reg_loads = {
+    "addiu",
     "and",
     "andi",
     "or",
@@ -60,6 +61,7 @@ double_reg_loads = {
     "slt",
     "slti",
     "sltu",
+    "sltiu",
 }
 
 
