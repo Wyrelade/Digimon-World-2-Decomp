@@ -3230,5 +3230,15 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8003C3A4": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "sreg_swap",
+      "save_slot",
+      "sched_match",
+      "padnop"
+    ]
   }
 }

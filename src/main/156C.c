@@ -132,7 +132,7 @@ extern void func_80027004(s32, s32);
 extern void func_80026FF4(s32, u8 *);
 extern u8 D_80048E78[];
 extern void func_8003A034(void);
-extern void func_8003C3A4(s32);
+extern s32 func_8003C3A4(s32);
 extern void func_80032874();
 extern Elm624E8 D_800624E8[];
 extern s32 D_80049064;
@@ -344,7 +344,7 @@ extern s32 D_8004FDDC;
 extern s32 D_8004FDE0;
 extern u16 D_8004FDE4[24];
 extern s32 D_8004FE14;
-extern s32 D_800503B8;
+extern s32 D_800503B8[];
 extern u16 *D_8004E9A0;
 extern char D_80010328[];
 extern s32 func_80022038();
@@ -716,6 +716,8 @@ extern char D_80010850[];
 extern char D_80010860[];
 extern char *D_8004E76C[];
 extern s32 *D_8004E9C0;
+extern u8 D_8004FE98[];
+extern void func_8003C544(s32);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -12998,8 +13000,8 @@ void func_8003A054(s32 a0) {
     D_8004FDCC.field_6 = 0;
     D_8004FDCC.field_8 = 0;
     D_8004FDCC.field_C = 0;
-    D_8004FDC4 = D_800503B8;
-    func_8003AAE0(0xD1, D_800503B8, 0);
+    D_8004FDC4 = D_800503B8[0];
+    func_8003AAE0(0xD1, D_800503B8[0], 0);
     D_8004FE88 = 0;
     D_8004FE8C = 0;
     D_8004FE90 = 0;
@@ -13589,7 +13591,57 @@ void func_8003C344(s32 arg0, s32 arg1) { func_8003B424(arg0, arg1, 0xCC, 0xCD); 
 
 void func_8003C374(void) { func_8003B714(0xCC, 0xCD); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C3A4);
+s32 func_8003C3A4(s32 a0) {
+    u32 size;
+    u32 addr;
+    u32 n;
+    s32 cont;
+    s32 mode;
+    s32 wait = 0;
+    s32 *p;
+    void (*volatile cb)(void) = 0;
+
+    if ((u32)a0 >= 10 || func_8003B904(*(p = &D_800503B8[a0])) != 0) {
+        return -1;
+    }
+    if (a0 == 0) {
+        size = 0x10 << D_8004FE50;
+        addr = 0xFFF0 << D_8004FE50;
+    } else {
+        size = (0x10000 - *p) << D_8004FE50;
+        addr = *p << D_8004FE50;
+    }
+    mode = D_8004FE44;
+    if (mode == 1) {
+        D_8004FE44 = 0;
+        wait = 1;
+    }
+    cont = 1;
+    if (D_8004FE60 != 0) {
+        cb = D_8004FE60;
+        D_8004FE60 = 0;
+    }
+    do {
+        n = 0x400;
+        if (size <= 0x400) {
+            n = size;
+            cont = 0;
+        }
+        func_8003A778(2, addr);
+        func_8003A778(1);
+        func_8003A778(3, D_8004FE98, n);
+        size -= 0x400;
+        addr += 0x400;
+        func_8003C544(D_8004FDB0);
+    } while (cont);
+    if (wait) {
+        D_8004FE44 = mode;
+    }
+    if (cb != 0) {
+        D_8004FE60 = cb;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003C544);
 
