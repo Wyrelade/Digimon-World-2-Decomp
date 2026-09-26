@@ -767,6 +767,7 @@ extern u8 D_8004E6E0[];
 extern CdTbl4E80C D_8004E80C;
 extern Mat1F668 D_800619A8;
 extern s32 func_8002CEE4(s32);
+extern void func_8003B074(void);
 s16 func_800388A4(s16, s16, s16, s16, u16);
 void func_80021DC8(void);
 
@@ -14539,7 +14540,78 @@ s32 func_8003AD44(s32 n, Hdr3AD44 *h) {
     return 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003ADA4);
+s32 func_8003ADA4(s32 size) {
+    s32 i = 0;
+    s32 found = -1;
+    s32 rev;
+    s32 n;
+    s32 esz;
+    Hdr3AD44 *e;
+    u32 ta;
+    s32 tb;
+
+    if (D_8004FDC0 == 0) {
+        rev = 0;
+    } else {
+        rev = (0x10000 - D_8004FDC4) << D_8004FE50;
+    }
+    if (size & ~D_8004FE58) {
+        size += D_8004FE58;
+    }
+    size >>= D_8004FE50;
+    size <<= D_8004FE50;
+
+    if (D_8004FE90->field_0 & 0x40000000) {
+        found = 0;
+    } else {
+        func_8003B074();
+        for (; i < D_8004FE88; i++) {
+            if ((D_8004FE90[i].field_0 & 0x40000000) ||
+                ((D_8004FE90[i].field_0 & 0x80000000) && (u32)D_8004FE90[i].field_4 >= (u32)size)) {
+                found = i;
+                break;
+            }
+        }
+    }
+    if (found == -1) {
+        return -1;
+    }
+    e = &D_8004FE90[found];
+    if (e->field_0 & 0x40000000) {
+        if (found >= D_8004FE88) {
+            return -1;
+        }
+        if ((u32)(e->field_4 - rev) < (u32)size) {
+            return -1;
+        }
+        n = found + 1;
+        D_8004FE90[n].field_0 = ((*(volatile u32 *)&e->field_0 & 0x0FFFFFFF) + size) | 0x40000000;
+        D_8004FE90[n].field_4 = e->field_4 - size;
+        D_8004FE8C = n;
+        e->field_4 = size;
+        e->field_0 &= 0x0FFFFFFF;
+        func_8003B074();
+        return D_8004FE90[found].field_0;
+    }
+    esz = e->field_4;
+    if ((u32)size < (u32)esz) {
+        n = D_8004FE8C;
+        if (n < D_8004FE88) {
+            ta = D_8004FE90[n].field_0;
+            tb = D_8004FE90[n].field_4;
+            D_8004FE90[n].field_0 = (e->field_0 + size) | 0x80000000;
+            D_8004FE90[n].field_4 = esz - size;
+            D_8004FE8C = n + 1;
+            D_8004FE90[n + 1].field_0 = ta;
+            D_8004FE90[n + 1].field_4 = tb;
+        }
+    }
+    D_8004FE90[found].field_4 = size;
+    D_8004FE90[found].field_0 &= 0x0FFFFFFF;
+    func_8003B074();
+    return D_8004FE90[found].field_0;
+}
+
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003B074);
 

@@ -3497,5 +3497,16 @@
       "nosplit",
       "reg_realloc"
     ]
+  },
+  "func_8003ADA4": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "web_realloc",
+      "commutative_swap",
+      "sched_match",
+      "fallthrough_fill",
+      "padnop"
+    ]
   }
 }
