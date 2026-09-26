@@ -13461,7 +13461,40 @@ void func_800383D4(u8 a0, u16 a1) {
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800388A4);
+s16 func_800388A4(s16 id, s16 a1, s16 a2, s16 a3, u16 a4) {
+    u16 idx;
+    u16 base;
+    u16 frac;
+    s16 d;
+    s32 t;
+    s32 q;
+    s32 ret;
+
+    d = a4 - 0x40;
+    if (D_800624E8[id].field_10 == a1 && D_800624E8[id].field_18 == a2 && D_800624E8[id].field_14 == a3) {
+    base = D_800624E8[id].field_E;
+    idx = D_800624E8[id].field_16 + D_80062D1F * 16;
+    if (d > 0) {
+        t = d * D_80062D08[idx].field_D;
+        q = t / 63;
+        base += q;
+        frac = (t - q * 63) * 2;
+    } else if (d < 0) {
+        t = d * D_80062D08[idx].field_C;
+        q = t / 64;
+        base = base + q - 1;
+        frac = (t - q * 64) * 2 + 0x7F;
+    } else {
+        frac = 0;
+    }
+    D_80062D18.field_C = D_800624E8[id].field_16;
+    D_80062D18.field_18 = id;
+    ((Snd62A28 *)D_80062A28)->regs[id].pitch = ((u16 (*)())func_80037BD0)(base, frac);
+    D_80062A28[id] |= 4;
+    return 1;
+    }
+    return 0;
+}
 
 s32 func_80038A90(s16 a0, s16 a1, s16 a2, s32 a3) {
     s16 i;

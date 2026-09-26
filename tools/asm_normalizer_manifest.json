@@ -3417,5 +3417,15 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_800388A4": {
+    "passes": [
+      "nosplit",
+      "sched_pre",
+      "web_realloc",
+      "web_resched",
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }
