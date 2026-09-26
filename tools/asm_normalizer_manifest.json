@@ -3438,5 +3438,18 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8001F9AC": {
+    "passes": [
+      "gp8",
+      "sched_pre",
+      "reg_realloc",
+      "web_realloc",
+      "sched_match",
+      "block_iso",
+      "call_slot_sink",
+      "giv_rebase",
+      "padnop"
+    ]
   }
 }

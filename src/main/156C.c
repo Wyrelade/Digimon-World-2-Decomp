@@ -6466,7 +6466,107 @@ s32 func_8001F970(s32 arg0) {
     return arg0 != 0x16;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8001F9AC);
+void func_8001F9AC(Actor *a0) {
+    Sub3C *w = a0->field_3C;
+    Part1F9AC *r = (Part1F9AC *)w->field_1C;
+    Pos1F9AC *pos = w->field_44;
+    s32 k = 0;
+    s32 j;
+    s32 i;
+    s32 m;
+    DrMove2AB54 *prim;
+    Rect2AB54 rc;
+    Rect2AB54 rc2;
+    Anim1F9AC *q;
+    u8 n;
+
+    if (r->field_0 != 0xFF) {
+        if (func_8001F970(w->field_54) != 0) {
+            switch (w->field_2C >> 1) {
+            case 0:
+                w->field_2C = (func_80023910() & 0x7F) + 0x3C;
+                k = 0;
+                break;
+            case 1:
+            case 2:
+            case 5:
+            case 6:
+                k = 2;
+                break;
+            case 3:
+            case 4:
+                k = 4;
+                break;
+            }
+            if ((w->field_2C -= D_8005F770.field_8) < 0) {
+                w->field_2C = 0;
+            }
+        } else {
+            k = 4;
+            w->field_2C = 0;
+        }
+    }
+    w->field_30 += D_8005F770.field_8;
+    while (1) {
+        if (w->field_30 < 0x18) break;
+        w->field_30 -= 0x18;
+    }
+    j = (w->field_30 / 8) * 2;
+    prim = ((Wk1F9AC *)&D_8005F770)->field_2C;
+    for (i = 0; i < 10; i++, r++) {
+        if (i < 2) {
+            if (r->field_0 == 0xFF) continue;
+        } else {
+            if (r->field_0 == 0xFF) break;
+            if (r->field_0 == 0xFE) break;
+        }
+        if (i < 2) {
+            rc.x = r->uv[k] + pos->field_18;
+            rc.y = r->uv[k + 1] + pos->field_1C;
+        } else {
+            rc.x = r->uv[j] + pos->field_18;
+            rc.y = r->uv[j + 1] + pos->field_1C;
+        }
+        rc.w = r->field_2;
+        rc.h = r->field_3;
+        func_8002AB54(prim, &rc, r->field_0 + pos->field_18, r->field_1 + pos->field_1C);
+        func_8002AAF4(((Wk1F9AC *)&D_8005F770)->field_150, (unsigned int *)prim);
+        prim++;
+    }
+    if (r->field_0 == 0xFE) {
+        q = (Anim1F9AC *)&r->field_1;
+        for (i = 0; i < 10; i++, q++) {
+            if (q->field_0 == 0xFF) break;
+            if (D_8005F770.field_8 == 1) {
+                q->field_9 += 1;
+            } else {
+                q->field_9 += 2;
+            }
+            n = q->field_8;
+            while (1) {
+                if (q->field_9 < n) break;
+                q->field_9 -= n;
+            }
+            m = (q->field_9 >> 1) * 4;
+            rc2.x = q->uv[m] + pos->field_18;
+            rc2.y = q->uv[m + 1] + pos->field_1C;
+            rc2.w = q->field_2;
+            rc2.h = q->field_3;
+            func_8002AB54(prim, &rc2, q->field_0 + pos->field_18, q->field_1 + pos->field_1C);
+            func_8002AAF4(((Wk1F9AC *)&D_8005F770)->field_150, (unsigned int *)prim);
+            prim++;
+            rc2.x = q->uv[m + 2] + pos->field_18;
+            rc2.y = q->uv[m + 3] + pos->field_1C;
+            rc2.w = q->field_6;
+            rc2.h = q->field_7;
+            func_8002AB54(prim, &rc2, q->field_4 + pos->field_18, q->field_5 + pos->field_1C);
+            func_8002AAF4(((Wk1F9AC *)&D_8005F770)->field_150, (unsigned int *)prim);
+            prim++;
+        }
+    }
+    D_8005F79C = (s32)prim;
+}
+
 
 Sub3C *func_8001FDBC(Actor *a0, s32 id) {
     s32 fresh = 0;

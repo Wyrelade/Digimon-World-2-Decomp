@@ -262,9 +262,12 @@ typedef struct {
     /* 0x20 */ s32 field_20;
     /* 0x24 */ s32 field_24;
     /* 0x28 */ s32 field_28;
-    u8 _pad2C[0x10];
+    /* 0x2C */ s32 field_2C;
+    /* 0x30 */ s32 field_30;
+    u8 _pad34[0x08];
     /* 0x3C */ s32 field_3C;
-    u8 _pad40[0x08];
+    u8 _pad40[0x04];
+    /* 0x44 */ struct Pos1F9AC *field_44;
     /* 0x48 */ s32 field_48;
     /* 0x4C */ s32 field_4C;
     /* 0x50 */ s32 *field_50;
@@ -2860,5 +2863,46 @@ typedef union {
 
 
 s32 func_80038A90(s16 a0, s16 a1, s16 a2, s32 a3);
+
+
+/* func_8001F9AC: 10-byte fixed part (field_1C list of Sub3C, 0xFF/0xFE ended),
+ * 0x2A-byte animated part that follows a 0xFE marker, the position block at
+ * Sub3C 0x44 and the D_8005F770 fields it reads. */
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    /* 0x1 */ u8 field_1;
+    /* 0x2 */ u8 field_2;
+    /* 0x3 */ u8 field_3;
+    /* 0x4 */ u8 uv[6];
+} Part1F9AC;
+
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    /* 0x1 */ u8 field_1;
+    /* 0x2 */ u8 field_2;
+    /* 0x3 */ u8 field_3;
+    /* 0x4 */ u8 field_4;
+    /* 0x5 */ u8 field_5;
+    /* 0x6 */ u8 field_6;
+    /* 0x7 */ u8 field_7;
+    /* 0x8 */ u8 field_8;
+    /* 0x9 */ u8 field_9;
+    /* 0xA */ u8 uv[32];
+} Anim1F9AC;
+
+typedef struct Pos1F9AC {
+    u8 _pad00[0x18];
+    /* 0x18 */ s32 field_18;
+    /* 0x1C */ s32 field_1C;
+} Pos1F9AC;
+
+typedef struct {
+    u8 _pad00[0x8];
+    /* 0x008 */ s32 field_8;
+    u8 _pad0C[0x2C - 0xC];
+    /* 0x02C */ DrMove2AB54 *field_2C;
+    u8 _pad30[0x150 - 0x30];
+    /* 0x150 */ unsigned int *field_150;
+} Wk1F9AC;
 
 #endif /* MAIN_156C_H */
