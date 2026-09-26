@@ -12828,7 +12828,122 @@ s32 func_80039B4C(s32 arg0, s32 arg1) {
     return arg1;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80039B54);
+s32 func_80039B54(u8 *addr, s32 vabid, s32 (*fn)(), s32 mode) {
+    s32 vagLens[256];
+    s16 id;
+    s32 i;
+    s32 n;
+    u8 vs;
+    VabHdr39B54 *vh;
+    Prog39B54 *prog;
+    u16 *p;
+    u8 *q;
+    s32 spu;
+
+    id = 16;
+    if (func_8003C8EC() == 1) {
+        return -1;
+    }
+    func_8003C8C4(1);
+    if ((s16)vabid >= 16) {
+        goto fail;
+    }
+    {
+        if ((s16)vabid == -1) {
+            for (i = 0; i < 16; i++) {
+                if (D_80062D38[i] == 0) {
+                    D_80062D38[i] = 1;
+                    D_80062D90++;
+                    id = i;
+                    break;
+                }
+            }
+        } else if (D_80062D38[(s16)vabid] == 0) {
+            D_80062D38[(s16)vabid] = 1;
+            D_80062D90++;
+            id = (s16)vabid;
+        }
+    }
+    if (id >= 16) {
+    fail:
+        func_8003C8C4(0);
+        return -1;
+    }
+    q = addr;
+    D_80062C70[id] = (s32)q;
+    q += sizeof(VabHdr39B54);
+    vh = (VabHdr39B54 *)addr;
+    D_80062D10 = 0;
+    if (((u32)vh->form >> 8) != 0x564142) {
+        D_80062D38[id] = 0;
+        func_8003C8C4(0);
+        D_80062D90--;
+        return -1;
+    }
+    if ((vh->form & 0xFF) == 'p' && vh->ver >= 5) {
+        D_80062CFA = 0x80;
+    } else {
+        D_80062CFA = 0x40;
+    }
+    if (vh->ps > D_80062CFA) {
+        D_80062D38[id] = 0;
+        func_8003C8C4(0);
+        D_80062D90--;
+        return -1;
+    }
+    D_80062C30[id] = (Ent62CFC *)q;
+    prog = (Prog39B54 *)q;
+    q += D_80062CFA * sizeof(Prog39B54);
+    n = 0;
+    for (i = 0; i < D_80062CFA; i++) {
+        prog[i].reserved1 = n;
+        if (prog[i].tones != 0) {
+            n++;
+        }
+    }
+    D_80062CB8[id] = (Rec62D08 *)q;
+    q += vh->ps * 16 * sizeof(Rec62D08);
+    p = (u16 *)q;
+    vs = vh->vs;
+    n = 0;
+    for (i = 0; i < 256; i++) {
+        if (i <= vs) {
+            s32 x = *p;
+            if (vh->ver < 5) {
+                vagLens[i] = x << 2;
+            } else {
+                vagLens[i] = x << 3;
+            }
+            n += vagLens[i];
+        }
+        p++;
+    }
+    n = (n + 0x3F) & ~0x3F;
+    spu = fn(n, mode, id);
+    if (spu == -1) {
+        return -1;
+    }
+    if ((u32)(spu + n) > 0x80000) {
+        D_80062D38[id] = 0;
+        func_8003C8C4(0);
+        D_80062D90--;
+        return -1;
+    }
+    D_80062D98[id] = spu;
+    n = 0;
+    for (i = 0; i <= vs; i++) {
+        n += vagLens[i];
+        if (i % 2 == 0) {
+            prog[i / 2].vagLo = (u32)(spu + n) >> 3;
+        } else {
+            prog[i / 2].vagHi = (u32)(spu + n) >> 3;
+        }
+    }
+    D_80062D50[id] = n;
+    D_80062D38[id] = 2;
+    return id;
+}
+
 
 s16 func_80039F44(s32 a0, s16 id) {
     s32 addr;

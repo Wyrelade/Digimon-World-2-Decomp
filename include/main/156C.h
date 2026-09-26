@@ -2722,4 +2722,30 @@ typedef struct {
     /* 0x4 */ Rect2AB54 rect;
 } TimBlk;
 
+
+/* libsnd VabHdr (0x20) and ProgAtr (0x10) as parsed by func_80039B54. */
+typedef struct {
+    /* 0x00 */ s32 form;
+    /* 0x04 */ s32 ver;
+    /* 0x08 */ s32 id;
+    /* 0x0C */ u32 fsize;
+    /* 0x10 */ u16 reserved0;
+    /* 0x12 */ u16 ps;
+    /* 0x14 */ u16 ts;
+    /* 0x16 */ u16 vs;
+    /* 0x18 */ u8 mvol;
+    /* 0x19 */ u8 pan;
+    /* 0x1A */ u8 attr1;
+    /* 0x1B */ u8 attr2;
+    /* 0x1C */ u32 reserved1;
+} VabHdr39B54;
+
+typedef struct {
+    /* 0x00 */ u8 tones;
+    u8 _pad01[0x7];
+    /* 0x08 */ s32 reserved1;
+    /* 0x0C */ u16 vagLo;
+    /* 0x0E */ u16 vagHi;
+} Prog39B54;
+
 #endif /* MAIN_156C_H */

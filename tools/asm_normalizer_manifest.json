@@ -3218,5 +3218,17 @@
       "slot_unsteal",
       "padnop"
     ]
+  },
+  "func_80039B54": {
+    "passes": [
+      "nosplit",
+      "shift_const_fold",
+      "zero_remat",
+      "sreg_swap",
+      "save_slot",
+      "sched_match",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
