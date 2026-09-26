@@ -740,6 +740,7 @@ extern u8 *func_80024C98(s32 arg0);
 extern s32 func_80024CB8(Obj25FBC *a0);
 extern void func_80024DC8(Obj25FBC *a0);
 extern s32 func_80025114(Obj25FBC *p);
+extern volatile s8 D_80062D27;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -12675,7 +12676,74 @@ void func_80037620(s32 a0, s32 a1, s32 a2, s32 a3, u16 p4, u16 p5) {
 
 void func_8003770C(s16 arg0, s16 arg1, u16 arg2) { func_800374C0(0x21, arg0, arg1, arg2); }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80037744);
+u8 func_80037744(s32 arg0) {
+    u8 res = 99;
+    u16 best_ee = 0xFFFF;
+    u8 count = 0;
+    s32 best_ea = 0;
+    u8 cand = 99;
+    u8 i = 0;
+    u16 prio = D_80062D27;
+    s32 bit;
+    s32 mask;
+    s32 n;
+
+    if (i < D_80062D0C) {
+        bit = 1;
+        mask = D_8004FC18;
+        for (; i < D_80062D0C; i++) {
+            s32 m = bit << i;
+
+            if (!(mask & m)) {
+                if (D_800624E8[i].field_1D == 0 && D_800624E8[i].field_6 == 0) {
+                    res = i;
+                    break;
+                }
+                if (D_800624E8[i].field_1A < prio) {
+                    prio = D_800624E8[i].field_1A;
+                    cand = i;
+                    best_ee = D_800624E8[i].field_6;
+                    best_ea = D_800624E8[i].field_2;
+                    count = 1;
+                } else if (D_800624E8[i].field_1A == prio) {
+                    count++;
+                    if (D_800624E8[i].field_6 < best_ee) {
+                        best_ea = D_800624E8[i].field_2;
+                        best_ee = D_800624E8[i].field_6;
+                        cand = i;
+                    } else if (D_800624E8[i].field_6 == best_ee) {
+                        s32 t = D_800624E8[i].field_2;
+
+                        if (best_ea < (s16)D_800624E8[i].field_2) {
+                            best_ea = t;
+                            cand = i;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (res == 99) {
+        res = cand;
+        if (count == 0) {
+            res = D_80062D0C;
+        }
+    }
+    if (res < D_80062D0C) {
+        for (i = 0; i < D_80062D0C; i++) {
+            s32 m = 1 << i;
+
+            if (!(D_8004FC18 & m)) {
+                D_800624E8[i].field_2++;
+            }
+        }
+        D_800624E8[res].field_2 = 0;
+        D_800624E8[res].field_1A = D_80062D27;
+        D_800624E8[res].field_2A = 0;
+        D_800624E8[res].field_1E = 0;
+    }
+    return res;
+}
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_800379B4);
 

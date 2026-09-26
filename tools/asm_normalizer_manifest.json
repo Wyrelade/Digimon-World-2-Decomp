@@ -3311,5 +3311,14 @@
       "dead_code",
       "padnop"
     ]
+  },
+  "func_80037744": {
+    "passes": [
+      "nosplit",
+      "zero_remat",
+      "sched_match",
+      "reorder_indep",
+      "padnop"
+    ]
   }
 }
