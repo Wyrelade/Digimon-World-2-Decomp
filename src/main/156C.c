@@ -699,6 +699,13 @@ extern volatile s32 *D_8004EA88;
 extern volatile s32 *D_8004EA8C;
 extern volatile s32 D_8004EA90;
 extern s32 D_8004EA94;
+extern s32 D_8004FE48;
+extern volatile s32 D_8004FE64;
+extern s32 D_8004FE68[];
+extern u16 D_80062EE8[];
+extern char D_80010AA4[];
+extern char D_80010AB4[];
+extern void func_8003ACAC(void);
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -12732,7 +12739,86 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A1B4);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A1C4);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8003A1D4);
+s32 func_8003A1D4(s32 a0) {
+    u32 i;
+    s32 j;
+    volatile u16 *p;
+    volatile u16 *q;
+
+    *D_8004FE38 |= 0xB0000;
+    D_8004FE44 = 0;
+    D_8004FE48 = 0;
+    D_8004FE40 = 0;
+    ((volatile u16 *)D_8004FE28)[0xC0] = 0;
+    ((volatile u16 *)D_8004FE28)[0xC1] = 0;
+    ((volatile u16 *)D_8004FE28)[0xD5] = 0;
+    func_8003ACAC();
+    ((volatile u16 *)D_8004FE28)[0xC0] = 0;
+    ((volatile u16 *)D_8004FE28)[0xC1] = 0;
+    i = 0;
+    while (((volatile u16 *)D_8004FE28)[0xD7] & 0x7FF) {
+        if (++i > 0xF00) {
+            func_8002A014(D_80010AA4, D_80010AB4);
+            break;
+        }
+    }
+    j = 0;
+    p = D_80062EE8;
+    D_8004FE4C = 2;
+    D_8004FE50 = 3;
+    D_8004FE54 = 8;
+    D_8004FE58 = 7;
+    ((volatile u16 *)D_8004FE28)[0xD6] = 4;
+    ((volatile u16 *)D_8004FE28)[0xC2] = 0;
+    ((volatile u16 *)D_8004FE28)[0xC3] = 0;
+    ((volatile u16 *)D_8004FE28)[0xC6] = 0xFFFF;
+    ((volatile u16 *)D_8004FE28)[0xC7] = 0xFFFF;
+    ((volatile u16 *)D_8004FE28)[0xCC] = 0;
+    ((volatile u16 *)D_8004FE28)[0xCD] = 0;
+    do {
+        *p++ = 0;
+    } while (++j < 10);
+    if (a0 == 0) {
+        D_8004FE40 = 0x200;
+        ((volatile u16 *)D_8004FE28)[0xC8] = 0;
+        ((volatile u16 *)D_8004FE28)[0xC9] = 0;
+        ((volatile u16 *)D_8004FE28)[0xCA] = 0;
+        ((volatile u16 *)D_8004FE28)[0xCB] = 0;
+        ((volatile u16 *)D_8004FE28)[0xD8] = 0;
+        ((volatile u16 *)D_8004FE28)[0xD9] = 0;
+        ((volatile u16 *)D_8004FE28)[0xDA] = 0;
+        ((volatile u16 *)D_8004FE28)[0xDB] = 0;
+        func_8003A454((s32)D_8004FE68, 0x10);
+        q = D_8004FE28;
+        for (j = 0; j < 24; j++) {
+            q[0] = 0;
+            q[1] = 0;
+            q[2] = 0x3FFF;
+            q[3] = 0x200;
+            q[4] = 0;
+            q[5] = 0;
+            q += 8;
+        }
+        ((volatile u16 *)D_8004FE28)[0xC4] = 0xFFFF;
+        ((volatile u16 *)D_8004FE28)[0xC5] = 0xFF;
+        func_8003ACAC();
+        func_8003ACAC();
+        func_8003ACAC();
+        func_8003ACAC();
+        ((volatile u16 *)D_8004FE28)[0xC6] = 0xFFFF;
+        ((volatile u16 *)D_8004FE28)[0xC7] = 0xFF;
+        func_8003ACAC();
+        func_8003ACAC();
+        func_8003ACAC();
+        func_8003ACAC();
+    }
+    D_8004FE5C = 1;
+    ((volatile u16 *)D_8004FE28)[0xD5] = 0xC000;
+    D_8004FE60 = 0;
+    D_8004FE64 = 0;
+    return 0;
+}
+
 
 void func_8003A454(u16 *addr, u32 size) {
     u16 status;

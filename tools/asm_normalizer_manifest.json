@@ -3170,5 +3170,15 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8003A1D4": {
+    "passes": [
+      "nosplit_nodb",
+      "sched_match",
+      "web_resched",
+      "taken_fill",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
