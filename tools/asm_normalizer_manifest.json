@@ -3478,5 +3478,18 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_8002F860": {
+    "passes": [
+      "gp8_nosplit",
+      "zero_remat",
+      "sreg_perm",
+      "web_realloc",
+      "save_slot",
+      "sched_match",
+      "block_iso",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

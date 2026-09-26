@@ -760,6 +760,11 @@ extern void func_800313B4(void);
 extern char D_800108D8[];
 extern u8 *D_80060048;
 extern s32 func_8003F5B4(Ent3EF1C *);
+extern char D_800108EC[];
+extern char D_800108F4[];
+extern char D_80010904[];
+extern u8 D_8004E6E0[];
+extern CdTbl4E80C D_8004E80C;
 s16 func_800388A4(s16, s16, s16, s16, u16);
 void func_80021DC8(void);
 
@@ -11025,7 +11030,100 @@ s32 func_8002F318(a0, a1)
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002F598);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002F860);
+s32 func_8002F860(com, param, result, async)
+    u8 com;
+    u8 *param;
+    u8 *result;
+    s32 async;
+{
+    s32 i;
+    s32 r;
+    s32 n;
+    s32 e;
+    s8 **cm;
+    char **intr;
+    char **p0;
+    CdTbl4E80C *t;
+    s32 *np;
+
+    if (D_8004E6D0 >= 2) {
+        func_8002A014(D_800108EC, D_8004E6EC[com]);
+    }
+    if (D_8004E80C.field_100[com] != 0 && param == 0) {
+        if (D_8004E6D0 > 0) {
+            func_8002A014(D_800108F4, D_8004E6EC[com]);
+        }
+        return -2;
+    }
+    func_8002F318(0, 0);
+    if (com == 2) {
+        for (i = 0; i < 4; i++) {
+            D_8004E6E0[i] = param[i];
+        }
+    }
+    if (com == 0xE) {
+        D_8004E6E4 = param[0];
+    }
+    D_8004E9A4.field_0 = 0;
+    t = &D_8004E80C;
+    if (t->field_0[com] != 0) {
+        D_8004E9A4.field_1 = 0;
+    }
+    *D_8004E98C = 0;
+    np = t->field_100;
+    for (i = 0; i < np[com]; i++) {
+        *D_8004E99C = param[i];
+    }
+    D_8004E6E5 = com;
+    *(volatile u8 *)D_8004E998 = com;
+    if (async == 0) {
+        D_80061B80 = func_80030AB4(-1) + 0x3C0;
+        D_80061B84 = 0;
+        D_80061B88 = D_80010904;
+        if (D_8004E9A4.field_0 == 0) {
+            cm = D_8004E6EC;
+            intr = D_8004E76C;
+            do {
+                if (D_80061B80 < func_80030AB4(-1) || (n = D_80061B84++, n > 0x3C0000)) {
+                    func_80030334(D_80010850);
+                    p0 = &intr[D_8004E9A4.field_0];
+                    func_8002A014(D_80010860, D_80061B88, *(s8 * volatile *)&cm[D_8004E6E5], *(char * volatile *)p0, intr[D_8004E9A4.field_1]);
+                    func_8002FCF4();
+                    r = -1;
+                } else {
+                    r = 0;
+                }
+                if (r != 0) {
+                    return -1;
+                }
+                if (func_80030E28() != 0) {
+                    com = *D_8004E98C & 3;
+                    while ((e = func_8002EDB4()) != 0) {
+                        if (e & 4) {
+                            if (D_8004E6CC != 0) {
+                                ((void (*)(s32, u8 *))D_8004E6CC)(D_8004E9A4.field_1, D_80061B70);
+                            }
+                        }
+                        if (e & 2) {
+                            if (D_8004E6C8 != 0) {
+                                ((void (*)(s32, u8 *))D_8004E6C8)(D_8004E9A4.field_0, D_80061B68);
+                            }
+                        }
+                    }
+                    *D_8004E98C = com;
+                }
+            } while (D_8004E9A4.field_0 == 0);
+        }
+        cd_memcpy2EDB4(result, D_80061B68, 8);
+        r = 0;
+        if (D_8004E9A4.field_0 == 5) {
+            r = -1;
+        }
+        return r;
+    }
+    return 0;
+}
+
 
 extern u8 *D_8004E98C;
 extern u8 *D_8004E99C;

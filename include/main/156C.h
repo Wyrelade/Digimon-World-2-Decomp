@@ -2948,4 +2948,11 @@ typedef struct {
     /* 0x00 */ s32 field_0[10];
 } Ent3EF1C;
 
+
+/* CD command tables at 0x8004E80C: per-command result flag, then parameter byte count; read by func_8002F860. */
+typedef struct {
+    /* 0x000 */ s32 field_0[64];
+    /* 0x100 */ s32 field_100[64];
+} CdTbl4E80C;
+
 #endif /* MAIN_156C_H */
