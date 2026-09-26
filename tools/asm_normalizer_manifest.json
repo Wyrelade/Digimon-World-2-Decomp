@@ -3383,5 +3383,11 @@
       "fallthrough_fill",
       "delay_fill"
     ]
+  },
+  "func_80035F04": {
+    "passes": [
+      "nosplit_hf",
+      "padnop"
+    ]
   }
 }

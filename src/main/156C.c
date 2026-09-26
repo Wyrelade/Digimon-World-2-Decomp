@@ -12723,7 +12723,36 @@ done:
 }
 
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80035F04);
+void func_80035F04(s32 arg) {
+    VAttr36C54 attr;
+    s16 i;
+    s32 bit;
+
+    attr.mask = 0x60093;
+    attr.pitch = 0x1000;
+    attr.addr = 0x1000;
+    attr.adsr1 = 0x80FF;
+    attr.vol_l = 0;
+    attr.vol_r = 0;
+    attr.adsr2 = 0x4000;
+    for (i = 0; i < D_80062D0C; i++) {
+        bit = 1 << i;
+        if (!(D_8004FC18 & bit)) {
+            D_800624E8[i].field_2 = 0x18;
+            D_800624E8[i].field_6 = 0;
+            D_800624E8[i].field_10 = 0xFF;
+            D_800624E8[i].field_12 = 0;
+            D_800624E8[i].field_14 = 0;
+            D_800624E8[i].field_16 = 0xFF;
+            D_800624E8[i].field_36 = 0;
+            attr.voice = bit;
+            func_8003C904(&attr);
+            D_80062D30 = i;
+            func_80038314(1);
+        }
+    }
+}
+
 
 s32 func_80036054(s16 a0, s16 a1, SlotHead8 *out) {
     if (D_80062D38[a0] == 1) {
