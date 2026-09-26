@@ -13021,7 +13021,33 @@ void func_800382D4(u8 arg0) {
     D_800624E8[arg0].field_4 = 0;
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80038314);
+void func_80038314(s32 a0) {
+    u16 ch = D_80062D30;
+    u32 v = ch & 0xFFFF;
+    s32 hi;
+    s32 lo;
+    s32 c10;
+    s32 c12;
+
+    if (v < 16) {
+        lo = 1 << v;
+        hi = 0;
+    } else {
+        lo = 0;
+        hi = 1 << (v - 16);
+    }
+    D_800624E8[ch].field_1D = 0;
+    c10 = D_80062C10;
+    c12 = D_80062C12;
+    D_800624E8[ch].field_4 = 0;
+    D_800624E8[ch].field_0 = 0;
+    c10 |= lo;
+    D_80062C10 = c10;
+    D_800624D8 &= ~c10;
+    c12 |= hi;
+    D_80062C12 = c12;
+    D_800624DA &= ~c12;
+}
 
 void func_800383D4(u8 a0, u16 a1) {
     u32 vol;

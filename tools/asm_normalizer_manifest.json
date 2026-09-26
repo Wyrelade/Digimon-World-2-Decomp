@@ -3333,5 +3333,12 @@
       "gp8",
       "web_realloc"
     ]
+  },
+  "func_80038314": {
+    "passes": [
+      "nosplit",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }
