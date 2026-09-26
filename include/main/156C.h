@@ -725,8 +725,7 @@ typedef struct {
 
 /* View of the Actor block touched by func_800194C8. */
 typedef struct {
-    /* 0x00 */ s32 field_0;
-    u8 _pad04[0x44];
+    /* 0x00 */ s32 field_0[18];
     /* 0x48 */ s32 field_48;
     /* 0x4C */ s32 field_4C;
     /* 0x50 */ s32 field_50;

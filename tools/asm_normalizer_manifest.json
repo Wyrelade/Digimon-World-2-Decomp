@@ -3101,5 +3101,14 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80019614": {
+    "passes": [
+      "reg_realloc",
+      "web_realloc",
+      "save_slot",
+      "ra_restore_sink",
+      "padnop"
+    ]
   }
 }

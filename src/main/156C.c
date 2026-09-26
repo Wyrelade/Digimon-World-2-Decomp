@@ -3858,7 +3858,48 @@ Actor194C8 *a;
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80019614);
+void func_80019614(Actor194C8 *w, s32 arg1) {
+    Src16198 st;
+    s32 i;
+    s32 ch;
+    s32 n;
+    s32 j;
+    s32 k;
+    s32 d0;
+    s32 d;
+    s32 f;
+    s32 m;
+
+    for (i = 6; i < 18; i++) {
+        func_8001BB88(&w->field_0[i]);
+    }
+    st.field_4 = 0;
+    st.field_10 = arg1;
+    for (ch = 0; ch < 4; ch++) {
+        st.field_C = ((Halves *)func_800239A0(0x5130025))[ch];
+        d0 = w->field_94[ch];
+        d = w->records[ch].count - d0;
+        n = 3;
+        if (d < 4) {
+            n = d;
+        }
+        for (j = 0; j < n; j++) {
+            f = 0;
+            if (w->field_114 != ch) {
+                f = 1;
+            } else if (w->slot54[ch].field_2 != j + d0) {
+                f = 1;
+            }
+            st.field_11 = f;
+            st.field_0 = func_8001ED84(w->records[ch].arr[j + d0]);
+            m = j + 6;
+            func_80013470(&w->field_0[ch * 3 + m], (Src13470 *)&st);
+            st.field_C.hi += 11;
+        }
+        func_8001BE74(w->field_0[ch + 2], w->field_114 != ch);
+    }
+}
+
 
 void func_800197FC(Actor *arg0, s16 arg1) {
     arg0->work->field_A4 = arg1;
