@@ -3374,5 +3374,14 @@
     "passes": [
       "padnop"
     ]
+  },
+  "func_8002EC0C": {
+    "passes": [
+      "nosplit_nodb",
+      "web_resched",
+      "taken_fill",
+      "fallthrough_fill",
+      "delay_fill"
+    ]
   }
 }

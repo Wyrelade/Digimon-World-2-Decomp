@@ -747,6 +747,10 @@ extern s32 func_800354BC(s32 arg0);
 extern s32 func_80035384(s32 arg0, s32 arg1, s32 arg2);
 extern void func_800352E4(void);
 extern void func_80035330(void);
+extern char D_800106F4[];
+extern volatile Reg2EC0C *D_8004E68C;
+extern volatile u32 *D_8004E688;
+extern volatile u8 *D_8004E670;
 void func_80021DC8(void);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80010D6C);
@@ -10618,7 +10622,47 @@ void func_8002EBE0(s32 *dst, s32 *src, u32 count) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_8002EC0C);
+void func_8002EC0C(s32 ch, u32 madr, s32 hi, s32 lo, u32 chcr, u8 mode) {
+    volatile s32 dummy;
+    volatile u32 *p;
+    s32 off;
+    s32 i;
+    volatile Reg2EC0C *r;
+    u8 v;
+    s32 bit;
+
+    i = 0;
+    off = ch * 16;
+    while (*(volatile u32 *)(off + 0x1F801088) & 0x01000000) {
+        if (i == 0x10000) {
+            func_8002A014(D_800106F4, *(volatile u32 *)(off + 0x1F801088));
+            break;
+        }
+        i++;
+    }
+    if (mode == 1) {
+        r = D_8004E68C;
+        v = r->b[2] | (1 << ch);
+    } else {
+        r = D_8004E68C;
+        v = r->b[2] & ~(1 << ch);
+    }
+    r->b[2] = v;
+    do {
+        dummy = D_8004E68C->w;
+    } while (0);
+    do {
+        bit = 1 << (ch * 4 + 3);
+    } while (0);
+    p = (volatile u32 *)(ch * 16 + 0x1F801080);
+    *D_8004E688 |= bit;
+    *p++ = madr;
+    *p++ = (hi << 16) | lo;
+    while (!(*D_8004E670 & 0x40)) {
+    }
+    *p = chcr;
+    dummy = *p;
+}
 
 extern u8 *D_8004E998;
 

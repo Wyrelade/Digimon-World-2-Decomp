@@ -2836,4 +2836,12 @@ typedef struct {
     /* 0x18 */ Fade1C584Mode m;
 } Fade1C584;
 
+
+/* func_8002EC0C: DMA control byte view (the byte at +2 holds one enable bit
+ * per channel; the word is read back to flush the write). */
+typedef union {
+    s32 w;
+    u8 b[4];
+} Reg2EC0C;
+
 #endif /* MAIN_156C_H */
