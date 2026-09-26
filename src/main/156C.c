@@ -758,6 +758,7 @@ extern char D_800109C8[];
 extern char D_800109E4[];
 extern void func_800313B4(void);
 extern char D_800108D8[];
+extern u8 *D_80060048;
 s16 func_800388A4(s16, s16, s16, s16, u16);
 void func_80021DC8(void);
 
@@ -8698,7 +8699,98 @@ void func_800260C8(Actor *a) {
     }
 }
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80026170);
+s32 func_80026170(Obj26170 *a) {
+    volatile Ent26170 *q;
+    Blk26170 *e;
+    u8 *src;
+    s32 n;
+    s32 x;
+
+    switch (a->field_46) {
+    case 2:
+        if (a->field_3C[2] != 0) return 0;
+        if (a->field_3C[3] != 0) return 0;
+        a->field_0[a->field_47] = (a->field_3C[4] << 8) + a->field_3C[5];
+        if (a->field_EE != a->field_0[a->field_47]) {
+            a->field_EE = a->field_0[a->field_47];
+            return 0;
+        }
+        a->field_EE = 0;
+        a->field_EB = 0;
+        if (++a->field_47 < a->field_E3) return 0;
+        a->field_47 = 0;
+        break;
+    case 3:
+        if (a->field_3C[2] != 0) return 0;
+        if (a->field_3C[3] != 0) return 0;
+        q = &a->field_4[a->field_47];
+        if (q->field_0 == a->field_3C[4] && q->field_1 == (a->field_3C[5] & 0x7F) && q->field_2 == a->field_3C[6]
+            && q->field_3 == a->field_3C[7] && (x = a->field_3C[5], q->field_4 == x >> 7)) {
+            a->field_EE = 0;
+        } else {
+            a->field_EE = 0xFFFF;
+        }
+        q->field_0 = a->field_3C[4];
+        q->field_1 = a->field_3C[5] & 0x7F;
+        q->field_2 = a->field_3C[6];
+        q->field_3 = a->field_3C[7];
+        q->field_4 = (x = a->field_3C[5]) >> 7;
+        if (a->field_EE != 0) return 0;
+        a->field_EB = 0;
+        if (++a->field_47 < a->field_E9) return 0;
+        a->field_47 = 0;
+        a->field_48 = 0;
+        break;
+    case 4:
+        if (a->field_3C[2] != 0) {
+            a->field_48 = 0;
+            return 0;
+        }
+        e = &a->field_8[a->field_47];
+        if (a->field_48 == 0) {
+            e->field_0 = a->field_48 = a->field_3C[4];
+            src = a->field_3C + 5;
+            n = 3;
+            if (a->field_47 == 0) {
+                D_80060048 = e->field_4 = (u8 *)&a->field_8[a->field_EA];
+            } else {
+                D_80060048 = e->field_4 = e[-1].field_4 + ((e[-1].field_0 + 3) & 0x1FC);
+            }
+        } else {
+            src = a->field_3C + 3;
+            n = 5;
+        }
+        while (--n != -1) {
+            if (a->field_48 == 0) goto done;
+            if (D_80060048 >= &a->field_E3) goto fail;
+            if (*D_80060048 != *src) a->field_EE = 0xFFFF;
+            *D_80060048++ = *src++;
+            a->field_48--;
+        }
+        if (a->field_48 != 0) return 0;
+    done:
+        if (a->field_EE != 0) {
+            a->field_EE = 0;
+            a->field_48 = 0;
+            return 0;
+        }
+        if (++a->field_47 >= a->field_EA) {
+            a->field_49 = 6;
+            a->field_46 = 0xFE;
+            a->field_EB = 0;
+            return 0;
+        }
+        a->field_48 = 0;
+        a->field_EB = 0;
+        return 0;
+    fail:
+        a->field_47 = 0;
+        a->field_48 = 0;
+        return 0;
+    }
+    return 1;
+}
+
 
 void func_80026568(Actor *arg0, u8 arg1) {
     arg0->u34.b.field_37 = 0x43;

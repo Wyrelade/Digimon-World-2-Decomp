@@ -3451,5 +3451,19 @@
       "giv_rebase",
       "padnop"
     ]
+  },
+  "func_80026170": {
+    "passes": [
+      "nosplit",
+      "exit_merge",
+      "shift_const_fold",
+      "zero_remat",
+      "sra_keep",
+      "ior_add",
+      "web_realloc",
+      "block_iso",
+      "taken_fill",
+      "padnop"
+    ]
   }
 }

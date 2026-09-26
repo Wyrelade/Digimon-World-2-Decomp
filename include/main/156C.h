@@ -2905,4 +2905,43 @@ typedef struct {
     /* 0x150 */ unsigned int *field_150;
 } Wk1F9AC;
 
+
+/* func_80026170 5-byte directory entry (field_4 table). */
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    /* 0x1 */ u8 field_1;
+    /* 0x2 */ u8 field_2;
+    /* 0x3 */ u8 field_3;
+    /* 0x4 */ u8 field_4;
+} Ent26170;
+
+/* func_80026170 stride-8 block record (field_8 table): length byte + data pointer. */
+typedef struct {
+    /* 0x0 */ u8 field_0;
+    u8 _pad1[0x3];
+    /* 0x4 */ u8 *field_4;
+} Blk26170;
+
+/* func_80026170 view of Obj25FBC: the three table pointers typed for the record parser. */
+typedef struct {
+    /* 0x00 */ u16 *field_0;
+    /* 0x04 */ Ent26170 *field_4;
+    /* 0x08 */ Blk26170 *field_8;
+    u8 _pad0C[0x30];
+    /* 0x3C */ volatile u8 *field_3C;
+    u8 _pad40[0x6];
+    /* 0x46 */ u8 field_46;
+    /* 0x47 */ u8 field_47;
+    /* 0x48 */ u8 field_48;
+    /* 0x49 */ u8 field_49;
+    u8 _pad4A[0x99];
+    /* 0xE3 */ u8 field_E3;
+    u8 _padE4[0x5];
+    /* 0xE9 */ u8 field_E9;
+    /* 0xEA */ u8 field_EA;
+    /* 0xEB */ u8 field_EB;
+    u8 _padEC[0x2];
+    /* 0xEE */ u16 field_EE;
+} Obj26170;
+
 #endif /* MAIN_156C_H */
