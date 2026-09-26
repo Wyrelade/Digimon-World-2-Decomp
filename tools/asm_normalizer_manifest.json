@@ -3359,5 +3359,15 @@
       "delay_fill",
       "padnop"
     ]
+  },
+  "func_80031110": {
+    "passes": [
+      "nosplit",
+      "sreg_perm",
+      "save_slot",
+      "sched_match",
+      "delay_fill",
+      "padnop"
+    ]
   }
 }

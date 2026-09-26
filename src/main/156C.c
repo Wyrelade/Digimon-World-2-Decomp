@@ -11047,7 +11047,49 @@ INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030E68);
 
 INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80030F40);
 
-INCLUDE_ASM("asm/USA/main/nonmatchings/156C", func_80031110);
+s32 func_80031110(s32 ch, s32 val) {
+    s32 *arr = D_8004EAF8.field_4;
+    s32 *slot = &arr[ch];
+    s32 old = *slot;
+    Obj4EAF8 *p;
+    s32 m;
+    s32 o;
+    s32 z;
+
+    if (val != old) {
+        p = &D_8004EAF8;
+        if (p->field_0 != 0) {
+            o = *D_8004FB88;
+            *D_8004FB88 = 0;
+            m = (u16)o;
+            if (val != 0) {
+                *slot = val;
+                m |= 1 << ch;
+                p->field_30 |= 1 << ch;
+            } else {
+                *slot = 0;
+                m &= ~(1 << ch);
+                D_8004EAF8.field_30 &= ~(1 << ch);
+            }
+            if (ch == 0) {
+                z = val == 0;
+                func_80030CC4(z);
+                func_80027004(3, z);
+            }
+            if (ch == 4) {
+                func_80027004(0, val == 0);
+            }
+            if (ch == 5) {
+                func_80027004(1, val == 0);
+            }
+            if (ch == 6) {
+                func_80027004(2, val == 0);
+            }
+            *D_8004FB88 = m;
+        }
+    }
+    return old;
+}
 
 extern u16 *D_8004FB84;
 extern void func_800313C4();
